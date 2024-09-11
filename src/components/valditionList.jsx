@@ -12,12 +12,10 @@ import { OnRun } from 'src/api/OnRun';
 import ValidateRow from './validateRow';
 import UseCartId from 'src/hooks/use-cartId';
 
-
 const ValditionList = () => {
-  const {cartId} = UseCartId()
-  
+  const { cartId } = UseCartId();
   const [validateList, setValidateList] = useState([]);
-  
+
 
   const fetchManagerData = async () => {
     try {
@@ -26,13 +24,11 @@ const ValditionList = () => {
         headers: {
           Authorization: `Bearer ${access}`,
         },
-        
       });
-      console.log(response.data)
-      if (response.data && response.data.manager) {
-        setValidateList(response.data.manager);
+
+      if (response.data) {
+        setValidateList(response.data.managers);
       }
-      
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
       toast.error('خطا در دریافت اطلاعات');
@@ -44,11 +40,10 @@ const ValditionList = () => {
       const formData = new FormData();
       validateList.forEach((element) => {
         if (element.file) {
-          formData.append(element.national_code,element.file);
+          formData.append(element.national_code, element.file);
         }
       });
-      
-      console.log('element',formData)
+     
 
       const access = await getCookie('access');
       await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
@@ -60,16 +55,16 @@ const ValditionList = () => {
       });
       toast.success('اطلاعات با موفقیت ارسال شد!');
     } catch (error) {
-      console.error('خطا :', error);
+      console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
     }
   };
 
 
+
   useEffect(() => {
     fetchManagerData();
   }, []);
- 
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
@@ -78,26 +73,26 @@ const ValditionList = () => {
       </div>
       <ToastContainer />
 
-      <div className=" rounded-lg  shadow-inner">
+   
+
+      <div className="rounded-lg shadow-inner">
         {validateList.map((item, index) => (
           <div key={index}>
             <ValidateRow index={index} list={validateList} item={item} setList={setValidateList} />
-           
           </div>
         ))}
       </div>
+
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}
           className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
         >
-          
           ثبت
         </button>
       </div>
     </div>
   );
 };
-
 
 export default ValditionList;
