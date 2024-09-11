@@ -1,16 +1,17 @@
 import UseCartId from 'src/hooks/use-cartId';
-import Attachement from "../feuture/attachement";
+import PropTypes from 'prop-types';
+import Attachement from '../feuture/attachement';
 
+const ResumePage = ({ handleNext }) => {
+  const { cartId } = UseCartId();
 
-const ResumePage = () =>{
-    const {cartId} = UseCartId()
+  console.log();
 
-    console.log();
-    
-    return(
-        <Attachement cartId={cartId}/>
-    )
-}
+  return <Attachement handleNext={handleNext} cartId={cartId} />;
+};
 
+ResumePage.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
 
 export default ResumePage;

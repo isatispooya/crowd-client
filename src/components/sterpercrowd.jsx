@@ -103,13 +103,13 @@ const Sterpercrowd = () => {
           />
         );
       case 2:
-        return <ManegersDetails cardSelected={cardSelected} id={cardSelected} />;
+        return <ManegersDetails cardSelected={cardSelected} handleNext={handleNext} id={cardSelected} />;
       case 3:
-        return <ResumePage id={cardSelected} />;
+        return <ResumePage id={cardSelected}  handleNext={handleNext}/>;
       case 4:
-        return <Shareholders cardSelected={cardSelected} />;
+        return <Shareholders cardSelected={cardSelected}  handleNext={handleNext}/>;
       case 5:
-        return <Other cardSelected={cardSelected} />;
+        return <Other cardSelected={cardSelected}  handleNext={handleNext}/>;
       case 6:
         return <Validation cardSelected={cardSelected} handleNext={handleNext} />;
       case 7:

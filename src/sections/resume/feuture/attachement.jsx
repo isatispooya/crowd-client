@@ -10,12 +10,11 @@ import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
+import PropTypes from 'prop-types';
 
-
-const Attachement = () => {
-  const {cartId} = UseCartId()
+const Attachement = ({ handleNext }) => {
+  const { cartId } = UseCartId();
   const [resumeList, setResumeList] = useState([]);
-
 
   const fetchManagerData = async () => {
     try {
@@ -35,8 +34,8 @@ const Attachement = () => {
     }
   };
 
-
   const handleSubmit = async () => {
+    handleNext();
     try {
       const formData = new FormData();
       resumeList.forEach((element) => {
@@ -61,11 +60,9 @@ const Attachement = () => {
     }
   };
 
-
   useEffect(() => {
     fetchManagerData();
   }, []);
-
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
@@ -78,7 +75,6 @@ const Attachement = () => {
         {resumeList.map((item, index) => (
           <div key={index}>
             <Row index={index} list={resumeList} item={item} setList={setResumeList} />
-           
           </div>
         ))}
       </div>
@@ -87,7 +83,6 @@ const Attachement = () => {
           onClick={handleSubmit}
           className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
         >
-          
           ثبت
         </button>
       </div>
@@ -95,6 +90,8 @@ const Attachement = () => {
   );
 };
 
-
+Attachement.propTypes = {
+  handleNext: PropTypes.func,
+};
 
 export default Attachement;

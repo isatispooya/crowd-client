@@ -5,6 +5,7 @@ import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -18,7 +19,7 @@ import {
 import UseCartId from 'src/hooks/use-cartId';
 import Fildemnager from './fildemaneger';
 
-const ManegersDetails = () => {
+const ManegersDetails = ({handleNext}) => {
   const {cartId} = UseCartId()
 
   const singleFile = {
@@ -104,6 +105,7 @@ const ManegersDetails = () => {
   };
 
   const handlePost = async () => {
+    handleNext()
     if (validateFields()) return;
 
     const access = await getCookie('access');
@@ -195,6 +197,11 @@ const ManegersDetails = () => {
     </div>
   );
 };
+
+ManegersDetails.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
+
 
 
 export default ManegersDetails;

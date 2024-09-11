@@ -9,6 +9,8 @@ import { OnRun } from 'src/api/OnRun';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
+
 import {
   Dialog,
   DialogActions,
@@ -20,8 +22,8 @@ import {
 import UseCartId from 'src/hooks/use-cartId';
 import FileSharehold from './fildesharehold';
 
-const Shareholders = () => {
-  const {cartId} = UseCartId()
+const Shareholders = ({ handleNext }) => {
+  const { cartId } = UseCartId();
   const singleFile = {
     name: '',
     national_code: '',
@@ -125,7 +127,7 @@ const Shareholders = () => {
           </button>
         </div>
         <div className="flex justify-center items-center mt-6 w-full">
-        <button
+          <button
             onClick={handlePost}
             type="button"
             className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
@@ -151,6 +153,10 @@ const Shareholders = () => {
       </Dialog>
     </div>
   );
+};
+
+Shareholders.propTypes = {
+  handleNext: PropTypes.func.isRequired,
 };
 
 export default Shareholders;
