@@ -10,7 +10,7 @@ import UseCartId from 'src/hooks/use-cartId';
 // import { useMutation } from '@tanstack/react-query';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 
-const CardList = ({  handleNext , enableSteps }) => {
+const CardList = ({  handleNext  }) => {
   const [cards, setCards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const {cardId,setCartId} = UseCartId(null)
@@ -43,7 +43,6 @@ const CardList = ({  handleNext , enableSteps }) => {
   const handleCardClick = (id, status) => {
     setCartId(+id);
     setCartId(status);
-    enableSteps();
     handleNext();
   };
   
@@ -193,7 +192,6 @@ const CardList = ({  handleNext , enableSteps }) => {
 
 CardList.propTypes = {
   handleNext: PropTypes.func.isRequired,
-  enableSteps: PropTypes.func.isRequired,
 };
 
 export default CardList;

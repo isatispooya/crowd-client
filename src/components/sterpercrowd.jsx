@@ -35,7 +35,6 @@ const Sterpercrowd = () => {
   const [cardSelected, setCardSelected] = useState(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [stepsEnabled, setStepsEnabled] = useState(false);
   const navigate = useNavigate();
   const access = getCookie('access');
 
@@ -57,10 +56,10 @@ const Sterpercrowd = () => {
   };
 
   const handleStepClick = (stepIndex) => {
-    if (stepsEnabled || stepIndex === 0) {
+    
       setActiveStep(stepIndex);
       setIsCompleted(false);
-    }
+    
   };
 
   const getStepIcon = (index) => {
@@ -91,13 +90,11 @@ const Sterpercrowd = () => {
           setCartId={setCartId}
             setCardSelected={setCardSelected}
             handleNext={handleNext}
-            enableSteps={() => setStepsEnabled(true)}
           />
         );
       case 1:
         return (
           <Form
-            enableSteps={() => setStepsEnabled(true)}
             cardSelected={cardSelected}
             handleNext={handleNext}
           />
@@ -132,12 +129,12 @@ const Sterpercrowd = () => {
           <Step
             key={index}
             className="flex flex-col items-center"
-            disabled={!stepsEnabled && index !== 0}
+       
           >
             <StepLabel
               icon={getStepIcon(index)}
               onClick={() => handleStepClick(index)}
-              style={{ cursor: stepsEnabled || index === 0 ? 'pointer' : 'not-allowed' }}
+             
             >
               <span className="block text-lg md:text-base font-semibold text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105">
                 {label}
