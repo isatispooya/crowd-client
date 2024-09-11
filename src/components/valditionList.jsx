@@ -47,6 +47,7 @@ const ValditionList = () => {
           formData.append(element.national_code,element.file);
         }
       });
+      
       console.log('element',formData)
 
       const access = await getCookie('access');
@@ -68,7 +69,7 @@ const ValditionList = () => {
   useEffect(() => {
     fetchManagerData();
   }, []);
-
+ 
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">

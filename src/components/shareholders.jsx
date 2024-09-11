@@ -115,18 +115,22 @@ const Shareholders = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-between w-full">
+        <div className="flex justify-center items-center mt-6 w-full">
           <button
-            className="flex items-center justify-center py-2 px-6 bg-green-600 hover:bg-green-700 text-lg font-bold text-white rounded-md transition duration-300"
             onClick={handleAdd}
+            type="button"
+            className="py-2 px-6 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition duration-200 font-semibold"
           >
-            افزودن
+            افزودن فرم جدید
           </button>
-          <button
+        </div>
+        <div className="flex justify-center items-center mt-6 w-full">
+        <button
             onClick={handlePost}
-            className="flex items-center justify-center py-2 px-6 bg-blue-500 hover:bg-blue-600 text-lg font-bold text-white rounded-md transition duration-300"
+            type="button"
+            className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
           >
-            ارسال
+            ارسال اطلاعات
           </button>
         </div>
       </div>

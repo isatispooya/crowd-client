@@ -6,14 +6,17 @@ import { FaCheckCircle, FaClock, FaQuestionCircle, FaPlus } from 'react-icons/fa
 import PropTypes from 'prop-types';
 import { Button, Chip, Tooltip } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
+// import useNavigateStep from 'src/hooks/use-navigate-step';
+// import { useMutation } from '@tanstack/react-query';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 
-const CardList = ({ statusCart, setCardSelected, handleNext , enableSteps }) => {
+const CardList = ({  handleNext , enableSteps }) => {
   const [cards, setCards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedCardId, setSelectedCardId] = useState(null);
-  const {setCartId} = UseCartId()
+  const {cardId,setCartId} = UseCartId(null)
   const access = getCookie('access');
+  // const { incrementPage } = useNavigateStep();
+ 
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -43,9 +46,15 @@ const CardList = ({ statusCart, setCardSelected, handleNext , enableSteps }) => 
     enableSteps();
     handleNext();
   };
+  
   const handleNewCardClick = () => { 
     setCartId(null);
+    handleNext();
+    console.log("click")
+    // useNavigateStep()
+ 
   };
+  
   const handleKeyPress = (event, id, status) => {
     if (event.key === 'Enter' || event.key === ' ') {
       handleCardClick(id, status);
@@ -59,26 +68,26 @@ const CardList = ({ statusCart, setCardSelected, handleNext , enableSteps }) => 
   // };
 
   const handleDeleteClick = async () => {
-    if (selectedCardId === null) return;
+    if (cardId === null) return;
     try {
-      await axios.delete(`${OnRun}/api/cart/detail/${selectedCardId}/`, {
+      await axios.delete(`${OnRun}/api/cart/detail/${cardId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
-      setCards((prevCards) => prevCards.filter((card) => card.id !== selectedCardId));
+      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
     } catch (error) {
       console.error('Error deleting card:', error);
     } finally {
       setModalOpen(false);
-      setSelectedCardId(null);
+      setCartId(null);
     }
   };
   const formatNumber = (value) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   const handleModalClose = () => {
     setModalOpen(false);
-    setSelectedCardId(null);
+    setCartId(null);
   };
 
   const getStatusChip = (status) => {
@@ -131,7 +140,7 @@ const CardList = ({ statusCart, setCardSelected, handleNext , enableSteps }) => 
                 <div
                   key={card.id}
                   className={`bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px] ${
-                    selectedCardId === card.id ? 'border-4 border-blue-600' : ''
+                    cardId === card.id ? 'border-4 border-blue-600' : ''
                   }`}
                   onClick={() => handleCardClick(card.id, card.status)}
                   onKeyPress={(event) => handleKeyPress(event, card.id, card.status)}
@@ -183,8 +192,6 @@ const CardList = ({ statusCart, setCardSelected, handleNext , enableSteps }) => 
 };
 
 CardList.propTypes = {
-  statusCart: PropTypes.func.isRequired,
-  setCardSelected: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   enableSteps: PropTypes.func.isRequired,
 };

@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import InputPercent from 'src/components/input/inputPercent';
+import SelectInput from 'src/components/input/inputSelect';
 import { toast, ToastContainer } from 'react-toastify';
 import useContract from '../service/use-contract';
 
@@ -28,11 +29,15 @@ const FormContract = ()=> {
     };
     mutateAsync(data);
   };
-  const GuaranteeTypes = [
-    { type: '1', title: ' ماهه3' },
 
+  const guaranteeOptions = [
+    { type: '1', title: ' تعهد پرداخت بانکی ' },
+    { type: '2', title: 'حسن پرداخت ' },
+ 
   ];
-
+  const periodOptions=[
+    {type:"1",title:'3ماهه'}
+  ]
   const {
     mutateAsync,
     isLoadingCreate,
@@ -75,9 +80,9 @@ const FormContract = ()=> {
         className="max-w-5xl overflow-y-auto mx-auto p-8 bg-white rounded-lg shadow-xl"
       >
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-700">قرارداد عاملیت</h1>
+          <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
           <InputPercent value={farabourseFee} setValue={setFarabourseFee} label="کارمزد فرابورس" />
           <InputPercent value={publicationFee} setValue={setPublicationFee} label="کارمزد انتشار" />
           <InputPercent value={serviceFee} setValue={setServiceFee} label="کارمزد ارائه خدمات" />
@@ -88,24 +93,20 @@ const FormContract = ()=> {
             label="درصد شناوری تامین مالی "
           />
           <InputPercent value={rateProfit} setValue={setRateProfit} label=" سود مشارکت اسمی" />
-          <div className="mb-6">
-            <label className="block text-gray-800 text-xs font-semibold mb-2">ضمانتنامه  :</label>
-           <input
-              type="text"
-              value={guarantee}
-              disabled
-              className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-800 text-xs font-semibold mb-2">دوره پرداخت :</label>
-            <input
-              type="text"
-              value={period}
-              disabled
-              className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
-            />
-          </div>
+          <InputPercent value={rateProfit} setValue={setRateProfit} label=" سود مشارکت اسمی" />
+          <SelectInput
+            label="نوع ضمانت"
+            value={guarantee}
+            options={guaranteeOptions}
+            handleSetValue={setGuarantee}
+          />
+           <SelectInput
+            label=" دوره پرداخت"
+            value={period}
+            options={periodOptions}
+            handleSetValue={setPeriod}
+          />
+          
         </div>
         <div className="flex justify-center mt-8">
           <button

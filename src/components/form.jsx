@@ -197,7 +197,7 @@ export default function Form({  handleNext , enableSteps }) {
           </div>
           <div className="mb-6">
             <label className="block text-gray-800 text-xs font-semibold mb-2">
-               شماره روزنامه رسمی:
+                 شماره روزنامه رسمی آخرین مدیران:
             </label>
             <input
               type="number"

@@ -155,7 +155,7 @@ const ManegersDetails = () => {
           </div>
         ))}
 
-        <div className="flex justify-between items-center mt-6 w-full">
+        <div className="flex justify-center items-center mt-6 w-full">
           <button
             onClick={handleAdd}
             type="button"
@@ -163,14 +163,17 @@ const ManegersDetails = () => {
           >
             افزودن فرم جدید
           </button>
-          <button
+        </div>
+        <div className="flex justify-center items-center mt-6 w-full">
+        <button
             onClick={handlePost}
             type="button"
-            className="py-2 px-6 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
+            className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
           >
             ارسال اطلاعات
           </button>
         </div>
+        
       </div>
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
