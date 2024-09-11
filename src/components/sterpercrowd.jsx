@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+
 import { getCookie } from 'src/api/cookie';
 import { CheckCircle, RadioButtonUnchecked, Lens } from '@mui/icons-material';
 import ResumePage from 'src/sections/resume/Page/ResumePage';
@@ -16,6 +16,8 @@ import Shareholders from './shareholders';
 import CompletionMessage from './finishLine';
 import Validation from './Validation';
 import Other from './other';
+
+
 
 const steps = [
   'انتخاب یا ایجاد',
@@ -35,18 +37,12 @@ const Sterpercrowd = () => {
   const [cardSelected, setCardSelected] = useState(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [stepsEnabled, setStepsEnabled] = useState(false);
-  const navigate = useNavigate();
+
+
   const access = getCookie('access');
 
   
-  useEffect(() => {
-    if (!access) {
-      navigate('/login');
-    } else {
-      setIsCheckingAuth(false);
-    }
-  }, [access, navigate]);
+
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
@@ -57,10 +53,10 @@ const Sterpercrowd = () => {
   };
 
   const handleStepClick = (stepIndex) => {
-    if (stepsEnabled || stepIndex === 0) {
+
       setActiveStep(stepIndex);
       setIsCompleted(false);
-    }
+
   };
 
   const getStepIcon = (index) => {
@@ -90,32 +86,32 @@ const Sterpercrowd = () => {
           <CardList
           setCartId={setCartId}
             setCardSelected={setCardSelected}
-            handleNext={handleNext}
-            enableSteps={() => setStepsEnabled(true)}
+         
+
           />
         );
       case 1:
         return (
           <Form
-            enableSteps={() => setStepsEnabled(true)}
+
             cardSelected={cardSelected}
-            handleNext={handleNext}
+          
           />
         );
       case 2:
-        return <ManegersDetails cardSelected={cardSelected} handleNext={handleNext} id={cardSelected} />;
+        return <ManegersDetails cardSelected={cardSelected}  id={cardSelected} />;
       case 3:
-        return <ResumePage id={cardSelected}  handleNext={handleNext}/>;
+        return <ResumePage id={cardSelected} />;
       case 4:
-        return <Shareholders cardSelected={cardSelected}  handleNext={handleNext}/>;
+        return <Shareholders cardSelected={cardSelected}  />;
       case 5:
-        return <Other cardSelected={cardSelected}  handleNext={handleNext}/>;
+        return <Other cardSelected={cardSelected}  />;
       case 6:
-        return <Validation cardSelected={cardSelected} handleNext={handleNext} />;
+        return <Validation cardSelected={cardSelected}  />;
       case 7:
-        return <Clearify cardSelected={cardSelected} handleNext={handleNext} />;
+        return <Clearify cardSelected={cardSelected}  />;
       case 8 : 
-        return  <ContractPage cardSelected={cardSelected} handleNext={handleNext}/> ;
+        return  <ContractPage cardSelected={cardSelected} /> ;
       default:
         return <CompletionMessage />;
     }
@@ -125,6 +121,9 @@ const Sterpercrowd = () => {
     return null;
   }
 
+
+
+
   return (
     <div className="bg-gray-50 mx-auto p-6 rounded-lg shadow-2xl">
       <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full">
@@ -132,12 +131,12 @@ const Sterpercrowd = () => {
           <Step
             key={index}
             className="flex flex-col items-center"
-            disabled={!stepsEnabled && index !== 0}
+
           >
             <StepLabel
               icon={getStepIcon(index)}
               onClick={() => handleStepClick(index)}
-              style={{ cursor: stepsEnabled || index === 0 ? 'pointer' : 'not-allowed' }}
+
             >
               <span className="block text-lg md:text-base font-semibold text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105">
                 {label}
@@ -146,6 +145,8 @@ const Sterpercrowd = () => {
           </Step>
         ))}
       </Stepper>
+ 
+
       <div className="mt-12">{renderStepContent(activeStep)}</div>
       <ToastContainer />
     </div>

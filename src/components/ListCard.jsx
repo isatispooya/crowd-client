@@ -6,17 +6,17 @@ import { FaCheckCircle, FaClock, FaQuestionCircle, FaPlus } from 'react-icons/fa
 import PropTypes from 'prop-types';
 import { Button, Chip, Tooltip } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
-// import useNavigateStep from 'src/hooks/use-navigate-step';
-// import { useMutation } from '@tanstack/react-query';
+import useNavigateStep from 'src/hooks/use-navigate-step';
+
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 
-const CardList = ({  handleNext , enableSteps }) => {
+const CardList = ({ handleNext }) => {
   const [cards, setCards] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const {cardId,setCartId} = UseCartId(null)
+  const { cardId, setCartId } = UseCartId(null);
   const access = getCookie('access');
-  // const { incrementPage } = useNavigateStep();
- 
+  const { incrementPage } = useNavigateStep();
+
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -43,29 +43,19 @@ const CardList = ({  handleNext , enableSteps }) => {
   const handleCardClick = (id, status) => {
     setCartId(+id);
     setCartId(status);
-    enableSteps();
-    handleNext();
   };
-  
-  const handleNewCardClick = () => { 
+
+  const handleNewCardClick = () => {
     setCartId(null);
-    handleNext();
-    console.log("click")
-    // useNavigateStep()
- 
+
+    console.log('click');
   };
-  
+
   const handleKeyPress = (event, id, status) => {
     if (event.key === 'Enter' || event.key === ' ') {
       handleCardClick(id, status);
     }
   };
-
-  // const openDeleteModal = (event, id) => {
-  //   event.stopPropagation();
-  //   setSelectedCardId(id);
-  //   setModalOpen(true);
-  // };
 
   const handleDeleteClick = async () => {
     if (cardId === null) return;
@@ -101,19 +91,49 @@ const CardList = ({  handleNext , enableSteps }) => {
 
     switch (status) {
       case '1':
-        return <Chip icon={<FaClock style={iconStyle} />} label="بررسی شرکت" color="warning" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaClock style={iconStyle} />}
+            label="بررسی شرکت"
+            color="warning"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       case '2':
-        return <Chip icon={<FaCheckCircle style={iconStyle} />} label="بررسی مدیران" color="success" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaCheckCircle style={iconStyle} />}
+            label="بررسی مدیران"
+            color="success"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       case '3':
       case '4':
       case '5':
-        return <Chip icon={<FaQuestionCircle style={iconStyle} />} label="بررسی سهامداران" color="info" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaQuestionCircle style={iconStyle} />}
+            label="بررسی سهامداران"
+            color="info"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       default:
-        return <Chip icon={<FaQuestionCircle style={iconStyle} />} label="نامشخص" color="default" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaQuestionCircle style={iconStyle} />}
+            label="نامشخص"
+            color="default"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
     }
   };
-
-
 
   return (
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
@@ -151,9 +171,15 @@ const CardList = ({  handleNext , enableSteps }) => {
                   <div className="flex flex-col items-center flex-grow space-y-4">
                     <h2 className="text-2xl font-bold text-gray-800">{card.company_name}</h2>
                     <div className="flex flex-col justify-center items-center space-y-2">
-                      <p className="text-base font-medium text-gray-700">شناسه: {card.nationalid}</p>
-                      <p className="text-base font-medium text-gray-700">میزان سرمایه :{formatNumber(card.registered_capital)} </p>
-                      <p  className="text-base font-medium text-gray-700">شماره ثبت: {card.registration_number}</p>
+                      <p className="text-base font-medium text-gray-700">
+                        شناسه: {card.nationalid}
+                      </p>
+                      <p className="text-base font-medium text-gray-700">
+                        میزان سرمایه :{formatNumber(card.registered_capital)}{' '}
+                      </p>
+                      <p className="text-base font-medium text-gray-700">
+                        شماره ثبت: {card.registration_number}
+                      </p>
                     </div>
                     <div className="flex items-center">{getStatusChip(card.status)}</div>
                   </div>
@@ -167,16 +193,6 @@ const CardList = ({  handleNext , enableSteps }) => {
                         مشاهده و ویرایش
                       </Button>
                     </Tooltip>
-                    {/* <Tooltip title="حذف کارت">
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        onClick={(event) => openDeleteModal(event, card.id)}
-                        style={{ textTransform: 'none', padding: '8px 16px', fontSize: '16px' }}
-                      >
-                        حذف
-                      </Button>
-                    </Tooltip> */}
                   </div>
                 </div>
               ))
@@ -186,14 +202,17 @@ const CardList = ({  handleNext , enableSteps }) => {
           </div>
         </div>
       </div>
-      <ConfirmDeleteModal open={modalOpen} onClose={handleModalClose} onConfirm={handleDeleteClick} />
+      <ConfirmDeleteModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleDeleteClick}
+      />
     </div>
   );
 };
 
 CardList.propTypes = {
   handleNext: PropTypes.func.isRequired,
-  enableSteps: PropTypes.func.isRequired,
 };
 
 export default CardList;
