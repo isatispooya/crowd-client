@@ -1,0 +1,43 @@
+[33m84c55a9[m[33m ([m[1;36mHEAD[m[33m)[m HEAD@{0}: checkout: moving from main to 84c55a94afc09e6ba6482523b1ebfc98a5e3c5e1
+[33mb5296ca[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{1}: checkout: moving from contract to main
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{2}: checkout: moving from main to contract
+[33mb5296ca[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{3}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m84c55a9[m[33m ([m[1;36mHEAD[m[33m)[m HEAD@{4}: commit: ئئ
+[33mf72a366[m HEAD@{5}: commit: تت
+[33mbf6e7e2[m HEAD@{6}: commit: //
+[33mecc3674[m HEAD@{7}: commit: خرابش نکنی!
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{8}: merge contract: Fast-forward
+[33m1c28400[m HEAD@{9}: checkout: moving from contract to main
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{10}: checkout: moving from contract to contract
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{11}: checkout: moving from main to contract
+[33m1c28400[m HEAD@{12}: checkout: moving from contract to main
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{13}: checkout: moving from main to contract
+[33m1c28400[m HEAD@{14}: checkout: moving from contract to main
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{15}: checkout: moving from main to contract
+[33m1c28400[m HEAD@{16}: checkout: moving from contract to main
+[33m9094d64[m[33m ([m[1;31morigin/contract[m[33m, [m[1;32mcontract[m[33m)[m HEAD@{17}: commit: .
+[33mc8df201[m HEAD@{18}: commit: //
+[33m1c28400[m HEAD@{19}: checkout: moving from main to contract
+[33m1c28400[m HEAD@{20}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m073be81[m HEAD@{21}: commit: //
+[33mac1aab8[m HEAD@{22}: commit: 33
+[33m3a77e81[m HEAD@{23}: pull --tags origin main: Fast-forward
+[33me4d4b49[m HEAD@{24}: pull --tags origin main: Fast-forward
+[33mf1b3bb1[m HEAD@{25}: commit: 22
+[33mca45c6b[m HEAD@{26}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m23ae881[m HEAD@{27}: commit: //
+[33m5cf1abe[m HEAD@{28}: commit (merge): Merge branch 'main' of https://github.com/isatispooya/crowd-cli
+[33m4aa39b5[m HEAD@{29}: commit: mm
+[33m35ae853[m HEAD@{30}: commit: //
+[33m593996a[m HEAD@{31}: commit: //
+[33m487e5fe[m HEAD@{32}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m6bab7e4[m HEAD@{33}: commit: ..
+[33m606f448[m HEAD@{34}: reset: moving to 606f448
+[33m8a84821[m HEAD@{35}: reset: moving to 8a84821
+[33m606f448[m HEAD@{36}: commit (merge): Merge branch 'main' of https://github.com/isatispooya/crowd-cli
+[33m7e2282c[m HEAD@{37}: commit: //
+[33m5e46551[m HEAD@{38}: commit: ..
+[33mb736f5b[m HEAD@{39}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m8a84821[m HEAD@{40}: commit: ..
+[33m517b788[m HEAD@{41}: commit: //
+[33ma3871c2[m HEAD@{42}: clone: from https://github.com/isatispooya/crowd-cli.git
