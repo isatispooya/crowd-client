@@ -11,13 +11,14 @@ import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import HistoryRow from './historyRow'
 import UseCartId from 'src/hooks/use-cartId';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 
 
 const HistoryList = () => {
   const {cartId} = UseCartId()
   const [historyList, setHistoryList] = useState([]);
-
-
+  // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep();
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
@@ -55,6 +56,9 @@ const HistoryList = () => {
       });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
+
+      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
+      incrementPage();
     } catch (error) {
       console.error('خطا :', error);
       toast.error('خطا در ارسال اطلاعات');

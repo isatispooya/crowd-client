@@ -7,27 +7,32 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getStep1, createCart, updateCart } from 'src/api/step1';
+import useNavigateStep from 'src/hooks/use-navigate-step';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
 import { Message } from './massage';
+import Input from './input/input';
 
-export default function Form({  handleNext , enableSteps }) {
-  const {cartId,setCartId} = UseCartId()
+export default function Form() {
+  const { cartId, setCartId } = UseCartId()
   
+  // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
 
-  const mutation = useMutation({ mutationFn: () => createCart(localData, handleNext) });
+  const mutation = useMutation({ mutationFn: () => createCart(localData, incrementPage) });
   const mutationUpdate = useMutation({
-    mutationFn: () => updateCart(localData, handleNext, cartId),
+    mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
 
   const [localData, setLocalData] = useState(() => data || {});
 
   useEffect(() => {
+
     if (isSuccess && data) {
       setLocalData(data.data.cart);
     }
@@ -83,19 +88,21 @@ export default function Form({  handleNext , enableSteps }) {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!cartId) {
       mutation.mutateAsync();
       setCartId(cartId)
+      console.log(cartId)
+
 
     } else {
       mutationUpdate.mutateAsync();
-     
-   
 
     }
   };
+
 
   if (isLoading) {
     return <p>loading ....</p>;
@@ -120,9 +127,13 @@ export default function Form({  handleNext , enableSteps }) {
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات شرکت</h1>
         </div>
 
-        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 text-nowrap gap-6 p-6 bg-white rounded-lg ">
           <div className="mb-6">
-            <label className="block text-gray-800 text-xs font-semibold mb-2">نام شرکت:</label>
+            <label className="block text-gray-800 text-xs font-semibold mb-2"
+            >
+              نام شرکت:
+
+            </label>
             <input
               type="text"
               name="company_name"
@@ -197,14 +208,15 @@ export default function Form({  handleNext , enableSteps }) {
           </div>
           <div className="mb-6">
             <label className="block text-gray-800 text-xs font-semibold mb-2">
-                 شماره روزنامه رسمی آخرین مدیران:
+              شماره روزنامه رسمی آخرین مدیران:
             </label>
             <input
               type="number"
               name="newspaper"
+              value={(localData.newspaper)}
               disabled={localData.Lock_newspaper}
-              onChange={handleInputChange}
-              className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+            onChange={handleInputChange}
+            className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
             />
           </div>
           <div className="mb-6">
@@ -349,11 +361,10 @@ export default function Form({  handleNext , enableSteps }) {
                         }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_financial_report_lastyear
+                        className={`text-xs font-medium ${localData.Lock_financial_report_lastyear
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1402 فایل صورت مالی
                       </a>
@@ -395,11 +406,10 @@ export default function Form({  handleNext , enableSteps }) {
                         onClick={(e) => localData.Lock_audit_report_lastyear && e.preventDefault()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_audit_report_lastyear
+                        className={`text-xs font-medium ${localData.Lock_audit_report_lastyear
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1402فایل گزارش حسابرسی
                       </a>
@@ -439,11 +449,10 @@ export default function Form({  handleNext , enableSteps }) {
                         onClick={(e) => localData.Lock_statement_lastyear && e.preventDefault()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_statement_lastyear
+                        className={`text-xs font-medium ${localData.Lock_statement_lastyear
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1402 فایل اظهارنامه
                       </a>
@@ -492,11 +501,10 @@ export default function Form({  handleNext , enableSteps }) {
                         }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_financial_report_yearold
+                        className={`text-xs font-medium ${localData.Lock_financial_report_yearold
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1401 فایل صورت مالی
                       </a>
@@ -538,11 +546,10 @@ export default function Form({  handleNext , enableSteps }) {
                         onClick={(e) => localData.Lock_audit_report_yearold && e.preventDefault()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_audit_report_yearold
+                        className={`text-xs font-medium ${localData.Lock_audit_report_yearold
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1401فایل گزارش حسابرسی
                       </a>
@@ -582,11 +589,10 @@ export default function Form({  handleNext , enableSteps }) {
                         onClick={(e) => localData.Lock_statement_yearold && e.preventDefault()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_statement_yearold
+                        className={`text-xs font-medium ${localData.Lock_statement_yearold
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         1401 فایل اظهارنامه
                       </a>
@@ -638,11 +644,10 @@ export default function Form({  handleNext , enableSteps }) {
                         }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_alignment_6columns_thisyear
+                        className={`text-xs font-medium ${localData.Lock_alignment_6columns_thisyear
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         فایل تراز 6ستونی
                       </a>
@@ -695,11 +700,10 @@ export default function Form({  handleNext , enableSteps }) {
                         }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`text-xs font-medium ${
-                          localData.Lock_logo
+                        className={`text-xs font-medium ${localData.Lock_logo
                             ? 'text-gray-400'
                             : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                          }`}
                       >
                         فایل  لوگو
                       </a>
@@ -734,13 +738,12 @@ export default function Form({  handleNext , enableSteps }) {
 
         <div className=" flex justify-center mt-8">
           <button
-          onClick={handleSubmit}
+            onClick={handleSubmit}
             type="submit"
-            className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-              isLoading ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
           >
-            { mutation.isLoading ? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
+            {mutation.isLoading ? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
           </button>
         </div>
       </form>

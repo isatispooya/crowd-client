@@ -1,21 +1,18 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import { FaCheckCircle, FaClock, FaQuestionCircle, FaPlus } from 'react-icons/fa';
-import PropTypes from 'prop-types';
 import { Button, Chip, Tooltip } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
-// import useNavigateStep from 'src/hooks/use-navigate-step';
-// import { useMutation } from '@tanstack/react-query';
-import ConfirmDeleteModal from './ConfirmDeleteModal';
+import useNavigateStep from 'src/hooks/use-navigate-step';
 
-const CardList = ({  handleNext  }) => {
+const CardList = () => {
   const [cards, setCards] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
   const {cardId,setCartId} = UseCartId(null)
   const access = getCookie('access');
-  // const { incrementPage } = useNavigateStep();
+  const { incrementPage } = useNavigateStep();
  
   useEffect(() => {
     const fetchCards = async () => {
@@ -41,53 +38,24 @@ const CardList = ({  handleNext  }) => {
   }, [access]);
 
   const handleCardClick = (id, status) => {
+    incrementPage(); // استفاده از incrementPage به جای handleNext
     setCartId(+id);
     setCartId(status);
-    handleNext();
   };
-  
-  const handleNewCardClick = () => { 
-    setCartId(null);
-    handleNext();
-    console.log("click")
-    // useNavigateStep()
- 
-  };
-  
   const handleKeyPress = (event, id, status) => {
     if (event.key === 'Enter' || event.key === ' ') {
       handleCardClick(id, status);
     }
   };
 
-  // const openDeleteModal = (event, id) => {
-  //   event.stopPropagation();
-  //   setSelectedCardId(id);
-  //   setModalOpen(true);
-  // };
-
-  const handleDeleteClick = async () => {
-    if (cardId === null) return;
-    try {
-      await axios.delete(`${OnRun}/api/cart/detail/${cardId}/`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
-      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
-    } catch (error) {
-      console.error('Error deleting card:', error);
-    } finally {
-      setModalOpen(false);
-      setCartId(null);
-    }
+  const handleNewCardClick = () => { 
+    setCartId(null)
+    incrementPage();
+    setCartId(+cardId);
+ 
   };
+  
   const formatNumber = (value) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-    setCartId(null);
-  };
 
   const getStatusChip = (status) => {
     const iconStyle = { fontSize: '18px' };
@@ -118,14 +86,13 @@ const CardList = ({  handleNext  }) => {
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
       <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-7xl w-full">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center">
-          <h1 className="text-2xl font-bold text-gray-700"> لیست ها</h1>
+          <h1 className="text-2xl font-bold text-gray-700">لیست ها</h1>
         </div>
         <div className="p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3 gap-24 xl:gap-8 justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-24 xl:gap-8 justify-center">
             <div
               className="bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-center items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px]"
               onClick={handleNewCardClick}
-              onKeyPress={(event) => handleKeyPress(event)}
               tabIndex={0}
               role="button"
               aria-label="افزودن کارت جدید"
@@ -138,9 +105,8 @@ const CardList = ({  handleNext  }) => {
               cards.map((card) => (
                 <div
                   key={card.id}
-                  className={`bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px] ${
-                    cardId === card.id ? 'border-4 border-blue-600' : ''
-                  }`}
+                  className={`bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px] ${cardId === card.id ? 'border-4 border-blue-600' : ''
+                    }`}
                   onClick={() => handleCardClick(card.id, card.status)}
                   onKeyPress={(event) => handleKeyPress(event, card.id, card.status)}
                   tabIndex={0}
@@ -151,8 +117,8 @@ const CardList = ({  handleNext  }) => {
                     <h2 className="text-2xl font-bold text-gray-800">{card.company_name}</h2>
                     <div className="flex flex-col justify-center items-center space-y-2">
                       <p className="text-base font-medium text-gray-700">شناسه: {card.nationalid}</p>
-                      <p className="text-base font-medium text-gray-700">میزان سرمایه :{formatNumber(card.registered_capital)} </p>
-                      <p  className="text-base font-medium text-gray-700">شماره ثبت: {card.registration_number}</p>
+                      <p className="text-base font-medium text-gray-700">میزان سرمایه: {formatNumber(card.registered_capital)}</p>
+                      <p className="text-base font-medium text-gray-700">شماره ثبت: {card.registration_number}</p>
                     </div>
                     <div className="flex items-center">{getStatusChip(card.status)}</div>
                   </div>
@@ -166,16 +132,6 @@ const CardList = ({  handleNext  }) => {
                         مشاهده و ویرایش
                       </Button>
                     </Tooltip>
-                    {/* <Tooltip title="حذف کارت">
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        onClick={(event) => openDeleteModal(event, card.id)}
-                        style={{ textTransform: 'none', padding: '8px 16px', fontSize: '16px' }}
-                      >
-                        حذف
-                      </Button>
-                    </Tooltip> */}
                   </div>
                 </div>
               ))
@@ -185,13 +141,10 @@ const CardList = ({  handleNext  }) => {
           </div>
         </div>
       </div>
-      <ConfirmDeleteModal open={modalOpen} onClose={handleModalClose} onConfirm={handleDeleteClick} />
     </div>
   );
 };
 
-CardList.propTypes = {
-  handleNext: PropTypes.func.isRequired,
-};
+
 
 export default CardList;

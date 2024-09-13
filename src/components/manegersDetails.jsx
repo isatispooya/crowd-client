@@ -5,7 +5,6 @@ import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import PropTypes from 'prop-types';
 
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -17,9 +16,10 @@ import {
   Button,
 } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 import Fildemnager from './fildemaneger';
 
-const ManegersDetails = ({handleNext}) => {
+const ManegersDetails = () => {
   const {cartId} = UseCartId()
 
   const singleFile = {
@@ -36,7 +36,8 @@ const ManegersDetails = ({handleNext}) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
-
+  // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep();
   
   const fetchManager = async () => {
     const access = await getCookie('access');
@@ -105,7 +106,7 @@ const ManegersDetails = ({handleNext}) => {
   };
 
   const handlePost = async () => {
-    handleNext()
+    incrementPage()
     if (validateFields()) return;
 
     const access = await getCookie('access');
@@ -127,6 +128,8 @@ const ManegersDetails = ({handleNext}) => {
         }
       );
       toast.success('اطلاعات با موفقیت ارسال شد');
+      // بعد از ارسال موفق، به مرحله بعدی بروید
+      incrementPage();
     } catch (error) {
       console.error('خطا :', error);
       console.error('Error Response:', error.response.data);
@@ -198,9 +201,7 @@ const ManegersDetails = ({handleNext}) => {
   );
 };
 
-ManegersDetails.propTypes = {
-  handleNext: PropTypes.func.isRequired,
-};
+
 
 
 
