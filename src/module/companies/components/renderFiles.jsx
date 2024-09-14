@@ -22,7 +22,7 @@ export const renderFileSection = (fileKey, label, linkText, localData, setLocalD
         <button
           type="button"
           className="text-red-400 hover:text-red-600 disabled:text-gray-200"
-          onClick={() => handleFileRemove(fileKey)}
+          onClick={() => handleFileRemove(fileKey , setLocalData)}
           disabled={localData[`Lock_${fileKey}`]}
         >
           حذف

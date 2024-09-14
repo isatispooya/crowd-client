@@ -17,7 +17,8 @@ import {
 } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
-import Fildemnager from './fildemaneger';
+import { renderInputs } from 'src/module/manegers/components/renderManagersInputs';
+import Fildemnager from '../module/manegers/components/fildemaneger';
 
 const ManegersDetails = () => {
   const { cartId } = UseCartId();
@@ -155,7 +156,16 @@ const ManegersDetails = () => {
                 <FaTimes />
               </button>
             )}
-            <Fildemnager index={index} field={field} setField={setField} />
+            {/* <Fildemnager index={index} field={field} setField={setField} /> */}
+            {renderInputs(
+        'name',
+        'نام و نام خانوادگی',
+        'text',
+        field ,
+        setField ,
+        [],
+        false
+      )}
           </div>
         ))}
 
