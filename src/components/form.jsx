@@ -11,7 +11,6 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
 import { Message } from './massage';
-import Input from './input/input';
 
 export default function Form() {
   const { cartId, setCartId } = UseCartId()
