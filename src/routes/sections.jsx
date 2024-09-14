@@ -3,8 +3,7 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
-import Plan from 'src/module/plan/page/plan';
-import Plans from 'src/module/plan/page/plans';
+import WalletPage from 'src/module/wallet/pages/walletPage';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -33,6 +32,7 @@ export default function Router() {
         { path: 'plan/:slug', element: <Plan /> },
         { path: 'process', element: <ProcessProjectPage /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
+        { path: 'wallet', element: <WalletPage /> },
       ],
     },
     {
