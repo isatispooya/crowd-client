@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
@@ -26,7 +25,7 @@ const ValditionList = () => {
         },
       });
 
-      if (response.data) {
+      if (response.data.managers) {
         setValidateList(response.data.managers);
       }
     } catch (error) {
@@ -41,10 +40,11 @@ const ValditionList = () => {
       validateList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
+          // formData.append('file_validation', data.file_validation || '');
+          // formData.append('file_manager', data.file_manager || '');
         }
       });
      
-
       const access = await getCookie('access');
       await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
@@ -72,9 +72,6 @@ const ValditionList = () => {
         <h1 className="text-2xl font-bold text-gray-700">اعتبار سنجی</h1>
       </div>
       <ToastContainer />
-
-   
-
       <div className="rounded-lg shadow-inner">
         {validateList.map((item, index) => (
           <div key={index}>
@@ -82,7 +79,6 @@ const ValditionList = () => {
           </div>
         ))}
       </div>
-
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}

@@ -6,11 +6,12 @@ import { FiX, FiDownload } from 'react-icons/fi';
 
 const ValidateRow = ({ index, list, item, setList }) => {
   const updateFile = (file, national_code) => {
-    const updatedList = list.map((i) => i.national_code === national_code ? { ...i, file } : i
+    const updatedList = list.map((i) => (i.national_code === national_code ? { ...i, file } : i)
     );
    
     setList(updatedList);
   };
+
 
 
   const handleFileRemove = (national_code) => {
@@ -21,6 +22,7 @@ const ValidateRow = ({ index, list, item, setList }) => {
   };
 
   return (
+  
     <div
       key={index}
       className="grid gap-32 disabled:bg-gray-300 grid-cols-1 sm:grid-cols-3 mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative"
@@ -58,8 +60,7 @@ const ValidateRow = ({ index, list, item, setList }) => {
             name="file_upload"
             type="file"
             onChange={(e) => updateFile(e.target.files[0], item.national_code)}
-            className="shadow appearance-none rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-indigo-200 transition-colors duration-200 ease-in-out"
-          />
+            className="shadow appearance-none rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-indigo-200 transition-colors duration-200 ease-in-out" />
         )}
       </div>
     </div>
