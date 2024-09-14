@@ -3,9 +3,9 @@
 import { toast } from 'react-toastify';
 import api from './apiClient';
 import { getCookie } from './cookie';
-import UseCartId from 'src/hooks/use-cartId';
 
-const getFormData = (data, cartId) => {
+// تابع برای ایجاد فرم دیتا
+const getFormData = (data) => {
   const formData = new FormData();
 
   const fields = [
@@ -50,6 +50,12 @@ const getFormData = (data, cartId) => {
   return formData;
 };
 
+// تابع برای ارسال اطلاعات به مرحله بعدی
+const handlePageIncrement = (incrementPage) => {
+  if (incrementPage) {
+    incrementPage();
+  }
+};
 
 export const getStep1 = async (cartId) => {
   if (cartId) {
@@ -58,7 +64,6 @@ export const getStep1 = async (cartId) => {
       headers: {
         Authorization: `Bearer ${access}`,
       },
-      
     });
   }
   return {
@@ -109,10 +114,6 @@ export const getStep1 = async (cartId) => {
         Lock_statement_yearold: false,
         alignment_6columns_thisyear: null,
         Lock_alignment_6columns_thisyear: false,
-        alignment_6columns_lastyear: null,
-        Lock_alignment_6columns_lastyear: false,
-        alignment_6columns_yearold: null,
-        Lock_alignment_6columns_yearold: false,
         logo: null,
         message: '',
         announcement_of_changes_managers: null,
@@ -134,28 +135,24 @@ export const getStep1 = async (cartId) => {
       },
     },
   };
-  
 };
 
-export const createCart = async (data, handleNext) => {
-  const { cartId } = UseCartId();   
-  const formData = getFormData(data, cartId);
+export const createCart = async (data, incrementPage) => {
+  const formData = getFormData(data);
   const access = await getCookie('access');
-
   try {
     const response = await api.post('/api/cart/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${access}`,
-        
       },
       maxBodyLength: Infinity,
     });
-    console.log("ooooo",response.data);
+    console.log("lll",response.data)
 
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');
-      handleNext();
+      handlePageIncrement(incrementPage);
     }
 
     return response;
@@ -165,8 +162,8 @@ export const createCart = async (data, handleNext) => {
   }
 };
 
-export const updateCart = async (data, handleNext, cartId) => {
-  const formData = getFormData(data,cartId);
+export const updateCart = async (data, incrementPage, cartId) => {
+  const formData = getFormData(data);
   const access = await getCookie('access');
 
   try {
@@ -177,11 +174,10 @@ export const updateCart = async (data, handleNext, cartId) => {
       },
       maxBodyLength: Infinity,
     });
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",response);
 
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');
-      handleNext();
+      handlePageIncrement(incrementPage);
     }
 
     return response;

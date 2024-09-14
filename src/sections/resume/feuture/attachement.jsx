@@ -10,12 +10,14 @@ import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
-import PropTypes from 'prop-types';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 
-const Attachement = ({ handleNext }) => {
+const Attachement = () => {
   const { cartId } = UseCartId();
   const [resumeList, setResumeList] = useState([]);
-
+  
+  // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep();
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
@@ -35,7 +37,7 @@ const Attachement = ({ handleNext }) => {
   };
 
   const handleSubmit = async () => {
-    handleNext();
+    incrementPage()
     try {
       const formData = new FormData();
       resumeList.forEach((element) => {
@@ -54,6 +56,9 @@ const Attachement = ({ handleNext }) => {
       });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
+
+      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
+      incrementPage();
     } catch (error) {
       console.error('خطا :', error);
       toast.error('خطا در ارسال اطلاعات');
@@ -90,8 +95,6 @@ const Attachement = ({ handleNext }) => {
   );
 };
 
-Attachement.propTypes = {
-  handleNext: PropTypes.func,
-};
+
 
 export default Attachement;
