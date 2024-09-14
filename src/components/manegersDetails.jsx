@@ -1,4 +1,4 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
@@ -20,7 +20,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن 
 import Fildemnager from './fildemaneger';
 
 const ManegersDetails = () => {
-  const {cartId} = UseCartId()
+  const { cartId } = UseCartId();
 
   const singleFile = {
     name: '',
@@ -38,7 +38,7 @@ const ManegersDetails = () => {
 
   // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
-  
+
   const fetchManager = async () => {
     const access = await getCookie('access');
     if (cartId) {
@@ -59,8 +59,7 @@ const ManegersDetails = () => {
     queryKey: ['fetchMessage', cartId],
     queryFn: () => fetchManager(cartId),
   });
-  if (isLoading)
-    return <p className="text-gray-600 animate-pulse">در حال بارگذاری...</p>;
+  if (isLoading) return <p className="text-gray-600 animate-pulse">در حال بارگذاری...</p>;
 
   const handleAdd = () => {
     setField((prevField) => [...prevField, singleFile]);
@@ -106,7 +105,7 @@ const ManegersDetails = () => {
   };
 
   const handlePost = async () => {
-    incrementPage()
+    incrementPage();
     if (validateFields()) return;
 
     const access = await getCookie('access');
@@ -170,7 +169,7 @@ const ManegersDetails = () => {
           </button>
         </div>
         <div className="flex justify-center items-center mt-6 w-full">
-        <button
+          <button
             onClick={handlePost}
             type="button"
             className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
@@ -178,15 +177,12 @@ const ManegersDetails = () => {
             ارسال اطلاعات
           </button>
         </div>
-        
       </div>
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle sx={{ textAlign: 'center' }}>تایید حذف</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟
-          </DialogContentText>
+          <DialogContentText>آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)} color="primary">
@@ -200,9 +196,5 @@ const ManegersDetails = () => {
     </div>
   );
 };
-
-
-
-
 
 export default ManegersDetails;

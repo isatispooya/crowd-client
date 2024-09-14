@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getStep1, createCart, updateCart } from 'src/api/step1';
@@ -58,7 +58,7 @@ export default function Form() {
       <div className="bg-gray-50  rounded-md mb-10 shadow-inner ">
         <Message cartId={cartId} />
       </div>
-
+       <ToastContainer/>
       <div className="mb-5">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات شرکت</h1>
