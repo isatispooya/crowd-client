@@ -3,12 +3,13 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import Plan from 'src/module/plan/page/plan';
+import Plans from 'src/module/plan/page/plans';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));
 export const ProfilePage = lazy(() => import('src/pages/profile'));
-export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
@@ -28,7 +29,8 @@ export default function Router() {
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'request', element: <UserPage /> },
+        { path: 'plans', element: <Plans /> },
+        { path: 'plan/:slug', element: <Plan /> },
         { path: 'process', element: <ProcessProjectPage /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
       ],
@@ -37,7 +39,6 @@ export default function Router() {
       path: 'login',
       element: <LoginPage />,
     },
-    { path: 'request', element: <RequestPage /> },
 
     {
       path: '404',

@@ -23,7 +23,7 @@ const navConfig = [
   },
   {
     title: 'مشاهده طرح ها',
-    path: '/request',
+    path: '/plans',
     icon: icon('ic_sheet'),
   },
 ];

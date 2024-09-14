@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
-import { FaCheckCircle, FaClock, FaQuestionCircle, FaPlus } from 'react-icons/fa';
-import { Button, Chip, Tooltip } from '@mui/material';
+import {  FaPlus } from 'react-icons/fa';
+import { Button,  Tooltip } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 
@@ -57,61 +57,8 @@ const CardList = () => {
   
   const formatNumber = (value) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  const getStatusChip = (status) => {
-    const iconStyle = { fontSize: '18px' };
-    const chipStyles = {
-      borderRadius: '20px',
-      fontWeight: 'bold',
-      margin: '2px',
-      padding: '4px 8px',
-    };
-
-    switch (status) {
-      case '1':
-        return (
-          <Chip
-            icon={<FaClock style={iconStyle} />}
-            label="بررسی شرکت"
-            color="warning"
-            variant="outlined"
-            style={chipStyles}
-          />
-        );
-      case '2':
-        return (
-          <Chip
-            icon={<FaCheckCircle style={iconStyle} />}
-            label="بررسی مدیران"
-            color="success"
-            variant="outlined"
-            style={chipStyles}
-          />
-        );
-      case '3':
-      case '4':
-      case '5':
-        return (
-          <Chip
-            icon={<FaQuestionCircle style={iconStyle} />}
-            label="بررسی سهامداران"
-            color="info"
-            variant="outlined"
-            style={chipStyles}
-          />
-        );
-      default:
-        return (
-          <Chip
-            icon={<FaQuestionCircle style={iconStyle} />}
-            label="نامشخص"
-            color="default"
-            variant="outlined"
-            style={chipStyles}
-          />
-        );
-    }
-  };
-
+  
+  
   return (
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
       <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-7xl w-full">
@@ -150,7 +97,7 @@ const CardList = () => {
                       <p className="text-base font-medium text-gray-700">میزان سرمایه: {formatNumber(card.registered_capital)}</p>
                       <p className="text-base font-medium text-gray-700">شماره ثبت: {card.registration_number}</p>
                     </div>
-                    <div className="flex items-center">{getStatusChip(card.status)}</div>
+                    <div className="flex items-center"> دانلود قرارداد</div>
                   </div>
                   <div className="flex justify-center gap-4 mt-6">
                     <Tooltip title="مشاهده و ویرایش">
