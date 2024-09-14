@@ -17,7 +17,8 @@ import {
 } from '@mui/material';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
-import { renderInputs } from 'src/module/manegers/components/renderManagersInputs';
+import Fildemnager from 'src/module/manegers/components/fildemaneger';
+
 
 const ManegersDetails = () => {
   const { cartId } = UseCartId();
