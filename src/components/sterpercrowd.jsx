@@ -10,7 +10,7 @@ import ContractPage from 'src/module/contract/page';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import CardList from '../module/cards/components/ListCard';
-import Form from './form';
+import Form from '../module/companies/components/companyView';
 import ManegersDetails from '../module/manegers/components/manegersDetails';
 import Clearify from './clearify';
 import Shareholders from './shareholders';
