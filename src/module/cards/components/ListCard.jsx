@@ -1,61 +1,35 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { OnRun } from 'src/api/OnRun';
-import { getCookie } from 'src/api/cookie';
+import React from 'react';
 import { FaCheckCircle, FaClock, FaQuestionCircle, FaPlus } from 'react-icons/fa';
 import { Button, Chip, Tooltip } from '@mui/material';
+import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
+import Loader from 'src/components/loader';
+import { useFetchCards } from '../hooks/useFetchCards';  
+import { formatNumber } from '../../../utils/formatNumbers';
 
 const CardList = () => {
-  const [cards, setCards] = useState([]);
-  const {cardId,setCartId} = UseCartId(null)
+  const { cardId, setCartId } = UseCartId(null);
   const access = getCookie('access');
   const { incrementPage } = useNavigateStep();
- 
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await axios.get(`${OnRun}/api/cart/`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${access}`,
-          },
-        });
 
-        if (response.data.cart) {
-          setCards(response.data.cart);
-        }
-      } catch (error) {
-        console.error('Error fetching cards:', error);
-      }
-    };
+  // Use the custom hook
+  const { data: cards = [], isLoading, error } = useFetchCards(access);
 
-    if (access) {
-      fetchCards();
-    }
-  }, [access]);
 
   const handleCardClick = (id, status) => {
-    incrementPage(); // استفاده از incrementPage به جای handleNext
+    incrementPage();
     setCartId(+id);
     setCartId(status);
   };
-  const handleKeyPress = (event, id, status) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      handleCardClick(id, status);
-    }
-  };
 
-  const handleNewCardClick = () => { 
-    setCartId(null)
+
+  const handleNewCardClick = () => {
+    setCartId(null);
     incrementPage();
     setCartId(+cardId);
- 
   };
-  
-  const formatNumber = (value) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   const getStatusChip = (status) => {
     const iconStyle = { fontSize: '18px' };
@@ -112,6 +86,14 @@ const CardList = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loader/>;
+  }
+
+  if (error) {
+    return <p>خطا در بارگیری کارت‌ها: {error.message}</p>;
+  }
+
   return (
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
       <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-7xl w-full">
@@ -130,15 +112,16 @@ const CardList = () => {
               <FaPlus className="text-5xl text-blue-700 mb-4" />
               <h2 className="text-2xl font-bold text-gray-800">افزودن لیست جدید</h2>
             </div>
-
+             
             {cards.length > 0 ? (
               cards.map((card) => (
                 <div
                   key={card.id}
-                  className={`bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px] ${cardId === card.id ? 'border-4 border-blue-600' : ''
-                    }`}
+                  className={`bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px] ${
+                    cardId === card.id ? 'border-4 border-blue-600' : ''
+                  }`}
                   onClick={() => handleCardClick(card.id, card.status)}
-                  onKeyPress={(event) => handleKeyPress(event, card.id, card.status)}
+             
                   tabIndex={0}
                   role="button"
                   aria-label={`View card ${card.company_name}`}
@@ -146,9 +129,15 @@ const CardList = () => {
                   <div className="flex flex-col items-center flex-grow space-y-4">
                     <h2 className="text-2xl font-bold text-gray-800">{card.company_name}</h2>
                     <div className="flex flex-col justify-center items-center space-y-2">
-                      <p className="text-base font-medium text-gray-700">شناسه: {card.nationalid}</p>
-                      <p className="text-base font-medium text-gray-700">میزان سرمایه: {formatNumber(card.registered_capital)}</p>
-                      <p className="text-base font-medium text-gray-700">شماره ثبت: {card.registration_number}</p>
+                      <p className="text-base font-medium text-gray-700">
+                        شناسه: {card.nationalid}
+                      </p>
+                      <p className="text-base font-medium text-gray-700">
+                        میزان سرمایه: {formatNumber(card.registered_capital)}
+                      </p>
+                      <p className="text-base font-medium text-gray-700">
+                        شماره ثبت: {card.registration_number}
+                      </p>
                     </div>
                     <div className="flex items-center">{getStatusChip(card.status)}</div>
                   </div>
@@ -174,6 +163,5 @@ const CardList = () => {
     </div>
   );
 };
-
 
 export default CardList;
