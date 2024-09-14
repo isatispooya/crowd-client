@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import UseCartId from 'src/hooks/use-cartId';
 import { cleanNumber, formatNumber } from '../utils/formatNumbers';
 import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
@@ -9,7 +8,6 @@ import { companyTypes } from '../utils/companySelectionTypes';
 const CompanyInputs = ({ localData, setLocalData }) => {
   // eslint-disable-next-line no-unused-vars
 
-  const { cartId, setCartId } = UseCartId();
 
   const InputValues = (e) => {
     const { name, value } = e.target;
@@ -17,7 +15,6 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     setLocalData({ ...localData, [name]: cleanedValue });
   };
 
-  console.log('localData', localData);
   return (
     <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">

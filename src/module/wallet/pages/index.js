@@ -1,1 +1,1 @@
-export {default} from './wallet.page'
+export {default} from './walletPage'

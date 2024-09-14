@@ -17,6 +17,11 @@ const navConfig = [
     icon:icon('ic_blog'),
   },
   {
+    title: 'کیف پول',
+    path: '/wallet',
+    icon:icon('ic_blog'),
+  },
+  {
     title: 'ایجاد و پیگیری درخواست',
     path: '/',
     icon: icon('ic_analytics'),
