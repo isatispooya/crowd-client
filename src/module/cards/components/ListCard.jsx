@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import {  FaPlus } from 'react-icons/fa';
-import { Button,  Tooltip } from '@mui/material';
+import { FaPlus } from 'react-icons/fa';
+import { Button, Tooltip } from '@mui/material';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
-import { useFetchCards } from '../hooks/useFetchCards';  
+import { useFetchCards } from '../hooks/useFetchCards';
 import { formatNumber } from '../../../utils/formatNumbers';
 
 const CardList = () => {
@@ -17,13 +17,11 @@ const CardList = () => {
   // Use the custom hook
   const { data: cards = [], isLoading, error } = useFetchCards(access);
 
-
   const handleCardClick = (id, status) => {
     incrementPage();
     setCartId(+id);
     setCartId(status);
   };
-
 
   const handleNewCardClick = () => {
     setCartId(null);
@@ -31,9 +29,8 @@ const CardList = () => {
     setCartId(+cardId);
   };
 
-  
-    if (isLoading) {
-    return <Loader/>;
+  if (isLoading) {
+    return <Loader />;
   }
 
   if (error) {
@@ -57,7 +54,7 @@ const CardList = () => {
               <FaPlus className="text-5xl text-blue-700 mb-4" />
               <h2 className="text-2xl font-bold text-gray-800">افزودن لیست جدید</h2>
             </div>
-             
+
             {cards.length > 0 ? (
               cards.map((card) => (
                 <div
@@ -66,7 +63,6 @@ const CardList = () => {
                     cardId === card.id ? 'border-4 border-blue-600' : ''
                   }`}
                   onClick={() => handleCardClick(card.id, card.status)}
-             
                   tabIndex={0}
                   role="button"
                   aria-label={`View card ${card.company_name}`}
