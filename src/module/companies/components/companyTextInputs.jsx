@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cleanNumber, formatNumber } from '../utils/formatNumbers';
+import { cleanNumber, formatNumber } from '../../../utils/formatNumbers';
 import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
 
 const CompanyInputs = ({ localData, setLocalData }) => {
   // eslint-disable-next-line no-unused-vars
-
 
   const InputValues = (e) => {
     const { name, value } = e.target;
