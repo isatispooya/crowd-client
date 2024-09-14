@@ -36,7 +36,7 @@ const FormContract = ()=> {
  
   ];
   const periodOptions=[
-    {type:"1",title:'3ماهه'}
+    {type:"1",title:'ماهه3'}
   ]
   const {
     mutateAsync,
@@ -55,6 +55,8 @@ const FormContract = ()=> {
       setCreateFee(dataDetail.cart.design_cost)
       setSwimmingPercentage(dataDetail.cart.swimming_percentage)
       setRateProfit(dataDetail.cart.partnership_interest)
+      setGuarantee(dataDetail.cart.guarantee)
+      setPeriod(dataDetail.cart.payback_period)
     }
   }, [dataDetail]);
 
