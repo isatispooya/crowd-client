@@ -5,12 +5,12 @@ const useNavigateStep = () => {
 
     const { data: page = 0 } = useQuery({
         queryKey: ['page'],
-        queryFn: () => 0,
+        // queryFn: () => 0,
         initialData: 0,
     });
 
     const incrementPage = () => {
-        queryClient.setQueryData(['page'], Math.min(page + 1, 8));
+        queryClient.setQueryData(['page'], Math.min(page + 1, 9));
     };
 
     const decrementPage = () => {

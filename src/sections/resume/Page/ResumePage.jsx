@@ -1,17 +1,15 @@
 import UseCartId from 'src/hooks/use-cartId';
-import PropTypes from 'prop-types';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 import Attachement from '../feuture/attachement';
 
-const ResumePage = ({ handleNext }) => {
+const ResumePage = () => {
   const { cartId } = UseCartId();
+  const { incrementPage } = useNavigateStep();
 
   console.log();
 
-  return <Attachement handleNext={handleNext} cartId={cartId} />;
+  return <Attachement incrementPage={incrementPage} cartId={cartId} />;
 };
 
-ResumePage.propTypes = {
-  handleNext: PropTypes.func.isRequired,
-};
 
 export default ResumePage;

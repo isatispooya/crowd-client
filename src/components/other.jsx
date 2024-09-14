@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
+
 
 const getFormData = (data) => {
   const formData = new FormData();
@@ -49,7 +51,8 @@ const Other = () => {
     announcement_of_changes_capital: null,
     announcement_of_changes_managers: null,
   });
-
+  // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep();
 
   // eslint-disable-next-line no-shadow
   const fetchData = async (cartId) => {
@@ -100,6 +103,8 @@ if (data && !isLoading){
       });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
+      // بعد از ارسال موفقیت‌آمیز، به مرحله بعدی بروید
+      incrementPage();
     } catch (error) {
       console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import { CheckCircle, RadioButtonUnchecked, Lens } from '@mui/icons-material';
 import ResumePage from 'src/sections/resume/Page/ResumePage';
 import ContractPage from 'src/module/contract/page';
 import UseCartId from 'src/hooks/use-cartId';
+import useNavigateStep from 'src/hooks/use-navigate-step';
 import CardList from './ListCard';
 import Form from './form';
 import ManegersDetails from './manegersDetails';
@@ -27,38 +28,35 @@ const steps = [
   'سهامداران',
   'سایر موارد',
   'اعتبارسنجی',
-  ' سوء پیشینه',
-  'قرارداد عاملیت'
+  'سوء پیشینه',
+  'قرارداد عاملیت',
 ];
 
 const Sterpercrowd = () => {
-  const {setCartId} = UseCartId()
-  const [activeStep, setActiveStep] = useState(0);
-  const [cardSelected, setCardSelected] = useState(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const { setCartId } = UseCartId();
   const [isCompleted, setIsCompleted] = useState(false);
-
-
+  const [cardSelected, setCardSelected] = useState(null); // وضعیت انتخاب کارت
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); // وضعیت بررسی احراز هویت
+  const navigate = useNavigate();
   const access = getCookie('access');
+  const { page: activeStep, incrementPage, changePage } = useNavigateStep(); // هوک برای مدیریت مراحل
 
-  
-
-
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) {
-      setIsCompleted(true);
+  // اثر برای بررسی احراز هویت
+  useEffect(() => {
+    if (!access) {
+      navigate('/login');
     } else {
-      setActiveStep((prevStep) => prevStep + 1);
+      setIsCheckingAuth(false); // دسترسی درست است، ادامه بده
     }
-  };
+  }, [access, navigate]);
 
+  // مدیریت کلیک بر روی هر مرحله
   const handleStepClick = (stepIndex) => {
-
-      setActiveStep(stepIndex);
-      setIsCompleted(false);
-
+    changePage(stepIndex); // به مرحله انتخاب شده برو
+    setIsCompleted(false); // اتمام مراحل لغو شود
   };
 
+  // آیکون مرحله
   const getStepIcon = (index) => {
     if (activeStep > index) {
       return (
@@ -75,43 +73,41 @@ const Sterpercrowd = () => {
     );
   };
 
+  // محتوای هر مرحله را برمی‌گرداند
   const renderStepContent = (step) => {
     if (isCompleted) {
-      return <CompletionMessage />;
+      return <CompletionMessage />; // اگر مراحل کامل شده باشد، پیام اتمام نمایش داده شود
     }
 
     switch (step) {
       case 0:
         return (
           <CardList
-          setCartId={setCartId}
+            setCartId={setCartId}
             setCardSelected={setCardSelected}
-         
-
+            incrementPage={incrementPage}
           />
         );
       case 1:
         return (
           <Form
-
-            cardSelected={cardSelected}
-          
+            setCartId={setCartId} incrementPage={incrementPage}
           />
         );
       case 2:
-        return <ManegersDetails cardSelected={cardSelected}  id={cardSelected} />;
+        return <ManegersDetails setCartId={setCartId} incrementPage={incrementPage} />;
       case 3:
-        return <ResumePage id={cardSelected} />;
+        return <ResumePage cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 4:
-        return <Shareholders cardSelected={cardSelected}  />;
+        return <Shareholders cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 5:
-        return <Other cardSelected={cardSelected}  />;
+        return <Other cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 6:
-        return <Validation cardSelected={cardSelected}  />;
+        return <Validation cardSelected = { cardSelected } incrementPage = { incrementPage } />;
       case 7:
-        return <Clearify cardSelected={cardSelected}  />;
-      case 8 : 
-        return  <ContractPage cardSelected={cardSelected} /> ;
+        return <Clearify cardSelected={cardSelected} incrementPage={incrementPage} />;
+      case 8:
+        return <ContractPage cardSelected={cardSelected} incrementPage={incrementPage} />;
       default:
         return <CompletionMessage />;
     }
@@ -126,18 +122,11 @@ const Sterpercrowd = () => {
 
   return (
     <div className="bg-gray-50 mx-auto p-6 rounded-lg shadow-2xl">
+      
       <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full">
         {steps.map((label, index) => (
-          <Step
-            key={index}
-            className="flex flex-col items-center"
-
-          >
-            <StepLabel
-              icon={getStepIcon(index)}
-              onClick={() => handleStepClick(index)}
-
-            >
+          <Step key={index} className="flex flex-col items-center">
+            <StepLabel icon={getStepIcon(index)} onClick={() => handleStepClick(index)}>
               <span className="block text-lg md:text-base font-semibold text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105">
                 {label}
               </span>

@@ -83,17 +83,16 @@ const FormContract = ()=> {
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
-          <InputPercent value={farabourseFee} setValue={setFarabourseFee} label="کارمزد فرابورس" />
-          <InputPercent value={publicationFee} setValue={setPublicationFee} label="کارمزد انتشار" />
-          <InputPercent value={serviceFee} setValue={setServiceFee} label="کارمزد ارائه خدمات" />
-          <InputPercent value={createFee} setValue={setCreateFee} label="کارمزد طراحی" />
+          <InputPercent value={farabourseFee} setValue={setFarabourseFee} label="درصد کارمزد فرابورس" />
+          <InputPercent value={publicationFee} setValue={setPublicationFee} label="درصد کارمزد انتشار" />
+          <InputPercent value={serviceFee} setValue={setServiceFee} label="درصد کارمزد ارائه خدمات" />
+          <InputPercent value={createFee} setValue={setCreateFee} label="درصد کارمزد طراحی" />
           <InputPercent
             value={swimmingPercentage}
             setValue={setSwimmingPercentage}
             label="درصد شناوری تامین مالی "
           />
-          <InputPercent value={rateProfit} setValue={setRateProfit} label=" سود مشارکت اسمی" />
-          <InputPercent value={rateProfit} setValue={setRateProfit} label=" سود مشارکت اسمی" />
+          <InputPercent value={rateProfit} setValue={setRateProfit} label="درصد سود مشارکت اسمی" />
           <SelectInput
             label="نوع ضمانت"
             value={guarantee}
