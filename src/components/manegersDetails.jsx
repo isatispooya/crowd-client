@@ -154,16 +154,8 @@ const ManegersDetails = () => {
                 <FaTimes />
               </button>
             )}
-            {/* <Fildemnager index={index} field={field} setField={setField} /> */}
-            {renderInputs(
-        'name',
-        'نام و نام خانوادگی',
-        'text',
-        field ,
-        setField ,
-        [],
-        false
-      )}
+            <Fildemnager index={index} field={field} setField={setField} />
+
           </div>
         ))}
 
