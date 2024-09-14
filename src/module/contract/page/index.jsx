@@ -1,5 +1,5 @@
 import React from 'react';
-import FormContract from '../feature.jsx/formContract';
+import FormContract from '../feature/formContract';
 
 const Contractpage = () => {
     console.log(";;;")

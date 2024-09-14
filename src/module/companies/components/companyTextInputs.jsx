@@ -17,8 +17,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     setLocalData({ ...localData, [name]: cleanedValue });
   };
 
-
-  //  console.log("localData" ,  localData )
+  console.log('localData', localData);
   return (
     <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">
@@ -61,7 +60,6 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           disabled={localData.Lock_nationalid}
           value={localData.nationalid}
           onChange={InputValues}
-          
           maxLength={11}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
