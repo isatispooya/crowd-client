@@ -27,7 +27,13 @@ const FormContract = ()=> {
       guarantee,
       period,
     };
-    mutateAsync(data);
+    
+    try {
+       mutateAsync(data);
+      toast.success('اطلاعات با موفقیت ارسال شد.');
+    } catch (error) {
+      toast.error('خطا در ارسال اطلاعات.');
+    }
   };
 
   const guaranteeOptions = [
@@ -61,17 +67,16 @@ const FormContract = ()=> {
   }, [dataDetail]);
 
 
-    useEffect(() => {
+  useEffect(() => {
     if (errorCreate) {
       toast.error('خطا در ارسال اطلاعات.');
-    } else{
-      toast.success('اطلاعات با موفقیت ارسال شد.');
     }
   }, [errorCreate]);
 
   if (isLoadingDetail || isLoadingCreate) {
     return <p>در حال بارگذاری ...</p>;
   }
+  
   
 
   return (
