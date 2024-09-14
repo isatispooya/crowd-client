@@ -14,7 +14,8 @@ import { Message } from './massage';
 
 export default function Form() {
   const { cartId, setCartId } = UseCartId()
-  
+  console.log("id",cartId)
+
   // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
 
@@ -25,6 +26,7 @@ export default function Form() {
 
   const mutation = useMutation({ mutationFn: () => createCart(localData, incrementPage) });
   const mutationUpdate = useMutation({
+
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
 
@@ -91,9 +93,10 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!cartId) {
-      mutation.mutateAsync();
-      setCartId(cartId)
-      console.log(cartId)
+      await mutation.mutateAsync();
+      // setCartId(mutation.data.data.id)
+      console.log('ss',mutation.data)
+      // console.log(cartId)
 
 
     } else {
