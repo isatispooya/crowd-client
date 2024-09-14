@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +17,8 @@ import Shareholders from './shareholders';
 import CompletionMessage from './finishLine';
 import Validation from './Validation';
 import Other from './other';
+
+
 
 const steps = [
   'انتخاب یا ایجاد',
@@ -115,6 +117,9 @@ const Sterpercrowd = () => {
     return null;
   }
 
+
+
+
   return (
     <div className="bg-gray-50 mx-auto p-6 rounded-lg shadow-2xl">
       
@@ -129,6 +134,8 @@ const Sterpercrowd = () => {
           </Step>
         ))}
       </Stepper>
+ 
+
       <div className="mt-12">{renderStepContent(activeStep)}</div>
       <ToastContainer />
     </div>

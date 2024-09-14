@@ -68,19 +68,49 @@ const CardList = () => {
 
     switch (status) {
       case '1':
-        return <Chip icon={<FaClock style={iconStyle} />} label="بررسی شرکت" color="warning" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaClock style={iconStyle} />}
+            label="بررسی شرکت"
+            color="warning"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       case '2':
-        return <Chip icon={<FaCheckCircle style={iconStyle} />} label="بررسی مدیران" color="success" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaCheckCircle style={iconStyle} />}
+            label="بررسی مدیران"
+            color="success"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       case '3':
       case '4':
       case '5':
-        return <Chip icon={<FaQuestionCircle style={iconStyle} />} label="بررسی سهامداران" color="info" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaQuestionCircle style={iconStyle} />}
+            label="بررسی سهامداران"
+            color="info"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
       default:
-        return <Chip icon={<FaQuestionCircle style={iconStyle} />} label="نامشخص" color="default" variant="outlined" style={chipStyles} />;
+        return (
+          <Chip
+            icon={<FaQuestionCircle style={iconStyle} />}
+            label="نامشخص"
+            color="default"
+            variant="outlined"
+            style={chipStyles}
+          />
+        );
     }
   };
-
-
 
   return (
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
@@ -144,7 +174,6 @@ const CardList = () => {
     </div>
   );
 };
-
 
 
 export default CardList;
