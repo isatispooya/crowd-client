@@ -3,6 +3,8 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import Plan from 'src/module/plan/page/plan';
+import Plans from 'src/module/plan/page/plans';
 import WalletPage from 'src/module/wallet/pages/walletPage';
 
 
