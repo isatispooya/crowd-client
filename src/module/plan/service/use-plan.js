@@ -11,7 +11,8 @@ const getPlanData = async (id) => {
       'Content-Type': 'application/json',
     },
   });
-  return response.data;
+  console.log(response.data)
+  return response.data.data;
   
 };
 

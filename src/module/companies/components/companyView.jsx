@@ -47,7 +47,7 @@ export default function Form() {
     if (!cartId) {
       mutation.mutateAsync();
       setCartId(cartId);
-      console.log(cartId);
+      console.log("tg",cartId);
     } else {
       mutationUpdate.mutateAsync();
     }

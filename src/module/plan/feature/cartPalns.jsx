@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import {  Grid, Typography } from '@mui/material';
+import Loader from 'src/components/loader';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
 
@@ -16,7 +17,7 @@ const CartPlans = () => {
     return <p>هیچ درخواستی یافت نشد.</p>;
   }
   if (isLoading) {
-    return <p>isLoading.</p>;
+    return <Loader />;
   }
 
 
@@ -44,9 +45,9 @@ const CartPlans = () => {
           description={item.description}
           planStatus={item.plan_status}
           activityField={item.activity_field}
-          remainingDays={item.remainingDays}
+          remainingDays={item.remaining_days}
           marketer={item.marketer}
-          symbol={item.status}
+          symbol={item.symbol}
           faraboursLink={item.farabours_link}
           applicantFundingPercentage={item.applicant_funding_percentage}
           nominalPriceCertificate={item.nominal_price_certificate}
