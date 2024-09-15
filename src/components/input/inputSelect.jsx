@@ -21,6 +21,5 @@ const SelectInput = ({ label, value, disabled, options, handleSetValue }) => (
     </select>
   </div>
 );
-  
-  
-  export default SelectInput
+
+export default SelectInput;

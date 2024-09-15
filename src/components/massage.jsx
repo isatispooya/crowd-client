@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
 
-import SmallLoader from './smLoader';
+import SmallLoader from './SmallLoader';
 
 const fetchMessage = async (cartId) => {
 

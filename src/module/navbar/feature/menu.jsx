@@ -1,21 +1,19 @@
-import { Stack, ListItemButton, alpha, Box} from '@mui/material'
-import SvgColor from 'src/components/svg-color';
-import useAuth from '../service/useAuth'
+import { Stack, ListItemButton, alpha, Box } from '@mui/material';
+import SvgColor from 'src/services/svg-color';
+import useAuth from '../service/useAuth';
 import navConfig from '../config/config-navigation';
 import NavItem from './navItem';
 
+const Menu = () => {
+  const { logout } = useAuth();
 
-
-const Menu = () =>{
-  const {logout} = useAuth()
-
-  return(
+  return (
     <Stack component="nav" spacing={0.5} sx={{ px: 2, color: 'black' }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
       ))}
       <ListItemButton
-        onClick={()=>logout()}
+        onClick={() => logout()}
         sx={{
           minHeight: 44,
           borderRadius: 0.75,
@@ -39,7 +37,6 @@ const Menu = () =>{
       </ListItemButton>
     </Stack>
   );
-}
+};
 
-
-export default Menu
+export default Menu;

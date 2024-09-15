@@ -16,7 +16,7 @@ import Clearify from '../module/histories/components/clearify';
 import Shareholders from '../module/shareholders/components/shareholders';
 import CompletionMessage from './finishLine';
 import Validation from '../module/validations/Validation';
-import Other from './other';
+import Other from '../module/otherUploads/components/other';
 
 const steps = [
   'انتخاب یا ایجاد',

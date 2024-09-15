@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 // import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
+import Iconify from 'src/services/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ export default function UserTableRow({
         <TableCell>{role}</TableCell>
 
         <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
-{/* 
+        {/* 
         <TableCell>
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
         </TableCell> */}

@@ -6,7 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 
 import { fNumber } from 'src/utils/format-number';
 
-import Chart, { useChart } from 'src/components/chart';
+import Chart, { useChart } from 'src/services/chart';
 
 // ----------------------------------------------------------------------
 
