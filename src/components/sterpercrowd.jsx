@@ -12,10 +12,10 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import CardList from '../module/cards/components/ListCard';
 import Form from '../module/companies/components/companyView';
 import ManegersDetails from '../module/manegers/components/manegersDetails';
-import Clearify from './clearify';
-import Shareholders from './shareholders';
+import Clearify from '../module/histories/components/clearify';
+import Shareholders from '../module/shareholders/components/shareholders';
 import CompletionMessage from './finishLine';
-import Validation from './Validation';
+import Validation from '../module/validations/Validation';
 import Other from './other';
 
 const steps = [

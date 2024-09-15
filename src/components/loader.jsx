@@ -9,7 +9,7 @@ const Loader = () => {
           <div className="w-32 h-20 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"/>
           <div className="w-32 h-20 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"/>
         </div>
-        <h1 className="text-4xl text-gray-400 ">لطفا شکیبا باشید</h1>
+        {/* <h1 className="text-4xl text-gray-400 ">لطفا شکیبا باشید</h1> */}
       </div>
     
   );

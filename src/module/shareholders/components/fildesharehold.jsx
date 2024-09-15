@@ -58,7 +58,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               onInput={(e) => {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, '');
                 if (e.target.value.split('.').length > 2) {
-                  e.target.value = e.target.value.slice(0, -1); // Prevent multiple decimals
+                  e.target.value = e.target.value.slice(0, -1); 
                 }
               }}
               max={100}

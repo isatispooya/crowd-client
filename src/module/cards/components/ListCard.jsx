@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { FaPlus } from 'react-icons/fa';
+
 import { Button, Tooltip } from '@mui/material';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
@@ -8,25 +8,20 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
 import { useFetchCards } from '../hooks/useFetchCards';
 import { formatNumber } from '../../../utils/formatNumbers';
+import NewCard from './newCard';
 
 const CardList = () => {
   const { cardId, setCartId } = UseCartId(null);
   const access = getCookie('access');
   const { incrementPage } = useNavigateStep();
 
-  // Use the custom hook
+
   const { data: cards = [], isLoading, error } = useFetchCards(access);
 
   const handleCardClick = (id, status) => {
     incrementPage();
     setCartId(+id);
     setCartId(status);
-  };
-
-  const handleNewCardClick = () => {
-    setCartId(null);
-    incrementPage();
-    setCartId(+cardId);
   };
 
   if (isLoading) {
@@ -44,17 +39,7 @@ const CardList = () => {
         </div>
         <div className="p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-24 xl:gap-8 justify-center">
-            <div
-              className="bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-center items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px]"
-              onClick={handleNewCardClick}
-              tabIndex={0}
-              role="button"
-              aria-label="افزودن کارت جدید"
-            >
-              <FaPlus className="text-5xl text-blue-700 mb-4" />
-              <h2 className="text-2xl font-bold text-gray-800">افزودن لیست جدید</h2>
-            </div>
-
+            <NewCard />
             {cards.length > 0 ? (
               cards.map((card) => (
                 <div

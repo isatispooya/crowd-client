@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
+import useNavigateStep from 'src/hooks/use-navigate-step'; 
 
 
 const getFormData = (data) => {

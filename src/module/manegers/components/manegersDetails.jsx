@@ -7,17 +7,11 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Button,
-} from '@mui/material';
+
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Fildemnager from 'src/module/manegers/components/fildemaneger';
+import ConfirmationDialog from 'src/components/dialogMsg';
 
 
 const ManegersDetails = () => {
@@ -180,20 +174,13 @@ const ManegersDetails = () => {
         </div>
       </div>
 
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle sx={{ textAlign: 'center' }}>تایید حذف</DialogTitle>
-        <DialogContent>
-          <DialogContentText>آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="primary">
-            انصراف
-          </Button>
-          <Button onClick={handleDeleteConfirm} color="error">
-            حذف
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)} 
+        onConfirm={handleDeleteConfirm} 
+        title="تایید حذف"
+        message="آیا مطمئن هستید که می‌خواهید این فرم را حذف کنید؟"
+      />
     </div>
   );
 };

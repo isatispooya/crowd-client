@@ -1,26 +1,13 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/button-has-type */
+// Shareholders.js
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { useQuery } from '@tanstack/react-query';
-import { getCookie } from 'src/api/cookie';
-import { OnRun } from 'src/api/OnRun';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
-
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Button,
-} from '@mui/material';
-import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
+import UseCartId from 'src/hooks/use-cartId';
+import Loader from 'src/components/loader';
+import ConfirmationDialog from 'src/components/dialogMsg';
+import useShareholders from '../hooks/fetchMangers';
 import FileSharehold from './fildesharehold';
 
 const Shareholders = () => {
@@ -31,32 +18,10 @@ const Shareholders = () => {
     national_id: '',
   };
 
-  const [validite, setValidite] = useState([singleFile]);
+  const { validite, setValidite, isLoading, postShareholders } = useShareholders(cartId);
   const [openDialog, setOpenDialog] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const { incrementPage } = useNavigateStep();
-
-  const fetchManager = async (cartId) => {
-    const access = await getCookie('access');
-    if (cartId) {
-      const response = await axios.get(`${OnRun}/api/shareholder/${cartId}/`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
-      if (response.data.data && response.data.data.length > 0) {
-        setValidite(response.data.data);
-      }
-      return response.data;
-    }
-    return null;
-  };
-
-  const { isLoading } = useQuery({
-    queryKey: ['fetchMessage', cartId],
-    queryFn: () => fetchManager(cartId),
-  });
-  if (isLoading) return <p className="text-gray-600 animate-pulse">در حال بارگذاری...</p>;
 
   const handleAdd = () => {
     setValidite((prev) => [...prev, singleFile]);
@@ -75,32 +40,21 @@ const Shareholders = () => {
   };
 
   const handlePost = async () => {
-    const access = await getCookie('access');
     try {
-      await axios.post(
-        `${OnRun}/api/shareholder/${cartId}/`,
-        { shareholder: validite },
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      toast.success('اطلاعات با موفقیت ارسال شد');
-      // // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
+      await postShareholders();
       incrementPage();
     } catch (error) {
-      console.error('خطا :', error);
-      toast.error('خطا در ارسال اطلاعات');
+      console.error('خطا در ارسال اطلاعات:', error);
     }
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen p-8">
       <ToastContainer />
 
-      <div className="w-full max-w-4xl p-6 rounded-lg shadow-2xl bg-white ">
+      <div className="w-full max-w-4xl p-6 rounded-lg shadow-2xl bg-white">
         <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">سهامداران</h1>
         </div>
@@ -110,6 +64,7 @@ const Shareholders = () => {
               <div className="relative p-4 rounded-lg bg-white shadow-md">
                 {validite.length > 1 && (
                   <button
+                    type="button"
                     onClick={() => handleRemove(index)}
                     className="absolute top-0 left-0 mt-2 ml-2 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition duration-300"
                   >
@@ -141,24 +96,15 @@ const Shareholders = () => {
         </div>
       </div>
 
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle sx={{ textAlign: 'center' }}>تایید حذف</DialogTitle>
-        <DialogContent>
-          <DialogContentText>آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="primary">
-            انصراف
-          </Button>
-          <Button onClick={handleDeleteConfirm} color="error">
-            حذف
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onConfirm={handleDeleteConfirm}
+        title="تایید حذف"
+        message="آیا مطمئن هستید که می‌خواهید این فرم را حذف کنید؟"
+      />
     </div>
   );
 };
-
-
 
 export default Shareholders;

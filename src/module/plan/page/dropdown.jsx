@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { ParsHTML } from "../../../utilit/parsHTML";
+import { ParsHTML } from "../../../utils/parsHTML";
 
 const DropDown = ({ tab }) => {
   const [expanded, setExpanded] = useState(null);

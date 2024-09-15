@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import DOMPurify from "dompurify";
 
 export const ParsHTML = (content) => {

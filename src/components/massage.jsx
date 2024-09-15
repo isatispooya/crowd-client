@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
 
+import SmallLoader from './smLoader';
+
 const fetchMessage = async (cartId) => {
 
   const access = await getCookie('access');
@@ -32,7 +34,7 @@ export const Message = () => {
   });
 
   if (isLoading)
-    return <p className="text-gray-600 animate-pulse">در حال بارگذاری...</p>;
+    return <SmallLoader/>;
   if (error)
     return <p className="text-red-500">خطایی رخ داده است</p>;
 
@@ -42,6 +44,7 @@ export const Message = () => {
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg  shadow-inner">
+      
       <div className="flex items-center">
         <AiOutlineInfoCircle className="text-blue-700 ml-2 mr-0 text-3xl" />
         <p className="text-gray-700 font-semibold"> پیام:</p>
