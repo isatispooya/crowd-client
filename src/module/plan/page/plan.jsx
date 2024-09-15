@@ -102,7 +102,7 @@ const Plan = () => {
           <div>Loading...</div>
         )}
 
-        <div className="mt-8 flex flex-col items-center -mt-36 md:mt-0">
+        <div className="mt-8 flex flex-col items-center  md:mt-0">
          کارتتتتتت
         </div>
       </div>
