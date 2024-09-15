@@ -1,14 +1,5 @@
+const WalletBerif = () => {
+  return <div>ddd</div>;
+};
 
-
-
-
-const WalletBerif = () =>{
-    return(
-        <div>
-            ddd
-        </div>
-    )
-}
-
-
-export default WalletBerif
+export default WalletBerif;
