@@ -21,7 +21,7 @@ const AgencyContract = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData); // Handle form submission
+    // console.log(formData); 
   };
 
   return (

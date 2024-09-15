@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,16 +9,14 @@ import ResumePage from 'src/sections/resume/Page/ResumePage';
 import ContractPage from 'src/module/contract/page';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
-import CardList from './ListCard';
-import Form from './form';
-import ManegersDetails from './manegersDetails';
-import Clearify from './clearify';
-import Shareholders from './shareholders';
+import CardList from '../module/cards/components/ListCard';
+import Form from '../module/companies/components/companyView';
+import ManegersDetails from '../module/manegers/components/manegersDetails';
+import Clearify from '../module/histories/components/clearify';
+import Shareholders from '../module/shareholders/components/shareholders';
 import CompletionMessage from './finishLine';
-import Validation from './Validation';
+import Validation from '../module/validations/Validation';
 import Other from './other';
-
-
 
 const steps = [
   'انتخاب یا ایجاد',
@@ -89,11 +87,7 @@ const Sterpercrowd = () => {
           />
         );
       case 1:
-        return (
-          <Form
-            setCartId={setCartId} incrementPage={incrementPage}
-          />
-        );
+        return <Form setCartId={setCartId} incrementPage={incrementPage} />;
       case 2:
         return <ManegersDetails setCartId={setCartId} incrementPage={incrementPage} />;
       case 3:
@@ -103,7 +97,7 @@ const Sterpercrowd = () => {
       case 5:
         return <Other cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 6:
-        return <Validation cardSelected = { cardSelected } incrementPage = { incrementPage } />;
+        return <Validation cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 7:
         return <Clearify cardSelected={cardSelected} incrementPage={incrementPage} />;
       case 8:
@@ -117,12 +111,8 @@ const Sterpercrowd = () => {
     return null;
   }
 
-
-
-
   return (
     <div className="bg-gray-50 mx-auto p-6 rounded-lg shadow-2xl">
-      
       <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full">
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
@@ -134,7 +124,6 @@ const Sterpercrowd = () => {
           </Step>
         ))}
       </Stepper>
- 
 
       <div className="mt-12">{renderStepContent(activeStep)}</div>
       <ToastContainer />

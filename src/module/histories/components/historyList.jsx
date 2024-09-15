@@ -3,33 +3,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
-
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
-import ValidateRow from './validateRow';
+import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 
-const ValditionList = () => {
+const HistoryList = () => {
   const { cartId } = UseCartId();
-  const [validateList, setValidateList] = useState([]);
+  const [historyList, setHistoryList] = useState([]);
   // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
-
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
-      const response = await axios.get(`${OnRun}/api/validation/${cartId}/`, {
+      const response = await axios.get(`${OnRun}/api/history/${cartId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
-      console.log("vvvv", response.data)
-      if (response.data) {
-        setValidateList(response.data.managers);
+      if (response.data && response.data.manager) {
+        setHistoryList(response.data.manager);
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
@@ -40,28 +37,30 @@ const ValditionList = () => {
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-
-      formData.append('file_validation', validateList.file_validation || '');
-
-      validateList.forEach((element, index) => {
-        if (element.file_manager) {
-          formData.append(`managers[${index}][file_manager]`, element.file_manager);
+      historyList.forEach((element) => {
+        if (element.file) {
+          formData.append(element.national_code, element.file);
         }
-        formData.append(`managers[${index}][name]`, element.name);
-        formData.append(`managers[${index}][national_code]`, element.national_code);
       });
 
+      const access = await getCookie('access');
+      await axios.post(`${OnRun}/api/history/${cartId}/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${access}`,
+        },
+        maxBodyLength: Infinity,
+      });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
-      incrementPage(); // انتقال به مرحله بعدی
+
+      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
+      incrementPage();
     } catch (error) {
-      console.error('خطا در ارسال اطلاعات:', error);
+      console.error('خطا :', error);
       toast.error('خطا در ارسال اطلاعات');
     }
   };
-
-
-
 
   useEffect(() => {
     fetchManagerData();
@@ -70,13 +69,14 @@ const ValditionList = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-700">اعتبار سنجی</h1>
+        <h1 className="text-2xl font-bold text-gray-700">سوء پیشینه</h1>
       </div>
       <ToastContainer />
-      <div className="rounded-lg shadow-inner">
-        {validateList.map((item, index) => (
+
+      <div className="   rounded-lg  shadow-inner">
+        {historyList.map((item, index) => (
           <div key={index}>
-            <ValidateRow index={index} list={validateList} item={item} setList={setValidateList} />
+            <HistoryRow index={index} list={historyList} item={item} setList={setHistoryList} />
           </div>
         ))}
       </div>
@@ -92,4 +92,4 @@ const ValditionList = () => {
   );
 };
 
-export default ValditionList;
+export default HistoryList;

@@ -3,31 +3,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
-import HistoryRow from './historyRow'
+import ValidateRow from './validateRow'; 
 import UseCartId from 'src/hooks/use-cartId';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
 
-
-const HistoryList = () => {
-  const {cartId} = UseCartId()
-  const [historyList, setHistoryList] = useState([]);
+const ValditionList = () => {
+  const { cartId } = UseCartId();
+  const [validateList, setValidateList] = useState([]);
   // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
+
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
-      const response = await axios.get(`${OnRun}/api/history/${cartId}/`, {
+      const response = await axios.get(`${OnRun}/api/validation/${cartId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
-      if (response.data && response.data.manager) {
-        setHistoryList(response.data.manager);
+      console.log("vvvv", response.data)
+      if (response.data) {
+        setValidateList(response.data.managers);
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
@@ -35,53 +37,46 @@ const HistoryList = () => {
     }
   };
 
-
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      historyList.forEach((element) => {
-        if (element.file) {
-          formData.append(element.national_code, element.file);
+
+      formData.append('file_validation', validateList.file_validation || '');
+
+      validateList.forEach((element, index) => {
+        if (element.file_manager) {
+          formData.append(`managers[${index}][file_manager]`, element.file_manager);
         }
+        formData.append(`managers[${index}][name]`, element.name);
+        formData.append(`managers[${index}][national_code]`, element.national_code);
       });
 
-      const access = await getCookie('access');
-      await axios.post(`${OnRun}/api/history/${cartId}/`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${access}`,
-        },
-        maxBodyLength: Infinity,
-      });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
-
-      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
-      incrementPage();
+      incrementPage(); // انتقال به مرحله بعدی
     } catch (error) {
-      console.error('خطا :', error);
+      console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
     }
   };
+
+
 
 
   useEffect(() => {
     fetchManagerData();
   }, []);
 
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-700">سوء پیشینه</h1>
+        <h1 className="text-2xl font-bold text-gray-700">اعتبار سنجی</h1>
       </div>
       <ToastContainer />
-
-      <div className="   rounded-lg  shadow-inner">
-        {historyList.map((item, index) => (
+      <div className="rounded-lg shadow-inner">
+        {validateList.map((item, index) => (
           <div key={index}>
-            <HistoryRow index={index} list={historyList} item={item} setList={setHistoryList} />
-           
+            <ValidateRow index={index} list={validateList} item={item} setList={setValidateList} />
           </div>
         ))}
       </div>
@@ -90,7 +85,6 @@ const HistoryList = () => {
           onClick={handleSubmit}
           className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
         >
-          
           ثبت
         </button>
       </div>
@@ -98,5 +92,4 @@ const HistoryList = () => {
   );
 };
 
-
-export default HistoryList;
+export default ValditionList;

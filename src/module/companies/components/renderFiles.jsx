@@ -31,7 +31,7 @@ export const renderFileSection = (fileKey, label, linkText, localData, setLocalD
     ) : (
       <div>
 
-        <div className="flex items-center rounded-lg shadow-lg p-5 bg-gray-100">
+        <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
           <label className="flex   items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             انتخاب فایل
             <BsCloudUploadFill />

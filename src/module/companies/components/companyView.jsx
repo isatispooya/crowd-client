@@ -10,7 +10,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import UseCartId from 'src/hooks/use-cartId';
 import CompanyInputs from 'src/module/companies/components/companyTextInputs';
 import CompanyUploads from 'src/module/companies/components/companyUploadInputs';
-import { Message } from './massage';
+import { Message } from '../../../components/massage';
 
 export default function Form() {
   const { cartId, setCartId } = UseCartId();
@@ -58,7 +58,7 @@ export default function Form() {
       <div className="bg-gray-50  rounded-md mb-10 shadow-inner ">
         <Message cartId={cartId} />
       </div>
-       <ToastContainer/>
+      <ToastContainer />
       <div className="mb-5">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات شرکت</h1>
