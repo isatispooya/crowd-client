@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Scrollbar from 'src/components/scrollbar';
+import Scrollbar from 'src/services/scrollbar';
 import { Table, TableBody, TableContainer } from '@mui/material';
 import UserTableHead from 'src/sections/user/user-table-head';
 import { users } from 'src/_mock/user';

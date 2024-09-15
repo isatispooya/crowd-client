@@ -17,8 +17,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import { fToNow } from 'src/utils/format-time';
 
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
+import Iconify from 'src/services/iconify';
+import Scrollbar from 'src/services/scrollbar';
 
 // ----------------------------------------------------------------------
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Scrollbar from 'src/components/scrollbar';
+import Scrollbar from 'src/services/scrollbar';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 import axios from 'axios';

@@ -10,7 +10,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import { bgBlur } from 'src/theme/css';
 
-import Iconify from 'src/components/iconify';
+import Iconify from 'src/services/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ export default function Searchbar() {
   };
 
   return (
-    <ClickAwayListener onClickAway={handleClose} >
+    <ClickAwayListener onClickAway={handleClose}>
       <div>
         {!open && (
           <IconButton onClick={handleOpen}>

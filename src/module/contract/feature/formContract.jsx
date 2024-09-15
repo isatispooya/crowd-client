@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import InputPercent from 'src/components/input/inputPercent';
 import SelectInput from 'src/components/input/inputSelect';
 import { toast, ToastContainer } from 'react-toastify';
-import useContract from '../service/use-contract';
+import useContract from '../hooks/use-contract';
 
 const FormContract = ()=> {
   const [farabourseFee, setFarabourseFee] = useState(1);
