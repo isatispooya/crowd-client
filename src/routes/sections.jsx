@@ -31,7 +31,7 @@ export default function Router() {
       children: [
         { element: <IndexPage />, index: true },
         { path: 'plans', element: <Plans /> },
-        { path: 'plan/:slug', element: <Plan /> },
+        { path: 'plan/:id', element: <Plan /> },
         { path: 'process', element: <ProcessProjectPage /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
         { path: 'wallet', element: <WalletPage /> },

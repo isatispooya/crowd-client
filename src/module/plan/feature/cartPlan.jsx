@@ -1,82 +1,62 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Card, CardContent, Grid, Typography, CardActions } from '@mui/material';
 import PropTypes from 'prop-types';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // باید مطمئن شوید که این کامپوننت نصب شده است
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import { useNavigate } from 'react-router-dom';
 
-const CartPlan = ({id, status, expert, title, createdDate, handledDate, trackingCode }) => {
+          
+const CartPlan = ({buoyancy,paymentPeriod,profit,picture,totalTime,fundedAmount,companyName,title,id,key,nominalPriceCertificate,applicantFundingPercentage,faraboursLink,symbol,marketer,remainingDays,activityField,planStatus,description}) => {
     const navigate = useNavigate ();
-  const getStatusIcon = (status) => {
-    if (status === 'تکمیل شده') {
-      return <CheckCircleIcon sx={{ color: 'green', marginLeft: '8px' }} />;
-    }
-    return <HourglassEmptyIcon sx={{ color: 'orange', marginLeft: '8px' }} />;
-  };
 
-  const getCardColor = (status) => status === 'تکمیل شده' ? 'green' : 'orange';
+ 
   const handleViewClick = () => {
     navigate(`/plan/${id}`); 
   };
+
+
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card
-        sx={{
-          padding: '16px',
-          borderRadius: '14px',
-          border: '8px solid',
-          borderColor: getCardColor(status),
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          minHeight: '450px',
-          maxWidth: '280px',
-        }}
-      >
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <Typography
-            sx={{
-              fontWeight: 'bold',
-              color: 'text.primary',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)',
-              marginBottom: '16px',
-            }}
-          >
-            {`عنوان: ${title}`}
-          </Typography>
-          <Typography variant="h6" color="primary">
-            {`کد پیگیری: ${trackingCode}`}
-          </Typography>
-          <Typography sx={{ color: 'gray', marginTop: '8px' }}>
-            {`تاریخ ایجاد: ${createdDate}`}
-          </Typography>
-          <Typography sx={{ color: 'gray', marginTop: '8px' }}>
-            {`تاریخ رسیدگی: ${handledDate}`}
-          </Typography>
-          <Typography
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold',
-              color: status === 'تکمیل شده' ? 'green' : 'orange',
-              marginTop: '8px',
-            }}
-          >
-            {getStatusIcon(status)}
-            {`وضعیت: ${status}`}
-          </Typography>
-          <Typography sx={{ marginTop: '8px' }}>{`کارشناس: ${expert}`}</Typography>
-        </CardContent>
-        <CardActions sx={{ justifyContent: 'center' }}>
-          <button onClick={handleViewClick} className="bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-lg">
-            مشاهده
-          </button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <div className="flex flex-wrap justify-center gap-6 bg-white p-4">
+     
+        <div key={key} className="shadow-md w-72 p-4 mt-18 rounded-md border bg-white">
+          <div className="relative h-40 w-full mb-4">
+            <image
+              src={picture}
+              alt={picture}
+ 
+            />
+            <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">
+              {profit}
+            </div>
+          </div>
+          <h3 className="font-bold text-lg mb-2 h-16">{title}</h3>
+          <p className="text-base text-gray-800 mb-4">پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span></p>
+          <p className="text-base text-gray-800 mb-4"> مبلغ سرمایه‌گذاری: <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span></p>
+          <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4" style={{ description: 'ltr' }}>
+            {/* <div className="bg-blue-900 h-2.5 rounded-full" style={{ width: `${card.progress}%` }}></div> */}
+          </div>
+          <div className="flex justify-between items-center text-sm text-gray-600 mb-4 mt-4">
+            <p>سرمایه‌گذاری شده: <span className="text-sm text-gray-700 font-semibold">{card.investedAmount}</span></p>
+            <div className="h-6 w-px bg-gray-400 mx-2"></div> 
+            <p>تعداد سرمایه‌گذاران: <span className="text-sm text-gray-700 font-semibold">{card.investors} نفر</span></p>
+            <div className="h-6 w-px bg-gray-400 mx-2"></div> 
+            <p>پیش‌بینی سود: <span className="font-semibold text-gray-700">{card.profitRate}</span></p>
+          </div>
+          <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+            <p>{totalTime} روز تا پایان فرصت</p>
+            <button
+              className="bg-blue-900 text-white rounded-md px-4 py-2"
+              onClick={() => handleViewClick} 
+
+              >
+              جزییات طرح
+            </button>
+          </div>
+        </div>
+     
+    </div>
   );
 };
 

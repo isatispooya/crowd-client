@@ -2,33 +2,32 @@ import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
-const getPlanData = async (id) => {
+
+const getPlansData = async () => {
   const access = await getCookie('access');
 
-  const response = await api.get(`/api/plan/${id}/`, {
+  const response = await api.get(`/api/plan/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-  return response.data;
+  console.log("plafffn",response.data.data)
+  return response.data.data;
   
 };
 
 
-
-const usePlan = (id) => {
+const usePlans = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['plan', id],
-    queryFn: () => getPlanData(id),
-    enabled: !!id,   
+    queryKey: ['plans'],
+    queryFn: () => getPlansData(),
   });
-
   return {
     data,
     isLoading,
     error,
+    
   };
 };
-
-export default usePlan;
+export default usePlans;

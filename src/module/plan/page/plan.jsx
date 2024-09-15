@@ -1,110 +1,57 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/order */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-
-
-import DropDown from "./dropdown";
-import UsePlan from "../service/use-plan";
-import DOMPurify from "dompurify";
-import {
-    Tab,
-    TabPanel,
-    Tabs,
-    TabsBody,
-    TabsHeader,
-  } from "@material-tailwind/react";
-
-  
-const createMarkup = (html) => {
-  const sanitizedHtml = DOMPurify.sanitize(html);
-  return { __html: sanitizedHtml };
-};
+/* eslint-disable react/button-has-type */
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import usePlan from '../service/use-plan';
 
 const Plan = () => {
-  const { slug } = useParams(); // استفاده از useParams داخل کامپوننت
-  const [activeTab, setActiveTab] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const { data, isLoading } = UsePlan();
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setActiveTab(data[0].Title); // تنظیم اولین تب به صورت پیش‌فرض
-    }
-  }, [data]);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  const handleButtonClick = (content) => {
-    setSelectedItem(content.Name);
-  };
-
-;
+  const  {id} = useParams()
+  
+  const { data, isLoading, error } = usePlan(id);
+  const [activeTab, setActiveTab] = useState(0);
+  
 
   return (
-    <div className="mx-auto py-40 min-h-screen flex items-center justify-center">
-      <div
-        dir="rtl"
-        className="flex flex-col items-center rounded-lg md:max-w-8xl w-full h-auto bg-white p-8"
-      >
-        {data ? (
-          <Tabs value={activeTab}>
-            <TabsHeader
-              className="max-w-5xl mx-auto rounded-none bg-transparent flex justify-center"
-              indicatorProps={{
-                className:
-                  "bg-transparent border-b-2 border-indigo-600 shadow-none rounded-none",
-              }}
-            >
-              {data.map((tab, index) => (
-                <Tab
-                  key={index}
-                  value={tab.Title}
-                  onClick={() => setActiveTab(tab.Title)}
-                  id={tab.Title}
-                  className={
-                    activeTab === tab.Title
-                      ? "text-indigo-600 pb-2 md:text-base text-xs"
-                      : "text-gray-500 pb-2 md:text-base text-xs"
-                  }
-                >
-                  {tab.Title}
-                </Tab>
-              ))}
-            </TabsHeader>
-            <TabsBody
-              animate={{
-                initial: { y: 250 },
-                mount: { y: 0 },
-                unmount: { y: 250 },
-              }}
-              className="max-w-8xl mx-auto"
-            >
-              {data.map((tab, index) => (
-                <TabPanel key={index} index={tab.Title} value={tab.Title}>
-                  <div
-                    className="text-black p-4 rounded-lg bg-gray-100 shadow-inner"
-                    dangerouslySetInnerHTML={createMarkup(tab.Summer)}
-                  />
-                  <DropDown tab={tab} index={index} />
-                </TabPanel>
-              ))}
-            </TabsBody>
-          </Tabs>
-        ) : (
-          <div>Loading...</div>
-        )}
+    <div className="w-full max-w-4xl mx-auto mt-8 p-4">
+      <div className="border-b-2 border-gray-200">
+        <ul className="flex justify-center">
+            <li  className="mr-4">
+              <button
+                className={`py-2 px-4 ${
+                  activeTab === 0
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-500 hover:text-blue-600'
+                }`}
+                onClick={() => setActiveTab(0)}
+              >توضیحات</button>
+            </li>
+            <li  className="mr-4">
+              <button
+                className={`py-2 px-4 ${
+                  activeTab === 1
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-500 hover:text-blue-600'
+                }`}
+                onClick={() => setActiveTab(1)}
+              >محاسبه گر سود</button>
+            </li>
+        </ul>
+      </div>
 
-        <div className="mt-8 flex flex-col items-center -mt-36 md:mt-0">
-         کارتتتتتت
-        </div>
+      <div className="mt-6">
+        {
+            activeTab === 0 && (
+              <div  className="p-4 bg-gray-100 rounded-md shadow-inner">
+                <p className="text-gray-700">yhy</p>
+              </div>
+            )
+        }
+        {
+            activeTab === 1 && (
+              <div  className="p-4 bg-gray-100 rounded-md shadow-inner">
+                <p className="text-gray-700">trackingCode</p>
+              </div>
+            )
+        }
       </div>
     </div>
   );
