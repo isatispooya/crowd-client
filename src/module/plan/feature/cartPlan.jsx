@@ -1,93 +1,164 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Card, CardContent, Grid, Typography, CardActions } from '@mui/material';
 import PropTypes from 'prop-types';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // باید مطمئن شوید که این کامپوننت نصب شده است
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import { useNavigate } from 'react-router-dom';
+import { OnRun } from 'src/api/OnRun';
+import { Divider } from '@mui/material';
+import { formatNumber } from 'src/utils/formatNumbers';
 
-const CartPlan = ({id, status, expert, title, createdDate, handledDate, trackingCode }) => {
-    const navigate = useNavigate ();
-  const getStatusIcon = (status) => {
-    if (status === 'تکمیل شده') {
-      return <CheckCircleIcon sx={{ color: 'green', marginLeft: '8px' }} />;
-    }
-    return <HourglassEmptyIcon sx={{ color: 'orange', marginLeft: '8px' }} />;
-  };
+const CartPlan = ({
+  buoyancy,
+  paymentPeriod,
+  faraboursLink,
+  profit,
+  activityField,
+  remainingDays,
+  picture,
+  totalTime,
+  fundedAmount,
+  marketer,
+  companyName,
+  title,
+  id,
+  key,
+  description,
+  applicantFundingPercentage,
+  nominalPriceCertificate,
+  symbol,
+}) => {
+  const navigate = useNavigate();
 
-  const getCardColor = (status) => status === 'تکمیل شده' ? 'green' : 'orange';
   const handleViewClick = () => {
-    navigate(`/plan/${id}`); 
+    console.log('fgtyhjuiklo;pik');
+    navigate(`/plan/${id}`);
   };
+
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card
-        sx={{
-          padding: '16px',
-          borderRadius: '14px',
-          border: '8px solid',
-          borderColor: getCardColor(status),
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          minHeight: '450px',
-          maxWidth: '280px',
-        }}
-      >
-        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-          <Typography
-            sx={{
-              fontWeight: 'bold',
-              color: 'text.primary',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)',
-              marginBottom: '16px',
-            }}
-          >
-            {`عنوان: ${title}`}
-          </Typography>
-          <Typography variant="h6" color="primary">
-            {`کد پیگیری: ${trackingCode}`}
-          </Typography>
-          <Typography sx={{ color: 'gray', marginTop: '8px' }}>
-            {`تاریخ ایجاد: ${createdDate}`}
-          </Typography>
-          <Typography sx={{ color: 'gray', marginTop: '8px' }}>
-            {`تاریخ رسیدگی: ${handledDate}`}
-          </Typography>
-          <Typography
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold',
-              color: status === 'تکمیل شده' ? 'green' : 'orange',
-              marginTop: '8px',
-            }}
-          >
-            {getStatusIcon(status)}
-            {`وضعیت: ${status}`}
-          </Typography>
-          <Typography sx={{ marginTop: '8px' }}>{`کارشناس: ${expert}`}</Typography>
-        </CardContent>
-        <CardActions sx={{ justifyContent: 'center' }}>
-          <button onClick={handleViewClick} className="bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-lg">
-            مشاهده
+    <div className="flex mt-24 flex-wrap justify-center gap-6 bg-white p-4">
+      <div key={key} className="shadow-md w-72 p-4 mt-18 rounded-md border bg-white">
+        <div className="relative h-40 w-full mb-4">
+          <img
+            src={`${OnRun}/${picture}`}
+            alt={title}
+            className="h-full w-full object-cover rounded-md"
+          />
+          <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">
+            {profit}
+          </div>
+        </div>
+        <h3 className="font-bold text-lg mb-2 h-16">{title} </h3>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          مبلغ سرمایه‌گذاری:{' '}
+          <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          مدت زمان طرح: <span className="text-sm text-gray-600 font-semibold">{totalTime}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          نماد : <span className="text-sm text-gray-600 font-semibold">{symbol}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          بازارگردان : <span className="text-sm text-gray-600 font-semibold">{marketer}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          درصدتامین متقاضی :{' '}
+          <span className="text-sm text-gray-600 font-semibold">{applicantFundingPercentage}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          قیمت اسمی هر گواهی:{' '}
+          <span className="text-sm text-gray-600 font-semibold">{nominalPriceCertificate}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          لینک فرابورس :{' '}
+          <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
+        </p>
+        {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
+        <div className=" mt-8 flex flex-col mb-8 justify-center items-center">
+          <div className='flex'>
+            <p className="text-sm"> مبلغ سرمایه گذاری</p>
+            <input
+              type="range"
+              name="fundedAmount"
+              step={10000000000}
+              value={fundedAmount}
+              className="w-1/2"
+              readOnly
+            />
+          </div>
+          <span className="block text-gray-700 text-xs mt-4 text-center font-medium">
+            {formatNumber(fundedAmount)} ریال
+          </span>
+        </div>
+
+        <div className="flex justify-between items-center text-sm text-gray-600 mb-4 ">
+          <p>
+            {' '}
+            درصدشناوری:{' '}
+            <span className="text-sm text-gray-700 text-center font-semibold">{buoyancy}</span>
+          </p>
+          <Divider orientation="vertical" flexItem />
+          <p>
+            {' '}
+            دوره پرداخت:{' '}
+            <span className="text-sm text-gray-700 text-center font-semibold">
+              {paymentPeriod}{' '}
+            </span>
+          </p>
+          <Divider orientation="vertical" flexItem />
+          <p>
+            پیش‌بینی سود: <span className="font-semibold text-center text-gray-700">{profit}</span>
+          </p>
+        </div>
+        <div className="flex flex-col justify-between items-center text-sm text-gray-600 mb-4">
+          <p>{remainingDays} روز تا پایان فرصت</p>
+          <button className="bg-blue-900 text-white rounded-md px-4 mt-8 py-2" onClick={handleViewClick}>
+            جزئیات طرح
           </button>
-        </CardActions>
-      </Card>
-    </Grid>
+        </div>
+      </div>
+    </div>
   );
 };
 
 CartPlan.propTypes = {
   id: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  expert: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  totalTime: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  createdDate: PropTypes.string.isRequired,
-  handledDate: PropTypes.string.isRequired,
-  trackingCode: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  key: PropTypes.number.isRequired,
+  profit: PropTypes.number.isRequired,
+  buoyancy: PropTypes.number.isRequired,
+  fundedAmount: PropTypes.number.isRequired,
+  remainingDays: PropTypes.number.isRequired,
+  companyName: PropTypes.string.isRequired,
+  marketer: PropTypes.string.isRequired,
+  activityField: PropTypes.string.isRequired,
+  symbol: PropTypes.number.isRequired,
+  paymentPeriod: PropTypes.number.isRequired,
+  applicantFundingPercentage: PropTypes.number.isRequired,
+  nominalPriceCertificate: PropTypes.number.isRequired,
+  faraboursLink: PropTypes.string.isRequired,
 };
 
 export default CartPlan;

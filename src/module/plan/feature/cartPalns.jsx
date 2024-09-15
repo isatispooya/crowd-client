@@ -1,22 +1,23 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import {  Grid, Typography } from '@mui/material';
+import Loader from 'src/components/loader';
 import CartPlan from './cartPlan';
-import UsePlan from '../service/use-plan';
+import UsePlans from '../service/use-plans';
 
 
 
 
 
 const CartPlans = () => {
-  const {data,isLoading} = UsePlan()
+  const {data,isLoading} = UsePlans()
 
 
   if (!data || data.length === 0 ) {
     return <p>هیچ درخواستی یافت نشد.</p>;
   }
   if (isLoading) {
-    return <p>isLoading.</p>;
+    return <Loader />;
   }
 
 
@@ -33,12 +34,23 @@ const CartPlans = () => {
         <CartPlan
           key={item.id}
           id={item.id}
-          title={item.title}
-          trackingCode={item.trackingCode}
-          createdDate={item.createdDate}
-          handledDate={item.handledDate}
-          status={item.status}
-          expert={item.expert}
+          title={item.plan_name}
+          totalTime={item.total_time}
+          companyName={item.company_name}
+          fundedAmount={item.funded_amount}
+          profit={item.profit}
+          paymentPeriod={item.payment_period}
+          buoyancy={item.buoyancy}
+          picture={item.picture}
+          description={item.description}
+          planStatus={item.plan_status}
+          activityField={item.activity_field}
+          remainingDays={item.remaining_days}
+          marketer={item.marketer}
+          symbol={item.symbol}
+          faraboursLink={item.farabours_link}
+          applicantFundingPercentage={item.applicant_funding_percentage}
+          nominalPriceCertificate={item.nominal_price_certificate}
         />
       ))}
     </Grid>
