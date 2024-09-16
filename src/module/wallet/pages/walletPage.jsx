@@ -1,4 +1,6 @@
+
 import WalletCard from '../features/walletCard';
+
 
 const WalletPage = () => {
   return (

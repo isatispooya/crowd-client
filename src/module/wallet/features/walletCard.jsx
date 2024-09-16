@@ -4,30 +4,35 @@ import { IoIosArrowRoundUp } from 'react-icons/io';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Modal from 'react-modal';
+
 import Loader from 'src/components/loader';
 import { useFetchWallet } from '../hooks/getWalletData';
 import TransactionOptions from './transaction';
-import TransactionModal from './transactionHistory';
+import TranHistory from './transactionHistory';
 
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
   const [openTransaction, setOpenTransaction] = useState(false);
-  const [openTranHistory, setOpenTranHistory] = useState(false);
+  const [showTranHistory, setShowTranHistory] = useState(false);
 
   const openModal = () => {
     setOpenTransaction(true);
   };
 
   const openTranHistoryModal = () => {
-    setOpenTranHistory(true);
+    setShowTranHistory(true);
   };
+
   if (isLoading) {
     return <Loader />;
   }
 
   const { adjustment_balance, credit, remaining } = walletData || {};
+
+  if (showTranHistory) {
+    return <TranHistory setShowTranHistory={setShowTranHistory} />;
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -90,31 +95,9 @@ const WalletCard = () => {
       </div>
 
       {openTransaction && (
-        <Modal
-          isOpen={openTransaction}
-
-          contentLabel="Transaction Options Modal"
-          className="flex items-center justify-center"
-          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
-        >
-          <div className="relative bg-white rounded-lg p-8 w-96">
-            <TransactionOptions setOpenTransaction={setOpenTransaction} />
-          </div>
-        </Modal>
-      )}
-
-      {openTranHistory && (
-        <Modal
-          isOpen={openTranHistory}
-          
-          contentLabel="Transaction history Modal"
-          className="flex items-center justify-center"
-          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
-        >
-          <div className="relative bg-white rounded-lg p-8 w-96">
-            <TransactionModal setOpenTransaction={setOpenTransaction} />
-          </div>
-        </Modal>
+        <div className="relative bg-white rounded-lg p-8 w-96">
+          <TransactionOptions setOpenTransaction={setOpenTransaction} />
+        </div>
       )}
     </div>
   );

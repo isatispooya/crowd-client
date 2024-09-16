@@ -5,12 +5,15 @@ import { ReactTabulator } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/css/tabulator_simple.min.css';
+import PropTypes from 'prop-types';
+
 
 const transactionData = [
   { id: 1, date: '2024-09-01', amount: 100, status: 'Completed' },
   { id: 2, date: '2024-09-05', amount: 200, status: 'Pending' },
   { id: 3, date: '2024-09-10', amount: 150, status: 'Failed' },
 ];
+
 const columns = [
   { title: 'Transaction ID', field: 'id', width: 150 },
   { title: 'Date', field: 'date', hozAlign: 'left', sorter: 'date' },
@@ -18,11 +21,16 @@ const columns = [
   { title: 'Status', field: 'status', hozAlign: 'center' },
 ];
 
-const TranHistory = () => {
+const TranHistory = ({ setShowTranHistory }) => {
   return (
-    <div
-    className='w-full h-full'
-    >
+    <div className="w-full h-full flex flex-col items-center">
+      <button
+      type="button"
+        onClick={() => setShowTranHistory(false)}
+        className="mb-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+      >
+        بازگشت به کیف پول
+      </button>
       <ReactTabulator
         data={transactionData}
         columns={columns}
@@ -32,10 +40,14 @@ const TranHistory = () => {
           paginationSize: 5,
           responsiveLayout: true,
         }}
-        className="tabulator-table "
+        className="tabulator-table w-full"
       />
     </div>
   );
 };
+
+TranHistory.propTypes = {
+    setShowTranHistory : PropTypes.bool.isRequired,
+}
 
 export default TranHistory;
