@@ -15,6 +15,7 @@ import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
 import { OnRun } from 'src/api/OnRun';
 import { ToastContainer, toast } from 'react-toastify';
+import ReferralCodeInput from './refferalView';
 
 export default function LoginView() {
   const theme = useTheme();
@@ -24,6 +25,7 @@ export default function LoginView() {
   const [captchaImage, setCaptchaImage] = useState(null);
   const [encrypted_response, setEncrypted_response] = useState(null);
   const [otp, setOtp] = useState('');
+  const [refferal , setRefferal] = useState("");
   const [step, setStep] = useState(1);
   const [registerd, setRegisterd] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -152,7 +154,10 @@ export default function LoginView() {
             <Box sx={{ mb: 3 }} />
           </>
         ) : (
-          <TextField value={otp} onChange={(e) => setOtp(e.target.value)} label="کد تایید" />
+          <>
+            <TextField value={otp} onChange={(e) => setOtp(e.target.value)} label="کد تایید" />
+            <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
+          </>
         )}
       </Stack>
 

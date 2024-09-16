@@ -35,7 +35,7 @@ const WalletCard = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center ">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-2xl p-6 flex flex-col">
         <div className="bg-gray-100 w-full text-white rounded-t-md p-2 text-center mb-4">
           <h1 className="text-2xl font-bold text-gray-700">کیف پول</h1>

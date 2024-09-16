@@ -25,9 +25,9 @@ const TransactionOptions = ({ setOpenTransaction }) => {
             </button>
           </div>
 
-          <div className="card-body">
+          <div className="  card-body">
             <h2 className="card-title mb-5 text-2xl font-bold text-black border-b-2 border-blue-300">
-              {' '}
+       
               برداشت
             </h2>
             <input
