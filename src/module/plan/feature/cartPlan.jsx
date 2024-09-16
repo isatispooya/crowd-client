@@ -49,27 +49,27 @@ const CartPlan = ({
           </div>
         </div>
         <h3 className="font-bold text-lg mb-2 h-16">{title} </h3>
-        <p className="text-base text-gray-800 mb-4">
+        <p className="text-base text-gray-800 mb-2">
           {' '}
           نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
+        <p className="text-base text-gray-800 mb-2">
           پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
+        <p className="text-base text-gray-800 mb-2">
           {' '}
           مبلغ سرمایه‌گذاری:{' '}
           <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
+        <p className="text-base text-gray-800 mb-2">
           {' '}
           مدت زمان طرح: <span className="text-sm text-gray-600 font-semibold">{totalTime}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
+        <p className="text-base text-gray-800 mb-2">
           {' '}
           حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
+        {/* <p className="text-base text-gray-800 mb-4">
           {' '}
           نماد : <span className="text-sm text-gray-600 font-semibold">{symbol}</span>
         </p>
@@ -91,9 +91,9 @@ const CartPlan = ({
           {' '}
           لینک فرابورس :{' '}
           <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
-        </p>
+        </p> */}
         {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
-        <div className=" mt-8 flex flex-col mb-8 justify-center items-center">
+        <div className=" mt-4 flex flex-col mb-8 justify-center items-center">
           <div className='flex'>
             <p className="text-sm"> مبلغ سرمایه گذاری</p>
             <input
@@ -105,28 +105,27 @@ const CartPlan = ({
               readOnly
             />
           </div>
-          <span className="block text-gray-700 text-xs mt-4 text-center font-medium">
+          <span className="block text-gray-700 text-xs mt-2 text-center font-medium">
             {formatNumber(fundedAmount)} ریال
           </span>
         </div>
 
-        <div className="flex justify-between items-center text-sm text-gray-600 mb-4 ">
-          <p>
-            {' '}
-            درصدشناوری:{' '}
-            <span className="text-sm text-gray-700 text-center font-semibold">{buoyancy}</span>
+        <div className="flex justify-between gap-1 items-center text-sm text-gray-900 mb-4 ">
+          <p className=' text-xs '>
+            درصدشناوری:
+            <span className="text-xs text-gray-700 text-center font-semibold">{buoyancy}</span>
           </p>
-          <Divider orientation="vertical" flexItem />
-          <p>
-            {' '}
-            دوره پرداخت:{' '}
-            <span className="text-sm text-gray-700 text-center font-semibold">
-              {paymentPeriod}{' '}
+          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
+          <p className=' text-xs'>
+            دوره پرداخت:
+            <span className="text-xs text-gray-700 text-center font-semibold">
+              {paymentPeriod}
             </span>
           </p>
-          <Divider orientation="vertical" flexItem />
-          <p>
-            پیش‌بینی سود: <span className="font-semibold text-center text-gray-700">{profit}</span>
+          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
+
+          <p className=' text-xs'>
+            پیش‌بینی سود: <span className="font-semibold  text-xs text-center text-gray-700">{profit}</span>
           </p>
         </div>
         <div className="flex flex-col justify-between items-center text-sm text-gray-600 mb-4">
