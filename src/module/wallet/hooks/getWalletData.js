@@ -11,7 +11,7 @@ const fetchWallet = async (cartId) => {
       Authorization: `Bearer ${access}`,
     },
   });
-  console.log(response.data.wallet)  
+  // console.log(response.data.wallet)  
   return response.data.wallet;
 };
 

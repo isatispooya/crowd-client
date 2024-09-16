@@ -1,14 +1,22 @@
+import { useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Modal from 'react-modal'; 
 import Loader from 'src/components/loader';
 import { useFetchWallet } from '../hooks/getWalletData';
+import TransactionOptions from './transaction'; 
 
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
+  const [openTransaction, setOpenTransaction] = useState(false);
 
+  const openModal = () => {
+    setOpenTransaction(true);
+  };
   if (isLoading) {
     return <Loader />;
   }
@@ -17,7 +25,7 @@ const WalletCard = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-2xl bg-white  rounded-lg shadow-2xl  p-6 flex flex-col">
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-2xl p-6 flex flex-col">
         <div className="bg-gray-100 w-full text-white rounded-t-md p-2 text-center mb-4">
           <h1 className="text-2xl font-bold text-gray-700">کیف پول</h1>
         </div>
@@ -33,20 +41,23 @@ const WalletCard = () => {
               </h5>
 
               <div className="flex mt-4">
-                <a
-                  href="#"
-                  className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white  rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
                   <GoPlus className="ml-1 text-2xl" />
                   افزایش
-                </a>
-                <a
+                </button>
+                <button
+                  type="button"
+                  onClick={openModal}
                   href="#"
-                  className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white  rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
+                  className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
                   <IoIosArrowRoundUp className="ml-1 text-2xl" />
                   برداشت
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -63,6 +74,20 @@ const WalletCard = () => {
           </div>
         </div>
       </div>
+
+      {openTransaction && (
+        <Modal
+          isOpen={openTransaction}
+          // onRequestClose={closeModal}
+          contentLabel="Transaction Options Modal"
+          className="flex items-center justify-center"
+          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+        >
+          <div className="relative bg-white rounded-lg p-8 w-96">
+            <TransactionOptions setOpenTransaction={setOpenTransaction} />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
