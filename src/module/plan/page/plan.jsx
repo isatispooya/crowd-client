@@ -6,6 +6,7 @@ import { OnRun } from 'src/api/OnRun';
 import usePlan from '../service/use-plan';
 import Calender from './calculate';
 import CommentForm from '../feature/comment';
+import InvestProfile from '../feature/Investorprofile';
 
 const Plan = () => {
   const { id } = useParams();
@@ -60,6 +61,18 @@ const Plan = () => {
               نظرات کاربران    
             </button>
           </li>
+          <li className="mr-4">
+            <button
+              className={`py-2 px-4 ${
+                activeTab === 3
+                  ? 'text-blue-600 border-b-2 border-blue-600'
+                  : 'text-gray-500 hover:text-blue-600'
+              }`}
+              onClick={() => setActiveTab(3)}
+            >
+               مشخصات سرمایه گذارن    
+            </button>
+          </li>
         </ul>
       </div>
 
@@ -107,6 +120,10 @@ const Plan = () => {
         )}
          {activeTab === 2 && (
           <CommentForm/>
+        )}
+   
+         {activeTab === 3 && (
+          <InvestProfile/>
         )}
       </div>
     </div>
