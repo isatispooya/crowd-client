@@ -7,7 +7,6 @@ import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator_simple.min.css';
 import PropTypes from 'prop-types';
 
-
 const transactionData = [
   { id: 1, date: '2024-09-01', amount: 100, status: 'Completed' },
   { id: 2, date: '2024-09-05', amount: 200, status: 'Pending' },
@@ -24,13 +23,6 @@ const columns = [
 const TranHistory = ({ setShowTranHistory }) => {
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <button
-      type="button"
-        onClick={() => setShowTranHistory(false)}
-        className="mb-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
-      >
-        بازگشت به کیف پول
-      </button>
       <ReactTabulator
         data={transactionData}
         columns={columns}
@@ -42,12 +34,19 @@ const TranHistory = ({ setShowTranHistory }) => {
         }}
         className="tabulator-table w-full"
       />
+      <button
+        type="button"
+        onClick={() => setShowTranHistory(false)}
+        className="mb-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+      >
+        بازگشت
+      </button>
     </div>
   );
 };
 
 TranHistory.propTypes = {
-    setShowTranHistory : PropTypes.bool.isRequired,
-}
+  setShowTranHistory: PropTypes.bool.isRequired,
+};
 
 export default TranHistory;
