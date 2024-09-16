@@ -148,7 +148,6 @@ export const createCart = async (data, incrementPage) => {
       },
       maxBodyLength: Infinity,
     });
-    console.log("lll",response.data)
 
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');

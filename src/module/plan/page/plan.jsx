@@ -5,6 +5,7 @@ import Loader from 'src/components/loader';
 import { OnRun } from 'src/api/OnRun';
 import usePlan from '../service/use-plan';
 import Calender from './calculate';
+import CommentForm from '../feature/comment';
 
 const Plan = () => {
   const { id } = useParams();
@@ -45,6 +46,18 @@ const Plan = () => {
               onClick={() => setActiveTab(1)}
             >
               محاسبه گر سود
+            </button>
+          </li>
+          <li className="mr-4">
+            <button
+              className={`py-2 px-4 ${
+                activeTab === 2
+                  ? 'text-blue-600 border-b-2 border-blue-600'
+                  : 'text-gray-500 hover:text-blue-600'
+              }`}
+              onClick={() => setActiveTab(2)}
+            >
+              نظرات کاربران    
             </button>
           </li>
         </ul>
@@ -91,6 +104,9 @@ const Plan = () => {
 
         {activeTab === 1 && (
           <Calender/>
+        )}
+         {activeTab === 2 && (
+          <CommentForm/>
         )}
       </div>
     </div>

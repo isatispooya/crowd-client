@@ -6,7 +6,6 @@ import ValditionList from './valditionList';
 
 const ValidationPage = () =>{
     const {cartId} = UseCartId()
-    console.log();
     
     return(
         <ValditionList cardSelected={cartId} />

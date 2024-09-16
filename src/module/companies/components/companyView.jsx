@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -23,7 +24,19 @@ export default function Form() {
     queryFn: () => getStep1(cartId),
   });
 
-  const mutation = useMutation({ mutationFn: () => createCart(localData, incrementPage) });
+  const mutation = useMutation({
+    mutationKey: ['cart'],
+    mutationFn: () => createCart(localData, incrementPage),
+    onSuccess: (value) => {
+      setCartId(value.data.id); 
+    }
+
+  });
+
+
+
+
+  
   const mutationUpdate = useMutation({
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
@@ -42,14 +55,11 @@ export default function Form() {
     }
   }, [isError]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (!cartId) {
-      mutation.mutateAsync();
-      setCartId(cartId);
-      console.log("tg",cartId);
+      mutation.mutate();
     } else {
-      mutationUpdate.mutateAsync();
+      mutationUpdate.mutate();
     }
   };
 
@@ -76,7 +86,6 @@ export default function Form() {
       <div className=" flex justify-center mt-8">
         <button
           onClick={handleSubmit}
-          type="submit"
           className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
@@ -87,3 +96,8 @@ export default function Form() {
     </>
   );
 }
+
+
+
+
+
