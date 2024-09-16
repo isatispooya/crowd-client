@@ -19,7 +19,7 @@ const Calculate = () => {
 
   useEffect(() => {
     if (!isNaN(inputValue) && inputValue !== '' && data) {
-      const profit = data.profit;
+      const {profit} = data;
       const totalTime = data.total_time;
       const paymentPeriod = data.payment_period;
 

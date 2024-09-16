@@ -1,3 +1,1 @@
-
-
-export {default} from './walletBerif'
+export { default } from './walletCard';

@@ -1,19 +1,11 @@
-import WalletBerif from "../features/walletBerif";
+import WalletCard from '../features/walletCard';
 
+const WalletPage = () => {
+  return (
+    <div>
+      <WalletCard />
+    </div>
+  );
+};
 
-
-
-const WalletPage = () =>{
-    console.log(444);
-    
-    return(
-        <div>
-            <WalletBerif />
-
-            
-        </div>
-    )
-}
-
-
-export default WalletPage
+export default WalletPage;

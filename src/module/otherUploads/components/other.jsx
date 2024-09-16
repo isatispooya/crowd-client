@@ -37,7 +37,7 @@ const Other = () => {
 
   const { isLoading, data } = useFetchData(cartId);
 
-  if (isLoading && !data) {
+  if (isLoading ) {
     return <SmallLoader />;
   }
 
@@ -45,9 +45,7 @@ const Other = () => {
     setData(data);
   }
 
-  const handleFileRemove = (field) => {
-    setData({ ...Data, [field]: null });
-  };
+
 
   const handleSubmit = async () => {
     try {
@@ -97,7 +95,7 @@ const Other = () => {
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default Other;
