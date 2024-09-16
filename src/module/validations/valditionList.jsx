@@ -52,18 +52,14 @@ console.log(validateList)
         },
         maxBodyLength: Infinity,
       });
-
-        
+     
       toast.success('اطلاعات با موفقیت ارسال شد!');
-      incrementPage(); // انتقال به مرحله بعدی
+      incrementPage();
     } catch (error) {
       console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
     }
   };
-
-
-
 
   useEffect(() => {
     fetchManagerData();
