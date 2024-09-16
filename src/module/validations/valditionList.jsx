@@ -16,7 +16,6 @@ import UseCartId from 'src/hooks/use-cartId';
 const ValditionList = () => {
   const { cartId } = UseCartId();
   const [validateList, setValidateList] = useState([]);
-  // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
 
   const fetchManagerData = async () => {
@@ -26,23 +25,23 @@ const ValditionList = () => {
         headers: {
           Authorization: `Bearer ${access}`,
         },
-      });
+      });   
 
       if (response.data) {
-        setValidateList(response.data.managers);
+        setValidateList(response.data.data.managers);
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
       toast.error('خطا در دریافت اطلاعات');
     }
   };
-
+console.log(validateList)
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
       validateList.forEach((element) => {
         if (element.file) {
-          formData.append(element.national_code.toString(), element.file);
+          formData.append(element.national_code, element.file);
         }
       });
       const access = await getCookie('access');
@@ -82,6 +81,7 @@ const ValditionList = () => {
             <ValidateRow index={index} list={validateList} item={item} setList={setValidateList} />
           </div>
         ))}
+        
       </div>
       <div className="flex flex-col justify-center items-center mt-10">
         <button

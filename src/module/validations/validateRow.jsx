@@ -7,6 +7,7 @@ import { FiX, FiDownload } from 'react-icons/fi';
 const ValidateRow = ({ index, list, item, setList }) => {
   const updateFile = (file, national_code) => {
     const updatedList = list.map((i) => (i.national_code === national_code ? { ...i, file } : i)
+    
     );
    
     setList(updatedList);
