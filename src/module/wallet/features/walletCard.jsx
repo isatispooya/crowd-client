@@ -4,18 +4,24 @@ import { IoIosArrowRoundUp } from 'react-icons/io';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Modal from 'react-modal'; 
+import Modal from 'react-modal';
 import Loader from 'src/components/loader';
 import { useFetchWallet } from '../hooks/getWalletData';
-import TransactionOptions from './transaction'; 
+import TransactionOptions from './transaction';
+import TransactionModal from './transactionHistory';
 
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
   const [openTransaction, setOpenTransaction] = useState(false);
+  const [openTranHistory, setOpenTranHistory] = useState(false);
 
   const openModal = () => {
     setOpenTransaction(true);
+  };
+
+  const openTranHistoryModal = () => {
+    setOpenTranHistory(true);
   };
   if (isLoading) {
     return <Loader />;
@@ -58,6 +64,14 @@ const WalletCard = () => {
                   <IoIosArrowRoundUp className="ml-1 text-2xl" />
                   برداشت
                 </button>
+                <button
+                  type="button"
+                  onClick={openTranHistoryModal}
+                  className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
+                >
+                  <GoPlus className="ml-1 text-2xl" />
+                  تراکنش ها
+                </button>
               </div>
             </div>
           </div>
@@ -78,13 +92,27 @@ const WalletCard = () => {
       {openTransaction && (
         <Modal
           isOpen={openTransaction}
-          // onRequestClose={closeModal}
+
           contentLabel="Transaction Options Modal"
           className="flex items-center justify-center"
           overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
         >
           <div className="relative bg-white rounded-lg p-8 w-96">
             <TransactionOptions setOpenTransaction={setOpenTransaction} />
+          </div>
+        </Modal>
+      )}
+
+      {openTranHistory && (
+        <Modal
+          isOpen={openTranHistory}
+          
+          contentLabel="Transaction history Modal"
+          className="flex items-center justify-center"
+          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+        >
+          <div className="relative bg-white rounded-lg p-8 w-96">
+            <TransactionModal setOpenTransaction={setOpenTransaction} />
           </div>
         </Modal>
       )}
