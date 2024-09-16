@@ -27,7 +27,7 @@ const ValditionList = () => {
           Authorization: `Bearer ${access}`,
         },
       });
-      console.log("vvvv", response.data)
+
       if (response.data) {
         setValidateList(response.data.managers);
       }
@@ -40,18 +40,21 @@ const ValditionList = () => {
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-
-      formData.append('file_validation', validateList.file_validation || '');
-
-      validateList.forEach((element, index) => {
-        if (element.file_manager) {
-          formData.append(`managers[${index}][file_manager]`, element.file_manager);
+      validateList.forEach((element) => {
+        if (element.file) {
+          formData.append(element.national_code.toString(), element.file);
         }
-        formData.append(`managers[${index}][name]`, element.name);
-        formData.append(`managers[${index}][national_code]`, element.national_code);
+      });
+      const access = await getCookie('access');
+      await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${access}`,
+        },
+        maxBodyLength: Infinity,
       });
 
-
+        
       toast.success('اطلاعات با موفقیت ارسال شد!');
       incrementPage(); // انتقال به مرحله بعدی
     } catch (error) {
