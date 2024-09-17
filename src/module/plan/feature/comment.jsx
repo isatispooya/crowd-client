@@ -15,13 +15,6 @@ const CommentForm = () => {
         { sender: "user", name: showName ? name : "ناشناس", message: comment }
       ]);
       setComment("");
-
-      setTimeout(() => {
-        setChatHistory((prev) => [
-          ...prev,
-          { sender: "admin", name: "ادمین", message: "متشکرم! پاسخ شما ثبت شد." }
-        ]);
-      }, 1000);
     }
   };
 
@@ -71,7 +64,7 @@ const CommentForm = () => {
 
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
+          className="  items-center  bg-gradient-to-r from-[#004ff9] to-[#000000] text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
         >
           ارسال
         </button>
