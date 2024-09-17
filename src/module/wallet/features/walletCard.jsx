@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
-import { GrTransaction } from 'react-icons/gr';
 import { LuArrowUpDown } from 'react-icons/lu';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
