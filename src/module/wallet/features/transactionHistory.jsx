@@ -5,6 +5,7 @@ import 'react-tabulator/css/tabulator_simple.min.css';
 import PropTypes from 'prop-types';
 import Loader from 'src/components/loader';
 import { useFetchTransaction } from '../hooks/getTransaction';
+import notData from './file-error-svgrepo-com.svg'
 
 const columns = [
   { title: 'ردیف', field: 'id', width: 150 },
@@ -25,14 +26,22 @@ const TranHistory = ({ setShowTranHistory }) => {
   if (!transactions || transactions.length === 0) {
     return (
       <>
-        <div className="text-center mt-4">تراکنشی یافت نشد.</div>
-        <button
-          type="button"
-          onClick={() => setShowTranHistory(false)}
-          className=" py-2 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200"
-        >
-          بازگشت
-        </button>
+        <div className="text-center mt-4 text-2xl font-bold text-gray-700">
+            <img src={notData} alt='noData' className='w-20 ml-2 '/>
+          <span className=" bg-gradient-to-r from-[#004ff9] to-[#000000]  text-transparent bg-clip-text">
+            تراکنشی یافت نشد
+          </span>
+        </div>
+        
+        <div className="flex justify-center items-center w-full py-4 mt-6">
+          <button
+            type="button"
+            onClick={() => setShowTranHistory(false)}
+            className="px-8 py-3 rounded-md border bg-gradient-to-r from-[#004ff9] to-[#000000] text-white text-sm hover:-translate-y-1 transform transition duration-200 hover:shadow-md"
+          >
+            بازگشت
+          </button>
+        </div>
       </>
     );
   }

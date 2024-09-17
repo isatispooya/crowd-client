@@ -2,6 +2,9 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdClose } from 'react-icons/io';
+import { LuGalleryHorizontalEnd } from "react-icons/lu";
+
+
 
 
 const TransactionOptions = ({ setOpenTransaction }) => {
@@ -33,7 +36,7 @@ const TransactionOptions = ({ setOpenTransaction }) => {
         <button
           type="button"
           onClick={closeModal}
-          className="absolute top-4 right-4 text-gray-600 hover:text-red-500"
+          className="absolute top-4 left-3 text-gray-600 hover:text-red-500"
         >
           <IoMdClose size={24} />
         </button>
@@ -52,9 +55,10 @@ const TransactionOptions = ({ setOpenTransaction }) => {
         <div className="flex justify-between items-center">
           <button
             type="button"
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            className="flex items-center px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
           >
             برداشت همه
+            <LuGalleryHorizontalEnd className='mr-2'/>
           </button>
           <button
             type="button"

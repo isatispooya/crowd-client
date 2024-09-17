@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
-import { GrTransaction } from "react-icons/gr";
+import { GrTransaction } from 'react-icons/gr';
+import { LuArrowUpDown } from 'react-icons/lu';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -74,7 +75,7 @@ const WalletCard = () => {
                   onClick={openTranHistoryModal}
                   className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
-                  <GrTransaction className="ml-1 text-xl" />
+                  <LuArrowUpDown className="ml-1 text-xl" />
                   تراکنش ها
                 </button>
               </div>
@@ -83,13 +84,13 @@ const WalletCard = () => {
         </div>
 
         <div className="flex flex-col items-center mt-6 space-y-4">
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center">
-            <h2 className="text-lg font-bold text-black">اعتبار:</h2>
-            <p className="text-2xl font-bold text-black">{formatNumber(credit)}</p>
+          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gradient-to-r from-[#004ff9] to-[#000000]">
+            <h2 className="text-lg font-bold text-white">اعتبار:</h2>
+            <p className="text-2xl font-bold text-white">{formatNumber(credit)}</p>
           </div>
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center">
-            <h2 className="text-lg font-bold text-black">مانده تعلیلی:</h2>
-            <p className="text-2xl font-bold text-black">{formatNumber(adjustment_balance)}</p>
+          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gradient-to-r from-[#004ff9] to-[#000000]">
+            <h2 className="text-lg font-bold text-white">مانده تعلیلی:</h2>
+            <p className="text-2xl font-bold text-white">{formatNumber(adjustment_balance)}</p>
           </div>
         </div>
       </div>
