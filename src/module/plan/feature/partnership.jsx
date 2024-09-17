@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { formatNumber } from 'src/utils/formatNumbers';
 
 const Partnership = () => {
-  const [value, setvalue] = useState(10000);
+  const [value] = useState(10000);
+
   return (
+
+
     <div className="flex flex-col items-center">
       <input
         type="number"
@@ -19,6 +22,8 @@ const Partnership = () => {
       </div>
       <button className='bg-blue-600 px-4 py-2 rounded-md text-white'>درخواست</button>
     </div>
+
+    
   );
 };
 

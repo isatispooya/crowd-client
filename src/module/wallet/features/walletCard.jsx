@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
+import { GrTransaction } from "react-icons/gr";
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
-
 import Loader from 'src/components/loader';
 import { useFetchWallet } from '../hooks/getWalletData';
 import TransactionOptions from './transaction';
@@ -74,7 +74,7 @@ const WalletCard = () => {
                   onClick={openTranHistoryModal}
                   className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
-                  <GoPlus className="ml-1 text-2xl" />
+                  <GrTransaction className="ml-1 text-xl" />
                   تراکنش ها
                 </button>
               </div>
