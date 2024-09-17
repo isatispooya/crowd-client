@@ -23,7 +23,18 @@ const TranHistory = ({ setShowTranHistory }) => {
   }
 
   if (!transactions || transactions.length === 0) {
-    return <div className="text-center mt-4">تراکنشی یافت نشد.</div>;
+    return (
+      <>
+        <div className="text-center mt-4">تراکنشی یافت نشد.</div>
+        <button
+          type="button"
+          onClick={() => setShowTranHistory(false)}
+          className=" py-2 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200"
+        >
+          بازگشت
+        </button>
+      </>
+    );
   }
 
   const formattedData = transactions.map((transaction) => ({
