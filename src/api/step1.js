@@ -50,7 +50,6 @@ const getFormData = (data) => {
   return formData;
 };
 
-// تابع برای ارسال اطلاعات به مرحله بعدی
 const handlePageIncrement = (incrementPage) => {
   if (incrementPage) {
     incrementPage();
@@ -153,6 +152,7 @@ export const createCart = async (data, incrementPage) => {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handlePageIncrement(incrementPage);
     }
+    console.log(";;;;;;;;;;;;",response.data.date_newspaper)
 
     return response;
   } catch (error) {

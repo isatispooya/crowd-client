@@ -15,7 +15,6 @@ const CardList = () => {
   const access = getCookie('access');
   const { incrementPage } = useNavigateStep();
 
-
   const { data: cards = [], isLoading, error } = useFetchCards(access);
 
   const handleCardClick = (id, status) => {
@@ -54,20 +53,19 @@ const CardList = () => {
                 >
                   <div className="flex flex-col items-center flex-grow space-y-4">
                     <h2 className="text-2xl font-bold text-gray-800">{card.company_name}</h2>
-                    <div className="flex flex-col justify-center items-center space-y-2">
-                      <p className="text-base font-medium text-gray-700">
-                        شناسه: {card.nationalid}
+                    <div className="flex flex-col justify-center items-center space-y-4">
+                      <p className="text-lg font-medium text-black">
+                        شناسه:
+                        <span className="text-sm text-gray-700"> {card.nationalid}</span>
                       </p>
-                      <p className="text-base font-medium text-gray-700">
-                        میزان سرمایه: {formatNumber(card.registered_capital)}
-                      </p>
-                      <p className="text-base font-medium text-gray-700">
-                        شماره ثبت: {card.registration_number}
+                      <p className="text-lg font-medium text-black">
+                        میزان سرمایه:
+                        <span className="text-sm text-gray-700"> {formatNumber(card.registered_capital)}</span>
                       </p>
                     </div>
-                    <div className="flex items-center"> دانلود قرارداد</div>
+                    <div className="flex items-center text-lg font-medium text-black"> دانلود قرارداد</div>
                   </div>
-                  <div className="flex justify-center gap-4 mt-6">
+                  <div className="flex justify-center gap-4 ">
                     <Tooltip title="مشاهده و ویرایش">
                       <Button
                         variant="contained"

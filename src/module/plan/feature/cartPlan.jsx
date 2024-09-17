@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { OnRun } from 'src/api/OnRun';
 import { Divider } from '@mui/material';
-import { formatNumber } from 'src/utils/formatNumbers';
 
 const CartPlan = ({
   buoyancy,
@@ -36,7 +35,7 @@ const CartPlan = ({
   };
 
   return (
-    <div className="flex mt-24 flex-wrap justify-center gap-6 bg-white p-4">
+    <div className="flex mt-16 flex-wrap justify-center gap-6 bg-white p-4">
       <div key={key} className="shadow-md w-72 p-4 mt-18 rounded-md border bg-white">
         <div className="relative h-40 w-full mb-4">
           <img
@@ -113,9 +112,9 @@ const CartPlan = ({
             <span className="text-xs text-gray-700 text-center font-semibold">{buoyancy}</span>
           </p>
           <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
-          <p className=' text-xs'>
+          <p className=' text-xs text-nowrap'>
             دوره پرداخت:
-            <span className="text-xs text-gray-700 text-center font-semibold">
+            <span className="text-xs text-gray-700 text-wrap text-center font-semibold">
               {paymentPeriod}
             </span>
           </p>

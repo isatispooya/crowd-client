@@ -153,7 +153,6 @@ export const createCart = async (data, handleNext) => {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handleNext();
     }
-
     return response;
   } catch (error) {
     toast.error('خطا در ارسال اطلاعات.');

@@ -6,7 +6,6 @@ import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
 
 const CompanyInputs = ({ localData, setLocalData }) => {
-  // eslint-disable-next-line no-unused-vars
 
   const InputValues = (e) => {
     const { name, value } = e.target;
@@ -20,7 +19,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">نام شرکت:</label>
         <input
           type="text"
-          value={localData.company_name}
+          value={localData.company_name || ""}
           name="company_name"
           disabled={localData.Lock_company_name}
           onChange={InputValues}
@@ -34,7 +33,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
 
         <select
           name="company_kind"
-          value={localData.company_kind}
+          value={localData.company_kind || ""}
           disabled={localData.Lock_company_kind}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -54,7 +53,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           type="text"
           name="nationalid"
           disabled={localData.Lock_nationalid}
-          value={localData.nationalid}
+          value={localData.nationalid || "" }
           onChange={InputValues}
           maxLength={11}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -66,7 +65,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="registration_number"
-          value={localData.registration_number}
+          value={localData.registration_number || ""}
           disabled={localData.Lock_registration_number}
           onChange={InputValues}
           maxLength={11}
@@ -81,7 +80,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="registered_capital"
-          value={formatNumber(localData.registered_capital)}
+          value={formatNumber(localData.registered_capital) || ""}
           disabled={localData.Lock_registered_capital}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -89,26 +88,26 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       </div>
 
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2">
+        <label className="block text-gray-800 text-xs text-nowrap  font-semibold mb-2">
           شماره روزنامه رسمی آخرین مدیران:
         </label>
         <input
           type="number"
           name="newspaper"
-          value={localData.newspaper}
+          value={localData.newspaper || ""}
           disabled={localData.Lock_newspaper}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2">
+        <label className="block text-gray-800 text-nowrap text-xs font-semibold mb-2">
           تاریخ روزنامه رسمی آخرین مدیران:
         </label>
         <input
           type="number"
           name="date_newspaper"
-          value={localData.date_newspaper}
+          value={localData.date_newspaper || ""}
           disabled={localData.Lock_date_newspaper}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -119,7 +118,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="number"
           name="personnel"
-          value={localData.personnel}
+          value={localData.personnel || ""}
           disabled={localData.Lock_personnel}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -130,7 +129,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="city"
-          value={localData.city}
+          value={localData.city || ""}
           disabled={localData.Lock_city}
           onChange={InputValues}
           className="shadow  border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -141,7 +140,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="address"
-          value={localData.address}
+          value={localData.address || ""}
           disabled={localData.Lock_address}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -152,7 +151,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="number"
           name="postal_code"
-          value={localData.postal_code}
+          value={localData.postal_code || ""}
           disabled={localData.Lock_postal_code}
           onChange={InputValues}
           maxLength={10}
@@ -165,7 +164,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="email"
           name="email"
-          value={localData.email}
+          value={localData.email || ""}
           disabled={localData.Lock_email}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -176,7 +175,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">موضوع فعالیت شرکت:</label>
         <input
           name="activity_industry"
-          value={localData.activity_industry}
+          value={localData.activity_industry || ""}
           disabled={localData.Lock_activity_industry}
           onChange={InputValues}
           className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -193,7 +192,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           min={10000000000}
           max={250000000000}
           step={10000000000}
-          value={localData.amount_of_request}
+          value={localData.amount_of_request || ""}
           disabled={localData.Lock_amount_of_request}
           onChange={InputValues}
           className="w-1/2"
