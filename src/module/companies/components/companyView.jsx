@@ -11,12 +11,11 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import UseCartId from 'src/hooks/use-cartId';
 import CompanyInputs from 'src/module/companies/components/companyTextInputs';
 import CompanyUploads from 'src/module/companies/components/companyUploadInputs';
+import SmallLoader from 'src/components/SmallLoader';
 import { Message } from '../../../components/massage';
 
 export default function Form() {
   const { cartId, setCartId } = UseCartId();
-
-  // استفاده از useNavigateStep
   const { incrementPage } = useNavigateStep();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
@@ -28,15 +27,10 @@ export default function Form() {
     mutationKey: ['cart'],
     mutationFn: () => createCart(localData, incrementPage),
     onSuccess: (value) => {
-      setCartId(value.data.id); 
-    }
-
+      setCartId(value.data.id);
+    },
   });
 
-
-
-
-  
   const mutationUpdate = useMutation({
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
@@ -65,7 +59,7 @@ export default function Form() {
 
   return (
     <>
-      <div className="bg-gray-50  rounded-md mb-10 shadow-inner ">
+      <div className="bg-gray-50 rounded-md mb-10 shadow-inner">
         <Message cartId={cartId} />
       </div>
       <ToastContainer />
@@ -76,26 +70,33 @@ export default function Form() {
         <CompanyInputs localData={localData} setLocalData={setLocalData} cartId={cartId} />
       </div>
 
-      <div className="mt-10 ">
+      <div className="mt-10">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">پیوست اسناد</h1>
         </div>
         <CompanyUploads localData={localData} setLocalData={setLocalData} cartId={cartId} />
       </div>
 
-      <div className=" flex justify-center mt-8">
+      <div className="flex justify-center mt-8">
         <button
           onClick={handleSubmit}
           className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-            isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            mutation.isLoading || mutationUpdate.isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {mutation.isLoading ? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
+          {mutation.isLoading || mutationUpdate.isLoading ? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
         </button>
       </div>
+
+      {mutation.isLoading ||isLoading || mutationUpdate.isLoading && (
+        <div className="flex justify-center mt-4">
+          <SmallLoader />
+        </div>
+      )}
     </>
   );
 }
+
 
 
 

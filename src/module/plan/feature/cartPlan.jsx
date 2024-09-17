@@ -48,17 +48,15 @@ const CartPlan = ({
             {profit}
           </div>
         </div>
-        <h3 className="font-bold text-lg mb-2 h-16">{title} </h3>
+        <h className="font-bold text-lg mb-2 h-16">{title} </h>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
           نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
           پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
-          مبلغ سرمایه‌گذاری:{' '}
+          مبلغ سرمایه‌گذاری:
           <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
@@ -93,22 +91,21 @@ const CartPlan = ({
           <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
         </p> */}
         {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
-        <div className=" mt-4 flex flex-col mb-8 justify-center items-center">
-          <div className='flex'>
-            <p className="text-sm"> مبلغ سرمایه گذاری</p>
-            <input
-              type="range"
-              name="fundedAmount"
-              step={10000000000}
-              value={fundedAmount}
-              className="w-1/2"
-              readOnly
-            />
-          </div>
-          <span className="block text-gray-700 text-xs mt-2 text-center font-medium">
-            {formatNumber(fundedAmount)} ریال
-          </span>
-        </div>
+        <div className="flex flex-col items-center w-full p-4">
+      <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+        <div
+          className="bg-blue-900 h-full"
+          style={{ width: `${fundedAmount}%` }}
+        />
+        <div
+          className="bg-green-500 h-full"
+          style={{ width: `calc(${100 - fundedAmount}% - 0.5rem)` }}
+        />
+      </div>
+      <div className="flex justify-between w-full mt-2 text-gray-800 text-sm font-semibold">
+        <span>{`ریال ${fundedAmount.toLocaleString()} از ریال ${fundedAmount.toLocaleString()} تامین شده`}</span>
+      </div>
+    </div>
 
         <div className="flex justify-between gap-1 items-center text-sm text-gray-900 mb-4 ">
           <p className=' text-xs '>

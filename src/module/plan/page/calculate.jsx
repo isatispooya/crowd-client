@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'src/components/loader';
 import { useParams } from 'react-router-dom';
-import { formatNumber } from 'src/utils/formatNumbers'; // مطمئن شوید که این تابع به درستی ایمپورت شده است.
+import { cleanNumber, formatNumber } from 'src/utils/formatNumbers'; 
 import usePlan from '../service/use-plan';
 
 const Calculate = () => {
@@ -14,7 +14,7 @@ const Calculate = () => {
   const [totalAmount, setTotalAmount] = useState();
   const { id } = useParams();
   const { data, isLoading, error } = usePlan(id);
-  
+ 
   console.log("yyy", data);
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const Calculate = () => {
       const totalTime = data.total_time;
       const paymentPeriod = data.payment_period;
 
-      // محاسبه سود دریافتی در هر پرداخت
       const result = (Number(inputValue) * ((profit/100) / (12 / paymentPeriod)));
       const payment = ((12 / paymentPeriod) * (totalTime / 12));
       const totalAmount = result * payment;
@@ -49,11 +48,11 @@ const Calculate = () => {
   return (
     <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-md rounded-md">
       <h1 className="text-xl font-bold mb-4">محاسبه</h1>
-
       <input
         type="text"
         value={formatNumber(inputValue)}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) =>
+          setInputValue(cleanNumber(e.target.value))}
         placeholder="عدد خود را وارد کنید"
         className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
       />

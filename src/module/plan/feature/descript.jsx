@@ -22,11 +22,11 @@ const Descript = () => {
           <img
             src={`${OnRun}/${data.picture}`}
             alt={data.plan_name}
-            className="h-80 w-full object-cover rounded-md"
+            className="h-80 w-full  rounded-md"
           />
         </div>
       <div>
-        <p className="text-black mb-4 text-center  mt-8">{data.plan_name}</p>
+        <p className="text-black text-2xl font-semibold mb-4 text-center  mt-8">{data.plan_name}</p>
         <div>
         <h3 className="text-xl font-bold mb-2">توضیحات:</h3>
         <p className="text-gray-700 mb-4">{data.description}</p>
