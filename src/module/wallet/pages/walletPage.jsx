@@ -1,11 +1,13 @@
 
 import WalletCard from '../features/walletCard';
+import PaymentResult from '../payment/components/PaymentResult';
 
 
 const WalletPage = () => {
   return (
     <div>
-      <WalletCard />
+      {/* <WalletCard /> */}
+      <PaymentResult/>
     </div>
   );
 };
