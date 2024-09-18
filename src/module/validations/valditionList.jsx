@@ -3,8 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
-
+import useNavigateStep from 'src/hooks/use-navigate-step'; 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
@@ -36,21 +35,21 @@ const ValditionList = () => {
     }
   };
 
-  console.log(validateList);
+  // console.log(validateList);
 
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      let hasFile = false; // Track if at least one file is selected
+      let hasFile = false; 
 
       validateList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
-          hasFile = true; // A file has been selected
+          hasFile = true; 
         }
       });
 
-      // If no files were selected, show a toast info and return
+    
       if (!hasFile) {
         toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
         return;
