@@ -18,21 +18,23 @@ const Partnership = () => {
   const [inventory, setInventory] = useState(8000);
   const [ischecked, seIsChecked] = useState(false);
   const [errorr,setErrorr] = useState('');
-  const { mutateAsync, isLoadingpost, errorpost, datapost } = PostPartnership();
+  const { mutateAsync, isLoadingpost, errorpost, datapost , isError} = PostPartnership();
   const { id } = useParams();
   const { data, isLoading, error } = usePlan(id);
   if (isLoading||isLoadingpost) {
     return <Loader />;
   }
   const handleSubmit = () => {
+    
     const sender = {
-      // id: 
+      id,
       amount: inventory ,
       total_amount:price ,
       participant:value ,
     };
     try {
-       mutateAsync(sender);
+      mutateAsync(sender);
+
       toast.success('اطلاعات با موفقیت ارسال شد.');
     } catch (errorpost) {
       toast.error('خطا در ارسال اطلاعات.');
@@ -41,7 +43,7 @@ const Partnership = () => {
 
   
   if (error||errorpost) {
-    return <div className="text-red-500">خطایی رخ داده است: {error.message}</div>;
+    return <div className="text-red-500">خطایی رخ داده است: {error}</div>;
   }
 
   const handleInventoryClick = () => {
