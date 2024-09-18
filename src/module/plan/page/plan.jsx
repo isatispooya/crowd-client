@@ -9,7 +9,7 @@ import Documentation from '../feature/documentation';
 import Calculate from './calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
-import Partnership from '../feature/partnership';
+import Partner from '../feature/partner';
 
 const Plan = () => {
   const { id } = useParams();
@@ -109,7 +109,7 @@ const Plan = () => {
       </div>
       <div className="mt-6">
       {activeTab === 0 && (
-        <Partnership/>
+        <Partner/>
         )}
         {activeTab === 1 && (
         <Descript/>

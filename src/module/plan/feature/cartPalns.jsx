@@ -5,10 +5,6 @@ import Loader from 'src/components/loader';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
 
-
-
-
-
 const CartPlans = () => {
   const {data,isLoading} = UsePlans()
 
@@ -19,7 +15,6 @@ const CartPlans = () => {
   if (isLoading) {
     return <Loader />;
   }
-
   return (
     <div className='grid grid-rows-1'>
     <Typography

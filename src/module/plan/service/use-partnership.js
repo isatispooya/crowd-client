@@ -1,20 +1,20 @@
 import { getCookie } from 'src/api/cookie';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
 
-const postDitail = async (data, id) => {
+const postDitail = async (data) => {
   const access = getCookie('access');
   
 
   const response = await api.post(
     `/api/participant/${data.id}/`,
     {
-      data: {
+    
         id:data.id,
         amount: data.amount,
         total_amount: data.total_amount,
         participant: data.participant,
-      },
+      
     },
     {
       headers: {
