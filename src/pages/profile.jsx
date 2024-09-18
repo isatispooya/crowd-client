@@ -56,7 +56,7 @@ const Profile = () => {
           </div>
         </div>
       
-        <div className="col-span-1 md:col-span-4">
+        <div className="col-span-1 md:col-span-4 ">
           <h2 className="text-lg font-semibold text-gray-700 mb-4 mt-4">اطلاعات بانکی</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-4">
         <ProfileField label="  بانک" value={profileData.acc.accounts[0].bank||""} />

@@ -31,6 +31,8 @@ export default function Form() {
     },
   });
 
+  
+
   const mutationUpdate = useMutation({
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
@@ -81,14 +83,14 @@ export default function Form() {
         <button
           onClick={handleSubmit}
           className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-            mutation.isLoading || mutationUpdate.isLoading ? 'opacity-50 cursor-not-allowed' : ''
+           isLoading || mutation.isPending || mutationUpdate.isPending? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {mutation.isLoading || mutationUpdate.isLoading ? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
+          {isLoading || mutation.isPending|| mutationUpdate.isPending? 'در حال بارگذاری...' : 'درخواست بررسی اولیه'}
         </button>
       </div>
 
-      {mutation.isLoading ||isLoading || mutationUpdate.isLoading && (
+      {isLoading || mutation.isPending || mutationUpdate.isPending&& (
         <div className="flex justify-center mt-4">
           <SmallLoader />
         </div>

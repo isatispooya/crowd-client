@@ -20,12 +20,11 @@ const CartPlans = () => {
     return <Loader />;
   }
 
-
   return (
     <div className='grid grid-rows-1'>
     <Typography
       variant="h5"
-      sx={{ marginBottom: '24px', textAlign: 'center', fontWeight: 'bold' }}
+      sx={{  textAlign: 'center', fontWeight: 'bold' }}
     >
       درخواست‌ها
     </Typography>
