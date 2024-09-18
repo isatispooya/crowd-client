@@ -5,24 +5,31 @@ import { ReactTabulator } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/css/tabulator_simple.min.css';
+import { useParams } from 'react-router-dom';
+import usepartner from '../service/use-participant';
 
-const transactionData = [
-  { id: 1, name:'محمدی', units: 100, amount: '20000' },
-  { id: 2, name:'کریمی', units: 200, amount: '40000' },
-  { id: 3, name:"کریمیان" , units: 150, amount: '30000' },
-];
 const columns = [
-  { title: ' نام سرمایه گذار', field: 'id', width: 150 },
-  { title: ' نام سرمایه گذار', field: 'name', width: 150 },
-  { title: 'تعداد واحد', field: 'units', hozAlign: 'center', sorter: 'date' },
-  { title: 'مبلغ سرمایه گذاری', field: 'amount', hozAlign: 'center', formatter: 'money' },
+  { title: 'نام سرمایه گذار', field: 'lastName', width: 150 },
+  { title: 'تعداد مشارکت‌کنندگان', field: 'participant', hozAlign: 'center', width: 150 },
+  { title: 'مبلغ واحد', field: 'amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },
+  { title: 'مجموع مبلغ', field: 'total_amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },
 ];
 
 const InvestProfile = () => {
+  const { id } = useParams();
+  const { data: partnerData } = usepartner(id);
+
+ 
+  const transactionData = partnerData ? partnerData.map(item => ({
+    id: item.id,
+    lastName : item.lastName,
+    amount: item.amount,
+    total_amount: item.total_amount,
+    participant: item.participant,
+  })) : [];
+
   return (
-    <div
-    className='w-full h-full'
-    >
+    <div className="w-full h-full">
       <ReactTabulator
         data={transactionData}
         columns={columns}
@@ -32,7 +39,7 @@ const InvestProfile = () => {
           paginationSize: 5,
           responsiveLayout: true,
         }}
-        className="tabulator-table "
+        className="tabulator-table"
       />
     </div>
   );
