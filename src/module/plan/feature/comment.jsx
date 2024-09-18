@@ -37,9 +37,10 @@ const CommentForm = () => {
     }
   };
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">نظرات</h1>
-
+    <div className="">
+      <CommentList id={id} />
+      <h1 className="text-xl font-bold mb-4 mt-10">ارسال دیدگاه</h1>
+       
       <div className="mb-4">
         {chatHistory.map((chat, index) => (
           <div key={index} className={`chat ${chat.sender === 'user' ? 'chat-start' : 'chat-end'}`}>
@@ -83,7 +84,7 @@ const CommentForm = () => {
           {isLoading ? 'در حال ارسال...' : 'ارسال'}
         </button>
       </form>
-      <CommentList id={id} />
+      
     </div>
   );
 };

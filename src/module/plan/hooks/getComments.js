@@ -4,6 +4,7 @@ import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 
 const useGetComments = (id) => {
+    
   const getComments = async () => {
     const access = await getCookie('access');
 
@@ -15,6 +16,9 @@ const useGetComments = (id) => {
     console.log(response.data)
     return response.data;
   };
+
+
+
   const { isLoading, data } = useQuery({
     queryKey: ['getComments', id],
     queryFn: getComments,
@@ -23,3 +27,8 @@ const useGetComments = (id) => {
 
 };
 export default useGetComments;
+
+
+
+
+

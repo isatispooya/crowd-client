@@ -1,24 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { RxAvatar } from 'react-icons/rx';
 
-const CommentItem = ({ firstName, lastName, comment }) => {
+const CommentItem = ({ firstName, lastName, comment, known }) => {
   return (
-    <div className="flex flex-col p-4 border-b border-gray-300">
-      <div className="flex items-center justify-between">
-        <span className="font-bold text-gray-700">{firstName} {lastName}</span>
-
+    <div className="chat chat-start">
+      <div className="chat-image avatar">
+        <div className="w-10 rounded-full">
+          <div>
+            <RxAvatar className='text-4xl' />{' '}
+          </div>
+        </div>
       </div>
-      <p className="text-gray-800 mt-2">Comment: {comment}</p>
-
+      <div className="chat-bubble bg-gray-100">
+        {known ? (
+          <>
+            <span className="font-bold text-blue-600">
+              {firstName} {lastName}
+            </span>
+            : <span className='text-black'>{comment}</span>
+          </>
+        ) : (
+          <>
+            <span className="font-bold text-blue-600">ناشناس</span>: <span className='text-black'>{comment}</span>
+          </>
+        )}
+      </div>
     </div>
   );
 };
 
 CommentItem.propTypes = {
-    firstName: PropTypes.isRequired,
-    lastName  : PropTypes.isRequired,
-     comment : PropTypes.isRequired,
-
-
-  };
+  firstName: PropTypes.isRequired,
+  lastName: PropTypes.isRequired,
+  comment: PropTypes.isRequired,
+  known: PropTypes.isRequired,
+};
 export default CommentItem;
