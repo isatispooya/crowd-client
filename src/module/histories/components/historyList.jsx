@@ -10,13 +10,13 @@ import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
+import useNavigateStep from 'src/hooks/use-navigate-step';
 
 const HistoryList = () => {
   const { cartId } = UseCartId();
   const [historyList, setHistoryList] = useState([]);
-  // استفاده از useNavigateStep
-  const { incrementPage } = useNavigateStep();
+  const { incrementPage } = useNavigateStep(); // استفاده از useNavigateStep
+
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
@@ -37,11 +37,20 @@ const HistoryList = () => {
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
+      let hasFile = false; // Track if at least one file is selected
+
       historyList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
+          hasFile = true; // A file has been selected
         }
       });
+
+      // If no files were selected, show a toast info and return
+      if (!hasFile) {
+        toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
+        return;
+      }
 
       const access = await getCookie('access');
       await axios.post(`${OnRun}/api/history/${cartId}/`, formData, {
@@ -54,7 +63,7 @@ const HistoryList = () => {
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
 
-      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
+ 
       incrementPage();
     } catch (error) {
       console.error('خطا :', error);
@@ -73,7 +82,7 @@ const HistoryList = () => {
       </div>
       <ToastContainer />
 
-      <div className="   rounded-lg  shadow-inner">
+      <div className="rounded-lg shadow-inner">
         {historyList.map((item, index) => (
           <div key={index}>
             <HistoryRow index={index} list={historyList} item={item} setList={setHistoryList} />

@@ -9,7 +9,8 @@ import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
-import SmallLoader from 'src/components/SmallLoader';
+// import SmallLoader from 'src/components/SmallLoader';
+import Loader from 'src/components/loader';
 import { getFormData } from '../utils/getFormData';
 import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
@@ -38,7 +39,7 @@ const Other = () => {
   const { isLoading, data } = useFetchData(cartId);
 
   if (isLoading ) {
-    return <SmallLoader />;
+    return <Loader />;
   }
 
   if (data && !Data) {

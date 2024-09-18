@@ -12,6 +12,7 @@ import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Fildemnager from 'src/module/manegers/components/fildemaneger';
 import ConfirmationDialog from 'src/components/dialogMsg';
+import Loader from 'src/components/loader';
 
 
 const ManegersDetails = () => {
@@ -53,7 +54,7 @@ const ManegersDetails = () => {
     queryKey: ['fetchMessage', cartId],
     queryFn: () => fetchManager(cartId),
   });
-  if (isLoading) return <p className="text-gray-600 animate-pulse">در حال بارگذاری...</p>;
+  if (isLoading) return <Loader/>;
 
   const handleAdd = () => {
     setField((prevField) => [...prevField, singleFile]);

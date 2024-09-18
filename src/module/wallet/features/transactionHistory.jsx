@@ -76,7 +76,7 @@ const TranHistory = ({ setShowTranHistory }) => {
       <button
         type="button"
         onClick={() => setShowTranHistory(false)}
-        className="py-2 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200"
+        className="px-8 py-3 rounded-md border bg-gradient-to-r from-[#004ff9] to-[#000000] text-white text-sm hover:-translate-y-1 transform transition duration-200 hover:shadow-md"
       >
         بازگشت
       </button>

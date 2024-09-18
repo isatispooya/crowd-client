@@ -10,14 +10,14 @@ import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
-import useNavigateStep from 'src/hooks/use-navigate-step'; // وارد کردن هوک
+import useNavigateStep from 'src/hooks/use-navigate-step';
 
 const Attachement = () => {
   const { cartId } = UseCartId();
   const [resumeList, setResumeList] = useState([]);
-  
-  // استفاده از useNavigateStep
+
   const { incrementPage } = useNavigateStep();
+
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
@@ -37,14 +37,21 @@ const Attachement = () => {
   };
 
   const handleSubmit = async () => {
-    incrementPage()
     try {
       const formData = new FormData();
+      let hasFile = false;
+
       resumeList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
+          hasFile = true;
         }
       });
+
+      if (!hasFile) {
+        toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
+        return;
+      }
 
       const access = await getCookie('access');
       await axios.post(`${OnRun}/api/resume/${cartId}/`, formData, {
@@ -57,7 +64,6 @@ const Attachement = () => {
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
 
-      // بعد از ارسال موفقیت‌آمیز به مرحله بعدی بروید
       incrementPage();
     } catch (error) {
       console.error('خطا :', error);
@@ -76,7 +82,7 @@ const Attachement = () => {
       </div>
       <ToastContainer />
 
-      <div className="  rounded-lg   ">
+      <div className="rounded-lg">
         {resumeList.map((item, index) => (
           <div key={index}>
             <Row index={index} list={resumeList} item={item} setList={setResumeList} />
@@ -94,7 +100,5 @@ const Attachement = () => {
     </div>
   );
 };
-
-
 
 export default Attachement;

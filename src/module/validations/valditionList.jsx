@@ -35,15 +35,27 @@ const ValditionList = () => {
       toast.error('خطا در دریافت اطلاعات');
     }
   };
-console.log(validateList)
+
+  console.log(validateList);
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
+      let hasFile = false; // Track if at least one file is selected
+
       validateList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
+          hasFile = true; // A file has been selected
         }
       });
+
+      // If no files were selected, show a toast info and return
+      if (!hasFile) {
+        toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
+        return;
+      }
+
       const access = await getCookie('access');
       await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
@@ -77,7 +89,6 @@ console.log(validateList)
             <ValidateRow index={index} list={validateList} item={item} setList={setValidateList} />
           </div>
         ))}
-        
       </div>
       <div className="flex flex-col justify-center items-center mt-10">
         <button

@@ -14,7 +14,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
   };
 
   return (
-    <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
+    <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">نام شرکت:</label>
         <input
@@ -24,7 +24,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           disabled={localData.Lock_company_name}
           onChange={InputValues}
           onKeyDown={CompanyOnlyLetters}
-          className="shadow appearance-none disabled:bg-gray-200 border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none disabled:bg-gray-200 border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -36,7 +36,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.company_kind || ""}
           disabled={localData.Lock_company_kind}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         >
           <option value="">انتخاب کنید</option>
           {companyTypes.map((typeObj, index) => (
@@ -56,7 +56,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.nationalid || "" }
           onChange={InputValues}
           maxLength={11}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -69,7 +69,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           disabled={localData.Lock_registration_number}
           onChange={InputValues}
           maxLength={11}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -83,7 +83,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={formatNumber(localData.registered_capital) || ""}
           disabled={localData.Lock_registered_capital}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -97,7 +97,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.newspaper || ""}
           disabled={localData.Lock_newspaper}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
@@ -110,7 +110,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.date_newspaper || ""}
           disabled={localData.Lock_date_newspaper}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
@@ -121,7 +121,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.personnel || ""}
           disabled={localData.Lock_personnel}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
@@ -132,7 +132,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.city || ""}
           disabled={localData.Lock_city}
           onChange={InputValues}
-          className="shadow  border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow  border border-gray-300 bg-white rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
@@ -143,7 +143,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.address || ""}
           disabled={localData.Lock_address}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
       <div className="mb-6">
@@ -155,7 +155,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           disabled={localData.Lock_postal_code}
           onChange={InputValues}
           maxLength={10}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -167,7 +167,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.email || ""}
           disabled={localData.Lock_email}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -178,7 +178,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.activity_industry || ""}
           disabled={localData.Lock_activity_industry}
           onChange={InputValues}
-          className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
 
@@ -195,9 +195,9 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.amount_of_request || ""}
           disabled={localData.Lock_amount_of_request}
           onChange={InputValues}
-          className="w-1/2"
+          className="w-1/2 "
         />
-        <span className="block text-gray-700 text-xs mt-4 text-center font-medium">
+        <span className="block  text-gray-700 text-xs mt-4 text-center font-medium">
           {formatNumber(localData.amount_of_request)} ریال
         </span>
       </div>
