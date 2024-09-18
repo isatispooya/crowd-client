@@ -10,6 +10,7 @@ import Calculate from './calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Partner from '../feature/partner';
+import Partnership from '../feature/partnership';
 
 const Plan = () => {
   const { id } = useParams();
@@ -109,7 +110,7 @@ const Plan = () => {
       </div>
       <div className="mt-6">
       {activeTab === 0 && (
-        <Partner/>
+        <div className='flex justify-between'><Partner /><Partnership /></div>
         )}
         {activeTab === 1 && (
         <Descript/>
