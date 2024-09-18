@@ -51,7 +51,7 @@ const Fildemnager = ({ index, field, setField }) => {
               value={field[index].name}
               onChange={(e)=>handleChange('name',e.target.value)}
               required
-              className="shadow appearance-none border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow bg-white appearance-none border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
 
@@ -61,7 +61,7 @@ const Fildemnager = ({ index, field, setField }) => {
               value={field[index].is_legal}
               onChange={(e) => handleChange('is_legal', e.target.value)}
               name="is_legal"
-              className="block w-full border rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="block w-full border bg-white rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {types.map((typeObj, i) => (
                 <option key={i} value={typeObj.type}>
@@ -78,7 +78,7 @@ const Fildemnager = ({ index, field, setField }) => {
               onChange={(e)=>handleChange('is_obliged',e.target.value)}
               disabled={field[index].lock}
               name="is_obliged"
-              className="shadow appearance-none border rounded  w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white border rounded  w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             >
               
               {obliged.map((typeObj, i) => (
@@ -97,7 +97,7 @@ const Fildemnager = ({ index, field, setField }) => {
               type="text"
               disabled={field[index].lock}
               name="position"
-              className="shadow appearance-none border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
 
@@ -112,7 +112,7 @@ const Fildemnager = ({ index, field, setField }) => {
               disabled={field[index].lock}
               onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
               required
-              className="shadow appearance-none border disabled:bg-gray-200 text-black rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none border bg-white disabled:bg-gray-200 text-black rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
           {field[index].is_legal && (
@@ -126,7 +126,7 @@ const Fildemnager = ({ index, field, setField }) => {
                   onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ''))}
                   name="national_id"
                   maxLength={11}
-                  className="block w-full border rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="block w-full border bg-white rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -138,7 +138,7 @@ const Fildemnager = ({ index, field, setField }) => {
                   value={field[index].representative}
                   onChange={(e) => handleChange('representative', e.target.value)}
                   name="representative"
-                  className="block w-full border rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="block w-full border bg-white rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>

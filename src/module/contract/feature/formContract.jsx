@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import InputPercent from 'src/components/input/inputPercent';
 import SelectInput from 'src/components/input/inputSelect';
 import { toast, ToastContainer } from 'react-toastify';
+import Loader from 'src/components/loader';
 import useContract from '../hooks/use-contract';
 
 const FormContract = ()=> {
@@ -74,7 +75,7 @@ const FormContract = ()=> {
   }, [errorCreate]);
 
   if (isLoadingDetail || isLoadingCreate) {
-    return <p>در حال بارگذاری ...</p>;
+    return <Loader/>;
   }
   
   

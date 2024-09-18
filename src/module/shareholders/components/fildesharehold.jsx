@@ -26,7 +26,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               disabled={validite[index].lock}
               onChange={(e) => handleChange('name', e.target.value)}
               required
-              className="shadow appearance-none disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
           <div className="mb-6">
@@ -40,7 +40,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               maxLength={10}
               onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ''))}
               required
-              className="shadow appearance-none disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
           <div className="mb-6">
@@ -64,7 +64,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               max={100}
               min={10}
               required
-              className="shadow appearance-none disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
           <div className="mb-6">
@@ -78,7 +78,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ''))}
               maxLength={11}
               required
-              className="shadow appearance-none disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
+              className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
         </div>

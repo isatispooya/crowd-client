@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { OnRun } from 'src/api/OnRun';
 import { Divider } from '@mui/material';
-import { formatNumber } from 'src/utils/formatNumbers';
+
 
 const CartPlan = ({
   buoyancy,

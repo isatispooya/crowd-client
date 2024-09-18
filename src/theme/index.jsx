@@ -18,6 +18,9 @@ export default function ThemeProvider({ children }) {
     () => ({
       direction: 'rtl',
       palette: palette(),
+      
+      
+      
       // typography,
       
       shadows: shadows(),

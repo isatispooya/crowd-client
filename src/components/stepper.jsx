@@ -112,8 +112,8 @@ const Sterpercrowd = () => {
   }
 
   return (
-    <div className="bg-gray-50 mx-auto p-6 rounded-lg shadow-2xl">
-      <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full">
+    <div className= "min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
+      <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full flex-grow">
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
             <StepLabel icon={getStepIcon(index)} onClick={() => handleStepClick(index)}>
