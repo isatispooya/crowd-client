@@ -52,7 +52,7 @@ const Calculate = () => {
         onChange={(e) =>
           setInputValue(cleanNumber(e.target.value))}
         placeholder="عدد خود را وارد کنید"
-        className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+        className="border bg-white border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
       />
       <div className="text-base">
         سود دریافتی در هر پرداخت

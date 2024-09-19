@@ -65,7 +65,7 @@ const Refresh = ({ setShowRefresh }) => {
             </label>
             <button
               type="button"
-              className="mt-5 w-full btn btn-outline hover:bg-blue-500 text-black"
+              className="mt-5 bg-white w-full btn btn-outline hover:bg-blue-500 text-black"
               onClick={handleClose}
             >
               تایید

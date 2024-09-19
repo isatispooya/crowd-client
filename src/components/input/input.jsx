@@ -22,7 +22,7 @@ const Input = ({ label, value, disabled, setValue }) => {
         onChange={(e) => handleSetValue(e.target.value)}
         onKeyDown={handleCompanyNameKeyDown}
         required
-        className="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
       />
     </div>
   );
