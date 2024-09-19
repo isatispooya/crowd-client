@@ -10,7 +10,7 @@ import WalletPage from 'src/module/wallet/pages/walletPage';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));
-export const ProfilePage = lazy(() => import('src/pages/profile'));
+export const ProfilePage = lazy(() => import('src/module/profile/page/profile'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
