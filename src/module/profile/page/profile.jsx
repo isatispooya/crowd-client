@@ -38,7 +38,7 @@ const Profile = () => {
   useEffect(getProfile, [access]);
 
   const openModal = () => {
-    // mutate();
+    mutate();
     setShowRefresh(true);
   };
 

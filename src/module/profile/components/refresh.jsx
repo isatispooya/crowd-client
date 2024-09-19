@@ -3,25 +3,40 @@ import PropTypes from 'prop-types';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoKey } from 'react-icons/io5';
 import SmallLoader from 'src/components/SmallLoader';
-import { LuRefreshCw } from 'react-icons/lu';
 import SmallError from 'src/components/smallError';
+import { toast } from 'react-toastify';
 import useRefreshOTP from '../hooks/useGetOTP';
+import usePatchRefresh from '../hooks/patchUpdates';
 
 const Refresh = ({ setShowRefresh }) => {
-  const { mutate, isLoading, isError } = useRefreshOTP();
+  const { mutate: refreshOTP, isLoading, isError } = useRefreshOTP();
+  const { mutate: refreshPatch } = usePatchRefresh();
+
   const [countdown, setCountdown] = useState(60);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [value, setValue] = useState(null);
 
   const handleClose = () => {
     setShowRefresh(false);
   };
 
   const refreshReq = () => {
-    // mutate();
+    refreshOTP();
     setIsDisabled(true);
     setCountdown(60);
   };
 
+  const accessRefresh = () => {
+    if (value && value.length === 5) { // بررسی اگر مقدار otp معتبر است
+      refreshPatch({ otp: value });
+      setShowRefresh(false);
+      toast.success("کد با موفقیت ارسال شد");
+    } else {
+      toast.error("کد نامعتبر است");
+    }
+  };
+
+  // مدیریت تایمر
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (isDisabled) {
@@ -61,37 +76,22 @@ const Refresh = ({ setShowRefresh }) => {
             {isError && <SmallError />}
             <label htmlFor="otp" className="input input-bordered flex items-center gap-2 bg-white">
               <IoKey className="text-xl" />
-              <input type="text" className="grow bg-gray-400" placeholder="کد" />
+              <input value={value} onChange={(e) => setValue(e.target.value)} type="text" className="grow bg-gray-400" placeholder="کد" />
             </label>
             <button
               type="button"
               className="mt-5 w-full btn btn-outline hover:bg-blue-500 text-black"
-              onClick={handleClose}
+              onClick={accessRefresh}
             >
               تایید
             </button>
             <button
               type="button"
-              className="mt-5 w-full btn btn-outline hover:bg-blue-500 text-black"
+              className={`mt-5 w-full btn btn-outline hover:bg-blue-500 text-black ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={refreshReq}
+              disabled={isDisabled}
             >
-              <button
-                type="button"
-                className={`hover:text-gray-800 focus:outline-none ${
-                  isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
-                }`}
-                onClick={refreshReq}
-                disabled={isDisabled}
-              >
-                ارسال مجدد
-              </button>
-              <div className="flex items-center space-x-1">
-                <div className="countdown">
-                  <span style={{ '--value': countdown }} className="">
-                    {isDisabled ? `(${countdown}s)` : ''}{' '}
-                  </span>
-                </div>
-              </div>
+              ارسال مجدد {isDisabled && `(${countdown}s)`}
             </button>
           </div>
         </div>
