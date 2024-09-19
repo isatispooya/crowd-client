@@ -46,7 +46,7 @@ const Inputs = ({ Data, setData }) => {
                   type="file"
                   onChange={(e) => setData({ ...Data, claims_status: e.target.files[0] })}
                   disabled={Data.claims_status}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -99,7 +99,7 @@ const Inputs = ({ Data, setData }) => {
                   type="file"
                   onChange={(e) => setData({ ...Data, latest_insurance_staf: e.target.files[0] })}
                   disabled={Data.Lock_latest_insurance_staf}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -150,11 +150,12 @@ const Inputs = ({ Data, setData }) => {
                 انتخاب فایل
                 <BsCloudUploadFill className="ml-2" />
                 <input
+              
                   name="statement_yearold"
                   type="file"
                   onChange={(e) => setData({ ...Data, assets_and_liabilities: e.target.files[0] })}
                   disabled={Data.Lock_assets_and_liabilities}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -203,7 +204,7 @@ const Inputs = ({ Data, setData }) => {
                   type="file"
                   onChange={(e) => setData({ ...Data, statutes: e.target.files[0] })}
                   disabled={Data.Lock_statutes}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -256,7 +257,7 @@ const Inputs = ({ Data, setData }) => {
                   type="file"
                   onChange={(e) => setData({ ...Data, bank_account_turnover: e.target.files[0] })}
                   disabled={Data.Lock_bank_account_turnover}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -318,7 +319,7 @@ const Inputs = ({ Data, setData }) => {
                     })
                   }
                   disabled={Data.Lock_announcement_of_changes_capital}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
@@ -380,7 +381,7 @@ const Inputs = ({ Data, setData }) => {
                     })
                   }
                   disabled={Data.Lock_announcement_of_changes_managers}
-                  className="hidden"
+                  className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">

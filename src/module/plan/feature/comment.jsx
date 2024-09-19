@@ -66,10 +66,10 @@ const CommentForm = () => {
         <div >
           <input
             type="checkbox"
-            id="show-name"
+            id="show-name bg-white"
             checked={showName}
             onChange={() => setShowName(!showName)}
-            className="mr-2"
+            className="mr-2 bg-white"
           />
           <label htmlFor="show-name">نمایش نام</label>
         </div>

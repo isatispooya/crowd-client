@@ -73,7 +73,7 @@ const AgencyContract = () => {
               id="mobile"
               value={formData.mobile}
               onChange={handleChange}
-              className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500"
+              className="w-full p-4 rounded-lg border bg-white border-gray-300 focus:outline-none focus:border-indigo-500"
               placeholder="شماره موبایل خود را وارد کنید"
               required
             />

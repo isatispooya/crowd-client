@@ -78,7 +78,7 @@ const Partnership = () => {
           placeholder="تعداد گواهی مشارکت"
           value={amountNumber}
           onChange={handleChange}
-          className="shadow-md border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+          className="shadow-md bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
         {errorr && <p className="text-red-500 text-xs mt-2">{errorr}</p>}
       </div>
       <div className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow-inner">
@@ -97,7 +97,7 @@ const Partnership = () => {
           id="show-name"
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
-          className="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+          className="h-5 w-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500" />
         <label htmlFor="show-name" className="text-gray-700 font-medium">موافقتنامه</label>
       </div>
       <button

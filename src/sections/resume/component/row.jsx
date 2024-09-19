@@ -66,7 +66,7 @@ const Row = ({ index, list, item, setList }) => {
                 type="file"
                 onChange={(e) => updateFile(e.target.files[0], item.national_code)}
                 disabled={item.lock}
-                className="hidden"
+                className="hidden bg-white"
               />
             </label>
             <span className="ml-4 mr-8 text-xs">
