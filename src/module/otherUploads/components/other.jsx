@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -37,13 +38,18 @@ const Other = () => {
 
   const { isLoading, data } = useFetchData(cartId);
 
+
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data]);
+
+  
   if (isLoading) {
     return <Loader />;
   }
 
-  if (data && !Data) {
-    setData(data);
-  }
 
   const handleSubmit = async () => {
     try {

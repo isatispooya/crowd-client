@@ -30,9 +30,6 @@ export default function Form() {
       setCartId(value.data.id);
     },
   });
-
-  
-
   const mutationUpdate = useMutation({
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });

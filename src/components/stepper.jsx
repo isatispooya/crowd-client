@@ -74,7 +74,7 @@ const Sterpercrowd = () => {
   // محتوای هر مرحله را برمی‌گرداند
   const renderStepContent = (step) => {
     if (isCompleted) {
-      return <CompletionMessage />; // اگر مراحل کامل شده باشد، پیام اتمام نمایش داده شود
+      return <CompletionMessage />; 
     }
 
     switch (step) {

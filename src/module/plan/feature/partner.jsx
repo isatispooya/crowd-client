@@ -11,7 +11,7 @@ const Partner = () => {
   const { data, isLoading } = usepartner(id);
 
   if (!data || data.length === 0) {
-    return <p className="text-center text-red-500 ">هیچ اطلاعاتی یافت نشد.</p>;
+    return <p className="text-center text-gray-500 ">شما هنوز دارایی ندارید</p>;
   }
 
   if (isLoading) {

@@ -196,17 +196,16 @@ export default function LoginView() {
   );
 
   return (
-    <Box
-      sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: '/assets/background/overlay_4.jpg',
-        }),
-        height: 1,
-      }}
-    >
+    <Box  sx={{
+      ...bgGradient({
+        color: alpha(theme.palette.background.default, 0.9),
+        imgUrl: '/assets/background/overlay_4.jpg',
+      }),
+      height: 1,
+    }}>
+      <Box>
       <ToastContainer />
-      <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
+      <Stack alignItems="center" justifyContent="center" sx={{ pt:4, height: 1 }}>
         <Card
           sx={{
             p: 5,
@@ -232,6 +231,12 @@ export default function LoginView() {
           {renderForm}
         </Card>
       </Stack>
+    </Box>  
+    <Box sx={{ mt: 5, pb:4, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          © {new Date().getFullYear()} تمامی حقوق  توسعه اطلاعات مالی محفوظ است.
+        </Typography>
+      </Box>
     </Box>
   );
 }

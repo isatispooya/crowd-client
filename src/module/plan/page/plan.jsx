@@ -71,7 +71,7 @@ const Plan = () => {
               }`}
               onClick={() => setActiveTab(3)}
             >
-              نظرات کاربران{' '}
+              نظرات کاربران
             </button>
           </li>
           <li className="mr-4">

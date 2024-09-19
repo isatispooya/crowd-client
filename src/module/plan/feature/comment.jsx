@@ -65,7 +65,7 @@ const CommentForm = () => {
           disabled={isLoading}
         />
 
-        <div className="flex items-center">
+        <div >
           <input
             type="checkbox"
             id="show-name"

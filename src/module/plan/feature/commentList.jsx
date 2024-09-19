@@ -19,9 +19,9 @@ const CommentList = () => {
   const comments = data?.data?.comments || [];
 
   return (
-    <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8">
-      <div className="bg-gradient-to-r from-[#004ff9] to-[#000000] p-6">
-        <h2 className="text-4xl font-semibold text-white">نظرات کاربران</h2>
+    <div className="max-w-6xl mx-auto  bg-white shadow-lg rounded-lg overflow-hidden mt-8">
+      <div className="bg-gradient-to-r from-[#004ff9] to-[#000000] p-3">
+        <h2 className="text-2xl flex justify-center font-semibold text-white">نظرات کاربران</h2>
       </div>
       <div className="p-8 space-y-6">
         {comments.length > 0 ? (

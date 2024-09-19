@@ -45,7 +45,7 @@ const getFormData = (data) => {
       formData.append(field, data[field]);
     }
   });
-
+  
   return formData;
 };
 
@@ -125,7 +125,6 @@ export const getCart = async (cartId) => {
       },
     };
   }
-
   const access = await getCookie('access');
   return api.get(`/api/cart/detail/${cartId}/`, {
     headers: {

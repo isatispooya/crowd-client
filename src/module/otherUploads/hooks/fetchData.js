@@ -12,8 +12,9 @@ const useFetchData = (cartId) => {
       },
     });
     return response.data;
+    
   };
-
+  
   const { isLoading, data } = useQuery({
     queryKey: ['fetchData', cartId],
     queryFn: fetchData,
