@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import usePostComments from '../hooks/postsComments';
-import useGetComments from '../hooks/getComments';
 import CommentList from './commentList';
 
 const CommentForm = () => {
@@ -13,7 +12,6 @@ const CommentForm = () => {
   const { id } = useParams();
 
   const { mutate: postComment, isLoading } = usePostComments(id);
-  const { data } = useGetComments(id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
