@@ -22,10 +22,8 @@ const usePostComments = (id) => {
   const mutation = useMutation({
     mutationFn: postComment,
     onSuccess: (data) => {
-      console.log('Comment posted successfully:', data);
     },
     onError: (error) => {
-      console.error('Error posting comment:', error);
     },
   });
 

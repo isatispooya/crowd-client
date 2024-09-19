@@ -35,7 +35,6 @@ const ValditionList = () => {
     }
   };
 
-  // console.log(validateList);
 
   const handleSubmit = async () => {
     try {

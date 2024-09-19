@@ -4,7 +4,6 @@ import api from 'src/api/apiClient';
 
 const getDocumentation = async (id) => {
   const access = await getCookie('access');
-  console.log("efrty",id)
 
   const response = await api.get(`/api/documentation/${id}/`, {
     headers: {
@@ -12,7 +11,6 @@ const getDocumentation = async (id) => {
       'Content-Type': 'application/json',
     },
   });
-  console.log(response.data)
   return response.data.data;
   
 };

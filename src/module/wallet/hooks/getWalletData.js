@@ -11,7 +11,6 @@ const fetchWallet = async () => {
       Authorization: `Bearer ${access}`,
     },
   });
-  // console.log(response.data.wallet)  
   return response.data.wallet;
 };
 

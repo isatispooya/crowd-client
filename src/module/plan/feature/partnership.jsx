@@ -12,7 +12,6 @@ import { useFetchWallet } from 'src/module/wallet/hooks/getWalletData';
 import UseCartId from 'src/hooks/use-cartId';
 import usePlan from '../service/use-plan';
 import PostPartnership from '../service/use-partnership';
-import Partner from './partner';
 
 const Partnership = () => {
   const [amountNumber, setAmountNumber] = useState('');
@@ -63,7 +62,6 @@ const Partnership = () => {
     try {
       await  mutateAsync(sender);
       toast.success('اطلاعات با موفقیت ارسال شد.');
-      console.log("Sender:", sender);
     } catch (errorPost) {
       toast.error('خطا در ارسال اطلاعات.');
     }

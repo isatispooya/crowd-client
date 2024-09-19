@@ -8,7 +8,6 @@ import useAppenices from '../service/use-appendices';
 const Appendices = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useAppenices(id);
-  console.log('tyu', data);
   if (isLoading) {
     return <Loader />;
   }

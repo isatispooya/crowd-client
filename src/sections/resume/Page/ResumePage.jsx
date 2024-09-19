@@ -6,8 +6,6 @@ const ResumePage = () => {
   const { cartId } = UseCartId();
   const { incrementPage } = useNavigateStep();
 
-  console.log();
-
   return <Attachement incrementPage={incrementPage} cartId={cartId} />;
 };
 

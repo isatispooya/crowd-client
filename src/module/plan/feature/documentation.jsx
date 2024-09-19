@@ -8,7 +8,6 @@ import useDocumentation from '../service/use-documentation';
 const Documentation = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useDocumentation(id);
-  console.log('tyu', data);
   if (isLoading) {
     return <Loader />;
   }

@@ -15,8 +15,6 @@ const Calculate = () => {
   const { id } = useParams();
   const { data, isLoading, error } = usePlan(id);
  
-  console.log("yyy", data);
-
   useEffect(() => {
     if (!isNaN(inputValue) && inputValue !== '' && data) {
       const {profit} = data;

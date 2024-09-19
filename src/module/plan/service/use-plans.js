@@ -12,7 +12,6 @@ const getPlansData = async () => {
       'Content-Type': 'application/json',
     },
   });
-  console.log("plafffn",response.data.data)
   return response.data.data;
   
 };
