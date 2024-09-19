@@ -8,7 +8,6 @@ const Inputs = ({ Data, setData }) => {
   const handleFileRemove = (field) => {
     setData({ ...Data, [field]: null });
   };
-  console.log('11111', Data);
   return (
     <>
       <div className="mb-6">

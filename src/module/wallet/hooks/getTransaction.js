@@ -11,7 +11,6 @@ const fetchTransaction = async () => {
       Authorization: `Bearer ${access}`,
     },
   });
-  console.log(response.data.transaction)  
   return response.data.transaction;
 };
 

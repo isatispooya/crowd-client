@@ -11,7 +11,6 @@ const getPartner = async (id) => {
       'Content-Type': 'application/json',
     },
   });
-  console.log(response.data.data[0])
   return response.data.data;
   
 };

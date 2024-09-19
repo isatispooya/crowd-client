@@ -152,8 +152,6 @@ export const createCart = async (data, incrementPage) => {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handlePageIncrement(incrementPage);
     }
-    console.log(";;;;;;;;;;;;",response.data.date_newspaper)
-
     return response;
   } catch (error) {
     toast.error('خطا در ارسال اطلاعات.');

@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
-import { FiX, FiDownload } from 'react-icons/fi';
+import {  FiDownload } from 'react-icons/fi';
 import { BsCloudUploadFill } from 'react-icons/bs';
 
 const HistoryRow = ({ index, list, item, setList }) => {

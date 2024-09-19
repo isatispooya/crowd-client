@@ -30,7 +30,6 @@ const CartPlan = ({
   const navigate = useNavigate();
 
   const handleViewClick = () => {
-    console.log('fgtyhjuiklo;pik');
     navigate(`/plan/${id}`);
   };
 
@@ -47,12 +46,9 @@ const CartPlan = ({
             {profit}
           </div>
         </div>
-        <h className="font-bold text-lg mb-2 h-16">{title} </h>
+        <h className="font-bold justify-center flex text-lg mb-2 h-16">{title} </h>
         <p className="text-base text-gray-800 mb-2">
           نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-2">
-          پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
           مبلغ سرمایه‌گذاری:
@@ -66,30 +62,7 @@ const CartPlan = ({
           {' '}
           حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
         </p>
-        {/* <p className="text-base text-gray-800 mb-4">
-          {' '}
-          نماد : <span className="text-sm text-gray-600 font-semibold">{symbol}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          بازارگردان : <span className="text-sm text-gray-600 font-semibold">{marketer}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          درصدتامین متقاضی :{' '}
-          <span className="text-sm text-gray-600 font-semibold">{applicantFundingPercentage}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          قیمت اسمی هر گواهی:{' '}
-          <span className="text-sm text-gray-600 font-semibold">{nominalPriceCertificate}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          لینک فرابورس :{' '}
-          <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
-        </p> */}
-        {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
+      
         <div className="flex flex-col items-center w-full p-4">
       <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
         <div
