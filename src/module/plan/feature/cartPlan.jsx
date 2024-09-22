@@ -75,7 +75,7 @@ const CartPlan = ({
             <p className="text-sm text-gray-500">{remainingDays} روز تا پایان فرصت</p>
             <button
               type="button"
-              className="bg-gradient-to-r from-blue-500 to-gray-900 text-white px-5 py-2 rounded-lg hover:from-blue-600 transition-all duration-200"
+              className="bg-gradient-to-r from-blue-500 to-gray-900 text-white px-5 py-2 rounded-lg "
               onClick={handleViewClick}
             >
               جزئیات طرح

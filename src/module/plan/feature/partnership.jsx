@@ -98,7 +98,7 @@ const Partnership = () => {
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
           className="h-5 w-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500" />
-        <label htmlFor="show-name" className="text-gray-700 font-medium">موافقتنامه</label>
+        <label htmlFor="show-name" className="text-gray-700 bg-white font-medium">موافقتنامه</label>
       </div>
       <button
         onClick={handleSubmit}
