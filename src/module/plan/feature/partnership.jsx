@@ -106,11 +106,10 @@ const Partnership = () => {
         </p>
       </div>
 
-      {/* قوانین */}
       <div className="my-4">
         <p 
           className="text-blue-600 cursor-pointer hover:underline" 
-          onClick={() => setIsRulesModalOpen(true)} // Open modal on click
+          onClick={() => setIsRulesModalOpen(true)} 
         >
           قوانین و مقررات
         </p>
@@ -126,7 +125,6 @@ const Partnership = () => {
         />
         <label htmlFor="show-name" className="text-gray-700 bg-white font-medium">موافقتنامه</label>
       </div>
-
       <button
         onClick={handleSubmit}
         className={`bg-gradient-to-r from-[#004ff9] to-[#000000] text-white py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 ${!isChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -136,8 +134,6 @@ const Partnership = () => {
       </button>
 
       <ToastContainer />
-
-      {/* Render the RulesModal */}
       <RulesModal isOpen={isRulesModalOpen} onClose={() => setIsRulesModalOpen(false)} />
     </div>
   );

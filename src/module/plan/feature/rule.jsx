@@ -1,9 +1,22 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const RulesModal = ({ isOpen, onClose }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
   if (!isOpen) return null;
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  const handleClose = () => {
+    if (isChecked) {
+      onClose();
+    } 
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -15,18 +28,37 @@ const RulesModal = ({ isOpen, onClose }) => {
         <p className="text-gray-700 mb-6">
           با کلیک بر روی موافقتنامه، شما تمامی شرایط را قبول می‌کنید.
         </p>
-        <button
-          onClick={onClose}
-          className="bg-blue-500 justify-center items-center self-center flex text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-        >
-          بستن
-        </button>
+
+        <div className="flex items-center mb-6">
+          <input
+            type="checkbox"
+            id="agree"
+            className="mr-2"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="agree" className="text-gray-700">
+            با قوانین موافقم
+          </label>
+        </div>
+
+        <div className="flex justify-end">
+          <button
+            onClick={handleClose}
+            disabled={!isChecked}
+            className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors ${!isChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            تائید
+          </button>
+        </div>
       </div>
     </div>
   );
 };
+
 RulesModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,  
-    onClose: PropTypes.func.isRequired, 
-  };
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
 export default RulesModal;
