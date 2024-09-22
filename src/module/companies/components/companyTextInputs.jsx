@@ -97,6 +97,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.newspaper || ""}
           disabled={localData.Lock_newspaper}
           onChange={InputValues}
+          
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
@@ -149,7 +150,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2"> کدپستی:</label>
         <input
-          type="number"
+          type="text"
           name="postal_code"
           value={localData.postal_code || ""}
           disabled={localData.Lock_postal_code}

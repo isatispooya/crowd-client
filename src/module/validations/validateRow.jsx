@@ -13,9 +13,13 @@ const ValidateRow = ({ index, list, item, setList }) => {
   };
 
   const handleFileRemove = (national_code) => {
+    console.log('a',list);
     const updatedList = list.map((i) =>
-      i.national_code === national_code ? { ...i, file: '' } : i
+      i.national_code === national_code ? { ...i, file_manager: '' } : i
     );
+    console.log('b',updatedList);
+    console.log(national_code);
+    
     setList(updatedList);
   };
 
@@ -71,7 +75,7 @@ const ValidateRow = ({ index, list, item, setList }) => {
           />
         </label>
         <span className="ml-4 mr-8 text-xs">
-          {item.file_manager ? item.file_manager.name : ' فایلی انتخاب نشده'}
+          {item.file ? item.file.name : ' فایلی انتخاب نشده'}
         </span>
       </div>
     )}
