@@ -17,8 +17,6 @@ const ValidateRow = ({ index, list, item, setList }) => {
     const updatedList = list.map((i) =>
       i.national_code === national_code ? { ...i, file_manager: '' } : i
     );
-    console.log('b',updatedList);
-    console.log(national_code);
     
     setList(updatedList);
   };
