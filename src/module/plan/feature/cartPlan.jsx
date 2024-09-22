@@ -70,39 +70,6 @@ const CartPlan = ({
               {fundedAmount.toLocaleString()} از {fundedAmount.toLocaleString()} تامین شده
             </div>
           </div>
-        </div>
-        <h className="font-bold justify-center flex text-lg mb-2 h-16">{title} </h>
-        <p className="text-base text-gray-800 mb-2">
-          نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-2">
-          مبلغ سرمایه‌گذاری:
-          <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-2">
-          {' '}
-          مدت زمان طرح: <span className="text-sm text-gray-600 font-semibold">{totalTime}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-2">
-          {' '}
-          حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
-        </p>
-      
-        <div className="flex flex-col items-center w-full p-4">
-      <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
-        <div
-          className="bg-blue-900 h-full"
-          style={{ width: `${fundedAmount}%` }}
-        />
-        <div
-          className="bg-green-500 h-full"
-          style={{ width: `calc(${100 - fundedAmount}% - 0.5rem)` }}
-        />
-      </div>
-      <div className="flex justify-between w-full mt-2 text-gray-800 text-sm font-semibold">
-        <span>{`ریال ${fundedAmount.toLocaleString()} از ریال ${fundedAmount.toLocaleString()} تامین شده`}</span>
-      </div>
-    </div>
 
   
           <div className="flex justify-between items-center">
@@ -117,7 +84,7 @@ const CartPlan = ({
           </div>
         </div>
       </div>
-    
+    </div>
   );
 };
 
