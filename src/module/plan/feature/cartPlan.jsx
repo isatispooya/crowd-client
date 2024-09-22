@@ -1,86 +1,138 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-shadow */
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { OnRun } from 'src/api/OnRun';
-import { handleKeyPress } from 'src/utils/enterKey';
-import invesment from './investment-svgrepo-com.svg';
+import { Divider } from '@mui/material';
+import { formatNumber } from 'src/utils/formatNumbers';
 
 const CartPlan = ({
   buoyancy,
   paymentPeriod,
+  faraboursLink,
   profit,
   activityField,
   remainingDays,
   picture,
   totalTime,
   fundedAmount,
+  marketer,
   companyName,
   title,
   id,
+  key,
+  description,
+  applicantFundingPercentage,
+  nominalPriceCertificate,
+  symbol,
 }) => {
   const navigate = useNavigate();
 
   const handleViewClick = () => {
+    console.log('fgtyhjuiklo;pik');
     navigate(`/plan/${id}`);
   };
 
   return (
-    <div className="flex mt-8 justify-center p-4">
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={handleViewClick}
-        onKeyPress={handleKeyPress}
-        className="shadow-lg flex w-full max-w-4xl rounded-lg bg-white transition-transform hover:scale-105"
-      >
-        <div className="w-1/3 relative">
+    <div className="flex mt-24 flex-wrap justify-center gap-6 bg-white p-4">
+      <div key={key} className="shadow-md w-72 p-4 mt-18 rounded-md border bg-white">
+        <div className="relative h-40 w-full mb-4">
           <img
-            src={picture ? `${OnRun}/${picture}` : invesment}
+            src={`${OnRun}/${picture}`}
             alt={title}
-            className="h-full w-full object-cover rounded-l-lg shadow-sm"
+            className="h-full w-full object-cover rounded-md"
           />
+          <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">
+            {profit}
+          </div>
+        </div>
+        <h3 className="font-bold text-lg mb-2 h-16">{title} </h3>
+        <p className="text-base text-gray-800 mb-2">
+          {' '}
+          نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-2">
+          پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-2">
+          {' '}
+          مبلغ سرمایه‌گذاری:{' '}
+          <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-2">
+          {' '}
+          مدت زمان طرح: <span className="text-sm text-gray-600 font-semibold">{totalTime}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-2">
+          {' '}
+          حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
+        </p>
+        {/* <p className="text-base text-gray-800 mb-4">
+          {' '}
+          نماد : <span className="text-sm text-gray-600 font-semibold">{symbol}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          بازارگردان : <span className="text-sm text-gray-600 font-semibold">{marketer}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          درصدتامین متقاضی :{' '}
+          <span className="text-sm text-gray-600 font-semibold">{applicantFundingPercentage}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          قیمت اسمی هر گواهی:{' '}
+          <span className="text-sm text-gray-600 font-semibold">{nominalPriceCertificate}</span>
+        </p>
+        <p className="text-base text-gray-800 mb-4">
+          {' '}
+          لینک فرابورس :{' '}
+          <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
+        </p> */}
+        {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
+        <div className=" mt-4 flex flex-col mb-8 justify-center items-center">
+          <div className='flex'>
+            <p className="text-sm"> مبلغ سرمایه گذاری</p>
+            <input
+              type="range"
+              name="fundedAmount"
+              step={10000000000}
+              value={fundedAmount}
+              className="w-1/2"
+              readOnly
+            />
+          </div>
+          <span className="block text-gray-700 text-xs mt-2 text-center font-medium">
+            {formatNumber(fundedAmount)} ریال
+          </span>
         </div>
 
-        <div className="flex flex-col justify-between w-2/3 p-6">
-          <div>
-            <h2 className="font-extrabold text-2xl text-blue-900 mb-4">{title}</h2>
-            <div className="h-1 w-20 bg-blue-600 rounded mb-6" />
+        <div className="flex justify-between gap-1 items-center text-sm text-gray-900 mb-4 ">
+          <p className=' text-xs '>
+            درصدشناوری:
+            <span className="text-xs text-gray-700 text-center font-semibold">{buoyancy}</span>
+          </p>
+          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
+          <p className=' text-xs'>
+            دوره پرداخت:
+            <span className="text-xs text-gray-700 text-center font-semibold">
+              {paymentPeriod}
+            </span>
+          </p>
+          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
 
-            <p className="text-lg text-gray-800 mb-2">
-              <span className="font-semibold">شرکت:</span> {companyName}
-            </p>
-
-            <div className="grid grid-cols-2 gap-y-4 text-gray-700">
-              <div>
-                <span className="font-semibold text-gray-800">سود پیش‌بینی شده:</span> {profit}%
-              </div>
-              <div>
-                <span className="font-semibold text-gray-800">مبلغ سرمایه‌گذاری:</span>{' '}
-                {fundedAmount.toLocaleString()} ریال
-              </div>
-              <div>
-                <span className="font-semibold text-gray-800">مدت زمان طرح:</span> {totalTime} ماه
-              </div>
-              <div>
-                <span className="font-semibold text-gray-800">حوزه فعالیت:</span> {activityField}
-              </div>
-            </div>
-
-            <div className="mt-4 text-base font-semibold text-green-600">
-              {fundedAmount.toLocaleString()} از {fundedAmount.toLocaleString()} تأمین شده
-            </div>
-          </div>
-
-          <div className="flex justify-between items-center mt-4">
-            <p className="text-sm text-gray-500">{remainingDays} روز تا پایان فرصت</p>
-            <button
-              type="button"
-              className="bg-gradient-to-r from-blue-500 to-gray-900 text-white px-5 py-2 rounded-lg "
-              onClick={handleViewClick}
-            >
-              جزئیات طرح
-            </button>
-          </div>
+          <p className=' text-xs'>
+            پیش‌بینی سود: <span className="font-semibold  text-xs text-center text-gray-700">{profit}</span>
+          </p>
+        </div>
+        <div className="flex flex-col justify-between items-center text-sm text-gray-600 mb-4">
+          <p>{remainingDays} روز تا پایان فرصت</p>
+          <button className="bg-blue-900 text-white rounded-md px-4 mt-8 py-2" onClick={handleViewClick}>
+            جزئیات طرح
+          </button>
         </div>
       </div>
     </div>
@@ -92,13 +144,20 @@ CartPlan.propTypes = {
   picture: PropTypes.string.isRequired,
   totalTime: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  key: PropTypes.number.isRequired,
   profit: PropTypes.number.isRequired,
   buoyancy: PropTypes.number.isRequired,
   fundedAmount: PropTypes.number.isRequired,
   remainingDays: PropTypes.number.isRequired,
   companyName: PropTypes.string.isRequired,
+  marketer: PropTypes.string.isRequired,
   activityField: PropTypes.string.isRequired,
+  symbol: PropTypes.number.isRequired,
   paymentPeriod: PropTypes.number.isRequired,
+  applicantFundingPercentage: PropTypes.number.isRequired,
+  nominalPriceCertificate: PropTypes.number.isRequired,
+  faraboursLink: PropTypes.string.isRequired,
 };
 
 export default CartPlan;

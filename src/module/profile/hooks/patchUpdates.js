@@ -9,7 +9,7 @@ const usePatchRefresh = () => {
 
     const response = await axios.patch(
       `${OnRun}/api/update/profile/`,
-      data, // ارسال داده‌های ورودی به ریکوئست
+      data,
       {
         headers: {
           Authorization: `Bearer ${access}`,
