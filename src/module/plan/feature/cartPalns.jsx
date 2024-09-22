@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Grid} from '@mui/material';
 import Loader from 'src/components/loader';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
