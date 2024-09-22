@@ -36,7 +36,7 @@ const WalletCard = () => {
 
   return (
     <div className="flex items-center justify-center ">
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-2xl p-6 flex flex-col">
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 flex flex-col space-y-4">
         <div className="bg-gray-100 w-full text-white rounded-t-md p-2 text-center mb-4">
           <h1 className="text-2xl font-bold text-gray-700">کیف پول</h1>
         </div>
@@ -83,20 +83,22 @@ const WalletCard = () => {
         </div>
 
         <div className="flex flex-col items-center mt-6 space-y-4">
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gradient-to-r from-[#004ff9] to-[#000000]">
-            <h2 className="text-lg font-bold text-white">اعتبار:</h2>
-            <p className="text-2xl font-bold text-white">{formatNumber(credit)}</p>
+          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center  bg-gray-100 text-gray-700 ">
+            <h2 className="text-lg font-bold ">اعتبار:</h2>
+            <p className="text-2xl font-bold ">{formatNumber(credit)}</p>
           </div>
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gradient-to-r from-[#004ff9] to-[#000000]">
-            <h2 className="text-lg font-bold text-white">مانده تعلیلی:</h2>
-            <p className="text-2xl font-bold text-white">{formatNumber(adjustment_balance)}</p>
+          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gray-100 text-gray-700  ">
+            <h2 className="text-lg font-bold">مانده تعلیلی:</h2>
+            <p className="text-2xl font-bold ">{formatNumber(adjustment_balance)}</p>
           </div>
         </div>
       </div>
 
       {openTransaction && (
-        <div className="relative bg-white rounded-lg p-8 w-96">
-          <TransactionOptions setOpenTransaction={setOpenTransaction} />
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative bg-white rounded-lg p-8 w-96 shadow-lg">
+            <TransactionOptions setOpenTransaction={setOpenTransaction} />
+          </div>
         </div>
       )}
     </div>

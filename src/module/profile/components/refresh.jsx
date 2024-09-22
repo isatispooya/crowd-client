@@ -27,7 +27,7 @@ const Refresh = ({ setShowRefresh }) => {
   };
 
   const accessRefresh = () => {
-    if (value && value.length === 5) { // بررسی اگر مقدار otp معتبر است
+    if (value && value.length === 5) { 
       refreshPatch({ otp: value });
       setShowRefresh(false);
       toast.success("کد با موفقیت ارسال شد");
