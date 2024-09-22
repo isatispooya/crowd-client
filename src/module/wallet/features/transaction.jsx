@@ -1,37 +1,31 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdClose } from 'react-icons/io';
-import { LuGalleryHorizontalEnd } from "react-icons/lu";
-
-
-
+import { LuGalleryHorizontalEnd } from 'react-icons/lu';
+import { formatNumber } from 'src/utils/formatNumbers';
+import { useFetchWallet } from '../hooks/getWalletData';
 
 const TransactionOptions = ({ setOpenTransaction }) => {
-  const inputRef = useRef(null);
+  const [value, setValue] = useState('');
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-    document.body.style.overflow = 'hidden';
+  const { data: walletData } = useFetchWallet();
+  const { remaining } = walletData || {};
 
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
+  const handleInputChange = (e) => {
+    const cleanedValue = e.target.value.replace(/,/g, '');
+    setValue(cleanedValue);
+  };
+
+  const WithdrawAll = () => {
+    setValue(remaining);
+  };
 
   const closeModal = () => {
     setOpenTransaction(false);
   };
 
-
-
   return (
-    <div
-      className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 modal-overlay"
-
-    >
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 modal-overlay">
       <div className="relative bg-white shadow-lg rounded-lg w-[400px] p-6">
         <button
           type="button"
@@ -45,7 +39,8 @@ const TransactionOptions = ({ setOpenTransaction }) => {
 
         <div className="mb-4">
           <input
-            ref={inputRef}
+            value={formatNumber(value)}
+            onChange={handleInputChange}
             type="text"
             placeholder="میزان برداشت"
             className="input input-bordered w-full bg-gray-100 mb-4"
@@ -56,9 +51,10 @@ const TransactionOptions = ({ setOpenTransaction }) => {
           <button
             type="button"
             className="flex items-center px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            onClick={WithdrawAll}
           >
             برداشت همه
-            <LuGalleryHorizontalEnd className='mr-2'/>
+            <LuGalleryHorizontalEnd className="mr-2" />
           </button>
           <button
             type="button"

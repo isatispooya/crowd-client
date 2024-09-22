@@ -6,13 +6,10 @@ import PropTypes from 'prop-types';
 import { handleFileRemove } from '../utils/removeUploadFiles';
 import { renderFileSection } from './renderFiles';
 
-
-const CompanyUploads = ({localData, setLocalData}) => {
-
+const CompanyUploads = ({ localData, setLocalData }) => {
   // eslint-disable-next-line no-unused-vars
   const { cartId, setCartId } = UseCartId();
 
-  
   return (
     <div className="flex flex-col items-center justify-center mb-8">
       <div className="flex items-center justify-center mb-8">

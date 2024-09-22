@@ -43,7 +43,7 @@ const FormContract = ()=> {
  
   ];
   const periodOptions=[
-    {type:"1",title:'ماهه3'}
+    {type:"1",title:'3ماهه'}
   ]
   const {
     mutateAsync,
