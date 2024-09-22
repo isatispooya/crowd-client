@@ -9,6 +9,11 @@ const icon = (name) => (
 
 const navConfig = [
   {
+    title: 'داشبورد',
+    path: '/dashboard',
+    icon: icon('ic_sheet'),
+  },
+  {
     title: 'پروفایل',
     path: '/ProfilePage',
     icon: icon('ic_blog'),
@@ -34,6 +39,11 @@ const navConfig = [
   {
     title: 'مشاهده طرح ها',
     path: '/plans',
+    icon: icon('ic_sheet'),
+  },
+  {
+    title: 'گواهی نامه',
+    path: 'certificate',
     icon: icon('ic_sheet'),
   },
 ];

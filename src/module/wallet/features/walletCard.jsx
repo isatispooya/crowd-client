@@ -13,6 +13,7 @@ import TranHistory from './transactionHistory';
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
+  console.log(walletData)
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
 
@@ -28,7 +29,7 @@ const WalletCard = () => {
     return <Loader />;
   }
 
-  const { adjustment_balance, credit, remaining } = walletData || {};
+  const {  remaining } = walletData || {};
 
   if (showTranHistory) {
     return <TranHistory setShowTranHistory={setShowTranHistory} />;
@@ -48,7 +49,7 @@ const WalletCard = () => {
 
               <h5 className="mb-1 text-xl font-medium text-white mt-6">مانده کیف پول</h5>
               <h5 className="mb-1 font-medium text-4xl text-white">
-                {formatNumber(remaining) || 0}
+                {remaining !== null && remaining !== undefined ? formatNumber(remaining) : 0}
               </h5>
 
               <div className="flex mt-4">

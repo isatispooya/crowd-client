@@ -6,6 +6,8 @@ import DashboardLayout from 'src/layouts/dashboard';
 import Plan from 'src/module/plan/page/plan';
 import Plans from 'src/module/plan/page/plans';
 import WalletPage from 'src/module/wallet/pages/walletPage';
+import Dashboard from 'src/module/dashboard/components/dashboard';
+import Certificate from 'src/components/certificate';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -35,6 +37,9 @@ export default function Router() {
         { path: 'process', element: <ProcessProjectPage /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
         { path: 'wallet', element: <WalletPage /> },
+        {path: "dashboard", element: <Dashboard/>},
+        {path: "certificate" ,  element : <Certificate/>}
+        
       ],
     },
     {
@@ -50,6 +55,7 @@ export default function Router() {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
+
   ]);
 
   return routes;
