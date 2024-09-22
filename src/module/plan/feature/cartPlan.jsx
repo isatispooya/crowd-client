@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,126 +9,92 @@ import { formatNumber } from 'src/utils/formatNumbers';
 const CartPlan = ({
   buoyancy,
   paymentPeriod,
-  faraboursLink,
   profit,
   activityField,
   remainingDays,
   picture,
   totalTime,
   fundedAmount,
-  marketer,
   companyName,
   title,
   id,
   key,
-  description,
-  applicantFundingPercentage,
-  nominalPriceCertificate,
-  symbol,
 }) => {
   const navigate = useNavigate();
 
   const handleViewClick = () => {
-    console.log('fgtyhjuiklo;pik');
     navigate(`/plan/${id}`);
   };
 
   return (
-    <div className="flex mt-24 flex-wrap justify-center gap-6 bg-white p-4">
-      <div key={key} className="shadow-md w-72 p-4 mt-18 rounded-md border bg-white">
-        <div className="relative h-40 w-full mb-4">
-          <img
-            src={`${OnRun}/${picture}`}
-            alt={title}
-            className="h-full w-full object-cover rounded-md"
-          />
-          <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">
-            {profit}
+    <div className="flex flex-wrap justify-center gap-6 bg-white p-6">
+      <div
+        key={key}
+        className="shadow-md w-80 p-4 rounded-lg border bg-white hover:shadow-lg transition-shadow duration-300"
+      >
+        <div className="relative h-44 w-full mb-4 rounded-lg overflow-hidden shadow-md">
+          <img src={`${OnRun}/${picture}`} alt={title} className="h-full w-full object-cover" />
+          <div className="absolute top-0 left-0 bg-green-500 text-white px-3 py-1 text-sm rounded-tr-lg rounded-bl-lg shadow-md">
+            {profit}%
           </div>
+         
         </div>
-        <h3 className="font-bold text-lg mb-2 h-16">{title} </h3>
+
+        <h3 className="font-bold text-xl text-center mb-4">{title}</h3>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
-          نام شرکت: <span className="text-sm text-gray-600 font-semibold">{companyName}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-2">
-          پیش‌بینی میزان سود: <span className="text-sm text-gray-600 font-semibold">{profit}</span>
+          نام شرکت: <span className="font-semibold text-gray-600">{companyName}</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
-          مبلغ سرمایه‌گذاری:{' '}
-          <span className="text-sm text-gray-600 font-semibold">{fundedAmount}</span>
+          پیش‌بینی میزان سود: <span className="font-semibold text-gray-600">{profit}%</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
-          مدت زمان طرح: <span className="text-sm text-gray-600 font-semibold">{totalTime}</span>
+          مبلغ سرمایه‌گذاری:
+          <span className="font-semibold text-gray-600">{ fundedAmount!==null && fundedAmount!==undefined ?formatNumber(fundedAmount):0} ریال</span>
         </p>
         <p className="text-base text-gray-800 mb-2">
-          {' '}
-          حوزه فعالیت : <span className="text-sm text-gray-600 font-semibold">{activityField}</span>
+          مدت زمان طرح: <span className="font-semibold text-gray-600">{totalTime} روز</span>
         </p>
-        {/* <p className="text-base text-gray-800 mb-4">
-          {' '}
-          نماد : <span className="text-sm text-gray-600 font-semibold">{symbol}</span>
+        <p className="text-base text-gray-800 mb-2">
+          حوزه فعالیت: <span className="font-semibold text-gray-600">{activityField}</span>
         </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          بازارگردان : <span className="text-sm text-gray-600 font-semibold">{marketer}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          درصدتامین متقاضی :{' '}
-          <span className="text-sm text-gray-600 font-semibold">{applicantFundingPercentage}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          قیمت اسمی هر گواهی:{' '}
-          <span className="text-sm text-gray-600 font-semibold">{nominalPriceCertificate}</span>
-        </p>
-        <p className="text-base text-gray-800 mb-4">
-          {' '}
-          لینک فرابورس :{' '}
-          <span className="text-sm text-gray-600 font-semibold">{faraboursLink}</span>
-        </p> */}
-        {/* <p className="text-base text-gray-800 mb-4">شروع: <span className="text-sm text-gray-600 font-semibold">{card.startDate}</span></p> */}
-        <div className=" mt-4 flex flex-col mb-8 justify-center items-center">
-          <div className='flex'>
-            <p className="text-sm"> مبلغ سرمایه گذاری</p>
-            <input
-              type="range"
-              name="fundedAmount"
-              step={10000000000}
-              value={fundedAmount}
-              className="w-1/2"
-              readOnly
+
+        {/* Progress Bar */}
+        <div className="mt-6">
+          <p className="text-sm text-center mb-2">مبلغ سرمایه‌گذاری</p>
+          <div className="relative w-full h-3 bg-[#001F5F] rounded-lg">
+            <div
+              className="absolute top-0 h-3 rounded-lg bg-[#41ca41]"
+              style={{ width: `${0.5 * 100}%` }}
             />
           </div>
-          <span className="block text-gray-700 text-xs mt-2 text-center font-medium">
-            {formatNumber(fundedAmount)} ریال
-          </span>
+          <div className="flex  mt-2 text-xs text-gray-700 font-medium">
+            <span>{ fundedAmount!==null && fundedAmount!==undefined ?formatNumber(fundedAmount):0} ریال تأمین شده</span>
+            <span>از {formatNumber(50000000000)} ریال</span>
+          </div>
         </div>
 
-        <div className="flex justify-between gap-1 items-center text-sm text-gray-900 mb-4 ">
-          <p className=' text-xs '>
-            درصدشناوری:
-            <span className="text-xs text-gray-700 text-center font-semibold">{buoyancy}</span>
+        {/* Divider and additional info */}
+        <div className="flex justify-between items-center text-sm text-gray-900 mt-6">
+          <p className="text-xs">
+            درصد شناوری: <span className="font-semibold">{buoyancy}%</span>
           </p>
-          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
-          <p className=' text-xs'>
-            دوره پرداخت:
-            <span className="text-xs text-gray-700 text-center font-semibold">
-              {paymentPeriod}
-            </span>
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'black' }} />
+          <p className="text-xs">
+            دوره پرداخت: <span className="font-semibold">{paymentPeriod} ماه</span>
           </p>
-          <Divider orientation="vertical" sx={{ borderColor: "black" }} flexItem />
-
-          <p className=' text-xs'>
-            پیش‌بینی سود: <span className="font-semibold  text-xs text-center text-gray-700">{profit}</span>
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'black' }} />
+          <p className="text-xs">
+            پیش‌بینی سود: <span className="font-semibold">{profit}%</span>
           </p>
         </div>
-        <div className="flex flex-col justify-between items-center text-sm text-gray-600 mb-4">
+
+        {/* Bottom Section */}
+        <div className="flex flex-col justify-between items-center text-sm text-gray-600 mt-6">
           <p>{remainingDays} روز تا پایان فرصت</p>
-          <button className="bg-blue-900 text-white rounded-md px-4 mt-8 py-2" onClick={handleViewClick}>
+          <button
+            className="bg-blue-900 text-white rounded-md px-6 py-2 mt-4 transition-transform hover:scale-105"
+            onClick={handleViewClick}
+          >
             جزئیات طرح
           </button>
         </div>
@@ -144,20 +108,14 @@ CartPlan.propTypes = {
   picture: PropTypes.string.isRequired,
   totalTime: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   key: PropTypes.number.isRequired,
   profit: PropTypes.number.isRequired,
   buoyancy: PropTypes.number.isRequired,
   fundedAmount: PropTypes.number.isRequired,
   remainingDays: PropTypes.number.isRequired,
   companyName: PropTypes.string.isRequired,
-  marketer: PropTypes.string.isRequired,
   activityField: PropTypes.string.isRequired,
-  symbol: PropTypes.number.isRequired,
   paymentPeriod: PropTypes.number.isRequired,
-  applicantFundingPercentage: PropTypes.number.isRequired,
-  nominalPriceCertificate: PropTypes.number.isRequired,
-  faraboursLink: PropTypes.string.isRequired,
 };
 
 export default CartPlan;
