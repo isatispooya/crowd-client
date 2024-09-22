@@ -39,7 +39,6 @@ const Sterpercrowd = () => {
   const access = getCookie('access');
   const { page: activeStep, incrementPage, changePage } = useNavigateStep(); // هوک برای مدیریت مراحل
 
-  // اثر برای بررسی احراز هویت
   useEffect(() => {
     if (!access) {
       navigate('/login');
@@ -48,7 +47,6 @@ const Sterpercrowd = () => {
     }
   }, [access, navigate]);
 
-  // مدیریت کلیک بر روی هر مرحله
   const handleStepClick = (stepIndex) => {
     changePage(stepIndex); // به مرحله انتخاب شده برو
     setIsCompleted(false); // اتمام مراحل لغو شود
@@ -71,7 +69,6 @@ const Sterpercrowd = () => {
     );
   };
 
-  // محتوای هر مرحله را برمی‌گرداند
   const renderStepContent = (step) => {
     if (isCompleted) {
       return <CompletionMessage />; 
@@ -106,13 +103,14 @@ const Sterpercrowd = () => {
         return <CompletionMessage />;
     }
   };
-
+  
   if (isCheckingAuth) {
     return null;
   }
-
+  
   return (
     <div className= "min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
+      <ToastContainer />
       <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full flex-grow">
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
@@ -126,7 +124,6 @@ const Sterpercrowd = () => {
       </Stepper>
 
       <div className="mt-12">{renderStepContent(activeStep)}</div>
-      <ToastContainer />
     </div>
   );
 };

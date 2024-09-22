@@ -28,13 +28,13 @@ const ValditionList = () => {
 
       if (response.data) {
         setValidateList(response.data.data.managers);
+        console.log("sdfghj",response.data)
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
       toast.error('خطا در دریافت اطلاعات');
     }
   };
-
 
   const handleSubmit = async () => {
     try {
@@ -47,21 +47,19 @@ const ValditionList = () => {
           hasFile = true; 
         }
       });
-
-    
       if (!hasFile) {
         toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
         return;
       }
-
       const access = await getCookie('access');
-      await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
+      const response = await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${access}`,
         },
         maxBodyLength: Infinity,
       });
+      console.log(";;;;",response.data)
      
       toast.success('اطلاعات با موفقیت ارسال شد!');
       incrementPage();
@@ -77,10 +75,10 @@ const ValditionList = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
+      <ToastContainer />
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
         <h1 className="text-2xl font-bold text-gray-700">اعتبار سنجی</h1>
       </div>
-      <ToastContainer />
       <div className="rounded-lg shadow-inner">
         {validateList.map((item, index) => (
           <div key={index}>
