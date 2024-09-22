@@ -25,7 +25,7 @@ export default function LoginView() {
   const [captchaImage, setCaptchaImage] = useState(null);
   const [encrypted_response, setEncrypted_response] = useState(null);
   const [otp, setOtp] = useState('');
-  const [refferal , setRefferal] = useState("");
+  const [refferal, setRefferal] = useState('');
   const [step, setStep] = useState(1);
   const [registerd, setRegisterd] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -134,28 +134,37 @@ export default function LoginView() {
   const renderForm = (
     <>
       <ToastContainer autoClose={3000} />
-      <Stack spacing={3} sx={{ mb: 3 }}>
+      <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
+        {' '}
+        {/* عرض کامل */}
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
+          fullWidth // اضافه کردن fullWidth برای اشغال کامل عرض
         />
-
         {step === 1 ? (
           <>
             <TextField
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
+              fullWidth // اضافه کردن fullWidth
             />
-            <Button onClick={getCaptcha}>
+            <Button onClick={getCaptcha} fullWidth>
+              {' '}
               <img src={`data:image/png;base64,${captchaImage}`} alt="captcha" />
             </Button>
             <Box sx={{ mb: 3 }} />
           </>
         ) : (
           <>
-            <TextField value={otp} onChange={(e) => setOtp(e.target.value)} label="کد تایید" />
+            <TextField
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              label="کد تایید"
+              fullWidth // اضافه کردن fullWidth
+            />
             <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
           </>
         )}
@@ -163,7 +172,7 @@ export default function LoginView() {
 
       {step === 1 ? (
         <LoadingButton
-          fullWidth
+          fullWidth // اضافه کردن fullWidth
           size="large"
           type="submit"
           variant="contained"
@@ -181,7 +190,7 @@ export default function LoginView() {
         </LoadingButton>
       ) : (
         <LoadingButton
-          fullWidth
+          fullWidth 
           size="large"
           type="submit"
           variant="contained"
@@ -196,45 +205,54 @@ export default function LoginView() {
   );
 
   return (
-    <Box  sx={{
-      ...bgGradient({
-        color: alpha(theme.palette.background.default, 0.9),
-        imgUrl: '/assets/background/overlay_4.jpg',
-      }),
-      height: 1,
-    }}>
+    <Box
+     
+      sx={{
+        ...bgGradient({
+          color: alpha(theme.palette.background.default, 0.9),
+          imgUrl: '/assets/background/overlay_4.jpg',
+        }),
+
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        width: '100%',
+      }}
+    >
       <Box>
-      <ToastContainer />
-      <Stack alignItems="center" justifyContent="center" sx={{ pt:4, height: 1 }}>
-        <Card
-          sx={{
-            p: 5,
-            width: 1,
-            maxWidth: 420,
-          }}
-        >
-          <Typography variant="h4" style={{ textAlign: 'center' }}>
-            ایساتیس کراد
-          </Typography>
-          <Typography
-            sx={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}
-            variant="h6"
+        <ToastContainer />
+        <Stack alignItems="center" justifyContent="center" sx={{ pt: 4, height: 1 }}>
+          <Card
+            sx={{
+              p: 5,
+              width: 1,
+              maxWidth: 420,
+            }}
           >
-            {' '}
-            درگاه ورود ایساتیس کراد{' '}
-          </Typography>
-          <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              ورود
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
+              ایساتیس کراد
             </Typography>
-          </Divider>
-          {renderForm}
-        </Card>
-      </Stack>
-    </Box>  
-    <Box sx={{ mt: 5, pb:4, textAlign: 'center' }}>
+            <Typography
+              sx={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              variant="h6"
+            >
+              {' '}
+              درگاه ورود ایساتیس کراد{' '}
+            </Typography>
+            <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                ورود
+              </Typography>
+            </Divider>
+            {renderForm}
+          </Card>
+        </Stack>
+      </Box>
+      <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          © {new Date().getFullYear()} تمامی حقوق  توسعه اطلاعات مالی محفوظ است.
+          © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
       </Box>
     </Box>
