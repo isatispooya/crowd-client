@@ -30,13 +30,14 @@ const Plan = () => {
       <div className="border-b-2 border-gray-200 mb-6">
         <ul className="flex justify-center space-x-6">
           {[
-            { label: 'مشارکت', tab: 0 },
-            { label: 'توضیحات', tab: 1 },
-            { label: 'محاسبه‌گر سود', tab: 2 },
-            { label: 'نظرات کاربران', tab: 3 },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 4 },
-            { label: 'مستندات', tab: 5 },
-            { label: 'تضامین', tab: 6 },
+            { label: 'توضیحات', tab: 0 },
+            { label: 'محاسبه‌گر سود', tab: 1 },
+            { label: 'نظرات کاربران', tab: 2 },
+            { label: 'مشخصات سرمایه‌گذارن', tab: 3 },
+            { label: 'مستندات', tab: 4 },
+            { label: 'تضامین', tab: 5 },
+            { label: 'مشارکت', tab: 6 },
+
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -55,7 +56,43 @@ const Plan = () => {
       </div>
 
       <div className="mt-8">
+
         {activeTab === 0 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <Descript />
+          </div>
+        )}
+
+        {activeTab === 1 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <Calculate />
+          </div>
+        )}
+
+        {activeTab === 2 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <CommentForm />
+          </div>
+        )}
+
+        {activeTab === 3 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <InvestProfile />
+          </div>
+        )}
+
+        {activeTab === 4 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <Documentation />
+          </div>
+        )}
+
+        {activeTab === 5 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <Appendices />
+          </div>
+        )}
+         {activeTab === 6 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-4 bg-gray-50 rounded-lg shadow-md">
               <Partner />
@@ -63,42 +100,6 @@ const Plan = () => {
             <div className="p-4 bg-gray-50 rounded-lg shadow-md">
               <Partnership />
             </div>
-          </div>
-        )}
-
-        {activeTab === 1 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <Descript />
-          </div>
-        )}
-
-        {activeTab === 2 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <Calculate />
-          </div>
-        )}
-
-        {activeTab === 3 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <CommentForm />
-          </div>
-        )}
-
-        {activeTab === 4 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <InvestProfile />
-          </div>
-        )}
-
-        {activeTab === 5 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <Documentation />
-          </div>
-        )}
-
-        {activeTab === 6 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <Appendices />
           </div>
         )}
       </div>

@@ -42,7 +42,7 @@ const navConfig = [
     icon: icon('ic_sheet'),
   },
   {
-    title: 'گواهی نامه',
+    title: 'گواهی مشارکت',
     path: 'certificate',
     icon: icon('ic_sheet'),
   },

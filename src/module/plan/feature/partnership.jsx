@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
@@ -12,12 +12,14 @@ import { useFetchWallet } from 'src/module/wallet/hooks/getWalletData';
 import UseCartId from 'src/hooks/use-cartId';
 import usePlan from '../service/use-plan';
 import PostPartnership from '../service/use-partnership';
+import RulesModal from './rule'; // Import the modal component
 
 const Partnership = () => {
   const [amountNumber, setAmountNumber] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [errorr, setErrorr] = useState('');
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false); // State for controlling modal
   const { mutateAsync, isLoadingpost, errorpost } = PostPartnership();
   const { cartId } = UseCartId();
   const { data: walletData } = useFetchWallet(cartId);
@@ -28,17 +30,22 @@ const Partnership = () => {
   if (isLoading || isLoadingpost) {
     return <Loader />;
   }
+
   const result = remaining && data.nominal_price_certificate
     ? Math.floor(Number(remaining) / Number(data.nominal_price_certificate))
     : 0;
-  const newAmount= (Number(result) / Number(data.nominal_price_certificate))
+
+  const newAmount = (Number(result) / Number(data.nominal_price_certificate));
+
   if (error || errorpost) {
     return <div className="text-red-500">خطایی رخ داده است: {error}</div>;
   }
+
   const handleInventoryClick = () => {
-    setTotalAmount(result||totalAmount);
+    setTotalAmount(result || totalAmount);
     setAmountNumber(newAmount);
   };
+
   const handleChange = (e) => {
     const cleanedValue = cleanNumber(e.target.value);
     setAmountNumber(cleanedValue);
@@ -48,29 +55,33 @@ const Partnership = () => {
       setErrorr('');
     }
   };
+
   useEffect(() => {
     if ((amountNumber) && amountNumber !== '' && data?.nominal_price_certificate) {
       const calculatedResult2 = Math.floor(Number(amountNumber) * (data.nominal_price_certificate));
       setTotalAmount(calculatedResult2);
     }
   }, [amountNumber, data]);
-  const handleSubmit = async  () => {
+
+  const handleSubmit = async () => {
     const sender = {
       id,
-      amount: amountNumber ||newAmount, 
-    };  
+      amount: amountNumber || newAmount,
+    };
     try {
-      await  mutateAsync(sender);
+      await mutateAsync(sender);
       toast.success('اطلاعات با موفقیت ارسال شد.');
     } catch (errorPost) {
       toast.error('خطا در ارسال اطلاعات.');
     }
   };
+
   return (
     <div className="flex flex-col gap-6 bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto">
       <h2 className="text-3xl items-center text-center font-bold text-gray-900 mb-6">مشارکت</h2>
       <p className="text-blue-800 text-lg font-semibold">قیمت هر گواهی: <span>{formatNumber(data.nominal_price_certificate)}</span></p>
       <p className="text-blue-800 text-lg font-semibold">حداقل تعداد: <span>1000</span></p>
+
       <div className="flex flex-col w-full mb-4">
         <label className="text-gray-700 font-medium mb-2">تعداد گواهی مشارکت:</label>
         <input
@@ -78,26 +89,40 @@ const Partnership = () => {
           placeholder="تعداد گواهی مشارکت"
           value={amountNumber}
           onChange={handleChange}
-          className="shadow-md bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+          className="shadow-md bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        />
         {errorr && <p className="text-red-500 text-xs mt-2">{errorr}</p>}
       </div>
+
       <div className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow-inner">
         <label className="text-gray-700 font-medium">مبلغ مشارکت:</label>
         <p className="text-lg font-semibold text-blue-600">{formatNumber(totalAmount)}</p>
       </div>
+
       <div className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow-inner">
         <label className="text-gray-700 font-medium">موجودی کیف پول:</label>
         <p onClick={handleInventoryClick} className="cursor-pointer text-lg font-semibold text-blue-600 hover:text-blue-800">
-          {formatNumber(remaining)}
+          {remaining !== null && remaining !== undefined ? formatNumber(remaining) : 0}
         </p>
       </div>
+
+      <div className="my-4">
+        <p 
+          className="text-blue-600 cursor-pointer hover:underline" 
+          onClick={() => setIsRulesModalOpen(true)} 
+        >
+          قوانین و مقررات
+        </p>
+      </div>
+
       <div className="flex items-center gap-2 mt-6">
         <input
           type="checkbox"
           id="show-name"
           checked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
-          className="h-5 w-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500" />
+          className="h-5 w-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500"
+        />
         <label htmlFor="show-name" className="text-gray-700 bg-white font-medium">موافقتنامه</label>
       </div>
       <button
@@ -107,8 +132,11 @@ const Partnership = () => {
       >
         درخواست پرداخت
       </button>
+
       <ToastContainer />
+      <RulesModal isOpen={isRulesModalOpen} onClose={() => setIsRulesModalOpen(false)} />
     </div>
   );
 };
+
 export default Partnership;

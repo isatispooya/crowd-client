@@ -16,8 +16,7 @@ const CartPlans = () => {
   }
 
   return (
-    <div className="flex justify-center py-8 ">
-      {/* باکس دربرگیرنده */}
+    <div className="flex justify-center ">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">
         <div className="bg-gray-200 text-white rounded-t-md p-4 text-center mb-10">
           <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
