@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
+import ScrollToTopButton from 'src/components/scrollBtn';
 import { NAV, HEADER } from './config-layout';
 
 // ----------------------------------------------------------------------
@@ -14,7 +15,8 @@ export default function Main({ children, sx, ...other }) {
   const lgUp = useResponsive('up', 'lg');
 
   return (
-    <Box
+    <>
+        <Box
       component="main"
       sx={{
         flexGrow: 1,
@@ -33,6 +35,10 @@ export default function Main({ children, sx, ...other }) {
     >
       {children}
     </Box>
+    <ScrollToTopButton/>
+    </>
+
+    
   );
 }
 

@@ -40,7 +40,7 @@ const TransactionOptions = ({ setOpenTransaction }) => {
 
         <h2 className="text-2xl font-bold text-black mb-4 border-b pb-2">افزایش</h2>
 
-        {/* تب‌ها */}
+
         <div className="flex mb-4">
           <button
             type="button"
@@ -66,7 +66,7 @@ const TransactionOptions = ({ setOpenTransaction }) => {
           </button>
         </div>
 
-        {/* محتوای تب‌ها */}
+    
         {activeTab === 'bankPortal' && (
           <div>
             <input

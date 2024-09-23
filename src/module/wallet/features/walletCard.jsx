@@ -83,16 +83,7 @@ const WalletCard = () => {
           </div>
         </div>
 
-        {/* <div className="flex flex-col items-center mt-6 space-y-4">
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center  bg-gray-100 text-gray-700 ">
-            <h2 className="text-lg font-bold ">اعتبار:</h2>
-            <p className="text-2xl font-bold ">{formatNumber(credit)}</p>
-          </div>
-          <div className="w-full p-4 rounded-lg shadow-lg flex justify-between items-center bg-gray-100 text-gray-700  ">
-            <h2 className="text-lg font-bold">مانده تعلیلی:</h2>
-            <p className="text-2xl font-bold ">{formatNumber(adjustment_balance)}</p>
-          </div>
-        </div> */}
+
       </div>
 
       {openTransaction && (

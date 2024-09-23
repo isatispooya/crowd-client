@@ -15,33 +15,34 @@ const columns = [
 ];
 
 const Certificate = () => {
-    const { id } = useParams();
-    const { data: Data } = usecertificate(id);
-  
-   
-    const transactionData = Data ? Data.map(item => ({
-      id: item.id,
-      lastName : item.lastName,
-      amount: item.amount,
-      total_amount: item.total_amount,
-      participant: item.participant,
-    })) : [];
-  
-    return (
-      <div className="w-full h-full">
-        <ReactTabulator
-          data={transactionData}
-          columns={columns}
-          layout="fitDataFill"
-          options={{
-            pagination: 'local',
-            paginationSize: 5,
-            responsiveLayout: true,
-          }}
-          className="tabulator-table"
-        />
-      </div>
-    );
-}
- 
+  const { id } = useParams();
+  const { data: Data } = usecertificate(id);
+
+  const transactionData = Data
+    ? Data.map((item) => ({
+        id: item.id,
+        lastName: item.lastName,
+        amount: item.amount,
+        total_amount: item.total_amount,
+        participant: item.participant,
+      }))
+    : [];
+
+  return (
+    <div className="w-full h-full">
+      <ReactTabulator
+        data={transactionData}
+        columns={columns}
+        layout="fitDataFill"
+        options={{
+          pagination: 'local',
+          paginationSize: 5,
+          responsiveLayout: true,
+        }}
+        className="tabulator-table"
+      />
+    </div>
+  );
+};
+
 export default Certificate;
