@@ -13,7 +13,7 @@ import TranHistory from './transactionHistory';
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
-  console.log(walletData)
+
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
 

@@ -4,10 +4,11 @@ import Sterpercrowd from 'src/components/stepper';
 
 
 export default function AppView() {
-
   return (
-    <Container maxWidth="xl">
-      <Sterpercrowd />
-    </Container>
+   
+      <Container maxWidth="xl">
+        <Sterpercrowd />
+      </Container>
+   
   );
 }
