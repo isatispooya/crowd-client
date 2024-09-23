@@ -14,12 +14,11 @@ const columns = [
   { title: 'مقدار بستانکاری', field: 'credit_amount', hozAlign: 'right', formatter: 'money' },
   { title: 'وضعیت', field: 'status', hozAlign: 'center' },
   { title: 'روش', field: 'method', hozAlign: 'center' },
+  { title: 'شرح تراکنش', field: 'description_transaction', hozAlign: 'center' },
 ];
 
 const TranHistory = ({ setShowTranHistory }) => {
   const { data: transactions, isLoading } = useFetchTransaction();
-
-  console.log(transactions, 'history');
 
   if (isLoading) {
     return <Loader />;
@@ -55,7 +54,9 @@ const TranHistory = ({ setShowTranHistory }) => {
     method: transaction.method,
     credit_amount: transaction.credit_amount,
     debt_amount: transaction.debt_amount,
+    description_transaction: transaction.description_transaction,
   }));
+  console.log(transactions.description_transaction);
 
   return (
     <div dir="rtl" className="w-full h-full flex flex-col items-center p-4 ">

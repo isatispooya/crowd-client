@@ -13,7 +13,7 @@ import TranHistory from './transactionHistory';
 const WalletCard = () => {
   const { cartId } = UseCartId();
   const { data: walletData, isLoading } = useFetchWallet(cartId);
-  console.log(walletData)
+
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
 
@@ -76,7 +76,7 @@ const WalletCard = () => {
                   className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
                   <LuArrowUpDown className="ml-1 text-xl" />
-                  تراکنش ها
+                 گردش حساب
                 </button>
               </div>
             </div>

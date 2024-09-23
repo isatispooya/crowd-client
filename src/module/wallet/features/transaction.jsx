@@ -1,24 +1,27 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdClose } from 'react-icons/io';
-import { LuGalleryHorizontalEnd } from 'react-icons/lu';
+//  
 import { formatNumber } from 'src/utils/formatNumbers';
-import { useFetchWallet } from '../hooks/getWalletData';
+import { BsCloudUploadFill } from 'react-icons/bs';
+// import { useFetchWallet } from '../hooks/getWalletData';
 
 const TransactionOptions = ({ setOpenTransaction }) => {
   const [value, setValue] = useState('');
+  const [activeTab, setActiveTab] = useState('bankPortal'); // تب فعال
 
-  const { data: walletData } = useFetchWallet();
-  const { remaining } = walletData || {};
+  // const { data: walletData } = useFetchWallet();
+  // const { remaining } = walletData || {};
 
   const handleInputChange = (e) => {
     const cleanedValue = e.target.value.replace(/,/g, '');
     setValue(cleanedValue);
   };
 
-  const WithdrawAll = () => {
-    setValue(remaining);
-  };
+  // const WithdrawAll = () => {
+  //   setValue(remaining);
+  // };
 
   const closeModal = () => {
     setOpenTransaction(false);
@@ -35,27 +38,68 @@ const TransactionOptions = ({ setOpenTransaction }) => {
           <IoMdClose size={24} />
         </button>
 
-        <h2 className="text-2xl font-bold text-black mb-4 border-b pb-2">برداشت</h2>
+        <h2 className="text-2xl font-bold text-black mb-4 border-b pb-2">افزایش</h2>
 
-        <div className="mb-4">
-          <input
-            value={formatNumber(value)}
-            onChange={handleInputChange}
-            type="text"
-            placeholder="میزان برداشت"
-            className="input input-bordered w-full bg-gray-100 mb-4"
-          />
-        </div>
-
-        <div className="flex justify-between items-center">
+        {/* تب‌ها */}
+        <div className="flex mb-4">
           <button
             type="button"
-            className="flex items-center px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-            onClick={WithdrawAll}
+            className={`flex-1 py-2 text-center border-b-2 ${
+              activeTab === 'bankPortal'
+                ? 'border-blue-500 text-blue-500'
+                : 'border-transparent text-gray-500'  
+            }`}
+            onClick={() => setActiveTab('bankPortal')}
           >
-            برداشت همه
-            <LuGalleryHorizontalEnd className="mr-2" />
+            درگاه بانکی
           </button>
+          <button
+            type="button"
+            className={`flex-1 py-2 text-center border-b-2 ${
+              activeTab === 'bankReceipt'
+                ? 'border-blue-500 text-blue-500'
+                : 'border-transparent text-gray-500'
+            }`}
+            onClick={() => setActiveTab('bankReceipt')}
+          >
+            فیش بانکی
+          </button>
+        </div>
+
+        {/* محتوای تب‌ها */}
+        {activeTab === 'bankPortal' && (
+          <div>
+            <input
+              value={formatNumber(value)}
+              onChange={handleInputChange}
+              type="text"
+              placeholder="مبلغ"
+              className="input input-bordered w-full bg-gray-100 mb-4"
+            />
+          </div>
+        )}
+
+        {activeTab === 'bankReceipt' && (
+          <div>
+            <input
+              type="text"
+              placeholder="شماره فیش بانکی"
+              className="input input-bordered w-full bg-gray-100 mb-4"
+            />
+            <input
+              type="text"
+              placeholder="مبلغ فیش بانکی"
+              className="input input-bordered w-full bg-gray-100 mb-4"
+            />
+            <label className="flex   items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+              <BsCloudUploadFill />
+               پیوست فایل
+              <input id="file_input" type="file" className="hidden" />
+            </label>
+          </div>
+        )}
+
+        <div className="flex justify-end mt-4">
           <button
             type="button"
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
