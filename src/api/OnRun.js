@@ -1,4 +1,4 @@
-export const OnRun = 'https://apicrowd.isatipooya.com';
+export const OnRun = 'http://192.168.62.106:5000';
 // 'http://31.40.4.92:9010'
-// 'https://apicrowd.isatipooya.com'
+// 'https://apicrowd.isatispooya.com'
 // 'http://192.168.62.106:5000'

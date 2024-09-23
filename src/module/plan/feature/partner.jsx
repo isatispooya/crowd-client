@@ -27,17 +27,6 @@ const Partner = () => {
           <p className="text-blue-800 text-base font-semibold">{data[0].amount}</p>
 
         </div>
-        {/* <div className="flex gap-4 justify-center">
-          <a
-            href={`${OnRun}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 flex items-center hover:text-blue-800 text-sm font-medium transition-colors duration-200 ease-in-out"
-          >
-            دانلود فایل گواهی
-            <FiDownload className="w-5 h-5 ml-2" />
-          </a>
-        </div> */}
       </div>
     </div>
   );

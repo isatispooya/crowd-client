@@ -11,9 +11,11 @@ import usecertificate from '../hooks/use-certificate';
 import Loader from './loader';
 
 const columns = [
-  { title: 'طرح', field: 'plan', width: 150 },
-  { title: 'تعداد ', field: 'number', hozAlign: 'center', width: 150 },
-  { title: ' دانلود', field: 'file', hozAlign: 'center', sorter: 'number', formatter: 'file' },
+  { title: 'نام ', field: 'firstName', width: 100 },
+  { title: 'نام خانوادگی', field: 'lastName', width: 120 },
+  { title: 'مبلغ واحد', field: 'amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },
+  { title: 'مجموع مبلغ', field: 'total_amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },  
+  { title: 'دانلود گواهی مشارکت', field: 'link', width: 180 },
 ];
 
 const Certificate = () => {
@@ -34,18 +36,19 @@ const Certificate = () => {
       return <Loader />;
     }
    
-    const transactionData = Data ? Data.map(item => ({
+    const certificateData = Data ? Data.map(item => ({
       id: item.id,
+      firstName : item.firstName,
       lastName : item.lastName,
       amount: item.amount,
       total_amount: item.total_amount,
-      participant: item.participant,
+      link: item.link,
     })) : [];
   
     return (
       <div className="w-full h-full">
         <ReactTabulator
-          data={transactionData}
+          data={certificateData}
           columns={columns}
           layout="fitDataFill"
           options={{

@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
-const getCertificate = async (id) => {
+const getCertificate = async () => {
   const access = await getCookie('access');
-  const response = await api.get(`/api/participant/${id}/`, {
+  const response = await api.get(`/api/certificate/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
@@ -14,15 +14,12 @@ const getCertificate = async (id) => {
   return response.data.data;
   
 };
-
-
-const usecertificate  = (id) => {
+const usecertificate  = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['certificate ', id],
-    queryFn: () => getCertificate(id),
-    enabled: !!id,   
+    queryKey: ['certificate '],
+    queryFn: () => getCertificate(),
+       
   });
-
   return {
     data,
     isLoading,
