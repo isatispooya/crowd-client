@@ -5,19 +5,14 @@ import Loader from 'src/components/loader';
 import AppWidgetSummary from 'src/sections/overview/app-widget-summary';
 
 const Dashboard = () => {
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } else {
-      setIsCheckingAuth(false);
     }
   }, [access, navigate]);
-  if (isCheckingAuth) {
-    return <Loader />;
-  }
+ 
   return (
     <div className="flex flex-col p-6 space-y-6">
       <div className="text-2xl font-bold text-gray-800 mb-6">داشبورد</div>

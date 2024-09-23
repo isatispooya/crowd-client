@@ -23,20 +23,15 @@ const columns = [
 const Certificate = () => {
     const { id } = useParams();
     const { data: Data } = usecertificate(id);
-    const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
     const access = getCookie('access');
     const navigate = useNavigate();
     useEffect(() => {
       if (!access) {
         navigate('/login');
-      } else {
-        setIsCheckingAuth(false);
       }
     }, [access, navigate]);
   
-    if (isCheckingAuth ) {
-      return <Loader />;
-    }
+ 
    
     const certificateData = Data ? Data.map(item => ({
       id: item.id,
