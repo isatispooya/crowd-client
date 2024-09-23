@@ -29,7 +29,7 @@ const Plan = () => {
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="border-b-2 border-gray-200 mb-6">
-        <ul className="flex justify-center space-x-2">
+        <ul className="flex justify-center space-x-1 text-sm text-nowrap">
           {[
             { label: 'توضیحات', tab: 0 },
             { label: 'محاسبه‌گر سود', tab: 1 },
@@ -43,7 +43,7 @@ const Plan = () => {
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
-                className={`py-2 px-6 transition-all duration-300  ${
+                className={`py-2 px-4 transition-all duration-300  ${
                   activeTab === tab
                     ? 'text-blue-900 border-b-4 border-blue-900 font-semibold'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
@@ -90,7 +90,7 @@ const Plan = () => {
         )}
 
         {activeTab === 5 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Appendices />
           </div>
         )}
