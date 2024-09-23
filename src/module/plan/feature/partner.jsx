@@ -2,8 +2,6 @@
 import React from 'react';
 import Loader from 'src/components/loader';
 import { useParams } from 'react-router-dom';
-import { FiDownload } from 'react-icons/fi';
-import { OnRun } from 'src/api/OnRun';
 import usepartner from '../service/use-participant';
 
 const Partner = () => {
