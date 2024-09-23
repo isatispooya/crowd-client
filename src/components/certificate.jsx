@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ReactTabulator } from 'react-tabulator';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/lib/styles.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/css/tabulator_simple.min.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCookie } from 'src/api/cookie';
 import usecertificate from '../hooks/use-certificate';
+import Loader from './loader';
 
 const columns = [
   { title: 'طرح', field: 'plan', width: 150 },
@@ -17,7 +19,20 @@ const columns = [
 const Certificate = () => {
     const { id } = useParams();
     const { data: Data } = usecertificate(id);
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
+    const access = getCookie('access');
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (!access) {
+        navigate('/login');
+      } else {
+        setIsCheckingAuth(false);
+      }
+    }, [access, navigate]);
   
+    if (isCheckingAuth ) {
+      return <Loader />;
+    }
    
     const transactionData = Data ? Data.map(item => ({
       id: item.id,

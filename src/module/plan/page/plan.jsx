@@ -11,6 +11,7 @@ import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Partner from '../feature/partner';
 import Partnership from '../feature/partnership';
+import Roudmap from '../feature/roudmap';
 
 const Plan = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const Plan = () => {
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="border-b-2 border-gray-200 mb-6">
-        <ul className="flex justify-center space-x-6">
+        <ul className="flex justify-center space-x-2">
           {[
             { label: 'توضیحات', tab: 0 },
             { label: 'محاسبه‌گر سود', tab: 1 },
@@ -37,6 +38,7 @@ const Plan = () => {
             { label: 'مستندات', tab: 4 },
             { label: 'تضامین', tab: 5 },
             { label: 'مشارکت', tab: 6 },
+            { label: 'مسیر کار', tab: 7 },
 
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
@@ -58,19 +60,19 @@ const Plan = () => {
       <div className="mt-8">
 
         {activeTab === 0 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Descript />
           </div>
         )}
 
         {activeTab === 1 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Calculate />
           </div>
         )}
 
         {activeTab === 2 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <CommentForm />
           </div>
         )}
@@ -82,7 +84,7 @@ const Plan = () => {
         )}
 
         {activeTab === 4 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Documentation />
           </div>
         )}
@@ -94,12 +96,17 @@ const Plan = () => {
         )}
          {activeTab === 6 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
               <Partner />
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
               <Partnership />
             </div>
+          </div>
+        )}
+           {activeTab === 7 && ( 
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+              <Roudmap/>
           </div>
         )}
       </div>

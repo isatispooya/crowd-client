@@ -1,20 +1,33 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid} from '@mui/material';
 import Loader from 'src/components/loader';
+import { useNavigate } from 'react-router-dom';
+import { getCookie } from 'src/api/cookie';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
 
 const CartPlans = () => {
   const { data, isLoading } = UsePlans();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
+  const access = getCookie('access');
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!access) {
+      navigate('/login');
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [access, navigate]);
+
+  if (isCheckingAuth || isLoading) {
+    return <Loader />;
+  }
 
   if (!data || data.length === 0) {
     return <p>هیچ درخواستی یافت نشد.</p>;
   }
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="flex justify-center ">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
 import { LuArrowUpDown } from 'react-icons/lu';
@@ -6,6 +6,8 @@ import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Loader from 'src/components/loader';
+import { getCookie } from 'src/api/cookie';
+import { useNavigate } from 'react-router-dom';
 import { useFetchWallet } from '../hooks/getWalletData';
 import TransactionOptions from './transaction';
 import TranHistory from './transactionHistory';
@@ -16,7 +18,20 @@ const WalletCard = () => {
 
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
+  const access = getCookie('access');
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!access) {
+      navigate('/login');
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [access, navigate]);
 
+  if (isCheckingAuth || isLoading) {
+    return <Loader />;
+  }
   const openModal = () => {
     setOpenTransaction(true);
   };
