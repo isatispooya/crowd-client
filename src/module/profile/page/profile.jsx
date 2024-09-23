@@ -9,6 +9,7 @@ import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import { LuRefreshCw } from 'react-icons/lu';
 import Loader from 'src/components/loader';
+import { useNavigate } from 'react-router-dom';
 import ProfileField from '../components/profileField';
 // import useGetProfile from '../hooks/useGetProfile';
 import Refresh from '../components/refresh';
@@ -19,23 +20,39 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!access) {
+      navigate('/login');
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [access, navigate]);
 
-  const getProfile = () => {
-    axios
-      .get(`${OnRun}/api/information/`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      })
-      .then((response) => {
-        setProfileData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching profile data:', error);
-      });
-  };
+  useEffect(() => {
+    if (access && !isCheckingAuth) {
+      axios
+        .get(`${OnRun}/api/information/`, {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        })
+        .then((response) => {
+          setProfileData(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching profile data:', error);
+          if (error.response && error.response.status === 401) {
+            navigate('/login');
+          }
+        });
+    }
+  }, [access, isCheckingAuth, navigate]);
 
-  useEffect(getProfile, [access]);
+  if (isCheckingAuth) {
+    return <Loader />;
+  }
 
   const openModal = () => {
     mutate();
@@ -83,6 +100,7 @@ const Profile = () => {
                 : ''
             }
           />
+          
           <ProfileField
             label="کد ملی"
             value={profileData?.acc?.private_person?.[0]?.shNumber || ''}

@@ -43,16 +43,15 @@ const Sterpercrowd = () => {
     if (!access) {
       navigate('/login');
     } else {
-      setIsCheckingAuth(false); // دسترسی درست است، ادامه بده
+      setIsCheckingAuth(false);
     }
   }, [access, navigate]);
 
   const handleStepClick = (stepIndex) => {
-    changePage(stepIndex); // به مرحله انتخاب شده برو
-    setIsCompleted(false); // اتمام مراحل لغو شود
+    changePage(stepIndex); 
+    setIsCompleted(false);
   };
 
-  // آیکون مرحله
   const getStepIcon = (index) => {
     if (activeStep > index) {
       return (
