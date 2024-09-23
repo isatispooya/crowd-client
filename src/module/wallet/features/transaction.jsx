@@ -10,6 +10,7 @@ import { BsCloudUploadFill } from 'react-icons/bs';
 const TransactionOptions = ({ setOpenTransaction }) => {
   const [value, setValue] = useState('');
   const [activeTab, setActiveTab] = useState('bankPortal'); // تب فعال
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   // const { data: walletData } = useFetchWallet();
   // const { remaining } = walletData || {};
@@ -26,6 +27,11 @@ const TransactionOptions = ({ setOpenTransaction }) => {
   const closeModal = () => {
     setOpenTransaction(false);
   };
+
+  const options = [ "صادرات", 'سامان'];
+
+
+
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 modal-overlay">
@@ -68,16 +74,32 @@ const TransactionOptions = ({ setOpenTransaction }) => {
 
     
         {activeTab === 'bankPortal' && (
-          <div>
-            <input
-              value={formatNumber(value)}
-              onChange={handleInputChange}
-              type="text"
-              placeholder="مبلغ"
-              className="input input-bordered w-full bg-gray-100 mb-4"
-            />
+        <div>
+          <input
+            value={formatNumber(value)}
+            onChange={handleInputChange}
+            type="text"
+            placeholder="مبلغ"
+            className="input input-bordered w-full bg-gray-100 mb-4"
+          />
+
+          <div className="mb-4">
+            {options.map((option) => (
+              <label key={option} className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value={option}
+                 
+                  className="checkbox checkbox-primary"
+                />
+                <span className="ml-2">{option}</span>
+              </label>
+            ))}
           </div>
-        )}
+
+
+        </div>
+      )}
 
         {activeTab === 'bankReceipt' && (
           <div>

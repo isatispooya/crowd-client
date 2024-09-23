@@ -11,7 +11,7 @@ import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Partner from '../feature/partner';
 import Partnership from '../feature/partnership';
-import Roudmap from '../feature/roudmap';
+import Roudmap from '../feature/Roadmap';
 
 const Plan = () => {
   const { id } = useParams();
