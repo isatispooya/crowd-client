@@ -17,87 +17,115 @@ import { OnRun } from 'src/api/OnRun';
 import { ToastContainer, toast } from 'react-toastify';
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
+import useApplyNationalCode from './hooks/postNationalCode';
+import useSubmitOtp from './hooks/useSubmit';
+// import useApplyNationalCode from './hooks/postNationalCode';
 
 export default function LoginView() {
   const theme = useTheme();
   const router = useRouter();
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
-
-  const [encrypted_response, setEncrypted_response] = useState(null);
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
   const [step, setStep] = useState(1);
   const [registerd, setRegisterd] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(60);
 
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
-
-  const applyNationalCode = () => {
-   
+  const { mutate: applyNationalCode } = useApplyNationalCode();
+  const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
+  const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
     } else if (nationalCode.length !== 10) {
       toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
     } else {
-      setLoading(true);
-      axios({
-        method: 'POST',
-        url: `${OnRun}/api/otp/`,
-        data: {
-          uniqueIdentifier: nationalCode,
-          encrypted_response: captchaData?.image ,
-          captcha: captchaInput,
-        },
-      })
-        .then((response) => {
-          toast.success(response.data.message);
-          setRegisterd(response.data.registered);
+      applyNationalCode({
+        nationalCode,
+        captchaInput,
+        encryptedResponse: captchaData?.encrypted_response,
+      }, {
+        onSuccess: (data) => {
           setStep(2);
           setTimer(60);
-        })
-        .catch((err) => {
-          console.error('خطا:', err);
-          toast.error('خطا در ارسال درخواست به سرور.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+          toast.success(data.message);
+        },
+      });
     }
   };
-
   const handleCode = () => {
     if (otp.length !== 5) {
       toast.warning('کد صحیح نیست');
     } else {
-      setLoading(true);
-      const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
-      axios({
-        method: 'POST',
-        url: url_,
-        data: { uniqueIdentifier: nationalCode, otp },
-      })
-        .then((response) => {
-          setCookie('access', response.data.access, 5);
-          toast.success('ورود با موفقیت انجام شد');
-          if (registerd) {
-            router.push('/');
-          } else {
-            router.push('/ProfilePage');
-          }
-          toast.warning(response.data.message);
-        })
-        .catch((err) => {
-          console.error('خطا:', err);
-          toast.error('خطا در ارسال درخواست به سرور.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      submitOtp({
+        nationalCode,
+        otp,
+      });
     }
   };
 
+  // const applyNationalCode = () => {
+  //   if (captchaInput.length === 0) {
+  //     toast.warning('کد تصویر صحیح نیست');
+  //   } else if (nationalCode.length !== 10) {
+  //     toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
+  //   } else {
+  //     setLoading(true);
+  //     axios({
+  //       method: 'POST',
+  //       url: `${OnRun}/api/otp/`,
+  //       data: {
+  //         uniqueIdentifier: nationalCode,
+  //         encrypted_response: captchaData?.encrypted_response,
+  //         captcha: captchaInput,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         toast.success(response.data.message);
+  //         setRegisterd(response.data.registered);
+  //         setStep(2);
+  //         setTimer(60);
+  //       })
+  //       .catch((err) => {
+  //         console.error('خطا:', err);
+  //         toast.error('خطا در ارسال درخواست به سرور.');
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   }
+  // };
+  // const handleCode = () => {
+  //   if (otp.length !== 5) {
+  //     toast.warning('کد صحیح نیست');
+  //   } else {
+  //     setLoading(true);
+  //     const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
+  //     axios({
+  //       method: 'POST',
+  //       url: url_,
+  //       data: { uniqueIdentifier: nationalCode, otp },
+  //     })
+  //       .then((response) => {
+  //         setCookie('access', response.data.access, 5);
+  //         toast.success('ورود با موفقیت انجام شد');
+  //         if (registerd) {
+  //           router.push('/');
+  //         } else {
+  //           router.push('/ProfilePage');
+  //         }
+  //         toast.warning(response.data.message);
+  //       })
+  //       .catch((err) => {
+  //         console.error('خطا:', err);
+  //         toast.error('خطا در ارسال درخواست به سرور.');
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   }
+  // };
   useEffect(() => {
     let countdown;
     if (step === 2) {
@@ -123,7 +151,6 @@ export default function LoginView() {
     <>
       <ToastContainer autoClose={3000} />
       <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
-
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
@@ -173,8 +200,8 @@ export default function LoginView() {
               bgcolor: 'primary.dark',
             },
           }}
-          onClick={applyNationalCode}
-          loading={loading}
+          onClick={handleApplyNationalCode}
+        
         >
           تایید
         </LoadingButton>
@@ -186,7 +213,7 @@ export default function LoginView() {
           variant="contained"
           color="inherit"
           onClick={handleCode}
-          loading={loading}
+      
         >
           تایید ({timer})
         </LoadingButton>

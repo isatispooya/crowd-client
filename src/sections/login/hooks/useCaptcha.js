@@ -6,7 +6,6 @@ const getCaptcha = async () => {
   const { data } = await axios.get(`${OnRun}/api/captcha/`);
   return data.captcha;
 };
-
 const useCaptcha = () => {
   return useQuery({
     queryKey: ['captcha'],
@@ -25,5 +24,4 @@ const useCaptcha = () => {
     },
   });
 };
-
 export default useCaptcha;
