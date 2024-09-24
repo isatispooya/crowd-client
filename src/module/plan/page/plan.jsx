@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
@@ -31,14 +32,16 @@ const Plan = () => {
       <div className="border-b-2 border-gray-200 mb-6">
         <ul className="flex justify-center space-x-1 text-sm text-nowrap">
           {[
-            { label: 'توضیحات', tab: 0 },
-            { label: 'محاسبه‌گر سود', tab: 1 },
-            { label: 'نظرات کاربران', tab: 2 },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 3 },
-            { label: 'مستندات', tab: 4 },
-            { label: 'تضامین', tab: 5 },
-            { label: 'مسیر کار', tab: 6 },
+            { label: 'اطلاعات طرح', tab: 0 },
+            { label: ' مستندات طرح', tab: 1 },
+            { label: 'تضامین و گزارشات اعتباری', tab: 2 },
+            { label: ' تب جدید گزارشات ', tab: 3 },
+            { label: 'نظرات کاربران', tab: 4 },
+            { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
+            { label: 'محاسبه‌گر سود', tab: 6 },
             { label: 'مشارکت', tab: 7 },
+            { label: 'زمان بندی طرح', tab: 8 },
+
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -67,13 +70,15 @@ const Plan = () => {
 
         {activeTab === 1 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Calculate />
+           
+            <Documentation />
           </div>
         )}
 
         {activeTab === 2 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <CommentForm />
+             <Appendices />
+            
           </div>
         )}
 
@@ -85,18 +90,27 @@ const Plan = () => {
 
         {activeTab === 4 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Documentation />
+            <CommentForm />
           </div>
         )}
 
         {activeTab === 5 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Appendices />
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md" />
+        )}
+         {activeTab === 6 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+           <Calculate />
+
+            </div>
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+              <Partnership />
+            </div>
           </div>
         )}
-        {activeTab === 6 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Roudmap />
+           {activeTab === 7 && ( 
+            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+              <Roudmap/>
           </div>
         )}
         <div>

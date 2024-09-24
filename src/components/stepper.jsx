@@ -27,17 +27,17 @@ const steps = [
   'سایر موارد',
   'اعتبارسنجی',
   'سوء پیشینه',
-  'قرارداد عاملیت',
+  'اطلاعات قرارداد',
 ];
 
 const Sterpercrowd = () => {
   const { setCartId } = UseCartId();
   const [isCompleted, setIsCompleted] = useState(false);
-  const [cardSelected, setCardSelected] = useState(null); // وضعیت انتخاب کارت
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); // وضعیت بررسی احراز هویت
+  const [cardSelected, setCardSelected] = useState(null); 
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
   const navigate = useNavigate();
   const access = getCookie('access');
-  const { page: activeStep, incrementPage, changePage } = useNavigateStep(); // هوک برای مدیریت مراحل
+  const { page: activeStep, incrementPage, changePage } = useNavigateStep(); 
 
   useEffect(() => {
     if (!access) {

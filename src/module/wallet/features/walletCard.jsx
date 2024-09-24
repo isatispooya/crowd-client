@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { IoIosArrowRoundUp } from 'react-icons/io';
 import { LuArrowUpDown } from 'react-icons/lu';
 import UseCartId from 'src/hooks/use-cartId';
 import { formatNumber } from 'src/utils/formatNumbers';
 // eslint-disable-next-line import/no-extraneous-dependencies
+
 import Loader from 'src/components/loader';
-import { getCookie } from 'src/api/cookie';
-import { useNavigate } from 'react-router-dom';
+
 import { useFetchWallet } from '../hooks/getWalletData';
 import TransactionOptions from './transaction';
 import TranHistory from './transactionHistory';
@@ -18,21 +18,15 @@ const WalletCard = () => {
 
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
-
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } else {
-      setIsCheckingAuth(false);
-    }
+    } 
   }, [access, navigate]);
 
-  if (isCheckingAuth || isLoading) {
-    return <Loader />;
-  }
+  
   const openModal = () => {
     setOpenTransaction(true);
   };
@@ -45,7 +39,7 @@ const WalletCard = () => {
     return <Loader />;
   }
 
-  const {  remaining } = walletData || {};
+  const { remaining } = walletData || {};
 
   if (showTranHistory) {
     return <TranHistory setShowTranHistory={setShowTranHistory} />;
@@ -92,14 +86,14 @@ const WalletCard = () => {
                   className="py-2 flex items-center px-4 ms-2 text-sm font-medium text-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:outline-none dark:border-gray-600 dark:hover:bg-white-700 duration-300"
                 >
                   <LuArrowUpDown className="ml-1 text-xl" />
-                 گردش حساب
+                  گردش حساب
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-
+  
       </div>
 
       {openTransaction && (

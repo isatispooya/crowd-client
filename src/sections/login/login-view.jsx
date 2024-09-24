@@ -37,12 +37,14 @@ export default function LoginView() {
       .then((response) => {
         setEncrypted_response(response.data.captcha.encrypted_response);
         setCaptchaImage(response.data.captcha.image);
+        console.log(response.data.captcha.encrypted_response)
       })
       .catch((err) => {
         console.error('error captcha', err);
       });
   };
 
+  
   const applyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
@@ -141,7 +143,7 @@ export default function LoginView() {
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
-          fullWidth // اضافه کردن fullWidth برای اشغال کامل عرض
+          fullWidth
         />
         {step === 1 ? (
           <>
@@ -149,7 +151,7 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
-              fullWidth // اضافه کردن fullWidth
+              fullWidth 
             />
             <Button onClick={getCaptcha} fullWidth>
               {' '}
@@ -163,7 +165,7 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
-              fullWidth // اضافه کردن fullWidth
+              fullWidth 
             />
             <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
           </>
@@ -172,7 +174,7 @@ export default function LoginView() {
 
       {step === 1 ? (
         <LoadingButton
-          fullWidth // اضافه کردن fullWidth
+          fullWidth 
           size="large"
           type="submit"
           variant="contained"
@@ -190,7 +192,7 @@ export default function LoginView() {
         </LoadingButton>
       ) : (
         <LoadingButton
-          fullWidth 
+          fullWidth
           size="large"
           type="submit"
           variant="contained"
@@ -206,7 +208,6 @@ export default function LoginView() {
 
   return (
     <Box
-     
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.9),
