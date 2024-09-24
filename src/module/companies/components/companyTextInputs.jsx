@@ -10,13 +10,12 @@ import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
 
 const CompanyInputs = ({ localData, setLocalData }) => {
-
-
   const InputValues = (e) => {
     const { name, value } = e.target;
     const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
+  console.log(localData);
 
   const handleDateChange = (date) => {
     InputValues({ target: { name: 'date_newspaper', value: date } });
@@ -160,6 +159,29 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         />
       </div>
       <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">سال تاسیس</label>
+        <input
+          type="text"
+          name="yearofestablishment"
+          value={localData.year_of_establishment || ''}
+          disabled={localData.Lock_year_of_establishment}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">کد بورسی </label>
+        <input
+          type="text"
+          name="exchange_code"
+          value={localData.exchange_code || ''}
+          disabled={localData.lock_exchange_code}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
+
+      <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">کدپستی:</label>
         <input
           type="text"
@@ -185,6 +207,17 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           name="email"
           value={localData.email || ''}
           disabled={localData.Lock_email}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">تعداد سهام</label>
+        <input
+          type="text"
+          name="shareholders"
+          // value={localData.address || ''}
+          // disabled={localData.Lock_address}
           onChange={InputValues}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />

@@ -18,13 +18,7 @@ const WalletCard = () => {
 
   const [openTransaction, setOpenTransaction] = useState(false);
   const [showTranHistory, setShowTranHistory] = useState(false);
-  const access = getCookie('access');
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!access) {
-      navigate('/login');
-    } 
-  }, [access, navigate]);
+
 
   
   const openModal = () => {

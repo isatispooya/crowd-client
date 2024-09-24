@@ -8,6 +8,7 @@ const Inputs = ({ Data, setData }) => {
   const handleFileRemove = (field) => {
     setData({ ...Data, [field]: null });
   };
+  console.log(Data , "ffhghj")
   return (
     <>
       <div className="mb-6">
@@ -393,6 +394,252 @@ const Inputs = ({ Data, setData }) => {
           </div>
         )}
       </div>
+
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+            کاتالوگ محصولات
+        </label>
+
+        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_announcement_of_changes_managers
+                  ? null
+                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+              }
+              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_announcement_of_changes_managers
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل آگهی آخرین تغییرات مدیران
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('announcement_of_changes_managers')}
+              disabled={Data.Lock_announcement_of_changes_managers}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcement_of_changes_managers"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      announcement_of_changes_managers: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_announcement_of_changes_managers}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.announcement_of_changes_managers
+                  ? Data.announcement_of_changes_managers.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             مجوز
+        </label>
+
+        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_announcement_of_changes_managers
+                  ? null
+                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+              }
+              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_announcement_of_changes_managers
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل آگهی آخرین تغییرات مدیران
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('announcement_of_changes_managers')}
+              disabled={Data.Lock_announcement_of_changes_managers}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcement_of_changes_managers"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      announcement_of_changes_managers: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_announcement_of_changes_managers}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.announcement_of_changes_managers
+                  ? Data.announcement_of_changes_managers.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             معرف حسابرس
+        </label>
+
+        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_announcement_of_changes_managers
+                  ? null
+                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+              }
+              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_announcement_of_changes_managers
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل آگهی آخرین تغییرات مدیران
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('announcement_of_changes_managers')}
+              disabled={Data.Lock_announcement_of_changes_managers}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcement_of_changes_managers"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      announcement_of_changes_managers: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_announcement_of_changes_managers}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.announcement_of_changes_managers
+                  ? Data.announcement_of_changes_managers.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             اعلان شماره حساب
+        </label>
+
+        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_announcement_of_changes_managers
+                  ? null
+                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+              }
+              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_announcement_of_changes_managers
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل آگهی آخرین تغییرات مدیران
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('announcement_of_changes_managers')}
+              disabled={Data.Lock_announcement_of_changes_managers}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcement_of_changes_managers"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      announcement_of_changes_managers: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_announcement_of_changes_managers}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.announcement_of_changes_managers
+                  ? Data.announcement_of_changes_managers.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      
     </>
   );
 };

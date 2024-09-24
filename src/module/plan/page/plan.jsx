@@ -12,7 +12,8 @@ import Documentation from '../feature/documentation';
 import Calculate from './calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
-import Roudmap from '../feature/Roadmap';
+import Roadmap from '../feature/Roadmap';
+
 
 const Plan = () => {
   const { id } = useParams();
@@ -41,7 +42,6 @@ const Plan = () => {
             { label: 'محاسبه‌گر سود', tab: 6 },
             { label: 'مشارکت', tab: 7 },
             { label: 'زمان بندی طرح', tab: 8 },
-
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -70,21 +70,19 @@ const Plan = () => {
 
         {activeTab === 1 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-           
             <Documentation />
           </div>
         )}
 
         {activeTab === 2 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-             <Appendices />
-            
+            <Appendices />
           </div>
         )}
 
         {activeTab === 3 && (
           <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            <InvestProfile />
+            سیصبییلتنااتال
           </div>
         )}
 
@@ -95,28 +93,25 @@ const Plan = () => {
         )}
 
         {activeTab === 5 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md" />
-        )}
-         {activeTab === 6 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-           <Calculate />
-
-            </div>
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-              <Partnership />
-            </div>
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+            <InvestProfile />
           </div>
         )}
-           {activeTab === 7 && ( 
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-              <Roudmap/>
+        {activeTab === 6 && (
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+            <Calculate />
+          </div>
+        )}
+        {activeTab === 7 && (
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+         <Participation />
           </div>
         )}
         <div>
-          {activeTab === 7 && (
+          {activeTab === 8 && (
             <div className="grid   gap-8">
-              <Participation />
+
+              <Roadmap />
             </div>
           )}
         </div>

@@ -58,7 +58,7 @@ const CartPlan = ({
           حوزه فعالیت: <span className="font-semibold text-gray-600">{activityField}</span>
         </p>
 
-        {/* Progress Bar */}
+
         <div className="mt-6">
           <p className="text-sm text-center mb-2">مبلغ سرمایه‌گذاری</p>
           <div className="relative w-full h-3 bg-[#001F5F] rounded-lg">
@@ -73,7 +73,7 @@ const CartPlan = ({
           </div>
         </div>
 
-        {/* Divider and additional info */}
+    
         <div className="flex justify-between items-center text-sm text-gray-900 mt-6">
           <p className="text-xs">
             درصد شناوری: <span className="font-semibold">{buoyancy}%</span>
@@ -88,7 +88,7 @@ const CartPlan = ({
           </p>
         </div>
 
-        {/* Bottom Section */}
+    
         <div className="flex flex-col justify-between items-center text-sm text-gray-600 mt-6">
           <p>{remainingDays} روز تا پایان فرصت</p>
           <button
