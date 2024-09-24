@@ -43,6 +43,7 @@ export default function LoginView() {
       });
   };
 
+  
   const applyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
@@ -149,7 +150,7 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
-              fullWidth // اضافه کردن fullWidth
+              fullWidth 
             />
             <Button onClick={getCaptcha} fullWidth>
               {' '}
@@ -163,7 +164,7 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
-              fullWidth // اضافه کردن fullWidth
+              fullWidth 
             />
             <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
           </>
@@ -172,7 +173,7 @@ export default function LoginView() {
 
       {step === 1 ? (
         <LoadingButton
-          fullWidth // اضافه کردن fullWidth
+          fullWidth 
           size="large"
           type="submit"
           variant="contained"

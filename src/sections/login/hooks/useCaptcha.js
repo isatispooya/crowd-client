@@ -1,5 +1,5 @@
-// const { default: axios } = require("axios");
-// const { OnRun } = require("src/api/OnRun");
+import axios from "axios";
+import { OnRun } from "src/api/OnRun";
 
 // const useCaptcha = () => {
 //     axios
