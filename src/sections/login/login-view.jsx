@@ -141,7 +141,7 @@ export default function LoginView() {
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
-          fullWidth // اضافه کردن fullWidth برای اشغال کامل عرض
+          fullWidth
         />
         {step === 1 ? (
           <>
@@ -190,7 +190,7 @@ export default function LoginView() {
         </LoadingButton>
       ) : (
         <LoadingButton
-          fullWidth 
+          fullWidth
           size="large"
           type="submit"
           variant="contained"
@@ -206,7 +206,6 @@ export default function LoginView() {
 
   return (
     <Box
-     
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.9),

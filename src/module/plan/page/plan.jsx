@@ -38,7 +38,7 @@ const Plan = () => {
             { label: 'مستندات', tab: 4 },
             { label: 'تضامین', tab: 5 },
             { label: 'مشارکت', tab: 6 },
-            { label: 'مسیر کار', tab: 7 },
+            { label: 'زمان بندی ', tab: 7 },
 
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">

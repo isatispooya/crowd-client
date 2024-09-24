@@ -1,67 +1,59 @@
-import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { ReactTabulator } from 'react-tabulator';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'react-tabulator/lib/styles.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'react-tabulator/css/tabulator_simple.min.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getCookie } from 'src/api/cookie';
+import React from 'react';
+import {  useParams } from 'react-router-dom';
+
 import usecertificate from '../hooks/use-certificate';
-import Loader from './loader';
 
-
-
-const columns = [
-  { title: 'نام ', field: 'firstName', width: 100 },
-  { title: 'نام خانوادگی', field: 'lastName', width: 120 },
-  { title: 'مبلغ واحد', field: 'amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },
-  { title: 'مجموع مبلغ', field: 'total_amount', hozAlign: 'center', sorter: 'number', formatter: 'money' },  
-  { title: 'دانلود گواهی مشارکت', field: 'link', width: 180 },
-];
 
 const Certificate = () => {
-    const { id } = useParams();
-    const { data: Data } = usecertificate(id);
-    const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
-    const access = getCookie('access');
-    const navigate = useNavigate();
-    useEffect(() => {
-      if (!access) {
-        navigate('/login');
-      } else {
-        setIsCheckingAuth(false);
-      }
-    }, [access, navigate]);
-  
-    if (isCheckingAuth ) {
-      return <Loader />;
-    }
-   
-    const certificateData = Data ? Data.map(item => ({
-      id: item.id,
-      firstName : item.firstName,
-      lastName : item.lastName,
-      amount: item.amount,
-      total_amount: item.total_amount,
-      link: item.link,
-    })) : [];
-  
-    return (
-      <div className="w-full h-full">
-        <ReactTabulator
-          data={certificateData}
-          columns={columns}
-          layout="fitDataFill"
-          options={{
-            pagination: 'local',
-            paginationSize: 5,
-            responsiveLayout: true,
-          }}
-          className="tabulator-table"
-        />
-      </div>
-    );
-}
- 
+  const { id } = useParams();
+  const { data: Data } = usecertificate(id);
+
+
+
+  const certificateData = Data ? Data.map(item => ({
+    id: item.id,
+    firstName: item.firstName,
+    lastName: item.lastName,
+    amount: item.amount,
+    total_amount: item.total_amount,
+    link: item.link,
+  })) : [];
+
+  return (
+    <div className="w-full h-full flex flex-wrap justify-start gap-6 p-6 ">
+      {certificateData.length === 0 ? (
+        <p className="text-gray-700">هیچ اطلاعاتی یافت نشد.</p>
+      ) : (
+        certificateData.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px]"
+          >
+            <div className="flex flex-col items-center flex-grow space-y-4">
+              <h3 className="text-2xl font-bold text-gray-800 border-b-2 p-2 border-gray-400">
+                {item.firstName} {item.lastName}
+              </h3>
+              <div className="flex flex-col justify-center items-center space-y-4">
+                <p className="text-lg font-medium text-black">
+                  مبلغ واحد: <span className="text-sm text-gray-700">{item.amount} تومان</span>
+                </p>
+                <p className="text-lg font-medium text-black">
+                  مجموع مبلغ: <span className="text-sm text-gray-700">{item.total_amount} تومان</span>
+                </p>
+              </div>
+              <a
+                href={item.link}
+                className="px-8 py-3 rounded-md border bg-gradient-to-r from-[#004ff9] to-[#000000] text-white text-sm hover:-translate-y-1 transform transition duration-200 hover:shadow-md"
+                download
+              >
+                دانلود گواهی مشارکت
+              </a>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
+
 export default Certificate;
