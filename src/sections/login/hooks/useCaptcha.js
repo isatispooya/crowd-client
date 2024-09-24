@@ -1,14 +1,29 @@
-import axios from "axios";
-import { OnRun } from "src/api/OnRun";
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { OnRun } from 'src/api/OnRun';
 
-// const useCaptcha = () => {
-//     axios
-//       .get(`${OnRun}/api/captcha/`)
-//       .then((response) => {
-//         setEncrypted_response(response.data.captcha.encrypted_response);
-//         setCaptchaImage(response.data.captcha.image);
-//       })
-//       .catch((err) => {
-//         console.error('error captcha', err);
-//       });
-//   };
+const getCaptcha = async () => {
+  const { data } = await axios.get(`${OnRun}/api/captcha/`);
+  return data.captcha;
+};
+
+const useCaptcha = () => {
+  return useQuery({
+    queryKey: ['captcha'],
+    queryFn: getCaptcha,
+    cacheTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 2,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    retry: 3,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 30000),
+    onError: (error) => {
+      console.error('Error fetching captcha:', error);
+    },
+    onSuccess: (data) => {
+      console.log('Captcha fetched successfully:', data);
+    },
+  });
+};
+
+export default useCaptcha;

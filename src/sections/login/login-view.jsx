@@ -16,13 +16,14 @@ import { bgGradient } from 'src/theme/css';
 import { OnRun } from 'src/api/OnRun';
 import { ToastContainer, toast } from 'react-toastify';
 import ReferralCodeInput from './refferalView';
+import useCaptcha from './hooks/useCaptcha';
 
 export default function LoginView() {
   const theme = useTheme();
   const router = useRouter();
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
-  const [captchaImage, setCaptchaImage] = useState(null);
+
   const [encrypted_response, setEncrypted_response] = useState(null);
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
@@ -31,20 +32,10 @@ export default function LoginView() {
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(60);
 
-  const getCaptcha = () => {
-    axios
-      .get(`${OnRun}/api/captcha/`)
-      .then((response) => {
-        setEncrypted_response(response.data.captcha.encrypted_response);
-        setCaptchaImage(response.data.captcha.image);
-      })
-      .catch((err) => {
-        console.error('error captcha', err);
-      });
-  };
+  const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
 
-  
   const applyNationalCode = () => {
+   
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
     } else if (nationalCode.length !== 10) {
@@ -56,7 +47,7 @@ export default function LoginView() {
         url: `${OnRun}/api/otp/`,
         data: {
           uniqueIdentifier: nationalCode,
-          encrypted_response,
+          encrypted_response: captchaData?.image ,
           captcha: captchaInput,
         },
       })
@@ -66,8 +57,8 @@ export default function LoginView() {
           setStep(2);
           setTimer(60);
         })
-        .catch((error) => {
-          console.error('خطا:', error);
+        .catch((err) => {
+          console.error('خطا:', err);
           toast.error('خطا در ارسال درخواست به سرور.');
         })
         .finally(() => {
@@ -97,8 +88,8 @@ export default function LoginView() {
           }
           toast.warning(response.data.message);
         })
-        .catch((error) => {
-          console.error('خطا:', error);
+        .catch((err) => {
+          console.error('خطا:', err);
           toast.error('خطا در ارسال درخواست به سرور.');
         })
         .finally(() => {
@@ -106,10 +97,6 @@ export default function LoginView() {
         });
     }
   };
-
-  useEffect(() => {
-    getCaptcha();
-  }, []);
 
   useEffect(() => {
     let countdown;
@@ -136,8 +123,7 @@ export default function LoginView() {
     <>
       <ToastContainer autoClose={3000} />
       <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
-        {' '}
-        {/* عرض کامل */}
+
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
@@ -150,11 +136,14 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
-              fullWidth 
+              fullWidth
             />
-            <Button onClick={getCaptcha} fullWidth>
-              {' '}
-              <img src={`data:image/png;base64,${captchaImage}`} alt="captcha" />
+            <Button onClick={refreshCaptcha} fullWidth>
+              {isCaptchaLoading ? (
+                'Loading...'
+              ) : (
+                <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
+              )}
             </Button>
             <Box sx={{ mb: 3 }} />
           </>
@@ -164,7 +153,7 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
-              fullWidth 
+              fullWidth
             />
             <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
           </>
@@ -173,7 +162,7 @@ export default function LoginView() {
 
       {step === 1 ? (
         <LoadingButton
-          fullWidth 
+          fullWidth
           size="large"
           type="submit"
           variant="contained"
