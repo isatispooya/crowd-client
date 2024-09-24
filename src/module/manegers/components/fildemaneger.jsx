@@ -12,6 +12,12 @@ const Fildemnager = ({ index, field, setField }) => {
     { type: true, title: 'بله' },
     { type: false, title: 'خیر' },
   ];
+  const position = [
+    { type: 1, title: 'رئیس هیئت مدیره' },
+    { type: 2, title: 'نایب رئیس' },
+    { type: 3, title: 'عضو هیئت مدیره' },
+    { type: 4, title: 'مدیرعامل' },
+  ];
 
   const handleChange = (input, value) => {
     const pervRow = field[index];
@@ -27,10 +33,9 @@ const Fildemnager = ({ index, field, setField }) => {
 
     const newRow = { ...pervRow, [input]: processedValue };
 
-    
     if (input === 'is_legal' && processedValue === false) {
-      newRow.national_id = ''; 
-      newRow.representative = ''; 
+      newRow.national_id = '';
+      newRow.representative = '';
     }
 
     const updateField = [...field];
@@ -42,14 +47,16 @@ const Fildemnager = ({ index, field, setField }) => {
     <div className="p-6 rounded-lg shadow-md">
       <form className="mt-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-medium mb-2">نام و نام خانوادگی :</label>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-medium mb-2">
+              نام و نام خانوادگی :
+            </label>
             <input
               type="text"
               name="name"
               disabled={field[index].lock}
               value={field[index].name}
-              onChange={(e)=>handleChange('name',e.target.value)}
+              onChange={(e) => handleChange('name', e.target.value)}
               required
               className="shadow bg-white appearance-none border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
@@ -75,12 +82,11 @@ const Fildemnager = ({ index, field, setField }) => {
             <label className="block text-gray-700 text-sm font-medium mb-2">موظف :</label>
             <select
               value={field[index].is_obliged}
-              onChange={(e)=>handleChange('is_obliged',e.target.value)}
+              onChange={(e) => handleChange('is_obliged', e.target.value)}
               disabled={field[index].lock}
               name="is_obliged"
               className="shadow appearance-none bg-white border rounded  w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             >
-              
               {obliged.map((typeObj, i) => (
                 <option key={i} value={typeObj.type}>
                   {typeObj.title}
@@ -88,12 +94,28 @@ const Fildemnager = ({ index, field, setField }) => {
               ))}
             </select>
           </div>
-
+          <div className="mb-6">
+            <label className="block text-gray-800 text-xs font-semibold mb-2">سمت:</label>
+            <select
+              name="position"
+              value={field[index].position}
+              disabled={field[index].lock}
+              onChange={(e) => handleChange('position', e.target.value)}
+              className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+            >
+              <option value="">انتخاب کنید</option>
+              {position.map((typeObj, i) => (
+                <option key={i} value={typeObj.type}>
+                  {typeObj.title}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-medium mb-2">سمت :</label>
             <input
               value={field[index].position}
-              onChange={(e)=>handleChange('position',e.target.value)}
+              onChange={(e) => handleChange('position', e.target.value)}
               type="text"
               disabled={field[index].lock}
               name="position"
@@ -107,10 +129,10 @@ const Fildemnager = ({ index, field, setField }) => {
               type="text"
               name="national_code"
               value={field[index].national_code}
-              onChange={(e)=>handleChange('national_code',e.target.value)}
+              onChange={(e) => handleChange('national_code', e.target.value)}
               maxLength={10}
               disabled={field[index].lock}
-              onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+              onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ''))}
               required
               className="shadow appearance-none border bg-white disabled:bg-gray-200 text-black rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />

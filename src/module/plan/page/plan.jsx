@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
+import Participation from 'src/pages/participation';
 import usePlan from '../service/use-plan';
 import CommentForm from '../feature/comment';
 import InvestProfile from '../feature/Investorprofile';
@@ -9,8 +11,6 @@ import Documentation from '../feature/documentation';
 import Calculate from './calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
-import Partner from '../feature/partner';
-import Partnership from '../feature/partnership';
 import Roudmap from '../feature/Roadmap';
 
 const Plan = () => {
@@ -27,7 +27,7 @@ const Plan = () => {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="w-full  mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="border-b-2 border-gray-200 mb-6">
         <ul className="flex justify-center space-x-1 text-sm text-nowrap">
           {[
@@ -37,14 +37,15 @@ const Plan = () => {
             { label: 'مشخصات سرمایه‌گذارن', tab: 3 },
             { label: 'مستندات', tab: 4 },
             { label: 'تضامین', tab: 5 },
-            { label: 'مشارکت', tab: 6 },
-            { label: 'مسیر کار', tab: 7 },
-
+            { label: 'مسیر کار', tab: 6 },
+            { label: 'مشارکت', tab: 7 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
-                className={`py-2 px-4 transition-all duration-300  ${
-                  activeTab === tab
+                className={`py-2 px-4 transition-all duration-300 ${
+                  label === 'مشارکت'
+                    ? 'bg-blue-900 text-white rounded-sm'
+                    : activeTab === tab
                     ? 'text-blue-900 border-b-4 border-blue-900 font-semibold'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
                 }`}
@@ -58,7 +59,6 @@ const Plan = () => {
       </div>
 
       <div className="mt-8">
-
         {activeTab === 0 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Descript />
@@ -94,21 +94,18 @@ const Plan = () => {
             <Appendices />
           </div>
         )}
-         {activeTab === 6 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-              <Partner />
-            </div>
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-              <Partnership />
-            </div>
+        {activeTab === 6 && (
+          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+            <Roudmap />
           </div>
         )}
-           {activeTab === 7 && ( 
-            <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-              <Roudmap/>
-          </div>
-        )}
+        <div>
+          {activeTab === 7 && (
+            <div className="grid   gap-8">
+              <Participation />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

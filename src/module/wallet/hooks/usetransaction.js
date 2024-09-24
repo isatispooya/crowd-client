@@ -2,18 +2,19 @@ import { getCookie } from 'src/api/cookie';
 import { useMutation } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
 
-const postDitail = async ({id,amount,status}) => {
+const postDitail = async ({credit_amount,image_receipt,document_number}) => {
   const access = getCookie('access');
   console.log('================');
-  console.log(id,amount,status);
+  console.log(image_receipt,credit_amount,document_number);
   
   
 
   const response = await api.post(
-    `/api/participant/${id}/`,
+    `/api/transaction/`,
     {
-      amount,
-      status
+    credit_amount,
+    image_receipt,
+    document_number
     },
     {
       headers: {
@@ -26,7 +27,7 @@ const postDitail = async ({id,amount,status}) => {
   return response.data;
 };
 
-const PostPartnership = () => {
+const useTransaction = () => {
   const {
     mutate,
     data: datapost,
@@ -47,4 +48,4 @@ const PostPartnership = () => {
   };
 };
 
-export default PostPartnership;
+export default useTransaction;

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ReactTabulator } from 'react-tabulator';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/lib/styles.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-tabulator/css/tabulator_simple.min.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
@@ -23,15 +20,22 @@ const columns = [
 const Certificate = () => {
     const { id } = useParams();
     const { data: Data } = usecertificate(id);
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
     const access = getCookie('access');
     const navigate = useNavigate();
     useEffect(() => {
       if (!access) {
         navigate('/login');
+      } else {
+        setIsCheckingAuth(false);
       }
     }, [access, navigate]);
   
- 
+    if (isCheckingAuth ) {
+      return <Loader />;
+    }
+   
+  
    
     const certificateData = Data ? Data.map(item => ({
       id: item.id,

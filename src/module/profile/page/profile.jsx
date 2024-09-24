@@ -20,15 +20,18 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
   const navigate = useNavigate();
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } 
+    } else {
+      setIsCheckingAuth(false);
+    }
   }, [access, navigate]);
 
   useEffect(() => {
-    if (access ) {
+    if (access && !isCheckingAuth) {
       axios
         .get(`${OnRun}/api/information/`, {
           headers: {
@@ -45,9 +48,11 @@ const Profile = () => {
           }
         });
     }
-  }, [access,  navigate]);
+  }, [access, isCheckingAuth, navigate]);
 
-
+  if (isCheckingAuth) {
+    return <Loader />;
+  }
 
   const openModal = () => {
     mutate();

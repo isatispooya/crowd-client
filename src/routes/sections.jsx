@@ -8,6 +8,7 @@ import Plans from 'src/module/plan/page/plans';
 import WalletPage from 'src/module/wallet/pages/walletPage';
 import Dashboard from 'src/module/dashboard/components/dashboard';
 import Certificate from 'src/components/certificate';
+import Participation from 'src/pages/participation';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -38,7 +39,8 @@ export default function Router() {
         { path: 'ProfilePage', element: <ProfilePage /> },
         { path: 'wallet', element: <WalletPage /> },
         {path: "dashboard", element: <Dashboard/>},
-        {path: "certificate" ,  element : <Certificate/>}
+        {path: "certificate" ,  element : <Certificate/>},
+        {path: "participation" ,  element : <Participation/>}
         
       ],
     },
