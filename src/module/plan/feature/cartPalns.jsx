@@ -10,20 +10,15 @@ import UsePlans from '../service/use-plans';
 
 const CartPlans = () => {
   const { data, isLoading } = UsePlans();
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } else {
-      setIsCheckingAuth(false);
-    }
+    } 
   }, [access, navigate]);
 
-  if (isCheckingAuth || isLoading) {
-    return <Loader />;
-  }
+ 
 
   if (!data || data.length === 0) {
     return <p>هیچ درخواستی یافت نشد.</p>;
