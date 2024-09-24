@@ -37,6 +37,7 @@ export default function LoginView() {
       .then((response) => {
         setEncrypted_response(response.data.captcha.encrypted_response);
         setCaptchaImage(response.data.captcha.image);
+        console.log(response.data.captcha.encrypted_response)
       })
       .catch((err) => {
         console.error('error captcha', err);
