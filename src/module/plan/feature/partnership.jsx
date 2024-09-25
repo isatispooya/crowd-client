@@ -3,8 +3,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from 'react';
-import { formatNumber, cleanNumber } from 'src/utils/formatNumbers';
+import React, {  useState } from 'react';
+import { formatNumber } from 'src/utils/formatNumbers';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import { toast, ToastContainer } from 'react-toastify';

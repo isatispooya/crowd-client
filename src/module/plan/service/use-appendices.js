@@ -12,7 +12,7 @@ const getAppenices= async (id) => {
     },
   });
   return response.data.data;
-  
+
 };
 
 

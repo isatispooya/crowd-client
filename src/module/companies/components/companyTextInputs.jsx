@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
@@ -238,12 +238,11 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           تاریخ روزنامه رسمی آخرین مدیران:
         </label>
         <DatePicker
-          value={localData.date_newspaper}
+          value={localData.date_newspaper ? new Date(localData.date_newspaper) : null}
           onChange={handleDateChange}
           calendar={persian}
           locale={persian_fa}
           format="YYYY/MM/DD"
-          disabled={localData.Lock_date_newspaper}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>

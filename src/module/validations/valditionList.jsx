@@ -27,8 +27,8 @@ const ValditionList = () => {
       });   
 
       if (response.data) {
+        
         setValidateList(response.data.data.managers);
-        console.log("sdfghj",response.data)
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
@@ -44,6 +44,7 @@ const ValditionList = () => {
       validateList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
+          formData.append(`${element.national_code}_date`, element.date);
           hasFile = true; 
         }
       });
