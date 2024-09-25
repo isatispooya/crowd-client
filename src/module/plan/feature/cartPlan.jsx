@@ -27,10 +27,10 @@ const CartPlan = ({
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 bg-white p-6">
+    <div className="flex flex-wrap justify-center gap-6 bg-white p-6 ">
       <div
         key={key}
-        className="shadow-md w-80 p-4 rounded-lg border bg-white hover:shadow-lg transition-shadow duration-300"
+        className=" w-80 p-4 duration-300 bg-white shadow-lg rounded-2xl    cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100"
       >
         <div className="relative h-44 w-full mb-4 rounded-lg overflow-hidden shadow-md">
           <img src={`${OnRun}/${picture}`} alt={title} className="h-full w-full object-cover" />

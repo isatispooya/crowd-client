@@ -115,7 +115,7 @@ const Inputs = ({ Data, setData }) => {
 
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-          لیست دارایی ها و بدهی ها:
+             لیست اظهار دارایی ها و بدهی ها :
         </label>
 
         {Data && typeof Data.assets_and_liabilities === 'string' ? (
@@ -133,7 +133,7 @@ const Inputs = ({ Data, setData }) => {
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل لیست دارایی ها و بدهی ها
+             فایل لیست اظهار دارایی ها و بدهی ها
             </a>
             <button
               type="button"
@@ -400,30 +400,30 @@ const Inputs = ({ Data, setData }) => {
             کاتالوگ محصولات
         </label>
 
-        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+        {Data && typeof Data.product_catalog === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
               href={
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_product_catalog
                   ? null
-                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+                  : `${OnRun}/${Data.product_catalog}`
               }
-              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              onClick={(e) => Data.Lock_product_catalog && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_product_catalog
                   ? 'text-gray-400'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل آگهی آخرین تغییرات مدیران
+               فایل کاتالوگ محصولات 
             </a>
             <button
               type="button"
               className="text-red-400 hover:text-red-600 disabled:text-gray-200"
-              onClick={() => handleFileRemove('announcement_of_changes_managers')}
-              disabled={Data.Lock_announcement_of_changes_managers}
+              onClick={() => handleFileRemove('product_catalog')}
+              disabled={Data.Lock_product_catalog}
             >
               حذف
             </button>
@@ -440,16 +440,16 @@ const Inputs = ({ Data, setData }) => {
                   onChange={(e) =>
                     setData({
                       ...Data,
-                      announcement_of_changes_managers: e.target.files[0],
+                      product_catalog: e.target.files[0],
                     })
                   }
-                  disabled={Data.Lock_announcement_of_changes_managers}
+                  disabled={Data.Lock_product_catalog}
                   className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.announcement_of_changes_managers
-                  ? Data.announcement_of_changes_managers.name
+                {Data.product_catalog
+                  ? Data.product_catalog.name
                   : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>
@@ -461,30 +461,30 @@ const Inputs = ({ Data, setData }) => {
              مجوز
         </label>
 
-        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+        {Data && typeof Data.licenses === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
               href={
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_licenses
                   ? null
-                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+                  : `${OnRun}/${Data.licenses}`
               }
-              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              onClick={(e) => Data.Lock_licenses && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_licenses
                   ? 'text-gray-400'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل آگهی آخرین تغییرات مدیران
+              فایل مجوز ها   
             </a>
             <button
               type="button"
               className="text-red-400 hover:text-red-600 disabled:text-gray-200"
-              onClick={() => handleFileRemove('announcement_of_changes_managers')}
-              disabled={Data.Lock_announcement_of_changes_managers}
+              onClick={() => handleFileRemove('licenses')}
+              disabled={Data.Lock_licenses}
             >
               حذف
             </button>
@@ -496,21 +496,21 @@ const Inputs = ({ Data, setData }) => {
                 انتخاب فایل
                 <BsCloudUploadFill className="ml-2" />
                 <input
-                  name="announcement_of_changes_managers"
+                  name="licenses"
                   type="file"
                   onChange={(e) =>
                     setData({
                       ...Data,
-                      announcement_of_changes_managers: e.target.files[0],
+                      licenses: e.target.files[0],
                     })
                   }
-                  disabled={Data.Lock_announcement_of_changes_managers}
+                  disabled={Data.Lock_licenses}
                   className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.announcement_of_changes_managers
-                  ? Data.announcement_of_changes_managers.name
+                {Data.licenses
+                  ? Data.licenses.name
                   : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>
@@ -522,30 +522,30 @@ const Inputs = ({ Data, setData }) => {
              معرف حسابرس
         </label>
 
-        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+        {Data && typeof Data.auditor_representative === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
               href={
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_auditor_representative
                   ? null
-                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+                  : `${OnRun}/${Data.auditor_representative}`
               }
-              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              onClick={(e) => Data.Lock_auditor_representative && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_auditor_representative
                   ? 'text-gray-400'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل آگهی آخرین تغییرات مدیران
+              فایل معرف حسابرس   
             </a>
             <button
               type="button"
               className="text-red-400 hover:text-red-600 disabled:text-gray-200"
-              onClick={() => handleFileRemove('announcement_of_changes_managers')}
-              disabled={Data.Lock_announcement_of_changes_managers}
+              onClick={() => handleFileRemove('auditor_representative')}
+              disabled={Data.Lock_auditor_representative}
             >
               حذف
             </button>
@@ -557,21 +557,21 @@ const Inputs = ({ Data, setData }) => {
                 انتخاب فایل
                 <BsCloudUploadFill className="ml-2" />
                 <input
-                  name="announcement_of_changes_managers"
+                  name="auditor_representative"
                   type="file"
                   onChange={(e) =>
                     setData({
                       ...Data,
-                      announcement_of_changes_managers: e.target.files[0],
+                      auditor_representative: e.target.files[0],
                     })
                   }
-                  disabled={Data.Lock_announcement_of_changes_managers}
+                  disabled={Data.Lock_auditor_representative}
                   className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.announcement_of_changes_managers
-                  ? Data.announcement_of_changes_managers.name
+                {Data.auditor_representative
+                  ? Data.auditor_representative.name
                   : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>
@@ -583,30 +583,30 @@ const Inputs = ({ Data, setData }) => {
              اعلان شماره حساب
         </label>
 
-        {Data && typeof Data.announcement_of_changes_managers === 'string' ? (
+        {Data && typeof Data.announcing_account_number === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
               href={
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_announcing_account_number
                   ? null
-                  : `${OnRun}/${Data.announcement_of_changes_managers}`
+                  : `${OnRun}/${Data.announcing_account_number}`
               }
-              onClick={(e) => Data.Lock_announcement_of_changes_managers && e.preventDefault()}
+              onClick={(e) => Data.Lock_announcing_account_number && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_announcement_of_changes_managers
+                Data.Lock_announcing_account_number
                   ? 'text-gray-400'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل آگهی آخرین تغییرات مدیران
+               فایل اعلان شماره حساب   
             </a>
             <button
               type="button"
               className="text-red-400 hover:text-red-600 disabled:text-gray-200"
-              onClick={() => handleFileRemove('announcement_of_changes_managers')}
-              disabled={Data.Lock_announcement_of_changes_managers}
+              onClick={() => handleFileRemove('announcing_account_number')}
+              disabled={Data.Lock_announcing_account_number}
             >
               حذف
             </button>
@@ -618,21 +618,21 @@ const Inputs = ({ Data, setData }) => {
                 انتخاب فایل
                 <BsCloudUploadFill className="ml-2" />
                 <input
-                  name="announcement_of_changes_managers"
+                  name="announcing_account_number"
                   type="file"
                   onChange={(e) =>
                     setData({
                       ...Data,
-                      announcement_of_changes_managers: e.target.files[0],
+                      announcing_account_number: e.target.files[0],
                     })
                   }
-                  disabled={Data.Lock_announcement_of_changes_managers}
+                  disabled={Data.Lock_announcing_account_number}
                   className="hidden bg-white"
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.announcement_of_changes_managers
-                  ? Data.announcement_of_changes_managers.name
+                {Data.announcing_account_number
+                  ? Data.announcing_account_number.name
                   : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>

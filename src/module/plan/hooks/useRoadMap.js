@@ -1,27 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 
-const useFetchData = (cartId) => {
-  const fetchData = async () => {
+const useRoadMap = (id) => {
+  const getRoadmap = async () => {
     const access = await getCookie('access');
-    const response = await axios.get(`${OnRun}/api/addinformation/${cartId}/`, {
+    const response = await axios.get(`${OnRun}/api/roadmap/${id}/`, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     });
-    console.log(response.data)
     return response.data;
-    
   };
-  
   const { isLoading, data } = useQuery({
-    queryKey: ['fetchData', cartId],
-    queryFn: fetchData,
+    queryKey: ['roadmap', id],
+    queryFn: getRoadmap,
+    retry: 2,
   });
-
   return { isLoading, data };
 };
 
-export default useFetchData;
+export default useRoadMap;

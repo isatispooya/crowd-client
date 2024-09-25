@@ -15,7 +15,6 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-  console.log(localData);
 
   const handleDateChange = (date) => {
     InputValues({ target: { name: 'date_newspaper', value: date } });
@@ -137,7 +136,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         />
       </div>
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2"> شهر:</label>
+        <label className="block text-gray-800 text-xs font-semibold mb-2">شهر محل ثبت :</label>
         <input
           type="text"
           name="city"
@@ -238,12 +237,17 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           تاریخ روزنامه رسمی آخرین مدیران:
         </label>
         <DatePicker
-          value={localData.date_newspaper ? new Date(localData.date_newspaper) : null}
+          style={{
+            width: '100%',
+            padding: 22,
+            backgroundColor: '#ffffff',
+          }}
+          value={localData.date_newspaper}
           onChange={handleDateChange}
           calendar={persian}
           locale={persian_fa}
           format="YYYY/MM/DD"
-          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+          disabled={localData.Lock_date_newspaper}
         />
       </div>
       <div className="col-span-full mt-8 flex flex-col justify-center items-center">

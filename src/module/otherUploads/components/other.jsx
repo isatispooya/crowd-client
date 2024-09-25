@@ -27,6 +27,10 @@ const Other = () => {
     Lock_statutes: false,
     Lock_assets_and_liabilities: false,
     Lock_latest_insurance_staf: false,
+    Lock_product_catalog : false,
+    Lock_auditor_representative : false, 
+    Lock_announcing_account_number : false,
+    Lock_licenses : false,
     claims_status: null,
     latest_insurance_staf: null,
     assets_and_liabilities: null,
@@ -34,9 +38,15 @@ const Other = () => {
     bank_account_turnover: null,
     announcement_of_changes_capital: null,
     announcement_of_changes_managers: null,
+    product_catalog : null,
+    auditor_representative : null, 
+    announcing_account_number : null,
+    licenses : null,
+    
   });
 
   const { isLoading, data } = useFetchData(cartId);
+  console.log(data)
 
 
   useEffect(() => {
