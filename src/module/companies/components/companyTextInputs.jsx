@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
@@ -15,19 +16,21 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-
   const handleDateChange = (date) => {
-    InputValues({ target: { name: 'date_newspaper', value: date } });
+    InputValues({ target: { name: 'date_newspaper', value: date?.format("YYYY/MM/DD") } });
   };
+
   useEffect(() => {
     if (localData.date_newspaper) {
-      const date = new DateObject();
-
-      date.setDate(localData.date_newspaper);
+      const date = new DateObject({
+        date: localData.date_newspaper,
+        calendar: persian,
+        locale: persian_fa,
+        format: 'YYYY/MM/DD',
+      });
       InputValues({ target: { name: 'date_newspaper', value: date } });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [localData.date_newspaper]);
 
   return (
     <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
@@ -211,18 +214,6 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         />
       </div>
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2">تعداد سهام</label>
-        <input
-          type="text"
-          name="shareholders"
-          // value={localData.address || ''}
-          // disabled={localData.Lock_address}
-          onChange={InputValues}
-          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
-        />
-      </div>
-
-      <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">موضوع فعالیت شرکت:</label>
         <input
           name="activity_industry"
@@ -237,18 +228,23 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           تاریخ روزنامه رسمی آخرین مدیران:
         </label>
         <DatePicker
-          style={{
-            width: '100%',
-            padding: 22,
-            backgroundColor: '#ffffff',
-          }}
-          value={localData.date_newspaper}
-          onChange={handleDateChange}
-          calendar={persian}
-          locale={persian_fa}
-          format="YYYY/MM/DD"
-          disabled={localData.Lock_date_newspaper}
-        />
+      style={{
+        width: '100%',
+        padding: 22,
+        backgroundColor: '#ffffff',
+      }}
+      value={localData.date_newspaper ? new DateObject({
+        date: localData.date_newspaper,
+        calendar: persian,
+        locale: persian_fa,
+        format: 'YYYY/MM/DD',
+      }) : null}
+      onChange={handleDateChange}
+      calendar={persian}
+      locale={persian_fa}
+      format="YYYY/MM/DD"
+      disabled={localData.Lock_date_newspaper}
+    />
       </div>
       <div className="col-span-full mt-8 flex flex-col justify-center items-center">
         <label className="block disabled:bg-gray-200 text-black text-xs font-medium mb-4 text-center">
