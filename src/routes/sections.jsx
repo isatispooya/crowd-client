@@ -6,7 +6,6 @@ import DashboardLayout from 'src/layouts/dashboard';
 import Plan from 'src/module/plan/page/plan';
 import Plans from 'src/module/plan/page/plans';
 import WalletPage from 'src/module/wallet/pages/walletPage';
-import Dashboard from 'src/module/dashboard/components/dashboard';
 import Certificate from 'src/components/certificate';
 import Participation from 'src/pages/participation';
 import Sterpercrowd from 'src/components/stepper';
