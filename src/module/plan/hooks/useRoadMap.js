@@ -13,9 +13,12 @@ const useRoadMap = (id) => {
     });
     return response.data;
   };
-  const {isLoading  , data} = useQuery({
-    queryKey : ["roadmap" , id],
-    queryFn : getRoadmap,
-    
-  })
+  const { isLoading, data } = useQuery({
+    queryKey: ['roadmap', id],
+    queryFn: getRoadmap,
+    retry: 2,
+  });
+  return { isLoading, data };
 };
+
+export default useRoadMap;

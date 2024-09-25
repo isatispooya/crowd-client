@@ -22,6 +22,7 @@ export default function Form() {
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
+  console.log(data , "form")
 
   const mutation = useMutation({
     mutationKey: ['cart'],
