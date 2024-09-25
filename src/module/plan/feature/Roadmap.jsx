@@ -9,7 +9,7 @@ import useRoadMap from '../hooks/useRoadMap';
 const Roadmap = () => {
   const { id } = useParams();
   const { isLoading, data } = useRoadMap(id);
-
+  console.log(data)
   if (isLoading) {
     return <SmallLoader />;
   }

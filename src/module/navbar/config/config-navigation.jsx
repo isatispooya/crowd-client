@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import SvgColor from 'src/services/svg-color';
-
+import { MdDashboard } from "react-icons/md";
+import { GoProjectRoadmap } from "react-icons/go";
+import { PiCertificateFill } from "react-icons/pi";
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -10,8 +12,8 @@ const icon = (name) => (
 const navConfig = [
   {
     title: 'داشبورد',
-    path: '/dashboard',
-    icon: icon('ic_sheet'),
+    path: '/',
+    icon: <MdDashboard className='text-2xl'/>
   },
   {
     title: 'پروفایل',
@@ -33,18 +35,18 @@ const navConfig = [
   },
   {
     title: 'ایجاد و پیگیری درخواست',
-    path: '/',
+    path: '/card',
     icon: icon('ic_analytics'),
   },
   {
     title: 'مشاهده طرح ها',
     path: '/plans',
-    icon: icon('ic_sheet'),
+    icon: <GoProjectRoadmap className='text-2xl' />,
   },
   {
     title: 'گواهی مشارکت',
     path: 'certificate',
-    icon: icon('ic_sheet'),
+    icon: <PiCertificateFill className='text-2xl' />,
   },
 ];
 

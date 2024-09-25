@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -9,135 +9,78 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
-import axios from 'axios';
-import { setCookie } from 'src/api/cookie';
 import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
-import { OnRun } from 'src/api/OnRun';
 import { ToastContainer, toast } from 'react-toastify';
 import ReferralCodeInput from './refferalView';
+import useCaptcha from './hooks/useCaptcha';
+import useApplyNationalCode from './hooks/postNationalCode';
+import useSubmitOtp from './hooks/useSubmit';
+import useTimer from './hooks/useTimer';
+// import useApplyNationalCode from './hooks/postNationalCode';
 
 export default function LoginView() {
   const theme = useTheme();
-  const router = useRouter();
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
-  const [captchaImage, setCaptchaImage] = useState(null);
-  const [encrypted_response, setEncrypted_response] = useState(null);
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
-  const [step, setStep] = useState(1);
   const [registerd, setRegisterd] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(60);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
+  const { mutate: applyNationalCode } = useApplyNationalCode();
+  const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
+  const { timer, step, setStep, startTimer } = useTimer();
 
-  const getCaptcha = () => {
-    axios
-      .get(`${OnRun}/api/captcha/`)
-      .then((response) => {
-        setEncrypted_response(response.data.captcha.encrypted_response);
-        setCaptchaImage(response.data.captcha.image);
-        console.log(response.data.captcha.encrypted_response);
-      })
-      .catch((err) => {
-        console.error('error captcha', err);
-      });
-  };
 
-  const applyNationalCode = () => {
+  const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
     } else if (nationalCode.length !== 10) {
       toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
     } else {
-      setLoading(true);
-      axios({
-        method: 'POST',
-        url: `${OnRun}/api/otp/`,
-        data: {
-          uniqueIdentifier: nationalCode,
-          encrypted_response,
-          captcha: captchaInput,
+      setIsButtonDisabled(true); 
+      applyNationalCode(
+        {
+          nationalCode,
+          captchaInput,
+          encryptedResponse: captchaData?.encrypted_response,
         },
-      })
-        .then((response) => {
-          toast.success(response.data.message);
-          setRegisterd(response.data.registered);
-          setStep(2);
-          setTimer(60);
-        })
-        .catch((error) => {
-          console.error('خطا:', error);
-          toast.error('خطا در ارسال درخواست به سرور.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+        {
+          onSuccess: (data) => {
+            setRegisterd(data.registered);
+            setStep(2);
+            
+            startTimer(); 
+            toast.success(data.message);
+          },
+          onError: () => {
+            toast.error('خطا در ارسال درخواست');
+          },
+          onSettled: () => {
+            setIsButtonDisabled(false); 
+          },
+        }
+      );
     }
   };
-
+  
   const handleCode = () => {
     if (otp.length !== 5) {
       toast.warning('کد صحیح نیست');
     } else {
-      setLoading(true);
-      const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
-      axios({
-        method: 'POST',
-        url: url_,
-        data: { uniqueIdentifier: nationalCode, otp },
-      })
-        .then((response) => {
-          setCookie('access', response.data.access, 5);
-          toast.success('ورود با موفقیت انجام شد');
-          if (registerd) {
-            router.push('/');
-          } else {
-            router.push('/ProfilePage');
-          }
-          toast.warning(response.data.message);
-        })
-        .catch((error) => {
-          console.error('خطا:', error);
-          toast.error('خطا در ارسال درخواست به سرور.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      submitOtp({
+        nationalCode,
+        otp,
+      });
     }
   };
 
-  useEffect(() => {
-    getCaptcha();
-  }, []);
-
-  useEffect(() => {
-    let countdown;
-    if (step === 2) {
-      countdown = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer <= 1) {
-            clearInterval(countdown);
-            setStep(1);
-            setOtp('');
-            setTimer(60);
-            toast.info('زمان وارد کردن کد تایید به پایان رسید. لطفاً دوباره تلاش کنید.');
-            return 60;
-          }
-          return prevTimer - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(countdown);
-  }, [step]);
 
   const renderForm = (
     <>
       <ToastContainer autoClose={3000} />
       <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
-        {' '}
-        {/* عرض کامل */}
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
@@ -152,9 +95,12 @@ export default function LoginView() {
               value={captchaInput}
               fullWidth
             />
-            <Button onClick={getCaptcha} fullWidth>
-              {' '}
-              <img src={`data:image/png;base64,${captchaImage}`} alt="captcha" />
+            <Button onClick={refreshCaptcha} fullWidth>
+              {isCaptchaLoading ? (
+                'Loading...'
+              ) : (
+                <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
+              )}
             </Button>
             <Box sx={{ mb: 3 }} />
           </>
@@ -184,8 +130,9 @@ export default function LoginView() {
               bgcolor: 'primary.dark',
             },
           }}
-          onClick={applyNationalCode}
-          loading={loading}
+          onClick={handleApplyNationalCode}
+          loading={isCaptchaLoading}
+          disabled={isButtonDisabled}
         >
           تایید
         </LoadingButton>
@@ -197,7 +144,8 @@ export default function LoginView() {
           variant="contained"
           color="inherit"
           onClick={handleCode}
-          loading={loading}
+          loading={loadingOtp}
+          disabled={isButtonDisabled}
         >
           تایید ({timer})
         </LoadingButton>
@@ -255,23 +203,7 @@ export default function LoginView() {
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
       </Box>
-      <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
-        <a
-          referrerPolicy="origin"
-          target="_blank"
-          href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-          rel="noreferrer"
-        >
-          <img
-            referrerPolicy="origin"
-            src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-            alt=""
-            // eslint-disable-next-line react/style-prop-object
-            style="cursor:pointer"
-            code="W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-          />
-        </a>
-      </Box>
+
     </Box>
   );
 }

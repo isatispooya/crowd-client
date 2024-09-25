@@ -3,8 +3,9 @@ import { FaPlus } from 'react-icons/fa';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { handleKeyPress } from 'src/utils/enterKey';
+import PropTypes from 'prop-types';
 
-const NewCard = () => {
+const NewCard = ({setCardSelected}) => {
   const { cardId, setCartId } = UseCartId(null);
   const { incrementPage } = useNavigateStep();
 
@@ -12,10 +13,8 @@ const NewCard = () => {
     setCartId(null);
     incrementPage();
     setCartId(+cardId);
+    setCardSelected(true)
   };
-
-
-
 
   return (
     <div
@@ -31,5 +30,9 @@ const NewCard = () => {
     </div>
   );
 };
+ 
+NewCard.propTypes = {
+  setCardSelected: PropTypes.isRequired,
+}
 
 export default NewCard;

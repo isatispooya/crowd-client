@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
@@ -33,11 +33,13 @@ const steps = [
 const Sterpercrowd = () => {
   const { setCartId } = UseCartId();
   const [isCompleted, setIsCompleted] = useState(false);
+
   const [cardSelected, setCardSelected] = useState(null); 
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
+  const [isStepLocked, setIsStepLocked] = useState(true); 
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const access = getCookie('access');
-  const { page: activeStep, incrementPage, changePage } = useNavigateStep(); 
+  const { page: activeStep, incrementPage, changePage } = useNavigateStep();
 
   useEffect(() => {
     if (!access) {
@@ -48,7 +50,12 @@ const Sterpercrowd = () => {
   }, [access, navigate]);
 
   const handleStepClick = (stepIndex) => {
-    changePage(stepIndex); 
+
+    if (isStepLocked && stepIndex > 0) {
+      toast.error('ابتدا یک لیست را انتخاب کنید یا ایجاد کنید');
+      return;
+    }
+    changePage(stepIndex);
     setIsCompleted(false);
   };
 
@@ -70,7 +77,7 @@ const Sterpercrowd = () => {
 
   const renderStepContent = (step) => {
     if (isCompleted) {
-      return <CompletionMessage />; 
+      return <CompletionMessage />;
     }
 
     switch (step) {
@@ -78,8 +85,13 @@ const Sterpercrowd = () => {
         return (
           <CardList
             setCartId={setCartId}
-            setCardSelected={setCardSelected}
+            setCardSelected={(card) => {
+              setCardSelected(card);
+              setIsStepLocked(false); 
+           
+            }}
             incrementPage={incrementPage}
+     
           />
         );
       case 1:
@@ -102,19 +114,27 @@ const Sterpercrowd = () => {
         return <CompletionMessage />;
     }
   };
-  
+
   if (isCheckingAuth) {
     return null;
   }
-  
+
   return (
-    <div className= "min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
+    <div className="min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
       <ToastContainer />
       <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full flex-grow">
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
-            <StepLabel icon={getStepIcon(index)} onClick={() => handleStepClick(index)}>
-              <span className="block text-lg md:text-base font-semibold text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105">
+            <StepLabel
+              icon={getStepIcon(index)}
+              onClick={() => handleStepClick(index)}
+              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }} // Disable clicking locked steps
+            >
+              <span
+                className={`block text-lg md:text-base font-semibold ${
+                  isStepLocked && index > 0 ? 'text-gray-400' : 'text-gray-700'
+                } transition-all duration-300 hover:text-blue-600 hover:scale-105`}
+              >
                 {label}
               </span>
             </StepLabel>
