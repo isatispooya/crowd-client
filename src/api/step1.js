@@ -65,9 +65,7 @@ export const getStep1 = async (cartId) => {
         Authorization: `Bearer ${access}`,
       },
     });
-    if (response.data.cart.date_newspaper) {
-      response.data.cart.date_newspaper = new Date(response.data.cart.date_newspaper);
-    }
+  
 
     return response;
   }

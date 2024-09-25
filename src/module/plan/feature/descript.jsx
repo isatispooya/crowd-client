@@ -2,11 +2,16 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import { OnRun } from 'src/api/OnRun';
+import { FiDownload } from 'react-icons/fi';
 import usePlan from '../service/use-plan';
+import useDocumentation from '../service/use-documentation';
+import useAppenices from '../service/use-appendices';
 
 const Descript = () => {
   const { id } = useParams();
   const { data, isLoading, error } = usePlan(id);
+  const { data: documentationData } = useDocumentation(id);
+  const { data: appenicesData } = useAppenices(id);
 
   if (isLoading) {
     return <Loader />;
@@ -15,10 +20,15 @@ const Descript = () => {
   if (error) {
     return <div className="text-red-500 text-center py-4">خطایی رخ داده است: {error.message}</div>;
   }
-
+  if (!documentationData || !Array.isArray(documentationData) || documentationData.length === 0) {
+    return <div>اطلاعاتی موجود نیست</div>;
+  }
+  if (!appenicesData || !Array.isArray(appenicesData) || appenicesData.length === 0) {
+    return <div>اطلاعاتی موجود نیست</div>;
+  }
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-8">
-          <div className="relative h-1/2 w-1/2 items-center flex justify-center w-full mb-6 rounded-lg overflow-hidden shadow-lg group">
+      <div className="relative h-1/2  items-center flex justify-center w-full mb-6 rounded-lg overflow-hidden shadow-lg group">
         <img
           src={`${OnRun}/${data.picture}`}
           alt={data.plan_name}
@@ -68,15 +78,16 @@ const Descript = () => {
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">درصد تأمین متقاضی</p>
-          <p className="text-lg text-gray-900 font-semibold">{data.applicant_funding_percentage}%</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.applicant_funding_percentage}%
+          </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">قیمت اسمی هر گواهی</p>
-          <p className="text-lg text-gray-900 font-semibold">{data.nominal_price_certificate} تومان</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.nominal_price_certificate} تومان
+          </p>
         </div>
-      </div>
-
-      <div className="text-center">
         <a
           href={data.farabours_link}
           target="_blank"
@@ -85,7 +96,60 @@ const Descript = () => {
         >
           مشاهده لینک فرابورس
         </a>
+  
       </div>
+      <div >
+      مستندات:
+        <div className="p-4 bg-white rounded-lg shadow-lg">
+          {documentationData.map((item, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
+            >
+              <div>
+                <p className="text-lg font-semibold text-gray-800">{item.title}</p>
+              </div>
+              <div className="flex gap-4">
+                <a
+                  href={`${OnRun}${item.file}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 flex items-center hover:text-blue-800 text-sm font-medium transition-colors duration-200 ease-in-out"
+                >
+                  دانلود فایل
+                  <FiDownload className="w-5 h-5 ml-2" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
+        <div >
+      تضامین:
+        <div className="p-4 bg-white rounded-lg shadow-lg">
+          {documentationData.map((item, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
+            >
+              <div>
+                <p className="text-lg font-semibold text-gray-800">{item.title}</p>
+              </div>
+              <div className="flex gap-4">
+                <a
+                  href={`${OnRun}${item.file}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 flex items-center hover:text-blue-800 text-sm font-medium transition-colors duration-200 ease-in-out"
+                >
+                  دانلود فایل
+                  <FiDownload className="w-5 h-5 ml-2" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
     </div>
   );
 };

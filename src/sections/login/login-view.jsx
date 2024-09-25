@@ -37,14 +37,13 @@ export default function LoginView() {
       .then((response) => {
         setEncrypted_response(response.data.captcha.encrypted_response);
         setCaptchaImage(response.data.captcha.image);
-        console.log(response.data.captcha.encrypted_response)
+        console.log(response.data.captcha.encrypted_response);
       })
       .catch((err) => {
         console.error('error captcha', err);
       });
   };
 
-  
   const applyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
@@ -151,7 +150,7 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
-              fullWidth 
+              fullWidth
             />
             <Button onClick={getCaptcha} fullWidth>
               {' '}
@@ -165,7 +164,7 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
-              fullWidth 
+              fullWidth
             />
             <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
           </>
@@ -174,7 +173,7 @@ export default function LoginView() {
 
       {step === 1 ? (
         <LoadingButton
-          fullWidth 
+          fullWidth
           size="large"
           type="submit"
           variant="contained"
@@ -255,6 +254,23 @@ export default function LoginView() {
         <Typography variant="body2" color="text.secondary">
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
+      </Box>
+      <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
+        <a
+          referrerPolicy="origin"
+          target="_blank"
+          href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+          rel="noreferrer"
+        >
+          <img
+            referrerPolicy="origin"
+            src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+            alt=""
+            // eslint-disable-next-line react/style-prop-object
+            style="cursor:pointer"
+            code="W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+          />
+        </a>
       </Box>
     </Box>
   );
