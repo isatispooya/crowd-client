@@ -17,6 +17,11 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     const cleanedValue = cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
+  // const handleDateChange = (date) => {
+  //   const updatedList = [...localData];
+  //   date_newspaper: localData.date_newspaper,
+  //       setLocalData(updatedList);
+  // };
   return (
     <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">

@@ -45,7 +45,6 @@ const ValidateRow = ({ index, list, item, setList }) => {
           onChange={handleDateChange}
           calendar={persian}
           locale={persian_fa}
-          format="YYYY/MM/DD"
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
