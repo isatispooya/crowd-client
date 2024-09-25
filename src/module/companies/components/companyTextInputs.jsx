@@ -11,27 +11,12 @@ import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
 
 const CompanyInputs = ({ localData, setLocalData }) => {
+
   const InputValues = (e) => {
     const { name, value } = e.target;
-    const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
+    const cleanedValue = cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-  const handleDateChange = (date) => {
-    InputValues({ target: { name: 'date_newspaper', value: date?.format("YYYY/MM/DD") } });
-  };
-
-  useEffect(() => {
-    if (localData.date_newspaper) {
-      const date = new DateObject({
-        date: localData.date_newspaper,
-        calendar: persian,
-        locale: persian_fa,
-        format: 'YYYY/MM/DD',
-      });
-      InputValues({ target: { name: 'date_newspaper', value: date } });
-    }
-  }, [localData.date_newspaper]);
-
   return (
     <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">
@@ -239,7 +224,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         locale: persian_fa,
         format: 'YYYY/MM/DD',
       }) : null}
-      onChange={handleDateChange}
+      // onChange={handleDateChange}
       calendar={persian}
       locale={persian_fa}
       format="YYYY/MM/DD"
