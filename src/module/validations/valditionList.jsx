@@ -45,9 +45,10 @@ const ValditionList = () => {
 
       validateList.forEach((element) => {
         if (element.file) {
-
           formData.append(element.national_code, element.file);
-          formData.append(`${element.national_code}_date`, element.date);
+          // تبدیل تاریخ به timestamp
+          const timestamp = element.date.toDate().getTime();
+          formData.append(`${element.national_code}_date`, timestamp);
           hasFile = true; 
         }
       });
@@ -64,7 +65,6 @@ const ValditionList = () => {
         },
         maxBodyLength: Infinity,
       });
-      console.log(";;;;",response.data)
      
       toast.success('اطلاعات با موفقیت ارسال شد!');
       incrementPage();
