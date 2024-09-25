@@ -52,7 +52,7 @@ const Sterpercrowd = () => {
   const handleStepClick = (stepIndex) => {
 
     if (isStepLocked && stepIndex > 0) {
-      toast.error('ابتدا یک لیست را انتخاب کنید یا ایجاد کنید');
+      toast.error('ابتدا یک لیست را انتخاب  یا ایجاد کنید');
       return;
     }
     changePage(stepIndex);
@@ -128,7 +128,7 @@ const Sterpercrowd = () => {
             <StepLabel
               icon={getStepIcon(index)}
               onClick={() => handleStepClick(index)}
-              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }} // Disable clicking locked steps
+              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }} 
             >
               <span
                 className={`block text-lg md:text-base font-semibold ${

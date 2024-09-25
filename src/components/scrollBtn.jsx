@@ -8,18 +8,18 @@ const ScrollToTopButton = () => {
     const toggleVisibility = () => {
       // if the user scrolls down, show the button
       // eslint-disable-next-line no-unused-expressions
-      window.scrollY > 500 ? setIsVisible(true) : setIsVisible(false);
+      window.scrollY > 100 ? setIsVisible(true) : setIsVisible(false);
     };
-    // listen for scroll events
+
     window.addEventListener('scroll', toggleVisibility);
 
-    // clear the listener on component unmount
+   
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
 
-  // handles the animation when scrolling to the top
+
   const scrollToTop = () => {
     // eslint-disable-next-line no-unused-expressions
     isVisible &&

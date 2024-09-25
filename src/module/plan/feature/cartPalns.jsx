@@ -1,24 +1,19 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from 'react';
-import { Grid} from '@mui/material';
-import Loader from 'src/components/loader';
+import React, { useEffect } from 'react';
+import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
 
 const CartPlans = () => {
-  const { data, isLoading } = UsePlans();
+  const { data } = UsePlans();
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } 
+    }
   }, [access, navigate]);
-
- 
 
   if (!data || data.length === 0) {
     return <p>هیچ درخواستی یافت نشد.</p>;

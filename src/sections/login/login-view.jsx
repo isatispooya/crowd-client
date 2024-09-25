@@ -9,15 +9,16 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
-import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
+import SmallLoader from 'src/components/SmallLoader';
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
 import useTimer from './hooks/useTimer';
-// import useApplyNationalCode from './hooks/postNationalCode';
+
+
 
 export default function LoginView() {
   const theme = useTheme();
@@ -97,7 +98,7 @@ export default function LoginView() {
             />
             <Button onClick={refreshCaptcha} fullWidth>
               {isCaptchaLoading ? (
-                'Loading...'
+                <SmallLoader/>
               ) : (
                 <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
               )}
