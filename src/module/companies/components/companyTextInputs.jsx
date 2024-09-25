@@ -15,7 +15,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-  console.log(localData);
+  // console.log(localData);
 
   const handleDateChange = (date) => {
     InputValues({ target: { name: 'date_newspaper', value: date } });
