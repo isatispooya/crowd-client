@@ -15,7 +15,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 const HistoryList = () => {
   const { cartId } = UseCartId();
   const [historyList, setHistoryList] = useState([]);
-  const { incrementPage } = useNavigateStep(); // استفاده از useNavigateStep
+  const { incrementPage } = useNavigateStep(); 
 
   const fetchManagerData = async () => {
     try {
@@ -28,25 +28,25 @@ const HistoryList = () => {
       if (response.data && response.data.manager) {
         setHistoryList(response.data.manager);
       }
+      console.log(response.data)
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
       toast.error('خطا در دریافت اطلاعات');
     }
   };
-
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      let hasFile = false; // Track if at least one file is selected
+      let hasFile = false;
 
       historyList.forEach((element) => {
         if (element.file) {
           formData.append(element.national_code, element.file);
-          hasFile = true; // A file has been selected
+          formData.append(`${element.national_code}_date`, element.date);
+          hasFile = true; 
         }
       });
 
-      // If no files were selected, show a toast info and return
       if (!hasFile) {
         toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
         return;

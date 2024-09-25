@@ -12,7 +12,6 @@ const getDocumentation = async (id) => {
     },
   });
   return response.data.data;
-  
 };
 
 

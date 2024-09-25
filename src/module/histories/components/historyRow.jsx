@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
 import {  FiDownload } from 'react-icons/fi';
 import { BsCloudUploadFill } from 'react-icons/bs';
+import DatePicker from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
 
 const HistoryRow = ({ index, list, item, setList }) => {
   const updateFile = (file, national_code) => {
@@ -18,11 +21,15 @@ const HistoryRow = ({ index, list, item, setList }) => {
     );
     setList(updatedList);
   };
-
+  const handleDateChange = (date) => {
+    const updatedList = [...list];
+    updatedList[index].date = date;
+    setList(updatedList);
+  };
   return (
     <div
     key={index}
-    className="flex flex-wrap justify-between gap-4 sm:gap-6 lg:gap-32 disabled:bg-gray-300 mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative w-full"
+    className="flex flex-wrap justify-between disabled:bg-gray-300 mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative w-full"
   >
     <div className="flex items-center gap-4 w-full sm:w-auto">
       <label className="text-gray-900 font-semibold">اسم:</label>
@@ -33,7 +40,16 @@ const HistoryRow = ({ index, list, item, setList }) => {
       <label className="text-gray-900 font-semibold">کد ملی:</label>
       <div className="text-gray-700 text-sm font-medium">{item.national_code}</div>
     </div>
-  
+    <div className="min-w-[150px] ml-3">
+        <DatePicker
+          value={item.date ? new Date(item.date) : null}
+          onChange={handleDateChange}
+          calendar={persian}
+          locale={persian_fa}
+          format="YYYY/MM/DD"
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
     <div className="flex items-center gap-4 w-full sm:w-auto">
       {typeof item.file === 'string' && item.file ? (
         <div className="flex flex-wrap gap-4 justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner w-full sm:w-auto">

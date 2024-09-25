@@ -40,6 +40,8 @@ const FormContract = () => {
   const guaranteeOptions = [
     { type: '1', title: ' تعهد پرداخت بانکی ' },
     { type: '2', title: 'حسن پرداخت ' },
+    { type: '3', title: '(چک)اوراق بهادار' },
+ 
   ];
   const periodOptions = [{ type: '1', title: '3ماهه' }];
   const { mutateAsync, isLoadingCreate, errorCreate, dataDetail, isLoadingDetail } = useContract();

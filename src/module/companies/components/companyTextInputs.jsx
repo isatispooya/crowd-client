@@ -1,6 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import DatePicker, { DateObject } from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
 import { cleanNumber, formatNumber } from '../../../utils/formatNumbers';
 import { CompanyOnlyLetters } from '../utils/onlyLetters';
 import { companyTypes } from '../utils/companySelectionTypes';
@@ -8,9 +12,22 @@ import { companyTypes } from '../utils/companySelectionTypes';
 const CompanyInputs = ({ localData, setLocalData }) => {
   const InputValues = (e) => {
     const { name, value } = e.target;
-    const cleanedValue = cleanNumber(value);
+    const cleanedValue = name === 'date_newspaper' ? value : cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
+
+  const handleDateChange = (date) => {
+    InputValues({ target: { name: 'date_newspaper', value: date } });
+  };
+  useEffect(() => {
+    if (localData.date_newspaper) {
+      const date = new DateObject();
+
+      date.setDate(localData.date_newspaper);
+      InputValues({ target: { name: 'date_newspaper', value: date } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
@@ -26,10 +43,8 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           className="shadow appearance-none disabled:bg-gray-200 border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
-
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">نوع شرکت: </label>
-
         <select
           name="company_kind"
           value={localData.company_kind || ''}
@@ -45,7 +60,6 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           ))}
         </select>
       </div>
-
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره شناسه:</label>
         <input
@@ -85,7 +99,17 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
-
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">تعداد سهام ثبتی</label>
+        <input
+          type="text"
+          name="amount_of_registered_capital"
+          value={localData.amount_of_registered_capital || ''}
+          disabled={localData.Lock_amount_of_registered_capital}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
       <div className="mb-6">
         <label className="block text-gray-800 text-xs text-nowrap  font-semibold mb-2">
           شماره روزنامه رسمی آخرین مدیران:
@@ -96,19 +120,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           value={localData.newspaper || ''}
           disabled={localData.Lock_newspaper}
           onChange={InputValues}
-          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
-        />
-      </div>
-      <div className="mb-6">
-        <label className="block text-gray-800 text-nowrap text-xs font-semibold mb-2">
-          تاریخ روزنامه رسمی آخرین مدیران:
-        </label>
-        <input
-          type="number"
-          name="date_newspaper"
-          value={localData.date_newspaper || ''}
-          disabled={localData.Lock_date_newspaper}
-          onChange={InputValues}
+          maxLength={7}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
@@ -124,7 +136,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         />
       </div>
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2"> شهر:</label>
+        <label className="block text-gray-800 text-xs font-semibold mb-2">شهر محل ثبت :</label>
         <input
           type="text"
           name="city"
@@ -145,6 +157,29 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">سال تاسیس</label>
+        <input
+          type="text"
+          name="yearofestablishment"
+          value={localData.year_of_establishment || ''}
+          disabled={localData.Lock_year_of_establishment}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">کد بورسی </label>
+        <input
+          type="text"
+          name="exchange_code"
+          value={localData.exchange_code || ''}
+          disabled={localData.lock_exchange_code}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
+
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">کدپستی:</label>
         <input
@@ -175,6 +210,17 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs font-semibold mb-2">تعداد سهام</label>
+        <input
+          type="text"
+          name="shareholders"
+          // value={localData.address || ''}
+          // disabled={localData.Lock_address}
+          onChange={InputValues}
+          className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
+        />
+      </div>
 
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">موضوع فعالیت شرکت:</label>
@@ -186,7 +232,24 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>
-
+      <div className="mb-6">
+        <label className="block text-gray-800 text-xs text-nowrap font-semibold mb-2">
+          تاریخ روزنامه رسمی آخرین مدیران:
+        </label>
+        <DatePicker
+          style={{
+            width: '100%',
+            padding: 22,
+            backgroundColor: '#ffffff',
+          }}
+          value={localData.date_newspaper}
+          onChange={handleDateChange}
+          calendar={persian}
+          locale={persian_fa}
+          format="YYYY/MM/DD"
+          disabled={localData.Lock_date_newspaper}
+        />
+      </div>
       <div className="col-span-full mt-8 flex flex-col justify-center items-center">
         <label className="block disabled:bg-gray-200 text-black text-xs font-medium mb-4 text-center">
           میزان منابع درخواستی (ریال):

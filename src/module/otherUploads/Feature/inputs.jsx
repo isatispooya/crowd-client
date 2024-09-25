@@ -8,6 +8,7 @@ const Inputs = ({ Data, setData }) => {
   const handleFileRemove = (field) => {
     setData({ ...Data, [field]: null });
   };
+  console.log(Data , "ffhghj")
   return (
     <>
       <div className="mb-6">
@@ -114,7 +115,7 @@ const Inputs = ({ Data, setData }) => {
 
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-          لیست دارایی ها و بدهی ها:
+             لیست اظهار دارایی ها و بدهی ها :
         </label>
 
         {Data && typeof Data.assets_and_liabilities === 'string' ? (
@@ -132,7 +133,7 @@ const Inputs = ({ Data, setData }) => {
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل لیست دارایی ها و بدهی ها
+             فایل لیست اظهار دارایی ها و بدهی ها
             </a>
             <button
               type="button"
@@ -393,6 +394,252 @@ const Inputs = ({ Data, setData }) => {
           </div>
         )}
       </div>
+
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+            کاتالوگ محصولات
+        </label>
+
+        {Data && typeof Data.product_catalog === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_product_catalog
+                  ? null
+                  : `${OnRun}/${Data.product_catalog}`
+              }
+              onClick={(e) => Data.Lock_product_catalog && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_product_catalog
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+               فایل کاتالوگ محصولات 
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('product_catalog')}
+              disabled={Data.Lock_product_catalog}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcement_of_changes_managers"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      product_catalog: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_product_catalog}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.product_catalog
+                  ? Data.product_catalog.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             مجوز
+        </label>
+
+        {Data && typeof Data.licenses === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_licenses
+                  ? null
+                  : `${OnRun}/${Data.licenses}`
+              }
+              onClick={(e) => Data.Lock_licenses && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_licenses
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل مجوز ها   
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('licenses')}
+              disabled={Data.Lock_licenses}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="licenses"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      licenses: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_licenses}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.licenses
+                  ? Data.licenses.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             معرف حسابرس
+        </label>
+
+        {Data && typeof Data.auditor_representative === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_auditor_representative
+                  ? null
+                  : `${OnRun}/${Data.auditor_representative}`
+              }
+              onClick={(e) => Data.Lock_auditor_representative && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_auditor_representative
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              فایل معرف حسابرس   
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('auditor_representative')}
+              disabled={Data.Lock_auditor_representative}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="auditor_representative"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      auditor_representative: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_auditor_representative}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.auditor_representative
+                  ? Data.auditor_representative.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mb-6">
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
+             اعلان شماره حساب
+        </label>
+
+        {Data && typeof Data.announcing_account_number === 'string' ? (
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
+            <a
+              href={
+                Data.Lock_announcing_account_number
+                  ? null
+                  : `${OnRun}/${Data.announcing_account_number}`
+              }
+              onClick={(e) => Data.Lock_announcing_account_number && e.preventDefault()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm font-medium ${
+                Data.Lock_announcing_account_number
+                  ? 'text-gray-400'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+               فایل اعلان شماره حساب   
+            </a>
+            <button
+              type="button"
+              className="text-red-400 hover:text-red-600 disabled:text-gray-200"
+              onClick={() => handleFileRemove('announcing_account_number')}
+              disabled={Data.Lock_announcing_account_number}
+            >
+              حذف
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100">
+              <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                انتخاب فایل
+                <BsCloudUploadFill className="ml-2" />
+                <input
+                  name="announcing_account_number"
+                  type="file"
+                  onChange={(e) =>
+                    setData({
+                      ...Data,
+                      announcing_account_number: e.target.files[0],
+                    })
+                  }
+                  disabled={Data.Lock_announcing_account_number}
+                  className="hidden bg-white"
+                />
+              </label>
+              <span className="ml-4 mr-8 text-sm">
+                {Data.announcing_account_number
+                  ? Data.announcing_account_number.name
+                  : 'هیچ فایلی انتخاب نشده'}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      
     </>
   );
 };

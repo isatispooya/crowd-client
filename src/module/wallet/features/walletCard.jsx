@@ -20,6 +20,7 @@ const WalletCard = () => {
   const [showTranHistory, setShowTranHistory] = useState(false);
 
 
+  
   const openModal = () => {
     setOpenTransaction(true);
   };

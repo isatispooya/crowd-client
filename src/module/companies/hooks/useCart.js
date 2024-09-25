@@ -22,6 +22,7 @@ const getFormData = (data) => {
     'email',
     'newspaper',
     'date_newspaper',
+    "amount_of_registered_capital"
   ];
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
@@ -121,6 +122,7 @@ export const getCart = async (cartId) => {
           Lock_claims_status: false,
           file_manager: null,
           file_validational: null,
+          amount_of_registered_capital:null,
         },
       },
     };

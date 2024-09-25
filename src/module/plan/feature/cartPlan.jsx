@@ -27,10 +27,10 @@ const CartPlan = ({
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 bg-white p-6">
+    <div className="flex flex-wrap justify-center gap-6 bg-white p-6 ">
       <div
         key={key}
-        className="shadow-md w-80 p-4 rounded-lg border bg-white hover:shadow-lg transition-shadow duration-300"
+        className=" w-80 p-4 duration-300 bg-white shadow-lg rounded-2xl    cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100"
       >
         <div className="relative h-44 w-full mb-4 rounded-lg overflow-hidden shadow-md">
           <img src={`${OnRun}/${picture}`} alt={title} className="h-full w-full object-cover" />
@@ -58,7 +58,7 @@ const CartPlan = ({
           حوزه فعالیت: <span className="font-semibold text-gray-600">{activityField}</span>
         </p>
 
-        {/* Progress Bar */}
+
         <div className="mt-6">
           <p className="text-sm text-center mb-2">مبلغ سرمایه‌گذاری</p>
           <div className="relative w-full h-3 bg-[#001F5F] rounded-lg">
@@ -73,7 +73,7 @@ const CartPlan = ({
           </div>
         </div>
 
-        {/* Divider and additional info */}
+    
         <div className="flex justify-between items-center text-sm text-gray-900 mt-6">
           <p className="text-xs">
             درصد شناوری: <span className="font-semibold">{buoyancy}%</span>
@@ -88,7 +88,7 @@ const CartPlan = ({
           </p>
         </div>
 
-        {/* Bottom Section */}
+    
         <div className="flex flex-col justify-between items-center text-sm text-gray-600 mt-6">
           <p>{remainingDays} روز تا پایان فرصت</p>
           <button

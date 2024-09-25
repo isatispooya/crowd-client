@@ -3339,7 +3339,7 @@ react-bootstrap@^2.10.4:
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
-react-date-object@^2.1.8:
+react-date-object@^2.1.8, react-date-object@^2.1.9:
   version "2.1.9"
   resolved "https://registry.npmjs.org/react-date-object/-/react-date-object-2.1.9.tgz"
   integrity sha512-BHxD/quWOTo9fLKV/cfL/M31ePoj4a1JaJ/CnOf8Ndg3mrkh4x9wEMMkCfTrzduxDOgU8ZgR8uarhqI5G71sTg==

@@ -9,8 +9,8 @@ import { BsCloudUploadFill } from 'react-icons/bs';
 
 const TransactionOptions = ({ setOpenTransaction }) => {
   const [value, setValue] = useState('');
-  const [activeTab, setActiveTab] = useState('bankPortal'); // تب فعال
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [activeTab, setActiveTab] = useState('bankPortal'); 
+
 
   // const { data: walletData } = useFetchWallet();
   // const { remaining } = walletData || {};

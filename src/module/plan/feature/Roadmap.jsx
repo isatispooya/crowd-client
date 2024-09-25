@@ -1,53 +1,37 @@
 import React from 'react';
 import { FaSquareCheck } from 'react-icons/fa6';
-import { ImCheckboxUnchecked } from "react-icons/im";
+import { ImCheckboxUnchecked } from 'react-icons/im';
+import { useParams } from 'react-router-dom';
+import moment from 'moment-jalaali';
+import SmallLoader from 'src/components/SmallLoader';
+import useRoadMap from '../hooks/useRoadMap';
 
 const Roadmap = () => {
+  const { id } = useParams();
+  const { isLoading, data } = useRoadMap(id);
+  console.log(data)
+  if (isLoading) {
+    return <SmallLoader />;
+  }
+
+  const convertToJalali = (date) => {
+    if (!date) return 'تاریخ موجود نیست';
+    return moment(date).format('jYYYY/jMM/jDD');
+  };
+
+  const roadmap = data || {};
+
   return (
     <div className="">
-      <ul className="timeline timeline-vertical bg-white text-right" >
+      <ul className="timeline timeline-vertical bg-white text-right">
         <li>
-          <div className="timeline-end">۱۹۸۴</div>
-          <div className="timeline-start timeline-box bg-white">ایجاد طرح</div>
+          <hr />
+          <div className="timeline-start bg-white">{convertToJalali(data.date_cart)}</div>
           <div className="timeline-middle bg-white">
-            <FaSquareCheck />
+            {roadmap.completed ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
+          <div className="timeline-end timeline-box bg-white">{roadmap.date_cart || 'عنوان نامشخص'}</div>
           <hr />
-        </li>
-        <li>
-          <hr />
-          <div className="timeline-start bg-white">12/12/1401</div>
-          <div className="timeline-middle bg-white">
-            <FaSquareCheck />
-          </div>
-          <div className="timeline-end timeline-box bg-white">دریافت تضامین</div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div className="timeline-end">12/10/1402</div>
-          <div className="timeline-start timeline-box bg-white">شروع تامین مالی</div>
-          <div className="timeline-middle">
-            <FaSquareCheck />
-          </div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div className="timeline-start bg-white">10/5/1402</div>
-          <div className="timeline-middle">
-            <FaSquareCheck />
-          </div>
-          <div className="timeline-end timeline-box bg-white">شروع محاسبه سود</div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div className="timeline-end">1/1/1403</div>
-          <div className="timeline-start timeline-box bg-white">دریافت شروع</div>
-          <div className="timeline-middle">
-          <ImCheckboxUnchecked />
-          </div>
         </li>
       </ul>
     </div>
