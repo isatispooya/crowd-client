@@ -11,6 +11,7 @@ import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import ValidateRow from './validateRow'; 
 import UseCartId from 'src/hooks/use-cartId';
+import {DateObject} from 'react-multi-date-picker';
 
 const ValditionList = () => {
   const { cartId } = UseCartId();
@@ -25,10 +26,11 @@ const ValditionList = () => {
           Authorization: `Bearer ${access}`,
         },
       });   
-
       if (response.data) {
-        
-        setValidateList(response.data.data.managers);
+        console.log(response.data.data.managers)
+        const managers = response.data.data.managers.map(i=>({...i,date: new DateObject(i.date)}))
+        console.log(managers)
+        setValidateList(managers);
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
@@ -43,6 +45,7 @@ const ValditionList = () => {
 
       validateList.forEach((element) => {
         if (element.file) {
+
           formData.append(element.national_code, element.file);
           formData.append(`${element.national_code}_date`, element.date);
           hasFile = true; 
@@ -52,6 +55,7 @@ const ValditionList = () => {
         toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
         return;
       }
+
       const access = await getCookie('access');
       const response = await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
