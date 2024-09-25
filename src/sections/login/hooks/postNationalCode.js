@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { OnRun } from 'src/api/OnRun';
 
-const useApplyNationalCode = (setRegisterd) => {
+const useApplyNationalCode = () => {
   return useMutation({
     mutationKey: ['applyNationalCode'],  // کلیدی برای شناسایی درخواست
     mutationFn: async ({ nationalCode, captchaInput, encryptedResponse }) => {
@@ -16,7 +16,7 @@ const useApplyNationalCode = (setRegisterd) => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      setRegisterd(data.)
+      
       return data;
     },
     onError: (error) => {
