@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-
 import { Button, Tooltip } from '@mui/material';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
+import PropTypes from 'prop-types';
 import Loader from 'src/components/loader';
 import { useFetchCards } from '../hooks/useFetchCards';
 import { formatNumber } from '../../../utils/formatNumbers';
 import NewCard from './newCard';
 
-const CardList = () => {
+const CardList = ({ setCardSelected }) => {
   const { cardId, setCartId } = UseCartId(null);
   const access = getCookie('access');
   const { incrementPage } = useNavigateStep();
@@ -20,7 +20,7 @@ const CardList = () => {
   const handleCardClick = (id, status) => {
     incrementPage();
     setCartId(+id);
-    setCartId(status);
+    setCardSelected(true);
   };
 
   if (isLoading) {
@@ -30,6 +30,7 @@ const CardList = () => {
   if (error) {
     return <p>خطا در بارگیری کارت‌ها: {error.message}</p>;
   }
+
   return (
     <div className="p-8 bg-transparent min-h-screen flex justify-center items-start">
       <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-7xl w-full">
@@ -38,7 +39,7 @@ const CardList = () => {
         </div>
         <div className="p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-24 xl:gap-8 justify-center">
-            <NewCard />
+            <NewCard setCardSelected={setCardSelected} />
             {cards.length > 0 ? (
               cards.map((card) => (
                 <div
@@ -87,5 +88,8 @@ const CardList = () => {
     </div>
   );
 };
+CardList.propTypes = {
+  setCardSelected: PropTypes.isRequired,
+}
 
 export default CardList;

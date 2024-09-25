@@ -15,7 +15,7 @@ const navConfig = [
   },
   {
     title: 'ایجاد و پیگیری درخواست',
-    path: '/',
+    path: '/card',
     icon: icon('ic_analytics'),
   },
   {

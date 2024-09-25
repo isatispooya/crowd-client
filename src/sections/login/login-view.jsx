@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -9,11 +9,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
-import axios from 'axios';
-import { setCookie } from 'src/api/cookie';
 import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
-import { OnRun } from 'src/api/OnRun';
 import { ToastContainer, toast } from 'react-toastify';
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
@@ -24,20 +21,17 @@ import useTimer from './hooks/useTimer';
 
 export default function LoginView() {
   const theme = useTheme();
-  const router = useRouter();
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
-
   const [registerd, setRegisterd] = useState(false);
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
   const { timer, step, setStep, startTimer } = useTimer();
+
 
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
@@ -70,6 +64,7 @@ export default function LoginView() {
       );
     }
   };
+  
   const handleCode = () => {
     if (otp.length !== 5) {
       toast.warning('کد صحیح نیست');
@@ -208,23 +203,7 @@ export default function LoginView() {
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
       </Box>
-      <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
-        <a
-          referrerPolicy="origin"
-          target="_blank"
-          href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-          rel="noreferrer"
-        >
-          <img
-            referrerPolicy="origin"
-            src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-            alt=""
-            // eslint-disable-next-line react/style-prop-object
-            style="cursor:pointer"
-            code="W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-          />
-        </a>
-      </Box>
+
     </Box>
   );
 }

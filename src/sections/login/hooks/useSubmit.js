@@ -22,7 +22,7 @@ const useSubmitOtp = (registerd) => {
       setCookie('access', data.access, 5);
       toast.success('ورود با موفقیت انجام شد');
       if (registerd) {
-        router.push('/dashboard');
+        router.push('/');
       } else {
         router.push('/ProfilePage');
       }

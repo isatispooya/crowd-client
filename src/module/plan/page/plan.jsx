@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import Participation from 'src/pages/participation';
+import AgreementPopup from 'src/components/Agreement';
 import usePlan from '../service/use-plan';
 import CommentForm from '../feature/comment';
 import InvestProfile from '../feature/Investorprofile';
@@ -13,7 +14,6 @@ import Calculate from './calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Roadmap from '../feature/Roadmap';
-
 
 const Plan = () => {
   const { id } = useParams();
@@ -40,8 +40,9 @@ const Plan = () => {
             { label: 'نظرات کاربران', tab: 4 },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
             { label: 'محاسبه‌گر سود', tab: 6 },
-            { label: 'مشارکت', tab: 7 },
-            { label: 'زمان بندی طرح', tab: 8 },
+            { label: 'زمان بندی طرح', tab: 7 },
+            { label: 'مشارکت', tab: 8 },
+            { label: 'پیام', tab: 9 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -81,9 +82,7 @@ const Plan = () => {
         )}
 
         {activeTab === 3 && (
-          <div className="p-4 bg-gray-50 rounded-lg shadow-md">
-            سیصبییلتنااتال
-          </div>
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">سیصبییلتنااتال</div>
         )}
 
         {activeTab === 4 && (
@@ -104,14 +103,20 @@ const Plan = () => {
         )}
         {activeTab === 7 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-         <Participation />
+            <Roadmap />
           </div>
         )}
         <div>
           {activeTab === 8 && (
             <div className="grid   gap-8">
-
-              <Roadmap />
+              <Participation />
+            </div>
+          )}
+        </div>
+        <div>
+          {activeTab === 9 && (
+            <div className="grid   gap-8">
+              <AgreementPopup />
             </div>
           )}
         </div>

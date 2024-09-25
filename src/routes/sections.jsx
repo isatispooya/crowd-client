@@ -9,6 +9,7 @@ import WalletPage from 'src/module/wallet/pages/walletPage';
 import Dashboard from 'src/module/dashboard/components/dashboard';
 import Certificate from 'src/components/certificate';
 import Participation from 'src/pages/participation';
+import Sterpercrowd from 'src/components/stepper';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -18,6 +19,7 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
+export const Card = lazy(()=> import('src/components/stepper'))
 
 
 
@@ -38,7 +40,7 @@ export default function Router() {
         { path: 'process', element: <ProcessProjectPage /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
         { path: 'wallet', element: <WalletPage /> },
-        {path: "dashboard", element: <Dashboard/>},
+        {path: "card", element: <Sterpercrowd />},
         {path: "certificate" ,  element : <Certificate/>},
         {path: "participation" ,  element : <Participation/>}
         
