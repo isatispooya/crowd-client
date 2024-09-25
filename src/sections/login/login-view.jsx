@@ -19,6 +19,7 @@ import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
+import useTimer from './hooks/useTimer';
 // import useApplyNationalCode from './hooks/postNationalCode';
 
 export default function LoginView() {
@@ -28,37 +29,50 @@ export default function LoginView() {
   const [captchaInput, setCaptchaInput] = useState('');
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
-  const [step, setStep] = useState(1);
+
   const [registerd, setRegisterd] = useState(false);
-  const [timer, setTimer] = useState(60);
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
+  const { timer, step, setStep, startTimer } = useTimer();
+
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
     } else if (nationalCode.length !== 10) {
       toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
     } else {
-      applyNationalCode({
-        nationalCode,
-        captchaInput,
-        encryptedResponse: captchaData?.encrypted_response,
-      }, {
-        onSuccess: (data) => {
-          setStep(2);
-          setTimer(60);
-          toast.success(data.message);
+      setIsButtonDisabled(true); 
+      applyNationalCode(
+        {
+          nationalCode,
+          captchaInput,
+          encryptedResponse: captchaData?.encrypted_response,
         },
-      });
+        {
+          onSuccess: (data) => {
+            setRegisterd(data.registered);
+            setStep(2);
+            
+            startTimer(); 
+            toast.success(data.message);
+          },
+          onError: () => {
+            toast.error('خطا در ارسال درخواست');
+          },
+          onSettled: () => {
+            setIsButtonDisabled(false); 
+          },
+        }
+      );
     }
   };
   const handleCode = () => {
     if (otp.length !== 5) {
       toast.warning('کد صحیح نیست');
-     
-
     } else {
       submitOtp({
         nationalCode,
@@ -67,87 +81,6 @@ export default function LoginView() {
     }
   };
 
-  // const applyNationalCode = () => {
-  //   if (captchaInput.length === 0) {
-  //     toast.warning('کد تصویر صحیح نیست');
-  //   } else if (nationalCode.length !== 10) {
-  //     toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
-  //   } else {
-  //     setLoading(true);
-  //     axios({
-  //       method: 'POST',
-  //       url: `${OnRun}/api/otp/`,
-  //       data: {
-  //         uniqueIdentifier: nationalCode,
-  //         encrypted_response: captchaData?.encrypted_response,
-  //         captcha: captchaInput,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         toast.success(response.data.message);
-  //         setRegisterd(response.data.registered);
-  //         setStep(2);
-  //         setTimer(60);
-  //       })
-  //       .catch((err) => {
-  //         console.error('خطا:', err);
-  //         toast.error('خطا در ارسال درخواست به سرور.');
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   }
-  // };
-  // const handleCode = () => {
-  //   if (otp.length !== 5) {
-  //     toast.warning('کد صحیح نیست');
-  //   } else {
-  //     setLoading(true);
-  //     const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
-  //     axios({
-  //       method: 'POST',
-  //       url: url_,
-  //       data: { uniqueIdentifier: nationalCode, otp },
-  //     })
-  //       .then((response) => {
-  //         setCookie('access', response.data.access, 5);
-  //         toast.success('ورود با موفقیت انجام شد');
-  //         if (registerd) {
-  //           router.push('/');
-  //         } else {
-  //           router.push('/ProfilePage');
-  //         }
-  //         toast.warning(response.data.message);
-  //       })
-  //       .catch((err) => {
-  //         console.error('خطا:', err);
-  //         toast.error('خطا در ارسال درخواست به سرور.');
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   }
-  // };
-  useEffect(() => {
-    let countdown;
-    if (step === 2) {
-      countdown = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer <= 1) {
-            clearInterval(countdown);
-            setStep(1);
-            setOtp('');
-            setTimer(60);
-            toast.info('زمان وارد کردن کد تایید به پایان رسید. لطفاً دوباره تلاش کنید.');
-            return 60;
-          }
-          return prevTimer - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(countdown);
-  }, [step]);
 
   const renderForm = (
     <>
@@ -203,7 +136,8 @@ export default function LoginView() {
             },
           }}
           onClick={handleApplyNationalCode}
-        
+          loading={isCaptchaLoading}
+          disabled={isButtonDisabled}
         >
           تایید
         </LoadingButton>
@@ -215,7 +149,8 @@ export default function LoginView() {
           variant="contained"
           color="inherit"
           onClick={handleCode}
-      
+          loading={loadingOtp}
+          disabled={isButtonDisabled}
         >
           تایید ({timer})
         </LoadingButton>
