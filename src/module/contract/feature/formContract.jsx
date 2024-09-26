@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -78,7 +79,7 @@ const FormContract = () => {
       <ToastContainer autoClose={3000} />
       <div
         dir="rtl"
-        className="max-w-5xl overflow-y-auto mx-auto p-8 bg-white rounded-lg shadow-xl"
+        className=""
       >
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
@@ -118,61 +119,91 @@ const FormContract = () => {
             options={periodOptions}
             handleSetValue={setPeriod}
           />
-              <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>
+        </div>
+        <div className="grid grid-cols-1 gap-4 bg-white">
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>
+            <div className="flex items-center">
+              <span className="mx-2">خیر</span>
               <input
+
                 type="checkbox"
                 name="role_141"
-                className="toggle toggle-info"
+                className="toggle toggle-info "
                 checked={dataDetail.role_141}
                 onChange={handleChange}
                 disabled={dataDetail.lock_role_141}
               />
-            </label>
+              <span className="mx-2">بله</span>
+            </div>
           </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل10درصد از سرمایه مورد نیاز به شماره حساب اعلام شده از سوی عامل اقدام نماید.</span>
+        </div>
+
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>
+              متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز
+              اقدام نماید.
+            </span>
+            <div className="flex items-center">
+              <span className="mx-2">خیر</span>
               <input
                 type="checkbox"
                 name="minimum_deposit_10"
-                className="toggle toggle-info"
+                className="toggle toggle-info "
                 checked={dataDetail.minimum_deposit_10}
                 onChange={handleChange}
                 disabled={dataDetail.lock_minimum_deposit_10}
               />
-            </label>
+              <span className="mx-2">بله</span>
+            </div>
           </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد</span>
+        </div>
+
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.</span>
+            <div className="flex items-center">
+              <span className="mx-2">خیر</span>
               <input
                 type="checkbox"
                 name="bounced_check"
-                className="toggle toggle-info"
+                className="toggle toggle-info "
                 checked={dataDetail.bounced_check}
                 onChange={handleChange}
                 disabled={dataDetail.lock_bounced_check}
               />
-            </label>
+              <span className="mx-2">بله</span>
+            </div>
           </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند .</span>
+        </div>
+
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>
+              متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.
+            </span>
+            <div className="flex items-center">
+              <span className="mx-2">خیر</span>
               <input
                 type="checkbox"
-                name="ReturnedCheck"
-                className="toggle toggle-info"
+                name="Prohibited"
+                className="toggle toggle-info "
                 checked={dataDetail.Prohibited}
                 onChange={handleChange}
                 disabled={dataDetail.lock_Prohibited}
-                />
-            </label>
+              />
+              <span className="mx-2">بله</span>
+            </div>
           </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند .</span>
+        </div>
+
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.</span>
+            <div className="flex items-center bg-white">
+              <span className="mx-2">خیر</span>
               <input
                 type="checkbox"
                 name="criminal_record"
@@ -180,37 +211,31 @@ const FormContract = () => {
                 checked={dataDetail.criminal_record}
                 onChange={handleChange}
                 disabled={dataDetail.lock_criminal_record}
-                />
-            </label>
+              />
+              <span className="mx-2">بله</span>
+            </div>
           </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی تعهد می‌نماید هیچ گونه دعوای موثر علیه آن شرکت وجود ندارد.</span>
-              <input
-                type="checkbox"
-                name="effective_litigation"
-                className="toggle toggle-info"
-                checked={dataDetail.effective_litigation}
-                onChange={handleChange}
-                disabled={dataDetail.lock_effective_litigation}
+        </div>
 
-                />
-            </label>
-          </div>
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد</span>
+        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+            <span>متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.</span>
+            <div className="flex items-center">
+              <span className="mx-2">خیر</span>
               <input
                 type="checkbox"
                 name="non_current_debt"
-                className="toggle toggle-info"
+                className="toggle toggle-info "
                 checked={dataDetail.non_current_debt}
                 onChange={handleChange}
                 disabled={dataDetail.lock_non_current_debt}
-                />
-            </label>
+              />
+              <span className="mx-2">بله</span>
+            </div>
           </div>
         </div>
+      </div>
+      </div>
         <div className="flex justify-center mt-8">
           <button
             onClick={handleSubmit}
@@ -219,7 +244,7 @@ const FormContract = () => {
             ارسال اطلاعات
           </button>
         </div>
-      </div>
+
     </>
   );
 };

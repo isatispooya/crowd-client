@@ -42,7 +42,7 @@ const Plan = () => {
             { label: 'محاسبه‌گر سود', tab: 6 },
             { label: 'زمان بندی طرح', tab: 7 },
             { label: 'مشارکت', tab: 8 },
-            { label: 'پیام', tab: 9 },
+   
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -113,13 +113,7 @@ const Plan = () => {
             </div>
           )}
         </div>
-        <div>
-          {activeTab === 9 && (
-            <div className="grid   gap-8">
-              <AgreementPopup />
-            </div>
-          )}
-        </div>
+
       </div>
     </div>
   );

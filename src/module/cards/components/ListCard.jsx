@@ -6,6 +6,7 @@ import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import PropTypes from 'prop-types';
 import Loader from 'src/components/loader';
+import SmallError from 'src/components/smallError';
 import { useFetchCards } from '../hooks/useFetchCards';
 import { formatNumber } from '../../../utils/formatNumbers';
 import NewCard from './newCard';
@@ -28,7 +29,7 @@ const CardList = ({ setCardSelected }) => {
   }
 
   if (error) {
-    return <p>خطا در بارگیری کارت‌ها: {error.message}</p>;
+    return <SmallError/>;
   }
 
   return (

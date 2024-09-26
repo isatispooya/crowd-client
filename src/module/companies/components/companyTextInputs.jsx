@@ -97,7 +97,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="amount_of_registered_capital"
-          value={localData.amount_of_registered_capital || ''}
+          value={formatNumber(localData.amount_of_registered_capital) || ''}
           disabled={localData.Lock_amount_of_registered_capital}
           onChange={InputValues}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -151,7 +151,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         />
       </div>
       <div className="mb-6">
-        <label className="block text-gray-800 text-xs font-semibold mb-2">سال تاسیس</label>
+        <label className="block text-gray-800 text-xs font-semibold mb-2">تاریخ تاسیس :</label>
         <input
           type="text"
           name="yearofestablishment"

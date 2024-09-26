@@ -1,20 +1,17 @@
 import { getCookie } from 'src/api/cookie';
 import { useMutation } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
+import { OnRun } from 'src/api/OnRun';
 
-const postDitail = async ({credit_amount,image_receipt,document_number}) => {
+const postDetail = async ({ credit_amount, image_receipt, document_number }) => {
   const access = getCookie('access');
-  console.log('================');
-  console.log(image_receipt,credit_amount,document_number);
-  
-  
 
   const response = await api.post(
-    `/api/transaction/`,
+    `${OnRun}/api/transaction/`,
     {
-    credit_amount,
-    image_receipt,
-    document_number
+      credit_amount,
+      image_receipt,
+      document_number,
     },
     {
       headers: {
@@ -33,10 +30,10 @@ const useTransaction = () => {
     data: datapost,
     isLoading: islodingpost,
     error: errorpost,
-    isError
+    isError,
   } = useMutation({
     mutationKey: ['postDetail'],
-    mutationFn: postDitail,
+    mutationFn: postDetail,
   });
 
   return {
@@ -44,7 +41,7 @@ const useTransaction = () => {
     datapost,
     islodingpost,
     errorpost,
-    isError
+    isError,
   };
 };
 
