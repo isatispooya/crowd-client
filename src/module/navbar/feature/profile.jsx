@@ -1,14 +1,21 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import Loader from 'src/components/loader';
+import { getCookie } from 'src/api/cookie';
 import useAuth from '../service/useAuth';
 
 const Profile = () => {
-  const { mutate, userData, isLoadingUser, isError } = useAuth();
-  console.log('userData', userData);
+  const { mutate, userData, isLoadingUser, isError, logout } = useAuth();
 
   useEffect(() => {
-    mutate();
+    const access = getCookie('access');
+
+    if (access) {
+      mutate();
+      
+    }else{
+      logout()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (isError) {

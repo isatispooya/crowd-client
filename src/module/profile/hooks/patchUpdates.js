@@ -21,7 +21,7 @@ const usePatchRefresh = () => {
   };
 
   const { mutate, isLoading, isError, error } = useMutation({
-    mutationKey: ['patchRefresh'],
+    mutationKey: ['profile'],
     mutationFn: patchRefresh,
     onError: (err) => {
       console.error('Error refreshing:', err);

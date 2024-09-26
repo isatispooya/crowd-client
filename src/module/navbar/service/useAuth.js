@@ -1,18 +1,22 @@
-import { useMutation } from '@tanstack/react-query';
+import {  useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from 'src/api/apiClient';
 import { getCookie, setCookie } from 'src/api/cookie';
 
 const getProfileUser = async () => {
-  const access = getCookie('access');
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const access = await getCookie('access');
+
   const response = await api.get(`/api/information/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
+  console.log('ssssssss', response.data);
   
   return response.data;
 };
 
 const useAuth = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const {
@@ -26,13 +30,17 @@ const useAuth = () => {
     mutationFn: getProfileUser,
     onError:()=>{
       logout()
+
     }
 
   });
 
   const logout = () => {
-    setCookie('access', '', { expires: new Date(0) });
+    setCookie('access','',0);
+    queryClient.removeQueries('profile');
+    queryClient.invalidateQueries('profile')
     navigate('/login');
+
   };
   return {
     mutate,

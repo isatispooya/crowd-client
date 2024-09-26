@@ -4,8 +4,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import { LuRefreshCw } from 'react-icons/lu';
 import Loader from 'src/components/loader';
@@ -30,25 +28,7 @@ const Profile = () => {
     }
   }, [access, navigate]);
 
-  // useEffect(() => {
-  //   if (access && !isCheckingAuth) {
-  //     axios
-  //       .get(`${OnRun}/api/information/`, {
-  //         headers: {
-  //           Authorization: `Bearer ${access}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         setProfileData(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching profile data:', error);
-  //         if (error.response && error.response.status === 401) {
-  //           navigate('/login');
-  //         }
-  //       });
-  //   }
-  // }, [access, isCheckingAuth, navigate]);
+
 
   if (isCheckingAuth) {
     return <Loader />;
