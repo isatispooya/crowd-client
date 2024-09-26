@@ -112,18 +112,6 @@ const Fildemnager = ({ index, field, setField }) => {
             </select>
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-medium mb-2">سمت :</label>
-            <input
-              value={field[index].position}
-              onChange={(e) => handleChange('position', e.target.value)}
-              type="text"
-              disabled={field[index].lock}
-              name="position"
-              className="shadow appearance-none bg-white border rounded disabled:bg-gray-200 text-black w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
-            />
-          </div>
-
-          <div className="mb-6">
             <label className="block text-gray-700 text-sm font-medium mb-2">کدملی :</label>
             <input
               type="text"
@@ -140,7 +128,7 @@ const Fildemnager = ({ index, field, setField }) => {
           {field[index].is_legal && (
             <>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-semibold mb-2">شناسه ملی:</label>
+                <label className="block text-gray-700 text-sm font-semibold mb-2">شناسه ملی شرکت: </label>
                 <input
                   type="text"
                   value={field[index].national_id}

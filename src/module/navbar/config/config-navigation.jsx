@@ -44,7 +44,7 @@ const navConfig = [
     icon: <GoProjectRoadmap className='text-2xl' />,
   },
   {
-    title: 'گواهی مشارکت',
+    title: 'گواهی شراکت',
     path: 'certificate',
     icon: <PiCertificateFill className='text-2xl' />,
   },

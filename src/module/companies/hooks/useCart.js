@@ -23,7 +23,9 @@ const getFormData = (data) => {
     'email',
     'newspaper',
     'date_newspaper',
-    "amount_of_registered_capital"
+    "amount_of_registered_capital",
+    "amount_of_registered_shares",
+    "exchange_code"
   ];
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
@@ -56,6 +58,7 @@ const getFormData = (data) => {
 };
 
 export const getCart = async (cartId) => {
+
   if (!cartId) {
     return {
       data: {
@@ -128,6 +131,11 @@ export const getCart = async (cartId) => {
           file_manager: null,
           file_validational: null,
           amount_of_registered_capital:null,
+          amount_of_registered_shares:null,
+        lock_amount_of_registered_shares: false,
+          exchange_code:null,
+          lock_bounced_check: false,
+
         },
       },
     };
@@ -154,6 +162,7 @@ export const createCart = async (data, handleNext) => {
       },
       maxBodyLength: Infinity,
     });
+    console.log("kkk",response.data)
 
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');

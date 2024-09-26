@@ -43,7 +43,6 @@ const HistoryList = () => {
       historyList.forEach((element) => {
       if (element.file) {
           formData.append(element.national_code, element.file);
-          // تبدیل تاریخ به timestamp
           const timestamp = element.date.toDate().getTime();
           formData.append(`${element.national_code}_date`, timestamp);
           hasFile = true; 

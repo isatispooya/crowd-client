@@ -12,6 +12,19 @@ const Descript = () => {
   const { data, isLoading, error } = usePlan(id);
   const { data: documentationData } = useDocumentation(id);
   const { data: appenicesData } = useAppenices(id);
+  const remainingFrom = new Date(data.remaining_from_to).getTime();
+const remainingTo = new Date(data.remaining_date_to).getTime();
+
+const difference =remainingTo- remainingFrom ;
+const differenceInDays = Math.floor( difference / (1000 * 60 * 60 * 24));
+
+  const statusMap = {
+    1: 'در حال بررسی',
+    2: 'در حال اجرا',
+    3: 'لغو شده',
+    4: 'متوقف شده',
+    5: 'تکمیل شده ',
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -91,20 +104,18 @@ const Descript = () => {
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">وضعیت اجرای طرح</p>
           <p className="text-lg text-gray-900 font-semibold">
-            {data.plan_status} 
+            {statusMap[data.plan_status] || 'وضعیت نامشخص'}
           </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">سرمایه موردنیاز طرح</p>
           <p className="text-lg text-gray-900 font-semibold">
-            {data.nominal_price_certificate} تومان
+            {data.funded_amount} تومان
           </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">تعداد سرمایه گذارن</p>
-          <p className="text-lg text-gray-900 font-semibold">
-            {data.amount_of_shareholders} 
-          </p>
+          <p className="text-lg text-gray-900 font-semibold">{data.amount_of_shareholders}</p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">حجم سرمایه در دسترس</p>
@@ -113,9 +124,9 @@ const Descript = () => {
           </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <p className="text-gray-500">دوره جمع آوری وجوه</p>
+          <p className="text-gray-500">دوره جمع آوری وجوه </p>
           <p className="text-lg text-gray-900 font-semibold">
-            {Number(data.remaining_from_to)-(data.remaining_date_to)}
+           حداکثر {differenceInDays}روز
           </p>
         </div>
         <a
@@ -126,10 +137,9 @@ const Descript = () => {
         >
           مشاهده لینک فرابورس
         </a>
-  
       </div>
-      <div >
-      مستندات:
+      <div>
+        مستندات:
         <div className="p-4 bg-white rounded-lg shadow-lg">
           {documentationData.map((item, index) => (
             <div
@@ -153,9 +163,9 @@ const Descript = () => {
             </div>
           ))}
         </div>
-        </div>
-        <div >
-      تضامین:
+      </div>
+      <div>
+        تضامین:
         <div className="p-4 bg-white rounded-lg shadow-lg">
           {documentationData.map((item, index) => (
             <div
@@ -179,7 +189,7 @@ const Descript = () => {
             </div>
           ))}
         </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -44,25 +44,14 @@ const FileSharehold = ({ index, validite, setValidite }) => {
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-medium mb-2">تعداد سهام:</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">تعداد سهام :</label>
             <input
               type="text"
               name="percent"
               value={validite[index].percent}
               disabled={validite[index].lock}
-              onChange={(e) => {
-                let {value} = e.target;
-                if (value > 100) value = 100;
-                handleChange('percent', value);
-              }}
-              onInput={(e) => {
-                e.target.value = e.target.value.replace(/[^0-9.]/g, '');
-                if (e.target.value.split('.').length > 2) {
-                  e.target.value = e.target.value.slice(0, -1); 
-                }
-              }}
-              max={100}
-              min={10}
+              onChange={(e) => handleChange('percent', e.target.value)}
+              maxLength={11}
               required
               className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />
