@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -12,11 +12,13 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
+
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
 import useTimer from './hooks/useTimer';
+
 
 
 
@@ -33,6 +35,7 @@ export default function LoginView() {
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
   const { timer, step, setStep, startTimer } = useTimer();
 
+  
 
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
@@ -76,6 +79,8 @@ export default function LoginView() {
       });
     }
   };
+   
+
 
 
   const renderForm = (

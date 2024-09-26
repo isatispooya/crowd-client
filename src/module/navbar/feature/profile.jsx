@@ -1,8 +1,19 @@
 import { Box, Grid, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import Loader from 'src/components/loader';
 import useAuth from '../service/useAuth';
 
 const Profile = () => {
-  const { userData, isLoadingUser } = useAuth();
+  const { mutate, userData, isLoadingUser, isError } = useAuth();
+  console.log('userData', userData);
+
+  useEffect(() => {
+    mutate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (isError) {
+    return <Loader />;
+  }
 
   return (
     <Box sx={{ p: 3, textAlign: 'center', marginBottom: 5 }}>
@@ -22,10 +33,10 @@ const Profile = () => {
           {!isLoadingUser ? (
             <Box display="flex" justifyContent="center">
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {userData.acc.private_person[0].firstName}
+                {userData?.acc?.private_person[0].firstName}
               </Typography>
               <Typography variant="h6" sx={{ ml: 1, fontWeight: 'bold' }}>
-                {userData.acc.private_person[0].lastName}
+                {userData?.acc?.private_person[0].lastName}
               </Typography>
             </Box>
           ) : (

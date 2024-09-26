@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api from 'src/api/apiClient';
 import { getCookie, setCookie } from 'src/api/cookie';
@@ -8,6 +8,7 @@ const getProfileUser = async () => {
   const response = await api.get(`/api/information/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
+  
   return response.data;
 };
 
@@ -15,12 +16,18 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   const {
+    mutate,
+    isError,
     data: userData,
     isLoading: isLoadingUser,
     error: errorUser,
-  } = useQuery({
-    queryKey: ['profile'],
-    queryFn: () => getProfileUser(),
+  } = useMutation({
+    mutationKey: ['profile'],
+    mutationFn: getProfileUser,
+    onError:()=>{
+      logout()
+    }
+
   });
 
   const logout = () => {
@@ -28,6 +35,8 @@ const useAuth = () => {
     navigate('/login');
   };
   return {
+    mutate,
+    isError,
     userData,
     isLoadingUser,
     errorUser,
