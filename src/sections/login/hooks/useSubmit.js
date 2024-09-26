@@ -20,6 +20,7 @@ const useSubmitOtp = (registerd) => {
     },
     onSuccess: (data) => {
       setCookie('access', data.access, 5);
+      console.log(data.access);
       toast.success('ورود با موفقیت انجام شد');
       if (registerd) {
         router.push('/');

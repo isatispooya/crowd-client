@@ -30,25 +30,25 @@ const Profile = () => {
     }
   }, [access, navigate]);
 
-  useEffect(() => {
-    if (access && !isCheckingAuth) {
-      axios
-        .get(`${OnRun}/api/information/`, {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
-        })
-        .then((response) => {
-          setProfileData(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching profile data:', error);
-          if (error.response && error.response.status === 401) {
-            navigate('/login');
-          }
-        });
-    }
-  }, [access, isCheckingAuth, navigate]);
+  // useEffect(() => {
+  //   if (access && !isCheckingAuth) {
+  //     axios
+  //       .get(`${OnRun}/api/information/`, {
+  //         headers: {
+  //           Authorization: `Bearer ${access}`,
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setProfileData(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error fetching profile data:', error);
+  //         if (error.response && error.response.status === 401) {
+  //           navigate('/login');
+  //         }
+  //       });
+  //   }
+  // }, [access, isCheckingAuth, navigate]);
 
   if (isCheckingAuth) {
     return <Loader />;
