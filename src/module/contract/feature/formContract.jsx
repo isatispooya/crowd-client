@@ -53,9 +53,9 @@ const FormContract = () => {
   };
   useEffect(() => {
     if (dataDetail) {
-      setFarabourseFee(dataDetail.cart.otc_fee);
-      setPublicationFee(dataDetail.cart.publication_fee);
-      setServiceFee(dataDetail.cart.dervice_fee);
+      // setFarabourseFee(dataDetail.cart.otc_fee);
+      // setPublicationFee(dataDetail.cart.publication_fee);
+      // setServiceFee(dataDetail.cart.dervice_fee);
       setCreateFee(dataDetail.cart.design_cost);
       setSwimmingPercentage(dataDetail.cart.swimming_percentage);
       setRateProfit(dataDetail.cart.partnership_interest);
@@ -85,7 +85,7 @@ const FormContract = () => {
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
-          <InputPercent
+          {/* <InputPercent
             value={farabourseFee}
             setValue={setFarabourseFee}
             label="درصد کارمزد فرابورس"
@@ -99,8 +99,8 @@ const FormContract = () => {
             value={serviceFee}
             setValue={setServiceFee}
             label="درصد کارمزد ارائه خدمات"
-          />
-          <InputPercent value={createFee} setValue={setCreateFee} label="درصد کارمزد طراحی" />
+          /> */}
+          {/* <InputPercent value={createFee} setValue={setCreateFee} label="درصد کارمزد طراحی" /> */}
           <InputPercent
             value={swimmingPercentage}
             setValue={setSwimmingPercentage}
@@ -120,7 +120,7 @@ const FormContract = () => {
             handleSetValue={setPeriod}
           />
         </div>
-        <div className="grid grid-cols-1 gap-4 bg-white">
+        <div className="grid grid-cols-1 gap-4 bg-white mt-10">
         <div className="collapse collapse-close border rounded-lg border-none shadow-md">
           <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
             <span>متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>

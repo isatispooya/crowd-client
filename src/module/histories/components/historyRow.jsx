@@ -42,6 +42,12 @@ const HistoryRow = ({ index, list, item, setList }) => {
     </div>
     <div className="min-w-[150px] ml-3">
     <DatePicker
+    style={{
+      width: '100%',
+      padding: 16,
+      backgroundColor: '#ffffff',
+      marginTop:"12px"
+    }}
           value={item.date ? new Date(item.date) : null}
           onChange={handleDateChange}
           calendar={persian}

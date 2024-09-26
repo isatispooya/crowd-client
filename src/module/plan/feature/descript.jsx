@@ -12,12 +12,18 @@ const Descript = () => {
   const { data, isLoading, error } = usePlan(id);
   const { data: documentationData } = useDocumentation(id);
   const { data: appenicesData } = useAppenices(id);
+  const remainingFrom = new Date(data.remaining_from_to).getTime();
+const remainingTo = new Date(data.remaining_date_to).getTime();
+
+const difference =remainingTo- remainingFrom ;
+const differenceInDays = Math.floor( difference / (1000 * 60 * 60 * 24));
+
   const statusMap = {
     1: 'در حال بررسی',
     2: 'در حال اجرا',
-    3: 'تکمیل شده',
+    3: 'لغو شده',
     4: 'متوقف شده',
-    5: 'لغو شده',
+    5: 'تکمیل شده ',
   };
 
   if (isLoading) {
@@ -118,9 +124,9 @@ const Descript = () => {
           </p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <p className="text-gray-500">دوره جمع آوری وجوه</p>
+          <p className="text-gray-500">دوره جمع آوری وجوه </p>
           <p className="text-lg text-gray-900 font-semibold">
-            {Number(data.remaining_from_to) - data.remaining_date_to}
+           حداکثر {differenceInDays}روز
           </p>
         </div>
         <a

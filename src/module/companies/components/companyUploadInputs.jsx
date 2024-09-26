@@ -46,7 +46,7 @@ const CompanyUploads = ({ localData, setLocalData }) => {
 
           {renderFileSection(
             'statement_lastyear',
-            'اظهارنامه',
+            'اظهارنامه مالیات برعملکرد',
             '1402 فایل اظهارنامه',
             localData,
             setLocalData,
@@ -83,7 +83,7 @@ const CompanyUploads = ({ localData, setLocalData }) => {
 
           {renderFileSection(
             'statement_yearold',
-            'اظهارنامه',
+            'اظهارنامه مالیات برعملکرد',
             '1401 فایل اظهارنامه',
             localData,
             setLocalData,
