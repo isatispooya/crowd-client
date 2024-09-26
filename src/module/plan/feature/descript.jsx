@@ -88,6 +88,36 @@ const Descript = () => {
             {data.nominal_price_certificate} تومان
           </p>
         </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">وضعیت اجرای طرح</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.plan_status} 
+          </p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">سرمایه موردنیاز طرح</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.nominal_price_certificate} تومان
+          </p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">تعداد سرمایه گذارن</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.amount_of_shareholders} 
+          </p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">حجم سرمایه در دسترس</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {data.nominal_price_certificate} تومان
+          </p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">دوره جمع آوری وجوه</p>
+          <p className="text-lg text-gray-900 font-semibold">
+            {Number(data.remaining_from_to)-(data.remaining_date_to)}
+          </p>
+        </div>
         <a
           href={data.farabours_link}
           target="_blank"

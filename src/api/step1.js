@@ -3,6 +3,7 @@
 import { toast } from 'react-toastify';
 import api from './apiClient';
 import { getCookie } from './cookie';
+import { DateObject } from 'react-multi-date-picker';
 
 // تابع برای ایجاد فرم دیتا
 const getFormData = (data) => {
@@ -28,6 +29,11 @@ const getFormData = (data) => {
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
 
+  if (data.date_newspaper) {
+    const dateObject = new DateObject(data.date_newspaper);
+    const formattedDate = dateObject.format("YYYY/MM/DD");  
+    formData.append('date_newspaper', formattedDate); 
+  }
   const fileFields = [
     'financial_report_thisyear',
     'financial_report_lastyear',

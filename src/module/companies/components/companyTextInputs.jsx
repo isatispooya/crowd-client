@@ -17,11 +17,13 @@ const CompanyInputs = ({ localData, setLocalData }) => {
     const cleanedValue = cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-  // const handleDateChange = (date) => {
-  //   const updatedList = [...localData];
-  //   date_newspaper: localData.date_newspaper,
-  //       setLocalData(updatedList);
-  // };
+  const handleDateChange = (date) => {
+    setLocalData({
+      ...localData,
+      date_newspaper: date.toDate().getTime(), 
+    });
+  };
+  console.log("localData",localData)
   return (
     <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6 p-6 bg-white rounded-lg ">
       <div className="mb-6">
@@ -223,17 +225,11 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         padding: 22,
         backgroundColor: '#ffffff',
       }}
-      value={localData.date_newspaper ? new DateObject({
-        date: localData.date_newspaper,
-        calendar: persian,
-        locale: persian_fa,
-        format: 'YYYY/MM/DD',
-      }) : null}
-      // onChange={handleDateChange}
+      value={localData.date_newspaper? new Date(localData.date_newspaper) : null}
+      onChange={handleDateChange}
       calendar={persian}
       locale={persian_fa}
-      format="YYYY/MM/DD"
-      disabled={localData.Lock_date_newspaper}
+      className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
     />
       </div>
       <div className="col-span-full mt-8 flex flex-col justify-center items-center">

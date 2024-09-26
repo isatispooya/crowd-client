@@ -27,9 +27,7 @@ const ValditionList = () => {
         },
       });   
       if (response.data) {
-        console.log(response.data.data.managers)
         const managers = response.data.data.managers.map(i=>({...i,date: new DateObject(i.date)}))
-        console.log(managers)
         setValidateList(managers);
       }
     } catch (error) {

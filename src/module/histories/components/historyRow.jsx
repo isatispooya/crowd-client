@@ -41,12 +41,11 @@ const HistoryRow = ({ index, list, item, setList }) => {
       <div className="text-gray-700 text-sm font-medium">{item.national_code}</div>
     </div>
     <div className="min-w-[150px] ml-3">
-        <DatePicker
+    <DatePicker
           value={item.date ? new Date(item.date) : null}
           onChange={handleDateChange}
           calendar={persian}
           locale={persian_fa}
-          format="YYYY/MM/DD"
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
       </div>

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import api from '../../../api/apiClient';
 import { getCookie } from '../../../api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
+import { DateObject } from 'react-multi-date-picker';
 
 const getFormData = (data) => {
   const formData = new FormData();
@@ -26,7 +27,11 @@ const getFormData = (data) => {
   ];
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
-
+  if (data.date_newspaper) {
+    const dateObject = new DateObject(data.date_newspaper);
+    const formattedDate = dateObject.format("YYYY/MM/DD");  
+    formData.append('date_newspaper', formattedDate); 
+  }
   const fileFields = [
     'financial_report_thisyear',
     'financial_report_lastyear',

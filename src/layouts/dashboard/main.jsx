@@ -31,7 +31,6 @@ export default function Main({ children, sx, ...other }) {
         }),
         ...sx,
       }}
-      {...other}
     >
       {children}
     </Box>
