@@ -11,6 +11,7 @@ import { OnRun } from 'src/api/OnRun';
 import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
+import {DateObject} from 'react-multi-date-picker';
 
 const HistoryList = () => {
   const { cartId } = UseCartId();
@@ -25,10 +26,10 @@ const HistoryList = () => {
           Authorization: `Bearer ${access}`,
         },
       });
-      if (response.data && response.data.manager) {
-        setHistoryList(response.data.manager);
+      if (response.data) {
+        const manager = response.data.manager.map(i=>({...i,date: new DateObject(i.date)}))
+        setHistoryList(manager);
       }
-      console.log(response.data)
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
       toast.error('خطا در دریافت اطلاعات');
@@ -40,9 +41,11 @@ const HistoryList = () => {
       let hasFile = false;
 
       historyList.forEach((element) => {
-        if (element.file) {
+      if (element.file) {
           formData.append(element.national_code, element.file);
-          formData.append(`${element.national_code}_date`, element.date);
+          // تبدیل تاریخ به timestamp
+          const timestamp = element.date.toDate().getTime();
+          formData.append(`${element.national_code}_date`, timestamp);
           hasFile = true; 
         }
       });
