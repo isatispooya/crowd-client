@@ -24,11 +24,14 @@ const getFormData = (data) => {
     'email',
     'newspaper',
     'date_newspaper',
-    'amount_of_registered_capital'
+    'amount_of_registered_capital',
+    "amount_of_registered_shares",
+    "exchange_code"
   ];
 
-  fields.forEach((field) => formData.append(field, data[field] || ''));
+ 
 
+  fields.forEach((field) => formData.append(field, data[field] || ''));
   if (data.date_newspaper) {
     const dateObject = new DateObject(data.date_newspaper);
     const formattedDate = dateObject.format("YYYY/MM/DD");  
@@ -73,6 +76,7 @@ export const getStep1 = async (cartId) => {
     });
   
 
+ 
     return response;
   }
   return {
@@ -141,12 +145,16 @@ export const getStep1 = async (cartId) => {
         Lock_claims_status: false,
         file_manager: null,
         file_validational: null,
-        amount_of_registered_capital:null
+        amount_of_registered_capital:null,
+        amount_of_registered_shares:null,
+        lock_amount_of_registered_shares: false,
+        exchange_code:null,
+        lock_bounced_check: false,
+        
       },
     },
   };
 };
-
 export const createCart = async (data, incrementPage) => {
   const formData = getFormData(data);
   const access = await getCookie('access');
@@ -158,7 +166,7 @@ export const createCart = async (data, incrementPage) => {
       },
       maxBodyLength: Infinity,
     });
-
+    
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handlePageIncrement(incrementPage);
