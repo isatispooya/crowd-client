@@ -164,7 +164,7 @@ export const createCart = async (data, incrementPage) => {
   
   const formData = getFormData(data);
 
-  const access = await getCookie('access');
+  const access =  getCookie('access');
   try {
     const response = await api.post('/api/cart/', formData, {
       headers: {
