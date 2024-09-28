@@ -140,7 +140,7 @@ export const getCart = async (cartId) => {
       },
     };
   }
-  const access = await getCookie('access');
+  const access =  getCookie('access');
   return api.get(`/api/cart/detail/${cartId}/`, {
     headers: {
       Authorization: `Bearer ${access}`,

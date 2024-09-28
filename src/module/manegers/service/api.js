@@ -5,9 +5,9 @@ import { OnRun } from "src/api/OnRun";
 
 
 
-const access = await getCookie('access');
+const access =  getCookie('access');
 export const getManager = async (cartId) => {
-    if (cartId) {
+  if (cartId) {
         const response = await axios.get(`${OnRun}/api/manager/${cartId}/`, {
             headers: {
                 Authorization: `Bearer ${access}`,
