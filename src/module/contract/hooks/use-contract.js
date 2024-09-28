@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
-import UseCartId from 'src/hooks/use-cartId';
 
 const postContract = async (data, cartId) => {
   const access = getCookie('access');
