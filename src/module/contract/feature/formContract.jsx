@@ -14,6 +14,7 @@ const FormContract = () => {
   const [publicationFee, setPublicationFee] = useState(1);
   const [serviceFee, setServiceFee] = useState(1);
   const [createFee, setCreateFee] = useState(1);
+
   const [swimmingPercentage, setSwimmingPercentage] = useState(80);
   const [rateProfit, setRateProfit] = useState(40);
   const [guarantee, setGuarantee] = useState('ضمانتنامه بانکی');
@@ -29,6 +30,7 @@ const FormContract = () => {
       rateProfit,
       guarantee,
       period,
+      ...dataDetail.cart,
     };
 
     try {
@@ -38,6 +40,14 @@ const FormContract = () => {
       toast.error('خطا در ارسال اطلاعات.');
     }
   };
+  const handleChangeToggle = (e) => {
+    const { name, checked } = e.target;
+
+    dataDetail.cart = {
+      ...dataDetail.cart,
+      [name]: checked,
+    };
+  };
 
   const guaranteeOptions = [
     { type: '1', title: ' تعهد پرداخت بانکی ' },
@@ -45,17 +55,11 @@ const FormContract = () => {
     { type: '3', title: '(چک)اوراق بهادار' },
   ];
   const periodOptions = [{ type: '1', title: '3ماهه' }];
+
   const { mutateAsync, isLoadingCreate, errorCreate, dataDetail, isLoadingDetail } = useContract();
-  const [formData, setFormData] = useState({});
-  const handleChange = (e) => {
-    const { name, checked } = e.target;
-    setFormData({ ...formData, [name]: checked });
-  };
+
   useEffect(() => {
     if (dataDetail) {
-      // setFarabourseFee(dataDetail.cart.otc_fee);
-      // setPublicationFee(dataDetail.cart.publication_fee);
-      // setServiceFee(dataDetail.cart.dervice_fee);
       setCreateFee(dataDetail.cart.design_cost);
       setSwimmingPercentage(dataDetail.cart.swimming_percentage);
       setRateProfit(dataDetail.cart.partnership_interest);
@@ -74,33 +78,130 @@ const FormContract = () => {
     return <Loader />;
   }
 
+  console.log(dataDetail, 'contract');
   return (
     <>
       <ToastContainer autoClose={3000} />
-      <div
-        dir="rtl"
-        className=""
-      >
+      <div dir="rtl" className="">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
         </div>
+
+        <div className="grid grid-cols-1 gap-4 bg-white mt-10">
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>
+              <div className="flex items-center">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="role_141"
+                  className="toggle toggle-info "
+                  checked={dataDetail.role_141}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.lock_role_141}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>
+                متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد
+                نیاز اقدام نماید.
+              </span>
+              <div className="flex items-center">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="minimum_deposit_10"
+                  className="toggle toggle-info "
+                  checked={dataDetail.minimum_deposit_10}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.lock_minimum_deposit_10}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.</span>
+              <div className="flex items-center">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="bounced_check"
+                  className="toggle toggle-info "
+                  checked={dataDetail.bounced_check}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.lock_bounced_check}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>
+                متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.
+              </span>
+              <div className="flex items-center">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="Prohibited"
+                  className="toggle toggle-info "
+                  checked={dataDetail.Prohibited}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.lock_Prohibited}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.</span>
+              <div className="flex items-center bg-white">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="criminal_record"
+                  className="toggle toggle-info"
+                  checked={dataDetail.cart.criminal_record}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.cart.lock_criminal_record}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
+            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
+              <span>متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.</span>
+              <div className="flex items-center">
+                <span className="mx-2">خیر</span>
+                <input
+                  type="checkbox"
+                  name="non_current_debt"
+                  className="toggle toggle-info "
+                  checked={dataDetail.non_current_debt}
+                  onChange={handleChangeToggle}
+                  disabled={dataDetail.lock_non_current_debt}
+                />
+                <span className="mx-2">بله</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
-          {/* <InputPercent
-            value={farabourseFee}
-            setValue={setFarabourseFee}
-            label="درصد کارمزد فرابورس"
-          />
-          <InputPercent
-            value={publicationFee}
-            setValue={setPublicationFee}
-            label="درصد کارمزد انتشار"
-          />
-          <InputPercent
-            value={serviceFee}
-            setValue={setServiceFee}
-            label="درصد کارمزد ارائه خدمات"
-          /> */}
-          {/* <InputPercent value={createFee} setValue={setCreateFee} label="درصد کارمزد طراحی" /> */}
           <InputPercent
             value={swimmingPercentage}
             setValue={setSwimmingPercentage}
@@ -120,131 +221,15 @@ const FormContract = () => {
             handleSetValue={setPeriod}
           />
         </div>
-        <div className="grid grid-cols-1 gap-4 bg-white mt-10">
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>
-            <div className="flex items-center">
-              <span className="mx-2">خیر</span>
-              <input
-
-                type="checkbox"
-                name="role_141"
-                className="toggle toggle-info "
-                checked={dataDetail.role_141}
-                onChange={handleChange}
-                disabled={dataDetail.lock_role_141}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>
-              متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز
-              اقدام نماید.
-            </span>
-            <div className="flex items-center">
-              <span className="mx-2">خیر</span>
-              <input
-                type="checkbox"
-                name="minimum_deposit_10"
-                className="toggle toggle-info "
-                checked={dataDetail.minimum_deposit_10}
-                onChange={handleChange}
-                disabled={dataDetail.lock_minimum_deposit_10}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.</span>
-            <div className="flex items-center">
-              <span className="mx-2">خیر</span>
-              <input
-                type="checkbox"
-                name="bounced_check"
-                className="toggle toggle-info "
-                checked={dataDetail.bounced_check}
-                onChange={handleChange}
-                disabled={dataDetail.lock_bounced_check}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>
-              متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.
-            </span>
-            <div className="flex items-center">
-              <span className="mx-2">خیر</span>
-              <input
-                type="checkbox"
-                name="Prohibited"
-                className="toggle toggle-info "
-                checked={dataDetail.Prohibited}
-                onChange={handleChange}
-                disabled={dataDetail.lock_Prohibited}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.</span>
-            <div className="flex items-center bg-white">
-              <span className="mx-2">خیر</span>
-              <input
-                type="checkbox"
-                name="criminal_record"
-                className="toggle toggle-info"
-                checked={dataDetail.criminal_record}
-                onChange={handleChange}
-                disabled={dataDetail.lock_criminal_record}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-          <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-            <span>متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.</span>
-            <div className="flex items-center">
-              <span className="mx-2">خیر</span>
-              <input
-                type="checkbox"
-                name="non_current_debt"
-                className="toggle toggle-info "
-                checked={dataDetail.non_current_debt}
-                onChange={handleChange}
-                disabled={dataDetail.lock_non_current_debt}
-              />
-              <span className="mx-2">بله</span>
-            </div>
-          </div>
-        </div>
       </div>
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={handleSubmit}
+          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        >
+          ارسال اطلاعات
+        </button>
       </div>
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={handleSubmit}
-            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >
-            ارسال اطلاعات
-          </button>
-        </div>
-
     </>
   );
 };
