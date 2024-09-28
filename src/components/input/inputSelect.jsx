@@ -9,7 +9,7 @@ const SelectInput = ({ label, value, disabled, options, handleSetValue }) => (
       name={label}
       value={value || ''}
       disabled={disabled || false}
-      onChange={(e) => handleSetValue(e.target.value)}
+      // onChange={(e) => handleSetValue(e.target.value)}
       className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black disabled:bg-slate-200 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
     >
       <option value="">انتخاب کنید</option>

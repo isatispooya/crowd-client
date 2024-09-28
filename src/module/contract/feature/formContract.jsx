@@ -1,229 +1,104 @@
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import UseCartId from 'src/hooks/use-cartId';
 import InputPercent from 'src/components/input/inputPercent';
 import SelectInput from 'src/components/input/inputSelect';
-import { toast, ToastContainer } from 'react-toastify';
-import Loader from 'src/components/loader';
-import useContract from '../hooks/use-contract';
+import useGetContract from '../hooks/useGetContract';
+import ToggleContract from '../componets/toggelContract';
+import UsePostContract from '../hooks/use-contract';
 
 const FormContract = () => {
-  // const [farabourseFee, setFarabourseFee] = useState(1);
-  // const [publicationFee, setPublicationFee] = useState(1);
-  // const [serviceFee, setServiceFee] = useState(1);
-  const [createFee, setCreateFee] = useState(1);
-
-  const [swimmingPercentage, setSwimmingPercentage] = useState(80);
-  const [rateProfit, setRateProfit] = useState(40);
-  const [guarantee, setGuarantee] = useState('ضمانتنامه بانکی');
-  const [period, setPeriod] = useState(3);
+  const { cartId } = UseCartId();
+  const [contractData, setContractData] = useState({});
+  const [value, setValue] = useState(null);
+  const { data: dataContract, isError } = useGetContract(cartId);
+  const { mutate, isLoading, isError: err } = UsePostContract(cartId);
 
   const handleSubmit = () => {
-    const data = {
-      // farabourseFee,
-      // publicationFee,
-      // serviceFee,
-      createFee,
-      swimmingPercentage,
-      rateProfit,
-      guarantee,
-      period,
-      ...dataDetail.cart,
-    };
-
-    try {
-      mutateAsync(data);
-      toast.success('اطلاعات با موفقیت ارسال شد.');
-    } catch (error) {
-      toast.error('خطا در ارسال اطلاعات.');
-    }
+    mutate(contractData, {
+      onSuccess: () => {
+        toast.success('اطلاعات با موفقیت ارسال شد.');
+      },
+      onError: () => {
+        toast.error('خطا در ارسال اطلاعات.');
+      },
+    });
   };
+
+  const periodOptions = [{ type: '1', title: '3ماهه' }];
+
   const handleChangeToggle = (e) => {
     const { name, checked } = e.target;
-
-    dataDetail.cart = {
-      ...dataDetail.cart,
-      [name]: checked,
-    };
+    setContractData((prevData) => ({
+      ...prevData,
+      cart: {
+        ...prevData.cart,
+        [name]: checked,
+      },
+    }));
   };
 
+  const labels = [
+    'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.',
+    'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.',
+    ' متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.',
+    'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.',
+    'متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.',
+    'متقاضی متعهد است , پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز اقدام نماید',
+  ];
   const guaranteeOptions = [
     { type: '1', title: ' تعهد پرداخت بانکی ' },
     { type: '2', title: 'حسن پرداخت ' },
     { type: '3', title: '(چک)اوراق بهادار' },
   ];
-  const periodOptions = [{ type: '1', title: '3ماهه' }];
-
-  const { mutateAsync, isLoadingCreate, errorCreate, dataDetail, isLoadingDetail } = useContract();
 
   useEffect(() => {
-    if (dataDetail) {
-      setCreateFee(dataDetail.cart.design_cost);
-      setSwimmingPercentage(dataDetail.cart.swimming_percentage);
-      setRateProfit(dataDetail.cart.partnership_interest);
-      setGuarantee(dataDetail.cart.guarantee);
-      setPeriod(dataDetail.cart.payback_period);
+    if (dataContract && !isError) {
+      setContractData(dataContract);
     }
-  }, [dataDetail]);
+  }, [dataContract, isError]);
 
-  useEffect(() => {
-    if (errorCreate) {
-      toast.error('خطا در ارسال اطلاعات.');
-    }
-  }, [errorCreate]);
-
-  if (isLoadingDetail || isLoadingCreate) {
-    return <Loader />;
-  }
-
-  console.log(dataDetail, 'contract');
   return (
     <>
       <ToastContainer autoClose={3000} />
       <div dir="rtl" className="">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-700">اطلاعات قراراداد عاملیت</h1>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 bg-white mt-10">
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.</span>
-              <div className="flex items-center">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="role_141"
-                  className="toggle toggle-info "
-                  checked={dataDetail.role_141}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.lock_role_141}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>
-                متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد
-                نیاز اقدام نماید.
-              </span>
-              <div className="flex items-center">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="minimum_deposit_10"
-                  className="toggle toggle-info "
-                  checked={dataDetail.minimum_deposit_10}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.lock_minimum_deposit_10}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.</span>
-              <div className="flex items-center">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="bounced_check"
-                  className="toggle toggle-info "
-                  checked={dataDetail.cart.bounced_check}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.lock_bounced_check}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>
-                متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.
-              </span>
-              <div className="flex items-center">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="Prohibited"
-                  className="toggle toggle-info "
-                  checked={dataDetail.Prohibited}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.lock_Prohibited}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.</span>
-              <div className="flex items-center bg-white">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="criminal_record"
-                  className="toggle toggle-info"
-                  checked={dataDetail.cart.criminal_record}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.cart.lock_criminal_record}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="collapse collapse-close border rounded-lg border-none shadow-md">
-            <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
-              <span>متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.</span>
-              <div className="flex items-center">
-                <span className="mx-2">خیر</span>
-                <input
-                  type="checkbox"
-                  name="non_current_debt"
-                  className="toggle toggle-info "
-                  checked={dataDetail.non_current_debt}
-                  onChange={handleChangeToggle}
-                  disabled={dataDetail.lock_non_current_debt}
-                />
-                <span className="mx-2">بله</span>
-              </div>
-            </div>
-          </div>
+          <h1 className="text-2xl font-bold text-gray-700">اطلاعات قرارداد عاملیت</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
           <InputPercent
-            value={swimmingPercentage}
-            setValue={setSwimmingPercentage}
+            value={value}
+
             label="درصد شناوری تامین مالی "
           />
-          <InputPercent value={rateProfit} setValue={setRateProfit} label="درصد سود مشارکت اسمی" />
+          <InputPercent label="درصد سود مشارکت اسمی" />
           <SelectInput
             label="نوع ضمانت"
-            value={guarantee}
+            value={value}
             options={guaranteeOptions}
-            handleSetValue={setGuarantee}
+         
           />
           <SelectInput
             label=" دوره پرداخت"
-            value={period}
+            value={value}
             options={periodOptions}
-            handleSetValue={setPeriod}
+        
           />
         </div>
+
+        {labels.map((label, index) => (
+          <ToggleContract
+            key={index}
+            label={label}
+            checked={contractData?.cart?.[index] || false}
+            handle={handleChangeToggle}
+            name={`toggle-${index}`}
+          />
+        ))}
       </div>
       <div className="flex justify-center mt-8">
         <button
+          type="button"
           onClick={handleSubmit}
           className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >

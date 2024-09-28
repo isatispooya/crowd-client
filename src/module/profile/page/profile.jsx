@@ -15,7 +15,7 @@ import useRefreshOTP from '../hooks/useGetOTP';
 
 const Profile = () => {
   const access = getCookie('access');
-  const [profileData, setProfileData] = useState(null);
+  const [profileData] = useState(null);
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
   const [isCheckingAuth, setIsCheckingAuth] = useState(true); 

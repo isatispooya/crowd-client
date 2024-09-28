@@ -55,6 +55,7 @@ const ValditionList = () => {
       }
 
       const access = await getCookie('access');
+      // eslint-disable-next-line no-unused-vars
       const response = await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
