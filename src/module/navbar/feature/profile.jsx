@@ -23,22 +23,23 @@ const Profile = () => {
   }
 
   return (
-    <Box sx={{ p: 3, textAlign: 'center', marginBottom: 5 }}>
+    <Box sx={{ p: 3, textAlign: 'center', marginBottom: 5 , backgroundColor : "#ffffff", }}>
       <Box
         component="img"
         src="/assets/crowdlogo.png"
         alt="Logo"
         sx={{
+          backgroundColor : "#ffffff",
           width: 150,
           height: 150,
           mx: 'auto',
           mb: 2,
         }}
       />
-      <Box sx={{ bgcolor: 'white', color: 'black', p: 3, borderRadius: 2, boxShadow: 2 }}>
+      <Box sx={{ bgcolor: 'white', color: 'black', p: 3, borderRadius: 2, boxShadow: 2 , backgroundColor : "#ffffff", }}>
         <Grid item xs={12}>
           {!isLoadingUser ? (
-            <Box display="flex" justifyContent="center">
+            <Box display="flex" justifyContent="center" >
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                 {userData?.acc?.private_person[0].firstName}
               </Typography>
@@ -49,7 +50,7 @@ const Profile = () => {
           ) : (
             <Typography variant="h6">در حال بارگذاری...</Typography>
           )}
-          <Typography variant="body1" sx={{ mt: 1 }}>
+          <Typography variant="body1" sx={{ mt: 1 , backgroundColor : "#ffffff", }} >
             خوش آمدید 👋
           </Typography>
         </Grid>

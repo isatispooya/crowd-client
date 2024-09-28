@@ -30,6 +30,7 @@ export default function Nav({ openNav, onCloseNav }) {
   return (
     <Box
       sx={{
+        backgroundColor : "#ffffff",
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
         bgcolor: 'gray.200',
@@ -40,6 +41,7 @@ export default function Nav({ openNav, onCloseNav }) {
       {upLg ? (
         <Box
           sx={{
+            backgroundColor : "#ffffff",
             height: 1,
             position: 'fixed',
             width: NAV.WIDTH,

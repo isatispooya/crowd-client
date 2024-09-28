@@ -136,7 +136,7 @@ const FormContract = () => {
                   type="checkbox"
                   name="bounced_check"
                   className="toggle toggle-info "
-                  checked={dataDetail.bounced_check}
+                  checked={dataDetail.cart.bounced_check}
                   onChange={handleChangeToggle}
                   disabled={dataDetail.lock_bounced_check}
                 />
