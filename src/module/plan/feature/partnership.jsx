@@ -17,7 +17,6 @@ import PostPartnership from '../service/use-partnership';
 
 const Partnership = () => {
   const [amount, setAmount] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
   const [status, setStatus] = useState();
   const [errorr, setErrorr] = useState('');
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State for controlling the popup

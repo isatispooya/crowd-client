@@ -63,7 +63,6 @@ const Attachement = () => {
       });
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
-
       incrementPage();
     } catch (error) {
       console.error('خطا :', error);
@@ -77,10 +76,10 @@ const Attachement = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
+      <ToastContainer />
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
         <h1 className="text-2xl font-bold text-gray-700">لیست رزومه ها</h1>
       </div>
-      <ToastContainer />
 
       <div className="rounded-lg">
         {resumeList.map((item, index) => (

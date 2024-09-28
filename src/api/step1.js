@@ -36,7 +36,6 @@ const getFormData = (data) => {
   if (data.date_newspaper) {
     formData.append('date_newspaper', data.date_newspaper); 
   }
-  console.log(data.year_of_establishment)
   if (data.year_of_establishment) {
     formData.append('year_of_establishment', data.year_of_establishment); 
   }

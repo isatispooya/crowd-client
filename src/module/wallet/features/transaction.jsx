@@ -8,7 +8,7 @@ import { formatNumber } from 'src/utils/formatNumbers';
 import useTransaction from '../hooks/usetransaction';
 
 const TransactionOptions = ({ setOpenTransaction }) => {
-  const [value, setValue] = useState('');
+  const [value] = useState('');
   const [activeTab, setActiveTab] = useState('bankPortal');
   const [documentNumber, setDocumentNumber] = useState('');
   const [creditAmount, setCreditAmount] = useState('');

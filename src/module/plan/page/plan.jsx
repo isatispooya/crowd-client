@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import Participation from 'src/pages/participation';
-import AgreementPopup from 'src/components/Agreement';
 import usePlan from '../service/use-plan';
 import CommentForm from '../feature/comment';
 import InvestProfile from '../feature/Investorprofile';
