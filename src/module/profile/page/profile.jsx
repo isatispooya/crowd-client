@@ -12,25 +12,26 @@ import ProfileField from '../components/profileField';
 // import useGetProfile from '../hooks/useGetProfile';
 import Refresh from '../components/refresh';
 import useRefreshOTP from '../hooks/useGetOTP';
+import useGetProfile from '../hooks/useGetProfile';
 
 const Profile = () => {
   const access = getCookie('access');
-  const [profileData] = useState(null);
+const {data:profileData, isPending} = useGetProfile()
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); 
   const navigate = useNavigate();
+  console.log(profileData, isPending);
+  
+
   useEffect(() => {
     if (!access) {
       navigate('/login');
-    } else {
-      setIsCheckingAuth(false);
     }
   }, [access, navigate]);
 
 
 
-  if (isCheckingAuth) {
+  if (isPending) {
     return <Loader />;
   }
 
