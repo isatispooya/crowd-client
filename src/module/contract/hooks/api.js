@@ -2,7 +2,7 @@ import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
 export const getcontract = async (cartId) => {
-  const access = await getCookie('access');
+  const access = getCookie('access');
 
   const response = await api.get(`/api/cart/detail/${cartId}/`, {
     headers: {
