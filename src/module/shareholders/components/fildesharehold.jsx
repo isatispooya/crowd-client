@@ -49,7 +49,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
             <input
               type="text"
               name="percent"
-              value={formatNumber(validite[index].percent)||""}
+              value={validite[index].percent}
               disabled={validite[index].lock}
               onChange={(e) => handleChange('percent', e.target.value)}
               // maxLength={11}
