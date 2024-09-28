@@ -12,11 +12,13 @@ import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import {DateObject} from 'react-multi-date-picker';
+import SmallLoader from 'src/components/SmallLoader';
 
 const HistoryList = () => {
   const { cartId } = UseCartId();
   const [historyList, setHistoryList] = useState([]);
   const { incrementPage } = useNavigateStep(); 
+  const [loading, setLoading] = useState(false);
 
   const fetchManagerData = async () => {
     try {
@@ -36,6 +38,8 @@ const HistoryList = () => {
     }
   };
   const handleSubmit = async () => {
+    setLoading(true);
+
     try {
       const formData = new FormData();
       let hasFile = false;
@@ -51,6 +55,7 @@ const HistoryList = () => {
 
       if (!hasFile) {
         toast.info('لطفا فایل‌ مورد نیاز را بارگذاری کنید');
+        setLoading(false);
         return;
       }
 
@@ -94,11 +99,19 @@ const HistoryList = () => {
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}
-          className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
+          className={`flex items-center px-4 py-2 ${loading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
+          disabled={loading} 
+          
         >
-          ثبت
+          {loading ? 'در حال ارسال...' : 'ثبت'}
         </button>
       </div>
+      {
+        (loading&& (
+          <div className="flex justify-center mt-4">
+            <SmallLoader />
+          </div>
+        ))}
     </div>
   );
 };

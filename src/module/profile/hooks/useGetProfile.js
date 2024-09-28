@@ -1,19 +1,29 @@
 import { getCookie } from 'src/api/cookie';
 import { useQuery } from '@tanstack/react-query';
+import api from 'src/api/apiClient';
 
-const useGetProfile = async () => {
+const getProfile = async () => {
   const access = getCookie('access');
-  const getProfile = async () => {
- 
-     return access;
-  };
 
-  const { data, isLoading, isError, error } = useQuery({
+  const response = await api.get('/api/information/',{
+    headers: {
+      Authorization: `Bearer ${access}`,
+    },
+  })
+  
+   return response.data;
+};
+
+const useGetProfile = () => {
+
+
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
 
   });
-  return {isLoading , data , isError, error};
+
+  return {isPending , data , isError, error};
 };
 
 export default useGetProfile;

@@ -10,6 +10,7 @@ import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
+import SmallLoader from 'src/components/SmallLoader';
 import { getFormData } from '../utils/getFormData';
 import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
@@ -17,6 +18,7 @@ import Inputs from '../Feature/inputs';
 const Other = () => {
   const { cartId } = UseCartId();
   const { incrementPage } = useNavigateStep();
+  const [loading, setLoading] = useState(false);
 
   const [Data, setData] = useState({
     Lock_claims_status: false,
@@ -44,7 +46,6 @@ const Other = () => {
   });
 
   const { isLoading, data } = useFetchData(cartId);
-  console.log('other', data);
 
   useEffect(() => {
     if (data) {
@@ -57,6 +58,7 @@ const Other = () => {
   }
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const formData = getFormData(Data);
 
@@ -72,6 +74,7 @@ const Other = () => {
       console.log('Response:', response);
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
+      setLoading(false); 
 
       incrementPage();
     } catch (error) {
@@ -89,24 +92,24 @@ const Other = () => {
             <h1 className="text-2xl font-bold text-gray-700"> پیوست موارد دیگر</h1>
           </div>
           <Inputs Data={Data} setData={setData} />
-          {/* <div className="flex  flex-col  w-full justify-center  items-center ">
-            <button
-              onClick={handleSubmit}
-              className=" items-center text-center w-full px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
-            >
-              ثبت
-            </button>
-          </div> */}
-          <div className="flex justify-center  mt-8">
-            <button
-              onClick={handleSubmit}
-              className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-                isLoading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              {isLoading ? 'در حال بارگذاری...' : ' ثبت'}
-            </button>
+        
+          <div className="flex flex-col justify-center items-center mt-10">
+        <button
+          onClick={handleSubmit}
+          className={`flex items-center px-4 py-2 ${loading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
+          disabled={loading} 
+          
+        >
+          {loading ? 'در حال ارسال...' : 'ثبت'}
+        </button>
+      </div>
+      {isLoading ||
+        
+        (loading&& (
+          <div className="flex justify-center mt-4">
+            <SmallLoader />
           </div>
+        ))}
         </div>
       </div>
     </div>
