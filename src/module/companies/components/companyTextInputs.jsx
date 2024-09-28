@@ -12,25 +12,23 @@ import { companyTypes } from '../utils/companySelectionTypes';
 
 const CompanyInputs = ({ localData, setLocalData }) => {
 
+
+  
   const InputValues = (e) => {
     const { name, value } = e.target;
     const cleanedValue = cleanNumber(value);
     setLocalData({ ...localData, [name]: cleanedValue });
   };
-  // if (localData) {
-  //   const localData = localData.map(i=>({...i,date: new DateObject(i.setLocalData)}))
-  //   setLocalData(localData);
-  // }
 
   const handleDateChange = (date) => {
     const updatedData = { ...localData };  
-    updatedData.year_of_establishment = date ? date.toDate().getTime() : null; 
+    updatedData.year_of_establishment = date; 
     setLocalData(updatedData); 
   };
   
   const handleDateChangeNewse = (date) => {
-    const updatedData = { ...localData };  
-    updatedData.date_newspaper = date ? date.toDate().getTime() : null; 
+    const updatedData = { ...localData }; 
+    updatedData.date_newspaper = new Date(date).toISOString(); 
     setLocalData(updatedData); 
   };
   
@@ -68,7 +66,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره شناسه:</label>
         <input
-          type="text"
+          type="number"
           name="nationalid"
           disabled={localData.Lock_nationalid}
           value={localData.nationalid || ''}
@@ -81,7 +79,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره ثبت:</label>
         <input
-          type="text"
+          type="number"
           name="registration_number"
           value={localData.registration_number || ''}
           disabled={localData.Lock_registration_number}
@@ -109,7 +107,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="amount_of_registered_shares"
-          value={localData.amount_of_registered_shares || ''}
+          value={formatNumber(localData.amount_of_registered_shares) || ''}
           disabled={localData.lock_amount_of_registered_shares}
           onChange={InputValues}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -209,7 +207,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">کدپستی:</label>
         <input
-          type="text"
+          type="number"
           name="postal_code"
           value={localData.postal_code || ''}
           disabled={localData.Lock_postal_code}

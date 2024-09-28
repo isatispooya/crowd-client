@@ -10,9 +10,9 @@ import Loader from 'src/components/loader';
 import useContract from '../hooks/use-contract';
 
 const FormContract = () => {
-  const [farabourseFee, setFarabourseFee] = useState(1);
-  const [publicationFee, setPublicationFee] = useState(1);
-  const [serviceFee, setServiceFee] = useState(1);
+  // const [farabourseFee, setFarabourseFee] = useState(1);
+  // const [publicationFee, setPublicationFee] = useState(1);
+  // const [serviceFee, setServiceFee] = useState(1);
   const [createFee, setCreateFee] = useState(1);
   const [swimmingPercentage, setSwimmingPercentage] = useState(80);
   const [rateProfit, setRateProfit] = useState(40);
@@ -21,9 +21,9 @@ const FormContract = () => {
 
   const handleSubmit = () => {
     const data = {
-      farabourseFee,
-      publicationFee,
-      serviceFee,
+      // farabourseFee,
+      // publicationFee,
+      // serviceFee,
       createFee,
       swimmingPercentage,
       rateProfit,

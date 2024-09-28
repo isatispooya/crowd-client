@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import api from '../../../api/apiClient';
 import { getCookie } from '../../../api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
-import { DateObject } from 'react-multi-date-picker';
 
 const getFormData = (data) => {
   const formData = new FormData();
@@ -30,9 +29,10 @@ const getFormData = (data) => {
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
   if (data.date_newspaper) {
-    const dateObject = new DateObject(data.date_newspaper);
-    const formattedDate = dateObject.format("YYYY/MM/DD");  
-    formData.append('date_newspaper', formattedDate); 
+    
+    // const dateObject = new DateObject(data.date_newspaper);
+    // const formattedDate = dateObject.format("YYYY/MM/DD");  
+    formData.append('date_newspaper', data.date_newspaper); 
   }
   const fileFields = [
     'financial_report_thisyear',
@@ -162,7 +162,6 @@ export const createCart = async (data, handleNext) => {
       },
       maxBodyLength: Infinity,
     });
-    console.log("kkk",response.data)
 
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');

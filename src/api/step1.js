@@ -3,10 +3,10 @@
 import { toast } from 'react-toastify';
 import api from './apiClient';
 import { getCookie } from './cookie';
-import { DateObject } from 'react-multi-date-picker';
 
 // تابع برای ایجاد فرم دیتا
 const getFormData = (data) => {
+  
   const formData = new FormData();
 
   const fields = [
@@ -26,17 +26,21 @@ const getFormData = (data) => {
     'date_newspaper',
     'amount_of_registered_capital',
     "amount_of_registered_shares",
-    "exchange_code"
+    "exchange_code",
+    'year_of_establishment'
   ];
 
  
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
   if (data.date_newspaper) {
-    const dateObject = new DateObject(data.date_newspaper);
-    const formattedDate = dateObject.format("YYYY/MM/DD");  
-    formData.append('date_newspaper', formattedDate); 
+    formData.append('date_newspaper', data.date_newspaper); 
   }
+  console.log(data.year_of_establishment)
+  if (data.year_of_establishment) {
+    formData.append('year_of_establishment', data.year_of_establishment); 
+  }
+  
   const fileFields = [
     'financial_report_thisyear',
     'financial_report_lastyear',
@@ -76,6 +80,8 @@ export const getStep1 = async (cartId) => {
     });
   
 
+    console.log('aa',response.data);
+    
  
     return response;
   }
@@ -150,13 +156,15 @@ export const getStep1 = async (cartId) => {
         lock_amount_of_registered_shares: false,
         exchange_code:null,
         lock_bounced_check: false,
-        
+        year_of_establishment:null
       },
     },
   };
 };
 export const createCart = async (data, incrementPage) => {
+  
   const formData = getFormData(data);
+
   const access = await getCookie('access');
   try {
     const response = await api.post('/api/cart/', formData, {
@@ -181,8 +189,6 @@ export const createCart = async (data, incrementPage) => {
 export const updateCart = async (data, incrementPage, cartId) => {
   const formData = getFormData(data);
   const access = await getCookie('access');
-  console.log(formData);
-  
 
   try {
     const response = await api.patch(`/api/cart/detail/${cartId}/`, formData, {

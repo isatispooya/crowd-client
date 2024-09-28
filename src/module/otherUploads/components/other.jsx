@@ -46,7 +46,7 @@ const Other = () => {
   });
 
   const { isLoading, data } = useFetchData(cartId);
-  console.log(data)
+  console.log("other",data)
 
 
   useEffect(() => {
@@ -67,15 +67,15 @@ const Other = () => {
 
       const access = await getCookie('access');
 
-      await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
+      const response = await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${access}`,
         },
-
-        maxBodyLength: Infinity,
       });
-
+  
+      console.log('Response:', response);
+      
       toast.success('اطلاعات با موفقیت ارسال شد!');
 
       incrementPage();
