@@ -1,16 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
+import PropTypes from 'prop-types'; // Import prop-types
 
-// eslint-disable-next-line react/prop-types
-const InputPercent = ({ label, value, disabled, setValue }) => {
-  // const handleSetValue = (newValue) => {
-  //   if (newValue > 100) {
-  //     setValue(100);
-  //   } else if (newValue < 0) {
-  //     setValue(0);
-  //   } else {
-  //     setValue(newValue);
-  //   }
-  // };
+const InputPercent = ({ label, keyName, value, disabled, handle }) => {
+  const handleChange = (e) => {
+    const newValue = e.target.value.replace(/[^0-9.]/g, '');
+    handle({ ...value, [keyName]: newValue });
+  };
+
   return (
     <div className="mb-6 relative">
       <label className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
@@ -19,9 +16,9 @@ const InputPercent = ({ label, value, disabled, setValue }) => {
         <input
           type="number"
           name={label}
-          // value={value || ''}
+          value={value[keyName] || ''}
           disabled={disabled || false}
-          // onChange={(e) => handleSetValue(e.target.value)}
+          onChange={handleChange}
           onInput={(e) => {
             e.target.value = e.target.value.replace(/[^0-9.]/g, '');
             if (e.target.value.split('.').length > 2) {
@@ -33,6 +30,15 @@ const InputPercent = ({ label, value, disabled, setValue }) => {
       </div>
     </div>
   );
+};
+
+// Add propTypes for prop validation
+InputPercent.propTypes = {
+  label: PropTypes.string.isRequired,
+  keyName: PropTypes.string.isRequired, // Validating keyName prop
+  value: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  handle: PropTypes.func.isRequired,
 };
 
 export default InputPercent;

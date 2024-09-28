@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import UseCartId from 'src/hooks/use-cartId';
@@ -10,19 +11,13 @@ import UsePostContract from '../hooks/use-contract';
 const FormContract = () => {
   const { cartId } = UseCartId();
   const [contractData, setContractData] = useState({});
-  const [value, setValue] = useState(null);
   const { data: dataContract, isError } = useGetContract(cartId);
   const { mutate, isLoading, isError: err } = UsePostContract(cartId);
 
+  console.log('ss', contractData);
+
   const handleSubmit = () => {
-    mutate(contractData, {
-      onSuccess: () => {
-        toast.success('اطلاعات با موفقیت ارسال شد.');
-      },
-      onError: () => {
-        toast.error('خطا در ارسال اطلاعات.');
-      },
-    });
+    mutate(contractData);
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
@@ -54,7 +49,7 @@ const FormContract = () => {
 
   useEffect(() => {
     if (dataContract && !isError) {
-      setContractData(dataContract);
+      setContractData(dataContract?.cart);
     }
   }, [dataContract, isError]);
 
@@ -67,22 +62,25 @@ const FormContract = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
           <InputPercent
-            value={value}
-
-            label="درصد شناوری تامین مالی "
+            value={contractData}
+            handle={(updatedData) => setContractData(updatedData)}
+            keyName={'swimming_percentage'}
+            label="درصد شناوری تامین مالی"
           />
-          <InputPercent label="درصد سود مشارکت اسمی" />
-          <SelectInput
-            label="نوع ضمانت"
-            value={value}
-            options={guaranteeOptions}
-         
+          <InputPercent
+            label="درصد سود مشارکت اسمی"
+            value={contractData}
+            handle={(updatedData) => setContractData(updatedData)}
+            keyName={'partnership_interest'}
           />
+          <SelectInput label="نوع ضمانت" value={contractData}
+           options={guaranteeOptions}
+           />
           <SelectInput
-            label=" دوره پرداخت"
-            value={value}
+            label="دوره پرداخت"
+            value={contractData.period || ''} // دسترسی به مقدار 'period' از contractData
             options={periodOptions}
-        
+            setContractData={(newPeriod) => setContractData({ ...contractData, period: newPeriod })}
           />
         </div>
 
