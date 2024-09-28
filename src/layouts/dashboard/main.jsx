@@ -19,6 +19,7 @@ export default function Main({ children, sx, ...other }) {
         <Box
       component="main"
       sx={{
+        backgroundColor : "#ffffff",
         flexGrow: 1,
         minHeight: 1,
         display: 'flex',

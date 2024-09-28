@@ -11,16 +11,16 @@ function Login() {
   };
 
   return (
-    <div dir="rtl" className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div dir="rtl" className="min-h-screen flex items-center justify-center bg-white">
       <div className="bg-white shadow-2xl rounded-lg flex overflow-hidden">
-        <div className="hidden md:block md:w-1/2">
+        <div className="hidden md:block md:w-1/2 bg-white">
           <img
             src="\public\assets\background\overlay_3.jpg"
             alt="Login Image"
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="w-full md:w-1/2 p-8">
+        <div className="w-full md:w-1/2 p-8 bg-white ">
           <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">خوش آمدید</h1>
           <p className="text-gray-600 text-center mb-6">کد ملی خود را وارد کنید</p>
           <form onSubmit={handleSubmit}>

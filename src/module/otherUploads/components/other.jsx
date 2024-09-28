@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import UseCartId from 'src/hooks/use-cartId';
@@ -27,10 +26,10 @@ const Other = () => {
     Lock_statutes: false,
     Lock_assets_and_liabilities: false,
     Lock_latest_insurance_staf: false,
-    Lock_product_catalog : false,
-    Lock_auditor_representative : false, 
-    Lock_announcing_account_number : false,
-    Lock_licenses : false,
+    Lock_product_catalog: false,
+    Lock_auditor_representative: false,
+    Lock_announcing_account_number: false,
+    Lock_licenses: false,
     claims_status: null,
     latest_insurance_staf: null,
     assets_and_liabilities: null,
@@ -38,16 +37,14 @@ const Other = () => {
     bank_account_turnover: null,
     announcement_of_changes_capital: null,
     announcement_of_changes_managers: null,
-    product_catalog : null,
-    auditor_representative : null, 
-    announcing_account_number : null,
-    licenses : null,
-    
+    product_catalog: null,
+    auditor_representative: null,
+    announcing_account_number: null,
+    licenses: null,
   });
 
   const { isLoading, data } = useFetchData(cartId);
-  console.log("other",data)
-
+  console.log('other', data);
 
   useEffect(() => {
     if (data) {
@@ -55,11 +52,9 @@ const Other = () => {
     }
   }, [data]);
 
-  
   if (isLoading) {
     return <Loader />;
   }
-
 
   const handleSubmit = async () => {
     try {
@@ -73,9 +68,9 @@ const Other = () => {
           Authorization: `Bearer ${access}`,
         },
       });
-  
+
       console.log('Response:', response);
-      
+
       toast.success('اطلاعات با موفقیت ارسال شد!');
 
       incrementPage();
@@ -103,19 +98,15 @@ const Other = () => {
             </button>
           </div> */}
           <div className="flex justify-center  mt-8">
-        <button
-          onClick={handleSubmit}
-          className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-            isLoading 
-              ? 'opacity-50 cursor-not-allowed'
-              : ''
-          }`}
-        >
-          {isLoading 
-            ? 'در حال بارگذاری...'
-            : ' ثبت'}
-        </button>
-      </div>
+            <button
+              onClick={handleSubmit}
+              className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {isLoading ? 'در حال بارگذاری...' : ' ثبت'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -107,7 +107,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="amount_of_registered_shares"
-          value={formatNumber(localData.amount_of_registered_shares) || null}
+          value={formatNumber(localData.amount_of_registered_shares)}
           disabled={localData.lock_amount_of_registered_shares}
           onChange={InputValues}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
