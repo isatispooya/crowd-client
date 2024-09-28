@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-
 const FileSharehold = ({ index, validite, setValidite }) => {
   const handleChange = (input, value) => {
     const updatedRow = { ...validite[index], [input]: value };
@@ -47,12 +46,11 @@ const FileSharehold = ({ index, validite, setValidite }) => {
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-medium mb-2">تعداد سهام :</label>
             <input
-              type="text"
+              type="number"
               name="percent"
               value={validite[index].percent}
               disabled={validite[index].lock}
               onChange={(e) => handleChange('percent', e.target.value)}
-              // maxLength={11}
               required
               className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />

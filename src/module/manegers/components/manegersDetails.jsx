@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { useQuery } from '@tanstack/react-query';
-import { getCookie } from 'src/api/cookie';
-import { OnRun } from 'src/api/OnRun';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +9,8 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import Fildemnager from 'src/module/manegers/components/fildemaneger';
 import ConfirmationDialog from 'src/components/dialogMsg';
 import Loader from 'src/components/loader';
-
+import useGetManagement from 'src/sections/resume/hook/useGetmanagement';
+import usePostManager from '../service/usePostManager';
 
 const ManegersDetails = () => {
   const { cartId } = UseCartId();
@@ -34,27 +31,16 @@ const ManegersDetails = () => {
 
   const { incrementPage } = useNavigateStep();
 
-  const fetchManager = async () => {
-    const access = await getCookie('access');
-    if (cartId) {
-      const response = await axios.get(`${OnRun}/api/manager/${cartId}/`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
-      if (response.data.data?.length > 0) {
-        setField(response.data.data);
-      }
-      return response.data;
-    }
-    return null;
-  };
+  const { isLoading, data } = useGetManagement(cartId);
 
-  const { isLoading } = useQuery({
-    queryKey: ['fetchMessage', cartId],
-    queryFn: () => fetchManager(cartId),
-  });
-  if (isLoading) return <Loader/>;
+  useEffect(() => {
+    if (data) {
+      if(data.length>0){
+        setField(data);
+      }
+    }
+  }, [data]);
+
 
   const handleAdd = () => {
     setField((prevField) => [...prevField, singleFile]);
@@ -74,63 +60,57 @@ const ManegersDetails = () => {
 
   const validateFields = () => {
     let hasError = false;
+
     field.forEach((manager) => {
-      if (manager.name.trim() === '') {
+
+      if (manager.name.length===0) {
         toast.error('فیلد نام نباید خالی باشد');
         hasError = true;
       }
-      if (manager.position.trim() === '') {
+      if (manager.position.length===0) {
         toast.error('فیلد سمت نباید خالی باشد');
         hasError = true;
       }
-      if (manager.national_code.trim() === '') {
+      if (manager.national_code.length===0) {
         toast.error('فیلد کد ملی نباید خالی باشد');
         hasError = true;
       }
-      if (manager.is_legal === null) {
-        toast.error('وضعیت حقوقی باید مشخص شود');
-        hasError = true;
-      }
-      if (manager.is_obliged === null) {
-        toast.error('وضعیت تعهد باید مشخص شود');
-        hasError = true;
-      }
+
     });
+    
     return hasError;
   };
 
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const {mutate, isSuccess, isPending, isError} = usePostManager()
+
   const handlePost = async () => {
-    incrementPage();
-    if (validateFields()) return;
+    
+    if (true) {
 
-    const access = await getCookie('access');
-    const sanitizedField = field.map((manager) => ({
-      ...manager,
-      national_id: manager.national_id || '',
-      representative: manager.representative || '',
-    }));
+      const sanitizedField = field.map((manager) => ({
+        ...manager,
+        national_id: manager.national_id || '',
+        representative: manager.representative || '',
+      }));      
+      mutate({cartId, sanitizedField})     
 
-    try {
-      await axios.post(
-        `${OnRun}/api/manager/${cartId}/`,
-        { managers: sanitizedField },
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+
+    };
+
+  };
+  useEffect(() => {
+    if (!isPending && isSuccess) {
       toast.success('اطلاعات با موفقیت ارسال شد');
-      // بعد از ارسال موفق، به مرحله بعدی بروید
       incrementPage();
-    } catch (error) {
-      console.error('خطا :', error);
-      console.error('Error Response:', error.response.data);
+    }else if(!isPending && isError){
       toast.error('خطا در ارسال اطلاعات');
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPending, isSuccess]);
 
+  if (isLoading) return <Loader />;
   return (
     <div className="flex flex-col items-center w-full min-h-screen p-8">
       <ToastContainer />
@@ -151,7 +131,6 @@ const ManegersDetails = () => {
               </button>
             )}
             <Fildemnager index={index} field={field} setField={setField} />
-
           </div>
         ))}
 
@@ -177,8 +156,8 @@ const ManegersDetails = () => {
 
       <ConfirmationDialog
         open={openDialog}
-        onClose={() => setOpenDialog(false)} 
-        onConfirm={handleDeleteConfirm} 
+        onClose={() => setOpenDialog(false)}
+        onConfirm={handleDeleteConfirm}
         title="تایید حذف"
         message="آیا مطمئن هستید که می‌خواهید این فرم را حذف کنید؟"
       />

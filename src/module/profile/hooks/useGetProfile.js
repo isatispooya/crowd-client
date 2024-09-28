@@ -14,7 +14,6 @@ const useGetProfile = async () => {
 
   });
   return {isLoading , data , isError, error};
-
 };
 
 export default useGetProfile;
