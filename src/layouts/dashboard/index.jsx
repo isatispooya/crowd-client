@@ -17,6 +17,7 @@ export default function DashboardLayout({ children }) {
           minHeight: 1,
           display: 'flex',
           flexDirection: { xs: 'column', lg: 'row' },
+          backgroundColor : "#ffffff",
         }}
       >
         <Nav  openNav={openNav} onCloseNav={() => setOpenNav(false)} />
