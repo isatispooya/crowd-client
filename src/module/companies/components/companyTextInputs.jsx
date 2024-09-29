@@ -121,7 +121,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           type="number"
           name="newspaper"
           value={localData.newspaper || ''}
-          disabled={localData.Lock_newspaper}
+          disabled={localData.lock_newspaper}
           onChange={InputValues}
           maxLength={7}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
@@ -140,6 +140,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       value={localData.date_newspaper ? new DateObject(localData.date_newspaper) : null}
       onChange={handleDateChangeNewse}
       calendar={persian}
+      disabled={localData.lock_date_newspaper}
       locale={persian_fa}
       className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
     />
@@ -161,7 +162,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           type="text"
           name="city"
           value={localData.city || ''}
-          disabled={localData.Lock_city}
+          disabled={localData.lock_city}
           onChange={InputValues}
           className="shadow  border border-gray-300 bg-white rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
@@ -189,6 +190,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       onChange={handleDateChange}
       calendar={persian}
       locale={persian_fa}
+      disabled={localData.lock_year_of_establishment}
       className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
     />
       </div>
@@ -210,7 +212,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           type="number"
           name="postal_code"
           value={localData.postal_code || ''}
-          disabled={localData.Lock_postal_code}
+          disabled={localData.lock_postal_code}
           onChange={(e) => {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 10) {
