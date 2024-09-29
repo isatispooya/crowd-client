@@ -45,6 +45,8 @@ const Other = () => {
     licenses: null,
   });
 
+  console.log(cartId);
+
   const { isLoading, data } = useFetchData(cartId);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const Other = () => {
       console.log('Response:', response);
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
-      setLoading(false); 
+      setLoading(false);
 
       incrementPage();
     } catch (error) {
@@ -92,24 +94,24 @@ const Other = () => {
             <h1 className="text-2xl font-bold text-gray-700"> پیوست موارد دیگر</h1>
           </div>
           <Inputs Data={Data} setData={setData} />
-        
+
           <div className="flex flex-col justify-center items-center mt-10">
-        <button
-          onClick={handleSubmit}
-          className={`flex items-center px-4 py-2 ${loading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
-          disabled={loading} 
-          
-        >
-          {loading ? 'در حال ارسال...' : 'ثبت'}
-        </button>
-      </div>
-      {isLoading ||
-        
-        (loading&& (
-          <div className="flex justify-center mt-4">
-            <SmallLoader />
+            <button
+              onClick={handleSubmit}
+              className={`flex items-center px-4 py-2 ${
+                loading ? 'bg-gray-500' : 'bg-blue-500'
+              } text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
+              disabled={loading}
+            >
+              {loading ? 'در حال ارسال...' : 'ثبت'}
+            </button>
           </div>
-        ))}
+          {isLoading ||
+            (loading && (
+              <div className="flex justify-center mt-4">
+                <SmallLoader />
+              </div>
+            ))}
         </div>
       </div>
     </div>

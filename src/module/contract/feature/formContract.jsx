@@ -17,10 +17,12 @@ const FormContract = () => {
   
   const handleSubmit = () => {
     mutate(contractData);
-    toast.success();
+    toast.success("اطلاعات با موفقیت بارگزاری شد");
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
+
+
 
   const toggleLabels = [
     { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', key: 'role_141' },
