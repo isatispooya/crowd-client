@@ -14,38 +14,47 @@ const FormContract = () => {
   const { data: dataContract, isError } = useGetContract(cartId);
   const { mutate, isLoading, isError: err } = UsePostContract(cartId);
 
-  console.log('ss', contractData);
+  console.log('why nott', contractData);
 
   const handleSubmit = () => {
     mutate(contractData);
+    toast.success()
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
 
-  const handleChangeToggle = (e) => {
-    const { name, checked } = e.target;
-    setContractData((prevData) => ({
-      ...prevData,
-      cart: {
-        ...prevData.cart,
-        [name]: checked,
-      },
-    }));
-  };
-
-  const labels = [
-    'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.',
-    'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.',
-    ' متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.',
-    'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.',
-    'متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.',
-    'متقاضی متعهد است , پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز اقدام نماید',
+  const toggleLabels = [
+    { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', key: 'role_141' },
+    { label: 'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.', key: 'bounced_check' },
+    {
+      label: 'متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.',
+      key: 'non_current_debt',
+    },
+    { label: 'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.', key: 'criminal_record' },
+    {
+      label: 'متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.',
+      key: 'prohibited',
+    },
+    {
+      label:
+        'متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز اقدام نماید.',
+      key: 'minimum_deposit_10',
+    },
   ];
+
   const guaranteeOptions = [
     { type: '1', title: ' تعهد پرداخت بانکی ' },
     { type: '2', title: 'حسن پرداخت ' },
     { type: '3', title: '(چک)اوراق بهادار' },
   ];
+
+  const handleChangeToggle = (e, key) => {
+    const { checked } = e.target;
+    setContractData((prevData) => ({
+      ...prevData,
+      [key]: checked,
+    }));
+  };
 
   useEffect(() => {
     if (dataContract && !isError) {
@@ -62,10 +71,10 @@ const FormContract = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
           <InputPercent
+            label="درصد شناوری تامین مالی"
             value={contractData}
             handle={(updatedData) => setContractData(updatedData)}
             keyName={'swimming_percentage'}
-            label="درصد شناوری تامین مالی"
           />
           <InputPercent
             label="درصد سود مشارکت اسمی"
@@ -73,26 +82,39 @@ const FormContract = () => {
             handle={(updatedData) => setContractData(updatedData)}
             keyName={'partnership_interest'}
           />
-          <SelectInput label="نوع ضمانت" value={contractData}
-           options={guaranteeOptions}
-           />
+          <SelectInput
+            label="نوع ضمانت"
+            value={contractData.guarantee || ''}
+            options={guaranteeOptions}
+            setContractData={setContractData}
+            contractData={contractData}
+            keyName={'guarantee'}
+          />
           <SelectInput
             label="دوره پرداخت"
-            value={contractData.period || ''} // دسترسی به مقدار 'period' از contractData
+            value={contractData.payment_period || ''}
             options={periodOptions}
-            setContractData={(newPeriod) => setContractData({ ...contractData, period: newPeriod })}
+            setContractData={setContractData}
+            contractData={contractData}
+            keyName={'payment_period'}
           />
         </div>
 
-        {labels.map((label, index) => (
-          <ToggleContract
-            key={index}
-            label={label}
-            checked={contractData?.cart?.[index] || false}
-            handle={handleChangeToggle}
-            name={`toggle-${index}`}
-          />
-        ))}
+        {toggleLabels.map(({ label, key }) => {
+          const lockKey = `lock_${key}`;
+          const isDisabled = contractData[lockKey] === true;
+
+          return (
+            <ToggleContract
+              key={key}
+              label={label}
+              checked={contractData?.[key] || false}
+              handle={(e) => handleChangeToggle(e, key)}
+              name={key}
+              disabled={isDisabled}
+            />
+          );
+        })}
       </div>
       <div className="flex justify-center mt-8">
         <button

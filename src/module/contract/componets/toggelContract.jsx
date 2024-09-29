@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ToggleContract = ({ label, checked, handle, disabled  , contractData }) => {
+const ToggleContract = ({ label, checked, handle, isDisabled }) => {
   return (
     <div className="collapse p-3 collapse-close border rounded-lg border-none shadow-md">
       <div className="collapse-title flex justify-between items-center text-md font-medium bg-white">
@@ -10,11 +10,10 @@ const ToggleContract = ({ label, checked, handle, disabled  , contractData }) =>
           <span className="mx-2">خیر</span>
           <input
             type="checkbox"
-            name="role_141"
-            className="toggle toggle-info bg-white "
-            checked={contractData}
+            className="toggle toggle-info bg-gray-500"
+            checked={checked}
             onChange={handle}
-            disabled={disabled}
+            disabled={isDisabled}
           />
           <span className="mx-2">بله</span>
         </div>
@@ -25,10 +24,9 @@ const ToggleContract = ({ label, checked, handle, disabled  , contractData }) =>
 
 ToggleContract.propTypes = {
   label: PropTypes.string.isRequired,
-  checked: PropTypes.isRequired,
-  handle: PropTypes.isRequired,
-  disabled: PropTypes.isRequired,
-  contractData : PropTypes.isRequired
+  checked: PropTypes.bool.isRequired, 
+  handle: PropTypes.func.isRequired, 
+  isDisabled: PropTypes.bool, 
 };
 
 export default ToggleContract;

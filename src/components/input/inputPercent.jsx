@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import PropTypes from 'prop-types'; // Import prop-types
+import PropTypes from 'prop-types'; 
 
 const InputPercent = ({ label, keyName, value, disabled, handle }) => {
   const handleChange = (e) => {
@@ -32,10 +32,10 @@ const InputPercent = ({ label, keyName, value, disabled, handle }) => {
   );
 };
 
-// Add propTypes for prop validation
+
 InputPercent.propTypes = {
   label: PropTypes.string.isRequired,
-  keyName: PropTypes.string.isRequired, // Validating keyName prop
+  keyName: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   handle: PropTypes.func.isRequired,
