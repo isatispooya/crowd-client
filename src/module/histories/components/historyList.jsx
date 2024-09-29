@@ -34,7 +34,7 @@ const HistoryList = () => {
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
-      toast.error('خطا در دریافت اطلاعات');
+      toast.error('خطا!! مدیران یافت نشد و یک مدیر ایجاد کنید');
     }
   };
   const handleSubmit = async () => {

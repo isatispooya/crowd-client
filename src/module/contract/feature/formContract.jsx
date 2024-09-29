@@ -14,11 +14,10 @@ const FormContract = () => {
   const { data: dataContract, isError } = useGetContract(cartId);
   const { mutate, isLoading, isError: err } = UsePostContract(cartId);
 
-  console.log('why nott', contractData);
-
+  
   const handleSubmit = () => {
     mutate(contractData);
-    toast.success()
+    toast.success();
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
@@ -92,22 +91,23 @@ const FormContract = () => {
           />
           <SelectInput
             label="دوره پرداخت"
-            value={contractData.payment_period || ''}
+            value={contractData.payback_period || ''}
             options={periodOptions}
             setContractData={setContractData}
             contractData={contractData}
-            keyName={'payment_period'}
+            keyName={'payback_period'}
           />
         </div>
 
         {toggleLabels.map(({ label, key }) => {
-          const lockKey = `lock_${key}`;
+          const lockKey = `Lock_${key}`;
           const isDisabled = contractData[lockKey] === true;
 
           return (
             <ToggleContract
               key={key}
               label={label}
+              value={contractData}
               checked={contractData?.[key] || false}
               handle={(e) => handleChangeToggle(e, key)}
               name={key}

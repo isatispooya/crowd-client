@@ -32,7 +32,7 @@ const Attachement = () => {
       }
     } catch (error) {
       console.error('خطا در دریافت اطلاعات:', error);
-      toast.error('خطا در دریافت اطلاعات');
+      toast.error('خطا!! مدیران یافت نشد , یک مدیر ایجاد کنید');
     }
   };
 
