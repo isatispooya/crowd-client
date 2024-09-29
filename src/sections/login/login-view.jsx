@@ -205,10 +205,22 @@ export default function LoginView() {
         </Stack>
       </Box>
       <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
-          © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
-        </Typography>
-      </Box>
+  <Typography variant="body2" color="text.secondary">
+    © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
+  </Typography>
+  <a
+    referrerPolicy="origin"
+    target="_blank"
+    href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8" rel="noreferrer"
+  >
+    <img
+      referrerPolicy="origin"
+      src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+      alt=""
+      style={{ cursor: 'pointer' }}
+    />
+  </a>
+</Box>
 
     </Box>
   );

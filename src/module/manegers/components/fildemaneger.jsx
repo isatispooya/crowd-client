@@ -67,6 +67,7 @@ const Fildemnager = ({ index, field, setField }) => {
             <label className="block text-gray-700 text-sm font-semibold mb-2">نوع :</label>
             <select
               value={field[index].is_legal}
+              disabled={field[index].lock}
               onChange={(e) => handleChange('is_legal', e.target.value)}
               name="is_legal"
               className="block w-full border bg-white rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -155,7 +155,10 @@ export const getStep1 = async (cartId) => {
         lock_amount_of_registered_shares: false,
         exchange_code:null,
         lock_bounced_check: false,
-        year_of_establishment:null
+        year_of_establishment:null,
+        lock_date_newspaper:false,
+        lock_newspaper:false,
+        lock_logo:false
       },
     },
   };
