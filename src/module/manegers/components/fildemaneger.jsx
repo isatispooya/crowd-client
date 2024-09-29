@@ -17,6 +17,7 @@ const Fildemnager = ({ index, field, setField }) => {
     { type: 2, title: 'نایب رئیس' },
     { type: 3, title: 'عضو هیئت مدیره' },
     { type: 4, title: 'مدیرعامل' },
+    { type: 5, title: ' مدیرعامل و عضو هیئت مدیره' },
   ];
 
   const handleChange = (input, value) => {

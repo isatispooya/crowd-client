@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { cleanNumber, formatNumber } from 'src/utils/formatNumbers';
 
 const FileSharehold = ({ index, validite, setValidite }) => {
   const handleChange = (input, value) => {
@@ -50,7 +51,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
               name="percent"
               value={validite[index].percent}
               disabled={validite[index].lock}
-              onChange={(e) => handleChange('percent', e.target.value)}
+              onChange={(e) => handleChange('percent', cleanNumber(e.target.value))}
               required
               className="shadow appearance-none bg-white disabled:bg-gray-200 text-black border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:ring-indigo-200"
             />

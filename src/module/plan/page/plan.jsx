@@ -36,16 +36,16 @@ const Plan = () => {
             { label: ' مستندات طرح', tab: 1 },
             { label: 'تضامین و گزارشات اعتباری', tab: 2 },
             { label: ' تب جدید گزارشات ', tab: 3 },
-            { label: 'نظرات کاربران', tab: 4 },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
-            { label: 'محاسبه‌گر سود', tab: 6 },
-            { label: 'زمان بندی طرح', tab: 7 },
-            { label: 'مشارکت', tab: 8 },
-   
+            { label: 'تخلفات', tab: 4 },
+            { label: 'نظرات کاربران', tab: 5 },
+            { label: 'مشخصات سرمایه‌گذارن', tab: 6 },
+            { label: 'محاسبه‌گر سود', tab: 7 },
+            { label: 'زمان بندی طرح', tab: 8 },
+            { label: 'مشارکت', tab: 9 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
-                className={`py-2 px-4 transition-all duration-300 ${
+                className={`py-2 px-1 font-semibold transition-all duration-300 ${
                   label === 'مشارکت'
                     ? 'bg-blue-900 text-white rounded-sm'
                     : activeTab === tab
@@ -85,34 +85,36 @@ const Plan = () => {
         )}
 
         {activeTab === 4 && (
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md">تخلفات</div>
+        )}
+        {activeTab === 5 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <CommentForm />
           </div>
         )}
 
-        {activeTab === 5 && (
+        {activeTab === 6 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <InvestProfile />
           </div>
         )}
-        {activeTab === 6 && (
+        {activeTab === 7 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Calculate />
           </div>
         )}
-        {activeTab === 7 && (
+        {activeTab === 8 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Roadmap />
           </div>
         )}
         <div>
-          {activeTab === 8 && (
+          {activeTab === 9 && (
             <div className="grid   gap-8">
               <Participation />
             </div>
           )}
         </div>
-
       </div>
     </div>
   );
