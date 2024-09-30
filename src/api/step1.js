@@ -6,7 +6,6 @@ import { getCookie } from './cookie';
 
 // تابع برای ایجاد فرم دیتا
 const getFormData = (data) => {
-  
   const formData = new FormData();
 
   const fields = [
@@ -25,21 +24,19 @@ const getFormData = (data) => {
     'newspaper',
     'date_newspaper',
     'amount_of_registered_capital',
-    "amount_of_registered_shares",
-    "exchange_code",
-    'year_of_establishment'
+    'amount_of_registered_shares',
+    'exchange_code',
+    'year_of_establishment',
   ];
-
- 
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
   if (data.date_newspaper) {
-    formData.append('date_newspaper', data.date_newspaper); 
+    formData.append('date_newspaper', data.date_newspaper);
   }
   if (data.year_of_establishment) {
-    formData.append('year_of_establishment', data.year_of_establishment); 
+    formData.append('year_of_establishment', data.year_of_establishment);
   }
-  
+
   const fileFields = [
     'financial_report_thisyear',
     'financial_report_lastyear',
@@ -77,11 +74,9 @@ export const getStep1 = async (cartId) => {
         Authorization: `Bearer ${access}`,
       },
     });
-  
 
-    console.log('aa',response.data);
-    
- 
+    console.log('aa', response.data);
+
     return response;
   }
   return {
@@ -150,24 +145,23 @@ export const getStep1 = async (cartId) => {
         Lock_claims_status: false,
         file_manager: null,
         file_validational: null,
-        amount_of_registered_capital:null,
-        amount_of_registered_shares:null,
+        amount_of_registered_capital: null,
+        amount_of_registered_shares: null,
         lock_amount_of_registered_shares: false,
-        exchange_code:null,
+        exchange_code: null,
         lock_bounced_check: false,
-        year_of_establishment:null,
-        lock_date_newspaper:false,
-        lock_newspaper:false,
-        lock_logo:false
+        year_of_establishment: null,
+        lock_date_newspaper: false,
+        lock_newspaper: false,
+        lock_logo: false,
       },
     },
   };
 };
 export const createCart = async (data, incrementPage) => {
-  
   const formData = getFormData(data);
 
-  const access =  getCookie('access');
+  const access = getCookie('access');
   try {
     const response = await api.post('/api/cart/', formData, {
       headers: {
@@ -176,7 +170,7 @@ export const createCart = async (data, incrementPage) => {
       },
       maxBodyLength: Infinity,
     });
-    
+
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handlePageIncrement(incrementPage);
@@ -208,7 +202,7 @@ export const updateCart = async (data, incrementPage, cartId) => {
 
     return response;
   } catch (error) {
-    toast.error('خطا در به‌روزرسانی اطلاعات.');
+    toast.info('لطفا نام شرکت را وارد کنید');
     throw error;
   }
 };

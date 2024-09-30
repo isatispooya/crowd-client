@@ -18,7 +18,7 @@ const CompanyUploads = ({ localData, setLocalData }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-        {/* Card for 1402 Reports */}
+
         <div className="bg-white p-6">
           <h2 className="text-center text-gray-700 text-xl border-b font-bold mb-6 pb-4">
             گزارشات و مستندات منتهی به سال 1402

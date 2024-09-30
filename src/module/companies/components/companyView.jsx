@@ -48,8 +48,10 @@ export default function Form() {
   }, [isError]);
 
   const handleSubmit = async () => {
-    if (!cartId) {
+    if (!cartId && localData.company_name === !null) {
       mutation.mutate();
+      
+
     } else {
       mutationUpdate.mutate();
     }
