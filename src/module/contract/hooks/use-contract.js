@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
@@ -20,12 +21,16 @@ const postContract = async ({cartId,contractData}) => {
   );
 
   return response.data.cart;
+  
 };
 
 const UsePostContract = (cartId) => {
   const { mutate, isLoading, IsError, isPending, error } = useMutation({
     mutationKey: ['contract', cartId],
     mutationFn: (contractData) => postContract({cartId,contractData}),
+    onSuccess: (data) => {
+      toast.success('اطلاعات با موفقیت ارسال شد!'); // پیام موفقیت
+    },
   });
   return {
     mutate,

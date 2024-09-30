@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-curly-brace-presence */
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -56,10 +57,10 @@ const FormContract = () => {
   };
 
   useEffect(() => {
-    if (dataContract && !isError) {
+    if (dataContract && !isError||err) {
       setContractData(dataContract?.cart);
     }
-  }, [dataContract, isError]);
+  }, [dataContract, isError,err]);
 
   return (
     <>
@@ -116,15 +117,17 @@ const FormContract = () => {
           );
         })}
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex flex-col justify-center items-center mt-10">
         <button
-          type="button"
           onClick={handleSubmit}
-          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className={`flex items-center px-4 py-2 ${isLoading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
+          disabled={isLoading} 
+          
         >
-          ارسال اطلاعات
+          {isLoading ? 'در حال ارسال...' : 'ارسال اطلاعات'}
         </button>
       </div>
+      
     </>
   );
 };

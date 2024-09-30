@@ -11,7 +11,6 @@ const useFetchData = (cartId) => {
         Authorization: `Bearer ${access}`,
       },
     });
-    console.log(response.data)
     return response.data;
     
   };
