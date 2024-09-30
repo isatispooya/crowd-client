@@ -4,7 +4,7 @@ export const getFormData = (data) => {
     const formData = new FormData();
   
     fileFields.forEach((field) => {
-      if (data[field] && typeof data[field] !== 'string') {
+      if (data[field]) {
         formData.append(field, data[field]);
       }
     });

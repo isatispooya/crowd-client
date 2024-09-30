@@ -73,8 +73,6 @@ const Other = () => {
         },
       });
 
-      console.log('Response:', response);
-
       toast.success('اطلاعات با موفقیت ارسال شد!');
       setLoading(false);
 
