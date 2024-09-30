@@ -41,7 +41,7 @@ const differenceInDays = Math.floor( difference / (1000 * 60 * 60 * 24));
   }
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-8">
-      <div className="relative h-1/2  items-center flex justify-center w-full mb-6 rounded-lg overflow-hidden shadow-lg group">
+      <div className="relative h-1/2  items-center flex justify-center w-full mb-6  overflow-hidden  group">
         <img
           src={`${OnRun}/${data.picture}`}
           alt={data.plan_name}
@@ -140,7 +140,7 @@ const differenceInDays = Math.floor( difference / (1000 * 60 * 60 * 24));
       </div>
       <div>
         مستندات:
-        <div className="p-4 bg-white rounded-lg shadow-lg">
+        <div className="p-4 bg-white ">
           {documentationData.map((item, index) => (
             <div
               key={index}
@@ -166,7 +166,7 @@ const differenceInDays = Math.floor( difference / (1000 * 60 * 60 * 24));
       </div>
       <div>
         تضامین:
-        <div className="p-4 bg-white rounded-lg shadow-lg">
+        <div className="p-4 ">
           {documentationData.map((item, index) => (
             <div
               key={index}

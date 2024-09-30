@@ -28,7 +28,7 @@ const FormContract = () => {
     { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', key: 'role_141' },
     { label: 'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.', key: 'bounced_check' },
     {
-      label: 'متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شبکه بانکی نداشته باشد.',
+      label: 'متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شعبه بانکی نداشته باشد.',
       key: 'non_current_debt',
     },
     { label: 'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.', key: 'criminal_record' },
@@ -64,7 +64,7 @@ const FormContract = () => {
   }, [dataContract, isError]);
 
   return (
-    <>
+    <>  
       <ToastContainer autoClose={3000} />
       <div dir="rtl" className="">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">

@@ -1,10 +1,6 @@
 import React from 'react';
 
-
-
 const Dashboard = () => {
-
-
   return (
     <div className="flex flex-col p-6 space-y-6">
       <div className="text-2xl font-bold text-gray-800 mb-6">داشبورد</div>

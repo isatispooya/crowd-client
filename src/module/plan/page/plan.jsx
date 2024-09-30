@@ -63,7 +63,7 @@ const Plan = () => {
 
       <div className="mt-8">
         {activeTab === 0 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 ">
             <Descript />
           </div>
         )}
