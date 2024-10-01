@@ -22,7 +22,7 @@ const Appendices = () => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg">
+    <div className="p-4 bg-white ">
       {plans.map((item, index) => (
         <div
           key={index}

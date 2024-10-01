@@ -22,7 +22,7 @@ const Documentation = () => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg">
+    <div className="p-4 bg-white">
       {documents.map((item, index) => (
         <div
           key={index}

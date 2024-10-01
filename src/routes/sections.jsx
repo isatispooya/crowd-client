@@ -6,8 +6,8 @@ import DashboardLayout from 'src/layouts/dashboard';
 import Plan from 'src/module/plan/page/plan';
 import Plans from 'src/module/plan/page/plans';
 import Certificate from 'src/components/certificate';
-import Participation from 'src/module/plan/partnership/page/participation';
 import Sterpercrowd from 'src/components/stepper';
+import PaymentPage from 'src/module/plan/partnership/page/pymentpage';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));
@@ -37,7 +37,7 @@ export default function Router() {
 
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <Certificate /> },
-        { path: 'participation', element: <Participation /> },
+        { path: 'PaymentPage', element: <PaymentPage /> },
       ],
     },
     {

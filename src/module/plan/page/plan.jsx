@@ -4,14 +4,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
-import Participation from 'src/module/plan/partnership/page/participation';
 import usePlan from '../service/use-plan';
 import CommentForm from '../comment/page/comment';
-import InvestProfile from '../feature/Investorprofile';
+import InvestProfile from '../investor/feature/Investorprofile';
 import Documentation from '../feature/documentation';
-import Calculate from '../feature/calculate';
+// import Calculate from '../feature/calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
+import PaymentPage from '../partnership/page/pymentpage';
 import Roadmap from '../feature/Roadmap';
 
 const Plan = () => {
@@ -40,8 +40,8 @@ const Plan = () => {
             { label: 'نظرات کاربران', tab: 4 },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
             // { label: 'محاسبه‌گر سود', tab: 6 },
-            // { label: 'زمان بندی طرح', tab: 7 },
-            { label: 'مشارکت', tab: 6 },
+            { label: 'زمان بندی طرح', tab: 6 },
+            { label: 'مشارکت', tab: 7 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -69,13 +69,13 @@ const Plan = () => {
         )}
 
         {activeTab === 1 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 ">
             <Documentation />
           </div>
         )}
 
         {activeTab === 2 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 ">
             <Appendices />
           </div>
         )}
@@ -93,25 +93,25 @@ const Plan = () => {
           </div>
         )}
 
-        {activeTab === 5 && (
+          {activeTab === 5 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <InvestProfile />
           </div>
-        )}
+        )} 
         {/* {activeTab === 6 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Calculate />
           </div>
-        )}
-        {activeTab === 7 && (
+        )}  */}
+        {activeTab === 6 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Roadmap />
+            <Roadmap/>
           </div>
-        )} */}
+        )} 
         <div>
-          {activeTab === 6 && (
+          {activeTab === 7 && (
             <div className="grid   gap-8">
-              <Participation />
+              <PaymentPage/>
             </div>
           )}
         </div>
