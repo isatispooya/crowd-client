@@ -3,6 +3,7 @@ import { ReactTabulator } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator_simple.min.css';
 import { useParams } from 'react-router-dom';
+import moment from 'jalali-moment';
 import useGetInvesor from './service/use-getInvestor';
 
 const columns = [
@@ -17,11 +18,12 @@ const columns = [
 const InvestProfile = () => {
   const { traceCode } = useParams();
   const { data } = useGetInvesor(traceCode);
-  
+
   const transactionData = data
     ? data.map((item) => ({
         name: item.name,
-        create_date: item.create_date,
+        // تبدیل تاریخ به شمسی
+        create_date: moment(item.create_date).locale('fa').format('YYYY/MM/DD'),
         amount: item.amount,
         value: item.value,
         status: item.status,
