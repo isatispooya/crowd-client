@@ -5,15 +5,15 @@ import { IoMdClose } from 'react-icons/io';
 import { BsCloudUploadFill } from 'react-icons/bs';
 import { RiBankCardFill } from 'react-icons/ri';
 import { formatNumber } from 'src/utils/formatNumbers';
-import useTransaction from '../hooks/usetransaction';
 
-const TransactionOptions = ({ setOpenTransaction }) => {
+
+const TransactionOptions = ({setOpenTransaction}) => {
   const [value] = useState('');
   const [activeTab, setActiveTab] = useState('bankPortal');
   const [documentNumber, setDocumentNumber] = useState('');
   const [creditAmount, setCreditAmount] = useState('');
   const [imageReceipt, setImageReceipt] = useState(null);
-  const { mutate, isLoading, error } = useTransaction();
+
    
   console.log(creditAmount , documentNumber , imageReceipt ,  "data")
   const handleInputChange = (e) => {
@@ -26,23 +26,8 @@ const TransactionOptions = ({ setOpenTransaction }) => {
   };
 
   const handleSubmit = () => {
-    if (documentNumber && creditAmount && imageReceipt) {
-      const formData = new FormData();
-      formData.append('document_number', documentNumber);
-      formData.append('credit_amount', creditAmount);
-      formData.append('image_receipt', imageReceipt);
-
-      mutate(formData, {
-        onSuccess: () => {
-          setOpenTransaction(false);
-        },
-        onError: () => {
-          alert('There was an error processing your request');
-        },
-      });
-    } else {
-      alert('Please fill in all fields');
-    }
+    console.log("hello")
+ 
   };
 
   const closeModal = () => {
@@ -142,13 +127,13 @@ const TransactionOptions = ({ setOpenTransaction }) => {
             type="button"
             onClick={handleSubmit}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-            disabled={isLoading}
+     
           >
             تایید
           </button>
         </div>
 
-        {error && <p className="text-red-500 mt-2">Error submitting transaction</p>}
+
       </div>
     </div>
   );

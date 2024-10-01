@@ -10,16 +10,17 @@ import Loader from 'src/components/loader';
 import { toast, ToastContainer } from 'react-toastify';
 import { useFetchWallet } from 'src/module/wallet/hooks/getWalletData';
 import UseCartId from 'src/hooks/use-cartId';
-import AgreementPopup from 'src/components/Agreement'; 
+import AgreementPopup from 'src/components/Agreement';
 import usePlan from '../service/use-plan';
 import PostPartnership from '../service/use-partnership';
-
+import TransactionOptions from '../components/transaction';
 
 const Partnership = () => {
+  
   const [amount, setAmount] = useState(0);
   const [status, setStatus] = useState();
   const [errorr, setErrorr] = useState('');
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State for controlling the popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { mutate, isLoadingpost, errorpost } = PostPartnership();
   const { cartId } = UseCartId();
   const { data: walletData } = useFetchWallet(cartId);
@@ -36,9 +37,7 @@ const Partnership = () => {
   }
 
   const handleInventoryClick = () => {
-    setAmount(
-      Math.floor(Number(remaining) / Number(data.nominal_price_certificate))
-    );
+    setAmount(Math.floor(Number(remaining) / Number(data.nominal_price_certificate)));
   };
 
   const handleSubmit = () => {
@@ -63,20 +62,16 @@ const Partnership = () => {
 
   return (
     <div className="flex flex-col gap-2 bg-white p-8 rounded-xl shadow-lg ">
-      <h2 className="text-3xl items-center text-center font-bold text-gray-900 mb-2">
-        مشارکت
-      </h2>
+      <h2 className="text-3xl items-center text-center font-bold text-gray-900 mb-2">مشارکت</h2>
       <p className="text-blue-800 text-lg font-semibold">
-        قیمت هر گواهی: <span>{formatNumber(data.nominal_price_certificate)}</span>
+        قیمت هر گواهی: <span>{formatNumber(data.nominal_price_certificate) || ''}</span>
       </p>
       <p className="text-blue-800 text-lg font-semibold">
         حداقل تعداد: <span>1000</span>
       </p>
 
       <div className="flex flex-col w-full mb-4">
-        <label className="text-gray-700 font-medium mb-2">
-          تعداد گواهی مشارکت:
-        </label>
+        <label className="text-gray-700 font-medium mb-2">تعداد گواهی مشارکت:</label>
         <input
           type="number"
           placeholder="تعداد گواهی مشارکت"
@@ -100,9 +95,7 @@ const Partnership = () => {
           onClick={handleInventoryClick}
           className="cursor-pointer text-lg font-semibold text-blue-600 hover:text-blue-800"
         >
-          {remaining !== null && remaining !== undefined
-            ? formatNumber(remaining)
-            : 0}
+          {remaining !== null && remaining !== undefined ? formatNumber(remaining) : 0}
         </p>
       </div>
 
@@ -114,10 +107,7 @@ const Partnership = () => {
           onChange={() => setStatus(!status)}
           className="h-5 w-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500"
         />
-        <label
-          htmlFor="show-name"
-          className="text-gray-700 bg-white font-medium"
-        >
+        <label htmlFor="show-name" className="text-gray-700 bg-white font-medium">
           اطلاعات شما برای دیگر کاربران قابل روئیت باشد؟
         </label>
       </div>
@@ -132,9 +122,8 @@ const Partnership = () => {
       <ToastContainer />
 
       {/* Agreement Popup */}
-      {isPopupOpen && (
-        <AgreementPopup onAccept={handleAgreementAccept} />
-      )}
+      {isPopupOpen && <AgreementPopup onAccept={handleAgreementAccept} />}
+      
     </div>
   );
 };

@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import TransactionOptions from 'src/module/plan/components/transaction';
 
 const AgreementPopup = ({ onAccept }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [openTransaction, setOpenTransaction] = useState(false);
 
   const handleAccept = () => {
     if (isChecked) {
-      onAccept();
+      setOpenTransaction(true);
     }
   };
 
@@ -36,7 +38,7 @@ const AgreementPopup = ({ onAccept }) => {
           </label>
         </div>
         <button
-        type='button'
+          type='button'
           onClick={handleAccept}
           className={`w-full py-2 px-4 rounded ${
             isChecked
@@ -47,6 +49,7 @@ const AgreementPopup = ({ onAccept }) => {
         >
           تأیید و بستن
         </button>
+        {openTransaction && <TransactionOptions setOpenTransaction={setOpenTransaction} />}
       </div>
     </div>
   );
