@@ -2,15 +2,13 @@ import { getCookie } from 'src/api/cookie';
 import { useMutation } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
 
-const postDitail = async ({id,amount,status}) => {
+const postDitail = async ({traceCode,amount,status}) => {
   const access = getCookie('access');
-  console.log('================');
-  console.log(id,amount,status);
   
   
 
   const response = await api.post(
-    `/api/participant/${id}/`,
+    `/api/participant/${traceCode}/`,
     {
       amount,
       status

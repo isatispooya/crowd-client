@@ -2,24 +2,24 @@ import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
-const getDocumentation = async (id) => {
+const getDocumentation = async (traceCode) => {
   const access = await getCookie('access');
 
-  const response = await api.get(`/api/documentation/${id}/`, {
+  const response = await api.get(`/api/documentation/${traceCode}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-  return response.data.data;
+  return response.data;
 };
 
 
-const useDocumentation = (id) => {
+const useDocumentation = (traceCode) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['document', id],
-    queryFn: () => getDocumentation(id),
-    enabled: !!id,   
+    queryKey: ['document', traceCode],
+    queryFn: () => getDocumentation(traceCode),
+    enabled: !!traceCode,   
   });
 
   return {

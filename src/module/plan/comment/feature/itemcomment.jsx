@@ -22,7 +22,7 @@ const CommentItem = ({ firstName, lastName, comment, known }) => {
           </>
         ) : (
           <>
-            <span className="font-bold text-blue-600">ناشناس</span>: <span className='text-black'>{comment}</span>
+            <span className="font-bold text-red-600">ناشناس</span>: <span className='text-black'>{comment}</span>
           </>
         )}
       </div>

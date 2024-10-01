@@ -4,7 +4,7 @@ import { ImCheckboxUnchecked } from 'react-icons/im';
 import { useParams } from 'react-router-dom';
 import moment from 'moment-jalaali';
 import SmallLoader from 'src/components/SmallLoader';
-import useRoadMap from '../hooks/useRoadMap';
+import useRoadMap from '../comment/service/useRoadMap';
 
 const Roadmap = () => {
   const { id } = useParams();

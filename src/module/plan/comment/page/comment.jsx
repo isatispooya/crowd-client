@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import usePostComments from '../hooks/postsComments';
-import CommentList from './commentList';
+import usePostComments from '../service/postsComments';
+import CommentList from '../feature/commentList';
 
 const CommentForm = () => {
   const [name] = useState('محمدی');
   const [comment, setComment] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [showName, setShowName] = useState(true);
-  const { id } = useParams();
+  const { traceCode } = useParams();
 
-  const { mutate: postComment, isLoading } = usePostComments(id);
+  const { mutate: postComment, isLoading } = usePostComments(traceCode);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,9 +36,8 @@ const CommentForm = () => {
   };
   return (
     <div className="">
-      <CommentList id={id} />
+      <CommentList id={traceCode} />
       <h1 className="text-xl font-bold mb-4 mt-10">ارسال دیدگاه</h1>
-       
       <div className="mb-4">
         {chatHistory.map((chat, index) => (
           <div key={index} className={`chat ${chat.sender === 'user' ? 'chat-start' : 'chat-end'}`}>

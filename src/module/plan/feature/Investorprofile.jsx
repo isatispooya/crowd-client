@@ -3,7 +3,7 @@ import { ReactTabulator } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator_simple.min.css';
 import { useParams } from 'react-router-dom';
-import usepartner from '../service/use-participant';
+import usepartner from '../partnership/service/use-get-participant';
 
 const columns = [
   { title: 'نام سرمایه گذار', field: 'lastName', width: 150 },

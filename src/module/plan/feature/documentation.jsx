@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 import useDocumentation from '../service/use-documentation';
 
 const Documentation = () => {
-  const { id } = useParams();
-  const { data, isLoading, error } = useDocumentation(id);
+
+  const { traceCode } = useParams(); 
+  const { data:documents, isLoading, error } = useDocumentation(traceCode);
   if (isLoading) {
     return <Loader />;
   }
@@ -16,31 +17,34 @@ const Documentation = () => {
     return <div className="text-red-500">خطایی رخ داده است</div>;
   }
 
-  return (
-<div className="p-4 bg-white rounded-lg shadow-lg">
-  {data.map((item, index) => (
-    <div
-      key={index}
-      className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
-    >
-      <div>
-        <p className="text-lg font-semibold text-gray-800">{item.title}</p>
-      </div>
-      <div className="flex gap-4">
-        <a
-          href={`${OnRun}${item.file}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 flex items-center hover:text-blue-800 text-sm font-medium transition-colors duration-200 ease-in-out"
-        >
-          دانلود فایل
-          <FiDownload className="w-5 h-5 ml-2" />
-        </a>
-      </div>
-    </div>
-  ))}
-</div>
+  if (!documents) {
+    return <div className="text-gray-500">هیچ مستندی یافت نشد.</div>;
+  }
 
+  return (
+    <div className="p-4 bg-white rounded-lg shadow-lg">
+      {documents.map((item, index) => (
+        <div
+          key={index}
+          className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
+        >
+          <div>
+            <p className="text-lg font-semibold text-gray-800">{item.title}</p>
+          </div>
+          <div className="flex gap-4">
+            <a
+              href={`${OnRun}${item.file}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 flex items-center hover:text-blue-800 text-sm font-medium transition-colors duration-200 ease-in-out"
+            >
+              دانلود فایل
+              <FiDownload className="w-5 h-5 ml-2" />
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

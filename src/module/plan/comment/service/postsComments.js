@@ -1,15 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { getCookie } from 'src/api/cookie';
-import { OnRun } from 'src/api/OnRun';
+import api from 'src/api/apiClient';
 
-const usePostComments = (id) => {
+const usePostComments = (traceCode) => {
   const postComment = async ({ comment, known }) => {
     const access = await getCookie('access');
-
-    const response = await axios.post(
-      `${OnRun}/api/comment/${id}`,
-      { known : false, comment : null },
+    const response = await api.post(
+      `/api/comment/user/${traceCode}/`,
+      { known , comment  },
       {
         headers: {
           Authorization: `Bearer ${access}`,

@@ -1,6 +1,8 @@
 import React from 'react';
-import Partner from 'src/module/plan/feature/partner';
-import Partnership from 'src/module/plan/feature/partnership';
+import Partner from '../feature/partner';
+import Partnership from './partnership';
+
+
 
 
 const Participation = () => {
