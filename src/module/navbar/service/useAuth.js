@@ -10,7 +10,6 @@ const getProfileUser = async () => {
   const response = await api.get(`/api/information/`, {
     headers: { Authorization: `Bearer ${access}` },
   });
-  console.log('ssssssss', response.data);
   
   return response.data;
 };

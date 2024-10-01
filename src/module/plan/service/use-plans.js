@@ -3,25 +3,24 @@ import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
 
-const getPlansData = async () => {
+const getPlans = async () => {
   const access = await getCookie('access');
-
-  const response = await api.get(`/api/plan/`, {
+  const response = await api.get(`/api/plans/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-  return response.data.data;
-  
+  return response.data;
 };
 
 
-const usePlans = () => {
+const useGetPlans = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['plans'],
-    queryFn: () => getPlansData(),
+    queryFn: () => getPlans(),
   });
+
   return {
     data,
     isLoading,
@@ -29,4 +28,5 @@ const usePlans = () => {
     
   };
 };
-export default usePlans;
+
+export default useGetPlans;

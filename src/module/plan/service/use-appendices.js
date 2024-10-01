@@ -2,25 +2,23 @@ import { useQuery } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
-const getAppenices= async (id) => {
+const getAppenices= async (traceCode) => {
   const access = await getCookie('access');
-
-  const response = await api.get(`/api/appendices/${id}/`, {
+  const response = await api.get(`/api/appendices/${traceCode}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-  return response.data.data;
-
+  return response.data;
 };
 
 
-const useAppenices = (id) => {
+const useGetAppenices = (traceCode) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['appendices', id],
-    queryFn: () => getAppenices(id),
-    enabled: !!id,   
+    queryKey: ['appendices', traceCode],
+    queryFn: () => getAppenices(traceCode),
+    enabled: !!traceCode,   
   });
 
   return {
@@ -30,4 +28,4 @@ const useAppenices = (id) => {
   };
 };
 
-export default useAppenices;
+export default useGetAppenices;

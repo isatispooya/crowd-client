@@ -1,22 +1,22 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
-import useGetComments from '../hooks/getComments';
-import CommentItem from './commentItem';
+import CommentItem from './itemcomment';
+import useGetComments from '../service/getComments';
+
 
 const CommentList = () => {
-  const { id } = useParams();
-  const { isLoading, data, isError, error } = useGetComments(id);
-
+  const { traceCode } = useParams();
+  const { isLoading, data, isError, error } = useGetComments(traceCode);
+  
   if (isLoading) {
     return <Loader />;
   }
-
+  
   if (isError) {
     return <div>Error loading comments: {error.message}</div>;
   }
-
-  const comments = data?.data?.comments || [];
+  
 
   return (
     <div className="max-w-6xl mx-auto  bg-white shadow-lg rounded-lg overflow-hidden mt-8">
@@ -24,8 +24,8 @@ const CommentList = () => {
         <h2 className="text-2xl flex justify-center font-semibold text-white">نظرات کاربران</h2>
       </div>
       <div className="p-8 space-y-6">
-        {comments.length > 0 ? (
-          comments.map((commentData) => (
+        {data.length > 0 ? (
+          data.map((commentData) => (
             <CommentItem
               key={commentData.id}
               firstName={commentData.firstName}

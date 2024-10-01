@@ -4,19 +4,19 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
-import Participation from 'src/pages/participation';
 import usePlan from '../service/use-plan';
-import CommentForm from '../feature/comment';
-import InvestProfile from '../feature/Investorprofile';
+import CommentForm from '../comment/page/comment';
+import InvestProfile from '../investor/feature/Investorprofile';
 import Documentation from '../feature/documentation';
-import Calculate from './calculate';
+// import Calculate from '../feature/calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
+import PaymentPage from '../partnership/page/pymentpage';
 import Roadmap from '../feature/Roadmap';
 
 const Plan = () => {
-  const { id } = useParams();
-  const { isLoading, error } = usePlan(id);
+  const { traceCode } = useParams();
+  const { isLoading, error } = usePlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
 
   if (isLoading) {
@@ -35,13 +35,13 @@ const Plan = () => {
             { label: 'اطلاعات طرح', tab: 0 },
             { label: ' مستندات طرح', tab: 1 },
             { label: 'تضامین و گزارشات اعتباری', tab: 2 },
-            { label: ' تب جدید گزارشات ', tab: 3 },
-            { label: 'تخلفات', tab: 4 },
-            { label: 'نظرات کاربران', tab: 5 },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 6 },
-            { label: 'محاسبه‌گر سود', tab: 7 },
-            { label: 'زمان بندی طرح', tab: 8 },
-            { label: 'مشارکت', tab: 9 },
+            // { label: ' تب جدید گزارشات ', tab: 3 },
+            // { label: 'تخلفات', tab: 4 },
+            { label: 'نظرات کاربران', tab: 4 },
+            { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
+            // { label: 'محاسبه‌گر سود', tab: 6 },
+            { label: 'زمان بندی طرح', tab: 6 },
+            { label: 'مشارکت', tab: 7 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mr-4">
               <button
@@ -69,49 +69,49 @@ const Plan = () => {
         )}
 
         {activeTab === 1 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 ">
             <Documentation />
           </div>
         )}
 
         {activeTab === 2 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div className="p-2 bg-gray-50 ">
             <Appendices />
           </div>
         )}
 
-        {activeTab === 3 && (
+        {/* {activeTab === 3 && (
           <div className="p-4 bg-gray-50 rounded-lg shadow-md">سیصبییلتنااتال</div>
         )}
 
         {activeTab === 4 && (
           <div className="p-4 bg-gray-50 rounded-lg shadow-md">تخلفات</div>
-        )}
-        {activeTab === 5 && (
+        )} */}
+        {activeTab === 4 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <CommentForm />
           </div>
         )}
 
-        {activeTab === 6 && (
+          {activeTab === 5 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <InvestProfile />
           </div>
-        )}
-        {activeTab === 7 && (
+        )} 
+        {/* {activeTab === 6 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
             <Calculate />
           </div>
-        )}
-        {activeTab === 8 && (
+        )}  */}
+        {activeTab === 6 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
-            <Roadmap />
+            <Roadmap/>
           </div>
-        )}
+        )} 
         <div>
-          {activeTab === 9 && (
+          {activeTab === 7 && (
             <div className="grid   gap-8">
-              <Participation />
+              <PaymentPage/>
             </div>
           )}
         </div>

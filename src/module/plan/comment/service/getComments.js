@@ -1,24 +1,23 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
-import { OnRun } from 'src/api/OnRun';
 
-const useRoadMap = (id) => {
-  const getRoadmap = async () => {
+const useGetComments = (traceCode) => {
+  const getComments = async () => {
     const access = await getCookie('access');
-    const response = await axios.get(`${OnRun}/api/roadmap/${id}/`, {
+    const response = await api.get(`/api/comment/user/${traceCode}/`, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     });
+    console.log('response.data',response)
     return response.data;
   };
+
   const { isLoading, data } = useQuery({
-    queryKey: ['roadmap', id],
-    queryFn: getRoadmap,
-    retry: 2,
+    queryKey: ['getComments', traceCode],
+    queryFn: getComments,
   });
   return { isLoading, data };
 };
-
-export default useRoadMap;
+export default useGetComments;
