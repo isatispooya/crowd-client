@@ -11,6 +11,7 @@ const getCertificate = async () => {
       'Content-Type': 'application/json',
     },
   });
+  console.log("response.data",response.data)
   return response.data.data;
   
 };

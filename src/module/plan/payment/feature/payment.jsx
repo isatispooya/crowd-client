@@ -11,7 +11,7 @@ import usePlan from '../../service/use-plan';
 import usePayment from '../service/use-postpayment';
 
 const Payment = () => {
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(0);
   const { traceCode } = useParams();
   const [attachment, setAttachment] = useState(null);
   const [paymentId, setPaymentId] = useState('');
@@ -20,8 +20,8 @@ const Payment = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const { data } = usePlan(traceCode);
-  const totalPrice = Number(data.unit_price) * Number(amount)||"";
-  const { mutate} = usePayment(traceCode);
+  const totalPrice = Number(data.unit_price) * Number(amount) || "";
+  const { mutate } = usePayment(traceCode);
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
@@ -50,20 +50,20 @@ const Payment = () => {
 
   const handleAgreementAccept = () => {
     setIsPopupOpen(false);
+    // در صورت نیاز، می‌توانید عملیات دیگری را اینجا اضافه کنید
+    // مانند باز کردن یک مدال دیگر یا انجام پردازش‌های اضافی
   };
 
   return (
     <div>
-      <div className=' flex-col gap-6  p-8 max-w-4xl mx-auto'>
-
-      <h4 className="text-3xl text-center font-bold text-gray-900 mb-6">مشارکت</h4>
-
+      <div className='flex-col gap-6 p-8 max-w-4xl mx-auto'>
+        <h4 className="text-3xl text-center font-bold text-gray-900 mb-6">مشارکت</h4>
         <p className="text-blue-800 text-lg font-semibold">
           قیمت هر گواهی: <span>{formatNumber(data.unit_price)}</span>
         </p>
       </div>
 
-      <div className="flex flex-col w-full mb-4">
+      <div className="flex flex-col w-full mb-4 px-8 max-w-4xl mx-auto">
         <label className="text-gray-700 font-medium mb-2">تعداد گواهی مشارکت:</label>
         <input
           type="number"
@@ -73,12 +73,14 @@ const Payment = () => {
           className="shadow-md bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         />
       </div>
-      <div>
+
+      <div className="px-8 max-w-4xl mx-auto">
         <p className="text-blue-800 text-lg font-semibold">
           مبلغ کل : <span>{formatNumber(totalPrice)}</span>
         </p>
       </div>
-      <div className="mt-6">
+
+      <div className="mt-6 px-8 max-w-4xl mx-auto">
         <h3 className="text-gray-800 text-xl font-semibold mb-4">روش پرداخت:</h3>
         <div className="flex space-x-12">
           <button
@@ -101,8 +103,9 @@ const Payment = () => {
           </button>
         </div>
       </div>
+
       {paymentMethod === 'fesh' && (
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4 px-8 max-w-4xl mx-auto">
           <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-2">پیوست:</label>
             <input
@@ -142,7 +145,8 @@ const Payment = () => {
           <ToastContainer />
         </form>
       )}
-      <div className="flex items-center gap-2 mt-6">
+
+      <div className="flex items-center gap-2 mt-6 px-8 max-w-4xl mx-auto">
         <input
           type="checkbox"
           id="show-name"
@@ -154,7 +158,8 @@ const Payment = () => {
           اطلاعات شما برای دیگر کاربران قابل روئیت باشد؟
         </label>
       </div>
-      <div className="flex items-center gap-2 mt-4">
+
+      <div className="flex items-center gap-2 mt-4 px-8 max-w-4xl mx-auto">
         <button
           onClick={() => setIsPopupOpen(true)}
           className="text-blue-600 underline cursor-pointer focus:outline-none"
@@ -162,6 +167,7 @@ const Payment = () => {
           قوانین و مقررات را می‌پذیرم
         </button>
       </div>
+
       {isPopupOpen && <AgreementPopup onAccept={handleAgreementAccept} />}
     </div>
   );

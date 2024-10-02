@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import TransactionOptions from 'src/module/plan/components/transaction';
 
 const AgreementPopup = ({ onAccept }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [openTransaction, setOpenTransaction] = useState(false);
 
   const handleAccept = () => {
     if (isChecked) {
-      setOpenTransaction(true);
+      onAccept(); 
     }
   };
 
@@ -49,7 +47,6 @@ const AgreementPopup = ({ onAccept }) => {
         >
           تأیید و بستن
         </button>
-        {openTransaction && <TransactionOptions setOpenTransaction={setOpenTransaction} />}
       </div>
     </div>
   );
