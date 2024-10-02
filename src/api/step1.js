@@ -75,7 +75,6 @@ export const getStep1 = async (cartId) => {
       },
     });
 
-    console.log('aa', response.data);
 
     return response;
   }

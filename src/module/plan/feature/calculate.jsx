@@ -14,7 +14,6 @@ const Calculate = () => {
   const [totalAmount, setTotalAmount] = useState();
   const { traceCode } = useParams();
   const { data, isLoading, error } = useGetInformation(traceCode);
- console.log("data",data);
  
   useEffect(() => {
     if (!isNaN(inputValue) && inputValue !== '' && data) {

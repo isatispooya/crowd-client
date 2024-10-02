@@ -12,7 +12,6 @@ export const PostPyment = async ({ traceCode, data }) => {
   formData.append('risk_statement', 'true');
   formData.append('picture', data.picture); 
 
-  console.log(formData);
 
   try {
     const response = await api.post(

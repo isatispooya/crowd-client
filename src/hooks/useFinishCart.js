@@ -12,7 +12,6 @@ export const useFinishCart = (cartId) => {
       },
     });
 
-    console.log('aa2', response.data);
     return response.data;
   };
 

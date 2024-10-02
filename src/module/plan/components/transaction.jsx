@@ -15,7 +15,6 @@ const TransactionOptions = ({setOpenTransaction}) => {
   const [imageReceipt, setImageReceipt] = useState(null);
 
    
-  console.log(creditAmount , documentNumber , imageReceipt ,  "data")
   const handleInputChange = (e) => {
     const cleanedValue = e.target.value.replace(/,/g, '');
     setCreditAmount(cleanedValue);
@@ -26,7 +25,6 @@ const TransactionOptions = ({setOpenTransaction}) => {
   };
 
   const handleSubmit = () => {
-    console.log("hello")
  
   };
 
