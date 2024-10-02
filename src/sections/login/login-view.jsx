@@ -12,15 +12,11 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
-
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
 import useTimer from './hooks/useTimer';
-
-
-
 
 export default function LoginView() {
   const theme = useTheme();
@@ -35,15 +31,13 @@ export default function LoginView() {
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
   const { timer, step, setStep, startTimer } = useTimer();
 
-  
-
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
-    } else if (nationalCode.length !== 10) {
+    } else if (nationalCode.length < 10 || nationalCode.length > 12) {
       toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
     } else {
-      setIsButtonDisabled(true); 
+      setIsButtonDisabled(true);
       applyNationalCode(
         {
           nationalCode,
@@ -54,21 +48,21 @@ export default function LoginView() {
           onSuccess: (data) => {
             setRegisterd(data.registered);
             setStep(2);
-            
-            startTimer(); 
+
+            startTimer();
             toast.success(data.message);
           },
           onError: () => {
             toast.error('خطا در ارسال درخواست');
           },
           onSettled: () => {
-            setIsButtonDisabled(false); 
+            setIsButtonDisabled(false);
           },
         }
       );
     }
   };
-  
+
   const handleCode = () => {
     if (otp.length !== 5) {
       toast.warning('کد صحیح نیست');
@@ -79,9 +73,6 @@ export default function LoginView() {
       });
     }
   };
-   
-
-
 
   const renderForm = (
     <>
@@ -103,7 +94,7 @@ export default function LoginView() {
             />
             <Button onClick={refreshCaptcha} fullWidth>
               {isCaptchaLoading ? (
-                <SmallLoader/>
+                <SmallLoader />
               ) : (
                 <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
               )}
@@ -205,23 +196,23 @@ export default function LoginView() {
         </Stack>
       </Box>
       <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
-  <Typography variant="body2" color="text.secondary">
-    © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
-  </Typography>
-  <a
-    referrerPolicy="origin"
-    target="_blank"
-    href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8" rel="noreferrer"
-  >
-    <img
-      referrerPolicy="origin"
-      src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-      alt=""
-      style={{ cursor: 'pointer' }}
-    />
-  </a>
-</Box>
-
+        <Typography variant="body2" color="text.secondary">
+          © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
+        </Typography>
+        <a
+          referrerPolicy="origin"
+          target="_blank"
+          href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+          rel="noreferrer"
+        >
+          <img
+            referrerPolicy="origin"
+            src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+            alt=""
+            style={{ cursor: 'pointer' }}
+          />
+        </a>
+      </Box>
     </Box>
   );
 }
