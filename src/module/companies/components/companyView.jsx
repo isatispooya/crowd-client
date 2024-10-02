@@ -16,6 +16,8 @@ import { Message } from '../../../components/massage';
 
 export default function Form() {
   const { cartId, setCartId } = UseCartId();
+
+  
   const { incrementPage } = useNavigateStep();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
@@ -27,6 +29,7 @@ export default function Form() {
     mutationKey: ['cart'],
     mutationFn: () => createCart(localData, incrementPage),
     onSuccess: (value) => {
+      
       setCartId(value.data.id);
     },
   });
@@ -52,7 +55,7 @@ export default function Form() {
   }, [isError]);
 
   const handleSubmit = async () => {
-    if (!cartId && localData.company_name === !null) {
+    if (!cartId && localData.company_name) {
       mutation.mutate();
     } else {
       mutationUpdate.mutate();
