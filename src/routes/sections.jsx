@@ -7,7 +7,7 @@ import Plan from 'src/module/plan/page/plan';
 import Plans from 'src/module/plan/page/plans';
 import Certificate from 'src/components/certificate';
 import Sterpercrowd from 'src/components/stepper';
-import PaymentPage from 'src/module/plan/partnership/page/pymentpage';
+import PaymentPage from 'src/module/plan/payment/page/pymentpage';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));

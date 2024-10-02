@@ -5,19 +5,20 @@ import React, { useState, useEffect } from 'react';
 import Loader from 'src/components/loader';
 import { useParams } from 'react-router-dom';
 import { cleanNumber, formatNumber } from 'src/utils/formatNumbers'; 
-import usePlan from '../service/use-plan';
+import useGetInformation from '../service/use-getinformtion';
 
 const Calculate = () => {
   const [inputValue, setInputValue] = useState('');
   const [result, setResult] = useState(0);
   const [payment, setPayment] = useState(0);
   const [totalAmount, setTotalAmount] = useState();
-  const { id } = useParams();
-  const { data, isLoading, error } = usePlan(id);
+  const { traceCode } = useParams();
+  const { data, isLoading, error } = useGetInformation(traceCode);
+ console.log("data",data);
  
   useEffect(() => {
     if (!isNaN(inputValue) && inputValue !== '' && data) {
-      const {profit} = data;
+      const profit = data.rate_of_return;
       const totalTime = data.total_time;
       const paymentPeriod = data.payment_period;
 
