@@ -174,8 +174,10 @@ export const createCart = async (data, incrementPage) => {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handlePageIncrement(incrementPage);
     }
+    
     return response;
   } catch (error) {
+
     toast.error('خطا در ارسال اطلاعات.');
     throw error;
   }
