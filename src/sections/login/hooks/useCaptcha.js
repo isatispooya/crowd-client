@@ -20,7 +20,6 @@ const useCaptcha = () => {
       console.error('Error fetching captcha:', error);
     },
     onSuccess: (data) => {
-      console.log('Captcha fetched successfully:', data);
     },
   });
 };

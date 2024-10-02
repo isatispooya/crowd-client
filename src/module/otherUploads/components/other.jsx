@@ -45,7 +45,6 @@ const Other = () => {
     licenses: null,
   });
 
-  console.log(cartId);
 
   const { isLoading, data } = useFetchData(cartId);
 

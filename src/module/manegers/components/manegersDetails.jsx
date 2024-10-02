@@ -36,7 +36,6 @@ const ManegersDetails = () => {
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
-  console.log(finishCart ,  loader, 'finishCart');
 
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 

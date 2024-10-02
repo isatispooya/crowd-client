@@ -20,7 +20,6 @@ const {data:profileData, isPending} = useGetProfile()
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
   const navigate = useNavigate();
-  console.log(profileData, isPending);
   
 
   useEffect(() => {

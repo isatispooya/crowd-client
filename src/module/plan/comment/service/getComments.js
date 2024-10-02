@@ -3,7 +3,6 @@ import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
 const useGetComments = (traceCode) => {
-  console.log('response.data',traceCode)
   const getComments = async () => {
     const access = await getCookie('access');
     const response = await api.get(`/api/comment/user/${traceCode}/`, {

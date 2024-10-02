@@ -56,7 +56,6 @@ const TranHistory = ({ setShowTranHistory }) => {
     debt_amount: transaction.debt_amount,
     description_transaction: transaction.description_transaction,
   }));
-  console.log(transactions.description_transaction);
 
   return (
     <div dir="rtl" className="w-full h-full flex flex-col items-center p-4 ">
