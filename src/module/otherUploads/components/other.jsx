@@ -17,10 +17,10 @@ import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
 
 const Other = () => {
-  const { cartId } = UseCartId(); // Always called in the same order
-  const { incrementPage } = useNavigateStep(); // Always called in the same order
+  const { cartId } = UseCartId(); 
+  const { incrementPage } = useNavigateStep(); 
 
-  const [loading, setLoading] = useState(false); // Always called in the same order
+  const [loading, setLoading] = useState(false); 
 
   const [Data, setData] = useState({
     Lock_claims_status: false,
@@ -83,11 +83,11 @@ const Other = () => {
     } catch (error) {
       console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
-      setLoading(false); // Ensure loading is reset on error
+      setLoading(false); 
     }
   };
 
-  // Safe checking for loader and finishCart
+ 
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   return (
