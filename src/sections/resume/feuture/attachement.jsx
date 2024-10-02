@@ -11,6 +11,7 @@ import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 
 const Attachement = () => {
   const { cartId } = UseCartId();
@@ -69,6 +70,12 @@ const Attachement = () => {
       toast.error('خطا در ارسال اطلاعات');
     }
   };
+
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+
+  console.log(finishCart ,  loader, 'finishCart');
+
+  const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   useEffect(() => {
     fetchManagerData();

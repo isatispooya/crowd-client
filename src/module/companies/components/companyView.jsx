@@ -22,6 +22,7 @@ export default function Form() {
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
+
   const mutation = useMutation({
     mutationKey: ['cart'],
     mutationFn: () => createCart(localData, incrementPage),
@@ -29,11 +30,14 @@ export default function Form() {
       setCartId(value.data.id);
     },
   });
+
   const mutationUpdate = useMutation({
     mutationFn: () => updateCart(localData, incrementPage, cartId),
   });
 
   const [localData, setLocalData] = useState(() => data || {});
+
+
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -50,12 +54,13 @@ export default function Form() {
   const handleSubmit = async () => {
     if (!cartId && localData.company_name === !null) {
       mutation.mutate();
-      
-
     } else {
       mutationUpdate.mutate();
     }
   };
+
+  const isButtonDisabled =
+    localData.finish_cart === true || isLoading || mutation.isPending || mutationUpdate.isPending;
 
   return (
     <>
@@ -81,10 +86,11 @@ export default function Form() {
         <button
           onClick={handleSubmit}
           className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-            isLoading || mutation.isPending || mutationUpdate.isPending
-              ? 'opacity-50 cursor-not-allowed'
+            isLoading || mutation.isPending || mutationUpdate.isPending || isButtonDisabled
+              ? 'bg-gray-400 cursor-not-allowed opacity-50'
               : ''
           }`}
+          disabled={isButtonDisabled}
         >
           {isLoading || mutation.isPending || mutationUpdate.isPending
             ? 'در حال بارگذاری...'

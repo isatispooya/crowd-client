@@ -2,8 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const Fildemnager = ({ index, field, setField }) => {
+
+
+
   const types = [
     { type: false, title: 'حقیقی' },
     { type: true, title: 'حقوقی' },

@@ -10,6 +10,7 @@ import Fildemnager from 'src/module/manegers/components/fildemaneger';
 import ConfirmationDialog from 'src/components/dialogMsg';
 import Loader from 'src/components/loader';
 import useGetManagement from 'src/sections/resume/hook/useGetmanagement';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 import usePostManager from '../service/usePostManager';
 
 const ManegersDetails = () => {
@@ -33,14 +34,19 @@ const ManegersDetails = () => {
 
   const { isLoading, data } = useGetManagement(cartId);
 
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+
+  console.log(finishCart ,  loader, 'finishCart');
+
+  const isDisabled = loader || finishCart?.cart?.finish_cart === true;
+
   useEffect(() => {
     if (data) {
-      if(data.length>0){
+      if (data.length > 0) {
         setField(data);
       }
     }
   }, [data]);
-
 
   const handleAdd = () => {
     setField((prevField) => [...prevField, singleFile]);
@@ -58,56 +64,29 @@ const ManegersDetails = () => {
     setOpenDialog(false);
   };
 
-  const validateFields = () => {
-    let hasError = false;
-
-    field.forEach((manager) => {
-
-      if (manager.name.length===0) {
-        toast.error('فیلد نام نباید خالی باشد');
-        hasError = true;
-      }
-      if (manager.position.length===0) {
-        toast.error('فیلد سمت نباید خالی باشد');
-        hasError = true;
-      }
-      if (manager.national_code.length===0) {
-        toast.error('فیلد کد ملی نباید خالی باشد');
-        hasError = true;
-      }
-
-    });
-    
-    return hasError;
-  };
 
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {mutate, isSuccess, isPending, isError} = usePostManager()
+  const { mutate, isSuccess, isPending, isError } = usePostManager();
 
   const handlePost = async () => {
-    
     if (true) {
-
       const sanitizedField = field.map((manager) => ({
         ...manager,
         national_id: manager.national_id || '',
         representative: manager.representative || '',
-      }));      
-      mutate({cartId, sanitizedField})     
-
-
-    };
-
+      }));
+      mutate({ cartId, sanitizedField });
+    }
   };
   useEffect(() => {
     if (!isPending && isSuccess) {
       toast.success('اطلاعات با موفقیت ارسال شد');
       incrementPage();
-    }else if(!isPending && isError){
+    } else if (!isPending && isError) {
       toast.error('خطا در ارسال اطلاعات');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPending, isSuccess]);
 
   if (isLoading) return <Loader />;
@@ -146,8 +125,13 @@ const ManegersDetails = () => {
         <div className="flex justify-center items-center mt-6 w-full">
           <button
             onClick={handlePost}
+            disabled={isDisabled}
             type="button"
-            className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
+            className={`py-2 w-full px-6 mx-24 text-white rounded-lg shadow-xl font-semibold transition-transform transform focus:outline-none focus:ring-4 focus:ring-blue-300 ${
+              isDisabled
+                ? 'bg-gray-400 cursor-not-allowed opacity-50' // Disabled state styles
+                : 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800'
+            }`}
           >
             ارسال اطلاعات
           </button>
