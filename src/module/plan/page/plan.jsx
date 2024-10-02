@@ -11,8 +11,8 @@ import Documentation from '../feature/documentation';
 // import Calculate from '../feature/calculate';
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
-import PaymentPage from '../partnership/page/pymentpage';
 import Roadmap from '../feature/Roadmap';
+import PaymentPage from '../payment/page/pymentpage';
 
 const Plan = () => {
   const { traceCode } = useParams();

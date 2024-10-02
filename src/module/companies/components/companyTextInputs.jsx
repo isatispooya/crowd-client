@@ -66,7 +66,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره شناسه:</label>
         <input
-          type="number"
+          type="text"
           name="nationalid"
           disabled={localData.Lock_nationalid}
           value={localData.nationalid || ''}
@@ -79,7 +79,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره ثبت:</label>
         <input
-          type="number"
+          type="text"
           name="registration_number"
           value={localData.registration_number || ''}
           disabled={localData.Lock_registration_number}

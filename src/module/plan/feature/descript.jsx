@@ -2,13 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import { formatNumber } from 'src/utils/formatNumbers';
-import usePlan from '../service/use-plan';
+import useGetPlan from '../service/use-plan';
+import useGetInformation from '../service/use-getinformtion';
 
 const Descript = () => {
   const { traceCode } = useParams();
-  const { data, isPending, error } = usePlan(traceCode);
-
-  if (isPending) {
+  const { data, isPending, error } = useGetPlan(traceCode);
+  const { data:addinformtion ,isLoading:addloading } = useGetInformation(traceCode);
+  if (isPending||addloading) {
     return <Loader />;
   }
 
@@ -46,6 +47,10 @@ const Descript = () => {
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">نماد </p>
           <p className="text-lg text-gray-900 font-semibold">{data.english_approved_symbol || 'نامشخص'}</p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <p className="text-gray-500">سود </p>
+          <p className="text-lg text-gray-900 font-semibold">%{addinformtion.rate_of_return || 'نامشخص'}</p>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <p className="text-gray-500">عنوان گروه صنعت</p>

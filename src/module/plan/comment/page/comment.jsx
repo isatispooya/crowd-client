@@ -36,7 +36,7 @@ const CommentForm = () => {
   };
   return (
     <div className="">
-      <CommentList id={traceCode} />
+      <CommentList traceCode={traceCode} />
       <h1 className="text-xl font-bold mb-4 mt-10">ارسال دیدگاه</h1>
       <div className="mb-4">
         {chatHistory.map((chat, index) => (
