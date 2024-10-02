@@ -7,6 +7,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import UseCartId from 'src/hooks/use-cartId';
 import Loader from 'src/components/loader';
 import ConfirmationDialog from 'src/components/dialogMsg';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 import useShareholders from '../hooks/fetchMangers';
 import FileSharehold from './fildesharehold';
 
@@ -48,6 +49,12 @@ const Shareholders = () => {
     }
   };
 
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+
+  console.log(finishCart ,  loader, 'finishCart');
+
+  const isDisabled = loader || finishCart?.cart?.finish_cart === true;
+
   if (isLoading) return <Loader />;
 
   return (
@@ -88,8 +95,13 @@ const Shareholders = () => {
         <div className="flex justify-center items-center mt-6 w-full">
           <button
             onClick={handlePost}
+            disabled={isDisabled}
             type="button"
-            className="py-2 w-full px-6 bg-blue-500 mx-24 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200 font-semibold"
+            className={`py-2 w-full px-6 mx-24 text-white rounded-lg shadow-xl font-semibold transition-transform transform focus:outline-none focus:ring-4 focus:ring-blue-300 ${
+              isDisabled
+                ? 'bg-gray-400 cursor-not-allowed opacity-50' // Disabled state styles
+                : 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800'
+            }`}
           >
             ارسال اطلاعات
           </button>

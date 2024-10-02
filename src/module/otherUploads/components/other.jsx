@@ -11,6 +11,7 @@ import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
 import SmallLoader from 'src/components/SmallLoader';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 import { getFormData } from '../utils/getFormData';
 import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
@@ -83,6 +84,10 @@ const Other = () => {
     }
   };
 
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+
+  const isDisabled = loader || finishCart?.cart?.finish_cart === true;
+
   return (
     <div>
       <div className="flex items-center justify-center">
@@ -96,14 +101,19 @@ const Other = () => {
           <div className="flex flex-col justify-center items-center mt-10">
             <button
               onClick={handleSubmit}
-              className={`flex items-center px-4 py-2 ${
-                loading ? 'bg-gray-500' : 'bg-blue-500'
-              } text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
-              disabled={loading}
+              className={`flex items-center px-4 py-2 
+      ${
+        loading || isDisabled
+          ? 'bg-gray-500 cursor-not-allowed opacity-50'
+          : 'bg-blue-500 hover:bg-blue-600'
+      } 
+      text-white rounded-md font-semibold transition-all`}
+              disabled={loading || isDisabled}
             >
               {loading ? 'در حال ارسال...' : 'ثبت'}
             </button>
           </div>
+
           {isLoading ||
             (loading && (
               <div className="flex justify-center mt-4">

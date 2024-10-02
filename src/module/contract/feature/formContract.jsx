@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import UseCartId from 'src/hooks/use-cartId';
 import InputPercent from 'src/components/input/inputPercent';
 import SelectInput from 'src/components/input/inputSelect';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 import useGetContract from '../hooks/useGetContract';
 import ToggleContract from '../componets/toggelContract';
 import UsePostContract from '../hooks/use-contract';
@@ -15,15 +16,12 @@ const FormContract = () => {
   const { data: dataContract, isError } = useGetContract(cartId);
   const { mutate, isLoading, isError: err } = UsePostContract(cartId);
 
-  
   const handleSubmit = () => {
     mutate(contractData);
-    toast.success("اطلاعات با موفقیت بارگزاری شد");
+    toast.success('اطلاعات با موفقیت بارگزاری شد');
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
-
-
 
   const toggleLabels = [
     { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', key: 'role_141' },
@@ -59,13 +57,17 @@ const FormContract = () => {
   };
 
   useEffect(() => {
-    if (dataContract && !isError||err) {
+    if ((dataContract && !isError) || err) {
       setContractData(dataContract?.cart);
     }
-  }, [dataContract, isError,err]);
+  }, [dataContract, isError, err]);
+
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+
+  const isDisabledCart = loader || finishCart?.cart?.finish_cart === true;
 
   return (
-    <>  
+    <>
       <ToastContainer autoClose={3000} />
       <div dir="rtl" className="">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center mb-8">
@@ -122,14 +124,18 @@ const FormContract = () => {
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}
-          className={`flex items-center px-4 py-2 ${isLoading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
-          disabled={isLoading} 
-          
+          className={`flex items-center px-4 py-2 
+      ${
+        isLoading || isDisabledCart
+          ? 'bg-gray-500 cursor-not-allowed opacity-50'
+          : 'bg-blue-500 hover:bg-blue-600'
+      } 
+      text-white rounded-md font-semibold transition-all`}
+          disabled={isLoading || isDisabledCart}
         >
           {isLoading ? 'در حال ارسال...' : 'ارسال اطلاعات'}
         </button>
       </div>
-      
     </>
   );
 };

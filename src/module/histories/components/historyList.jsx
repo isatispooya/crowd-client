@@ -11,13 +11,14 @@ import { OnRun } from 'src/api/OnRun';
 import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
-import {DateObject} from 'react-multi-date-picker';
+import { DateObject } from 'react-multi-date-picker';
 import SmallLoader from 'src/components/SmallLoader';
+import { useFinishCart } from 'src/hooks/useFinishCart';
 
 const HistoryList = () => {
   const { cartId } = UseCartId();
   const [historyList, setHistoryList] = useState([]);
-  const { incrementPage } = useNavigateStep(); 
+  const { incrementPage } = useNavigateStep();
   const [loading, setLoading] = useState(false);
 
   const fetchManagerData = async () => {
@@ -29,7 +30,7 @@ const HistoryList = () => {
         },
       });
       if (response.data) {
-        const manager = response.data.manager.map(i=>({...i,date: new DateObject(i.date)}))
+        const manager = response.data.manager.map((i) => ({ ...i, date: new DateObject(i.date) }));
         setHistoryList(manager);
       }
     } catch (error) {
@@ -45,11 +46,11 @@ const HistoryList = () => {
       let hasFile = false;
 
       historyList.forEach((element) => {
-      if (element.file) {
+        if (element.file) {
           formData.append(element.national_code, element.file);
           const timestamp = element.date.toDate().getTime();
           formData.append(`${element.national_code}_date`, timestamp);
-          hasFile = true; 
+          hasFile = true;
         }
       });
 
@@ -70,7 +71,6 @@ const HistoryList = () => {
 
       toast.success('اطلاعات با موفقیت ارسال شد!');
 
- 
       incrementPage();
     } catch (error) {
       console.error('خطا :', error);
@@ -81,6 +81,10 @@ const HistoryList = () => {
   useEffect(() => {
     fetchManagerData();
   }, []);
+
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
+  
+  const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
@@ -99,19 +103,27 @@ const HistoryList = () => {
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}
-          className={`flex items-center px-4 py-2 ${loading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md font-semibold hover:bg-blue-600 transition-all`}
-          disabled={loading} 
-          
+          className={`flex items-center px-4 py-2 
+      ${
+        // eslint-disable-next-line no-nested-ternary
+        loading
+          ? 'bg-gray-500 cursor-wait'
+          : isDisabled
+          ? 'bg-gray-400 cursor-not-allowed opacity-50'
+          : 'bg-blue-500 hover:bg-blue-600'
+      } 
+      text-white rounded-md font-semibold transition-all`}
+          disabled={isDisabled || loading}
         >
           {loading ? 'در حال ارسال...' : 'ثبت'}
         </button>
       </div>
-      {
-        (loading&& (
-          <div className="flex justify-center mt-4">
-            <SmallLoader />
-          </div>
-        ))}
+
+      {loading && (
+        <div className="flex justify-center mt-4">
+          <SmallLoader />
+        </div>
+      )}
     </div>
   );
 };
