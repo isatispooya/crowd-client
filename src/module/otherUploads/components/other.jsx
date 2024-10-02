@@ -17,9 +17,10 @@ import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
 
 const Other = () => {
-  const { cartId } = UseCartId();
-  const { incrementPage } = useNavigateStep();
-  const [loading, setLoading] = useState(false);
+  const { cartId } = UseCartId(); // Always called in the same order
+  const { incrementPage } = useNavigateStep(); // Always called in the same order
+
+  const [loading, setLoading] = useState(false); // Always called in the same order
 
   const [Data, setData] = useState({
     Lock_claims_status: false,
@@ -46,9 +47,11 @@ const Other = () => {
     licenses: null,
   });
 
-
+  // Using hooks at the top level, unconditionally
   const { isLoading, data } = useFetchData(cartId);
+  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
+  // Effects should not be conditional
   useEffect(() => {
     if (data) {
       setData(data);
@@ -80,11 +83,11 @@ const Other = () => {
     } catch (error) {
       console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
+      setLoading(false); // Ensure loading is reset on error
     }
   };
 
-  const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
-
+  // Safe checking for loader and finishCart
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   return (
@@ -101,24 +104,23 @@ const Other = () => {
             <button
               onClick={handleSubmit}
               className={`flex items-center px-4 py-2 
-      ${
-        loading || isDisabled
-          ? 'bg-gray-500 cursor-not-allowed opacity-50'
-          : 'bg-blue-500 hover:bg-blue-600'
-      } 
-      text-white rounded-md font-semibold transition-all`}
+              ${
+                loading || isDisabled
+                  ? 'bg-gray-500 cursor-not-allowed opacity-50'
+                  : 'bg-blue-500 hover:bg-blue-600'
+              } 
+              text-white rounded-md font-semibold transition-all`}
               disabled={loading || isDisabled}
             >
               {loading ? 'در حال ارسال...' : 'ثبت'}
             </button>
           </div>
 
-          {isLoading ||
-            (loading && (
-              <div className="flex justify-center mt-4">
-                <SmallLoader />
-              </div>
-            ))}
+          {(isLoading || loading) && (
+            <div className="flex justify-center mt-4">
+              <SmallLoader />
+            </div>
+          )}
         </div>
       </div>
     </div>
