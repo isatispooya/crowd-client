@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React from 'react';
 import axios from 'axios';
 import { getCookie } from 'src/api/cookie';
@@ -7,11 +5,9 @@ import { OnRun } from 'src/api/OnRun';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
-
 import SmallLoader from './SmallLoader';
 
 const fetchMessage = async (cartId) => {
-
   const access = await getCookie('access');
   if (cartId) {
     const response = await axios.get(`${OnRun}/api/message/${cartId}/`, {
@@ -25,18 +21,15 @@ const fetchMessage = async (cartId) => {
 };
 
 export const Message = () => {
-  const {cartId} = UseCartId()
-  
+  const { cartId } = UseCartId();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['fetchMessage', cartId],
     queryFn: () => fetchMessage(cartId),
   });
 
-  if (isLoading)
-    return <SmallLoader/>;
-  if (error)
-    return <p className="text-red-500">خطایی رخ داده است</p>;
+  if (isLoading) return <SmallLoader />;
+  if (error) return <p className="text-red-500">خطایی رخ داده است</p>;
 
   if (!data || !cartId) {
     return null;
@@ -44,7 +37,6 @@ export const Message = () => {
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg  shadow-inner">
-      
       <div className="flex items-center">
         <AiOutlineInfoCircle className="text-blue-700 ml-2 mr-0 text-3xl" />
         <p className="text-gray-700 font-semibold"> پیام:</p>
@@ -55,4 +47,3 @@ export const Message = () => {
 };
 
 export default Message;
-

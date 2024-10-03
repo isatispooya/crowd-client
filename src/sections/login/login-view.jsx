@@ -49,6 +49,7 @@ export default function LoginView() {
         {
           onSuccess: (data) => {
             setRegisterd(data.registered);
+            console.log(data.registered , "11111")
             setStep(2);
 
             startTimer();
@@ -116,7 +117,8 @@ export default function LoginView() {
               label="کد تایید"
               fullWidth
             />
-            <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
+            {registerd ? false : <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />}
+            
           </>
         )}
       </Stack>

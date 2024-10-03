@@ -1,7 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -17,10 +13,10 @@ import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
 
 const Other = () => {
-  const { cartId } = UseCartId(); 
-  const { incrementPage } = useNavigateStep(); 
+  const { cartId } = UseCartId();
+  const { incrementPage } = useNavigateStep();
 
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const [Data, setData] = useState({
     Lock_claims_status: false,
@@ -47,11 +43,9 @@ const Other = () => {
     licenses: null,
   });
 
-  // Using hooks at the top level, unconditionally
   const { isLoading, data } = useFetchData(cartId);
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
-  // Effects should not be conditional
   useEffect(() => {
     if (data) {
       setData(data);
@@ -64,30 +58,28 @@ const Other = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    try {
-      const formData = getFormData(Data);
 
-      const access = await getCookie('access');
+    const formData = getFormData(Data);
 
-       await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${access}`,
-        },
-      });
+    const access = await getCookie('access');
 
-      toast.success('اطلاعات با موفقیت ارسال شد!');
-      setLoading(false);
+    const response = await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${access}`,
+      },
+    });
 
-      incrementPage();
-    } catch (error) {
-      console.error('خطا در ارسال اطلاعات:', error);
-      toast.error('خطا در ارسال اطلاعات');
-      setLoading(false); 
-    }
+    toast.success('اطلاعات با موفقیت ارسال شد!');
+    setLoading(false);
+
+    incrementPage();
+    console.error('خطا در ارسال اطلاعات:');
+    toast.error('خطا در ارسال اطلاعات');
+    setLoading(false);
+    return response.data;
   };
 
- 
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   return (
@@ -102,6 +94,7 @@ const Other = () => {
 
           <div className="flex flex-col justify-center items-center mt-10">
             <button
+              type="button"
               onClick={handleSubmit}
               className={`flex items-center px-4 py-2 
               ${

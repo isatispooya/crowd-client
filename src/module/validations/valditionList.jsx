@@ -1,7 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable import/order */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,11 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
-import ValidateRow from './validateRow';
 import UseCartId from 'src/hooks/use-cartId';
 import { DateObject } from 'react-multi-date-picker';
 import SmallLoader from 'src/components/SmallLoader';
 import { useFinishCart } from 'src/hooks/useFinishCart';
+import ValidateRow from './validateRow';
 
 const ValditionList = () => {
   const { cartId } = UseCartId();
@@ -82,6 +78,7 @@ const ValditionList = () => {
 
   useEffect(() => {
     fetchManagerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
@@ -103,6 +100,7 @@ const ValditionList = () => {
       </div>
       <div className="flex flex-col justify-center items-center mt-10">
         <button
+          type="button"
           onClick={handleSubmit}
           className={`flex items-center px-4 py-2 
       ${isDisabled ? 'bg-gray-400 cursor-not-allowed opacity-50' : 'bg-blue-500 hover:bg-blue-600'} 

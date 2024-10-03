@@ -3,8 +3,7 @@ import { toast } from 'react-toastify';
 import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
-const postContract = async ({cartId,contractData}) => {
-
+const postContract = async ({ cartId, contractData }) => {
   const access = getCookie('access');
 
   const response = await api.post(
@@ -20,15 +19,14 @@ const postContract = async ({cartId,contractData}) => {
   );
 
   return response.data.cart;
-  
 };
 
 const UsePostContract = (cartId) => {
   const { mutate, isLoading, IsError, isPending, error } = useMutation({
     mutationKey: ['contract', cartId],
-    mutationFn: (contractData) => postContract({cartId,contractData}),
+    mutationFn: (contractData) => postContract({ cartId, contractData }),
     onSuccess: (data) => {
-      toast.success('اطلاعات با موفقیت ارسال شد!'); // پیام موفقیت
+      toast.success('اطلاعات با موفقیت ارسال شد!');
     },
   });
   return {

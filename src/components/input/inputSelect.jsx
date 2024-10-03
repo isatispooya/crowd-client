@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,7 +13,7 @@ const SelectInput = ({ label, value, disabled, options, setContractData, contrac
 
   return (
     <div className="mb-6">
-      <label className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
+      <label htmlFor='select' className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
       <select
         name={label}
         value={value || ''}

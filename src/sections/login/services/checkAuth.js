@@ -8,10 +8,10 @@ export function useCheckAuth() {
 
   useEffect(() => {
     const accessToken = getCookie('access');
-    
+
     if (!accessToken) {
       // اگر کوکی access وجود نداشت، کاربر به صفحه لاگین هدایت می‌شود
-      navigate('/login'); 
+      navigate('/login');
     }
   }, [navigate]); // وابسته به navigate برای اطمینان از هدایت
 }

@@ -40,14 +40,14 @@ const ValidateRow = ({ index, list, item, setList }) => {
         <div className="text-gray-700 text-sm font-medium">{item.national_code}</div>
       </div>
       <div className="min-w-[150px] ml-3">
-        <span className='text-black'>تاریخ:</span>
-           <DatePicker
-            style={{
-              width: '100%',
-              padding: 16,
-              backgroundColor: '#ffffff',
-              marginTop:"12px"
-            }}
+        <span className="text-black">تاریخ:</span>
+        <DatePicker
+          style={{
+            width: '100%',
+            padding: 16,
+            backgroundColor: '#ffffff',
+            marginTop: '12px',
+          }}
           value={item.date ? new Date(item.date) : null}
           onChange={handleDateChange}
           calendar={persian}

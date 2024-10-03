@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 const useTimer = () => {
   const [timer, setTimer] = useState(60);
   const [step, setStep] = useState(1);
-  
+
   const { mutate: startTimer } = useMutation({
     mutationKey: ['startTimer'],
     mutationFn: () => {

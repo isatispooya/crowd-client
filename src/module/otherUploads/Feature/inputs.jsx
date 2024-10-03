@@ -8,7 +8,7 @@ const Inputs = ({ Data, setData }) => {
   const handleFileRemove = (field) => {
     setData({ ...Data, [field]: null });
   };
-  
+
   return (
     <>
       <div className="mb-6">
@@ -115,7 +115,7 @@ const Inputs = ({ Data, setData }) => {
 
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-             لیست اظهار دارایی ها و بدهی ها :
+          لیست اظهار دارایی ها و بدهی ها :
         </label>
 
         {Data && typeof Data.assets_and_liabilities === 'string' ? (
@@ -133,7 +133,7 @@ const Inputs = ({ Data, setData }) => {
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-             فایل لیست اظهار دارایی ها و بدهی ها
+              فایل لیست اظهار دارایی ها و بدهی ها
             </a>
             <button
               type="button"
@@ -151,7 +151,6 @@ const Inputs = ({ Data, setData }) => {
                 انتخاب فایل
                 <BsCloudUploadFill className="ml-2" />
                 <input
-              
                   name="statement_yearold"
                   type="file"
                   onChange={(e) => setData({ ...Data, assets_and_liabilities: e.target.files[0] })}
@@ -397,27 +396,21 @@ const Inputs = ({ Data, setData }) => {
 
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-            کاتالوگ محصولات
+          کاتالوگ محصولات
         </label>
 
         {Data && typeof Data.product_catalog === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
-              href={
-                Data.Lock_product_catalog
-                  ? null
-                  : `${OnRun}/${Data.product_catalog}`
-              }
+              href={Data.Lock_product_catalog ? null : `${OnRun}/${Data.product_catalog}`}
               onClick={(e) => Data.Lock_product_catalog && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_product_catalog
-                  ? 'text-gray-400'
-                  : 'text-blue-600 hover:text-blue-800'
+                Data.Lock_product_catalog ? 'text-gray-400' : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-               فایل کاتالوگ محصولات 
+              فایل کاتالوگ محصولات
             </a>
             <button
               type="button"
@@ -448,37 +441,27 @@ const Inputs = ({ Data, setData }) => {
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.product_catalog
-                  ? Data.product_catalog.name
-                  : 'هیچ فایلی انتخاب نشده'}
+                {Data.product_catalog ? Data.product_catalog.name : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>
           </div>
         )}
       </div>
       <div className="mb-6">
-        <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-             مجوز
-        </label>
+        <label className="block text-right text-gray-700 text-sm font-medium mb-2">مجوز</label>
 
         {Data && typeof Data.licenses === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
-              href={
-                Data.Lock_licenses
-                  ? null
-                  : `${OnRun}/${Data.licenses}`
-              }
+              href={Data.Lock_licenses ? null : `${OnRun}/${Data.licenses}`}
               onClick={(e) => Data.Lock_licenses && e.preventDefault()}
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm font-medium ${
-                Data.Lock_licenses
-                  ? 'text-gray-400'
-                  : 'text-blue-600 hover:text-blue-800'
+                Data.Lock_licenses ? 'text-gray-400' : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل مجوز ها   
+              فایل مجوز ها
             </a>
             <button
               type="button"
@@ -509,9 +492,7 @@ const Inputs = ({ Data, setData }) => {
                 />
               </label>
               <span className="ml-4 mr-8 text-sm">
-                {Data.licenses
-                  ? Data.licenses.name
-                  : 'هیچ فایلی انتخاب نشده'}
+                {Data.licenses ? Data.licenses.name : 'هیچ فایلی انتخاب نشده'}
               </span>
             </div>
           </div>
@@ -519,16 +500,14 @@ const Inputs = ({ Data, setData }) => {
       </div>
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-             معرف حسابرس
+          معرف حسابرس
         </label>
 
         {Data && typeof Data.auditor_representative === 'string' ? (
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-inner">
             <a
               href={
-                Data.Lock_auditor_representative
-                  ? null
-                  : `${OnRun}/${Data.auditor_representative}`
+                Data.Lock_auditor_representative ? null : `${OnRun}/${Data.auditor_representative}`
               }
               onClick={(e) => Data.Lock_auditor_representative && e.preventDefault()}
               target="_blank"
@@ -539,7 +518,7 @@ const Inputs = ({ Data, setData }) => {
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-              فایل معرف حسابرس   
+              فایل معرف حسابرس
             </a>
             <button
               type="button"
@@ -580,7 +559,7 @@ const Inputs = ({ Data, setData }) => {
       </div>
       <div className="mb-6">
         <label className="block text-right text-gray-700 text-sm font-medium mb-2">
-             اعلان شماره حساب
+          اعلان شماره حساب
         </label>
 
         {Data && typeof Data.announcing_account_number === 'string' ? (
@@ -600,7 +579,7 @@ const Inputs = ({ Data, setData }) => {
                   : 'text-blue-600 hover:text-blue-800'
               }`}
             >
-               فایل اعلان شماره حساب   
+              فایل اعلان شماره حساب
             </a>
             <button
               type="button"
@@ -639,7 +618,6 @@ const Inputs = ({ Data, setData }) => {
           </div>
         )}
       </div>
-      
     </>
   );
 };

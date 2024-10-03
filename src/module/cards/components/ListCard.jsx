@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Button, Tooltip } from '@mui/material';
 import { getCookie } from 'src/api/cookie';
@@ -7,6 +6,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import PropTypes from 'prop-types';
 import Loader from 'src/components/loader';
 import SmallError from 'src/components/smallError';
+import { handleKeyPress } from 'src/utils/enterKey';
 import { useFetchCards } from '../hooks/useFetchCards';
 import { formatNumber } from '../../../utils/formatNumbers';
 import NewCard from './newCard';
@@ -29,7 +29,7 @@ const CardList = ({ setCardSelected }) => {
   }
 
   if (error) {
-    return <SmallError/>;
+    return <SmallError />;
   }
 
   return (
@@ -49,6 +49,7 @@ const CardList = ({ setCardSelected }) => {
                     cardId === card.id ? 'border-4 border-blue-600' : ''
                   }`}
                   onClick={() => handleCardClick(card.id, card.status)}
+                  onKeyPress={handleKeyPress}
                   tabIndex={0}
                   role="button"
                   aria-label={`View card ${card.company_name}`}
@@ -62,10 +63,16 @@ const CardList = ({ setCardSelected }) => {
                       </p>
                       <p className="text-lg font-medium text-black">
                         میزان سرمایه:
-                        <span className="text-sm text-gray-700"> {formatNumber(card.registered_capital)}</span>
+                        <span className="text-sm text-gray-700">
+                          {' '}
+                          {formatNumber(card.registered_capital)}
+                        </span>
                       </p>
                     </div>
-                    <div className="flex items-center text-lg font-medium text-black"> دانلود قرارداد</div>
+                    <div className="flex items-center text-lg font-medium text-black">
+                      {' '}
+                      دانلود قرارداد
+                    </div>
                   </div>
                   <div className="flex justify-center gap-4 ">
                     <Tooltip title="مشاهده و ویرایش">
@@ -91,6 +98,6 @@ const CardList = ({ setCardSelected }) => {
 };
 CardList.propTypes = {
   setCardSelected: PropTypes.isRequired,
-}
+};
 
 export default CardList;

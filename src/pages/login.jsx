@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { LoginView } from 'src/sections/login';
 
-// ----------------------------------------------------------------------
+
 
 export default function LoginPage() {
   return (
@@ -10,7 +10,6 @@ export default function LoginPage() {
       <Helmet>
         <title> ورود | درگاه سرمایه پذیران </title>
       </Helmet>
-
       <LoginView />
     </>
   );

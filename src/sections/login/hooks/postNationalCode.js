@@ -5,7 +5,7 @@ import { OnRun } from 'src/api/OnRun';
 
 const useApplyNationalCode = () => {
   return useMutation({
-    mutationKey: ['applyNationalCode'],  // کلیدی برای شناسایی درخواست
+    mutationKey: ['applyNationalCode'],
     mutationFn: async ({ nationalCode, captchaInput, encryptedResponse }) => {
       const response = await axios.post(`${OnRun}/api/otp/`, {
         uniqueIdentifier: nationalCode,
@@ -16,7 +16,7 @@ const useApplyNationalCode = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      
+
       return data;
     },
     onError: (error) => {

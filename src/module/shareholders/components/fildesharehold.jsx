@@ -1,10 +1,13 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { cleanNumber } from 'src/utils/formatNumbers';
+import PropTypes from 'prop-types';
 
 const FileSharehold = ({ index, validite, setValidite }) => {
+
+
   const handleChange = (input, value) => {
     const updatedRow = { ...validite[index], [input]: value };
     const updatedList = [...validite];
@@ -76,5 +79,9 @@ const FileSharehold = ({ index, validite, setValidite }) => {
   );
 };
 
+FileSharehold.propTypes = {
+  index: PropTypes.number.isRequired,
+  validite: PropTypes.object.isRequired,
+  setValidite: PropTypes.func.isRequired,
+};
 export default FileSharehold;
-

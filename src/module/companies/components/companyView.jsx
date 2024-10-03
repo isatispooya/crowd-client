@@ -1,6 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -48,7 +45,7 @@ export default function Form() {
     if (isError) {
       toast.warning(error);
     }
-  }, [isError]);
+  }, [isError, error]);
 
   const handleSubmit = async () => {
     if (!cartId && localData.company_name) {
@@ -83,6 +80,7 @@ export default function Form() {
 
       <div className="flex justify-center mt-8">
         <button
+          type="button"
           onClick={handleSubmit}
           className={`bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 ${
             isLoading || mutation.isPending || mutationUpdate.isPending || isButtonDisabled

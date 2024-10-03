@@ -1,23 +1,20 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const UseCartId = () => {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
+  const { data: cartId = 0 } = useQuery({
+    queryKey: ['cartId'],
+    initialData: 0,
+  });
 
-    const { data:cartId  = 0 } = useQuery({
-        queryKey: ['cartId'],
-        initialData: 0,
-    });
+  const setCartId = (id) => {
+    queryClient.setQueryData(['cartId'], id);
+  };
+  return {
+    cartId,
+    setCartId,
+  };
+};
 
-    
-    const setCartId=(id)=>{
-        queryClient.setQueryData(["cartId"],id)
-    }
-    return{
-        cartId,
-        setCartId
-    }
-
-}
-
-export default UseCartId
+export default UseCartId;

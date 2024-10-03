@@ -1,8 +1,21 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 
-const ConfirmationDialog = ({ open, onClose, onConfirm, title = "تایید حذف", message = "آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟" }) => {
+const ConfirmationDialog = ({
+  open,
+  onClose,
+  onConfirm,
+  title = 'تایید حذف',
+  message = 'آیا مطمئن هستید که می‌خواهید این بخش را حذف کنید؟',
+}) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ textAlign: 'center' }}>{title}</DialogTitle>
@@ -22,15 +35,11 @@ const ConfirmationDialog = ({ open, onClose, onConfirm, title = "تایید حذ
 };
 
 ConfirmationDialog.propTypes = {
-    open: PropTypes.isRequired,
-    onClose: PropTypes.isRequired,
-    onConfirm: PropTypes.isRequired,
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-
-
-
-  
-  };
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+};
 
 export default ConfirmationDialog;

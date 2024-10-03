@@ -65,7 +65,7 @@ export const StyledLabel = styled(Box)(({ theme, ownerState }) => {
     display: 'inline-flex',
     justifyContent: 'center',
     textTransform: 'capitalize',
-    backgroundColor :"#ffffff",
+    backgroundColor: '#ffffff',
     padding: theme.spacing(0, 0.75),
     fontSize: theme.typography.pxToRem(12),
     fontWeight: theme.typography.fontWeightBold,

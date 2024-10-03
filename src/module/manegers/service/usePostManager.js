@@ -1,26 +1,28 @@
-import { useMutation } from "@tanstack/react-query";
-import useGetManager from "./useGetManager";
-import { postManager } from "./api";
+import { useMutation } from '@tanstack/react-query';
+import useGetManager from './useGetManager';
+import { postManager } from './api';
 
+const usePostManager = () => {
+  const { refetch } = useGetManager();
+  const { mutate, isPending, data, error, isSuccess, isError } = useMutation({
+    mutationKey: ['postMessage'],
 
-const usePostManager = () =>{
-  const {refetch} = useGetManager()
-    const {mutate, isPending, data, error , isSuccess, isError} = useMutation({
-        mutationKey: ['postMessage'],
-        // eslint-disable-next-line no-shadow
-        mutationFn: ({cartId, sanitizedField})=>{
-          
-          postManager({cartId, sanitizedField})
-        },
-        onSettled:()=>{
-          refetch()
-        }
-      });
+    mutationFn: ({ cartId, sanitizedField }) => {
+      postManager({ cartId, sanitizedField });
+    },
+    onSettled: () => {
+      refetch();
+    },
+  });
 
-      return{
-        mutate,isSuccess,isPending, data, error , isError
-      }
-}
+  return {
+    mutate,
+    isSuccess,
+    isPending,
+    data,
+    error,
+    isError,
+  };
+};
 
-
-export default usePostManager
+export default usePostManager;

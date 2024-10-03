@@ -14,12 +14,9 @@ const ProfileField = ({ label, value }) => (
   </div>
 );
 
-
 ProfileField.propTypes = {
-    label : PropTypes.string.isRequired,
-    value : PropTypes.isRequired,
-
-}
-
+  label: PropTypes.string.isRequired,
+  value: PropTypes.isRequired,
+};
 
 export default ProfileField;

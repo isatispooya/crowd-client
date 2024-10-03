@@ -1,5 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-curly-brace-presence */
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import UseCartId from 'src/hooks/use-cartId';
@@ -78,13 +76,13 @@ const FormContract = () => {
             label="درصد شناوری تامین مالی"
             value={contractData}
             handle={(updatedData) => setContractData(updatedData)}
-            keyName={'swimming_percentage'}
+            keyName="swimming_percentage"
           />
           <InputPercent
             label="درصد سود مشارکت اسمی"
             value={contractData}
             handle={(updatedData) => setContractData(updatedData)}
-            keyName={'partnership_interest'}
+            keyName="partnership_interest"
           />
           <SelectInput
             label="نوع ضمانت"
@@ -92,7 +90,7 @@ const FormContract = () => {
             options={guaranteeOptions}
             setContractData={setContractData}
             contractData={contractData}
-            keyName={'guarantee'}
+            keyName="guarantee"
           />
           <SelectInput
             label="دوره پرداخت"
@@ -100,7 +98,7 @@ const FormContract = () => {
             options={periodOptions}
             setContractData={setContractData}
             contractData={contractData}
-            keyName={'payback_period'}
+            keyName="payback_period"
           />
         </div>
 
@@ -123,6 +121,7 @@ const FormContract = () => {
       </div>
       <div className="flex flex-col justify-center items-center mt-10">
         <button
+          type="button"
           onClick={handleSubmit}
           className={`flex items-center px-4 py-2 
       ${
