@@ -34,10 +34,12 @@ const CommentForm = () => {
       );
     }
   };
+
   return (
-    <div className="">
+    <div className="p-4 md:p-6 lg:p-8">
       <CommentList traceCode={traceCode} />
       <h1 className="text-xl font-bold mb-4 mt-10">ارسال دیدگاه</h1>
+
       <div className="mb-4">
         {chatHistory.map((chat, index) => (
           <div key={index} className={`chat ${chat.sender === 'user' ? 'chat-start' : 'chat-end'}`}>
@@ -62,26 +64,25 @@ const CommentForm = () => {
           disabled={isLoading}
         />
 
-        <div >
+        <div className="flex items-center">
           <input
             type="checkbox"
-            id="show-name bg-white"
+            id="show-name"
             checked={showName}
             onChange={() => setShowName(!showName)}
             className="mr-2 bg-white"
           />
-          <label htmlFor="show-name">نمایش نام</label>
+          <label htmlFor="show-name" className="text-gray-700">نمایش نام</label>
         </div>
 
         <button
           type="submit"
-          className="items-center bg-gradient-to-r from-[#004ff9] to-[#000000] text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
+          className="w-full sm:w-auto bg-gradient-to-r from-[#004ff9] to-[#000000] text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
           disabled={isLoading}
         >
           {isLoading ? 'در حال ارسال...' : 'ارسال'}
         </button>
       </form>
-      
     </div>
   );
 };

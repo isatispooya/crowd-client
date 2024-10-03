@@ -50,8 +50,7 @@ const Payment = () => {
 
   const handleAgreementAccept = () => {
     setIsPopupOpen(false);
-    // در صورت نیاز، می‌توانید عملیات دیگری را اینجا اضافه کنید
-    // مانند باز کردن یک مدال دیگر یا انجام پردازش‌های اضافی
+    
   };
 
   return (

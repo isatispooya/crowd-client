@@ -74,7 +74,7 @@ const ManegersDetails = () => {
       }));
       mutate({ cartId, sanitizedField });
     }
-  };
+  
   useEffect(() => {
     if (!isPending && isSuccess) {
       toast.success('اطلاعات با موفقیت ارسال شد');

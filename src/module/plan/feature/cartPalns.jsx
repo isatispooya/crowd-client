@@ -23,12 +23,12 @@ const CartPlans = () => {
   }
 
   return (
-    <div className="flex justify-between ">
+    <div className="flex  justify-between ">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">
         <div className="bg-gray-200 text-white rounded-t-md p-4 text-center mb-10">
           <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
         </div>
-        <div className='flex gap-12 justify-center text-right '>
+        <div className='flex-col sm:flex space-y-12 gap-12 justify-center text-right '>
           {data.map((item) => {
             const persianCreationDate = moment(item.creation_date)
               .locale('fa')

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
@@ -26,26 +25,24 @@ const Plan = () => {
   }
 
   return (
-    <div className="w-full  mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="border-b-2 border-gray-200 mb-6">
-        <ul className="flex justify-center space-x-1 text-sm text-nowrap">
+        <ul className="flex flex-wrap justify-center space-x-1 text-sm text-center">
           {[
             { label: 'اطلاعات طرح', tab: 0 },
             { label: 'گزارشات', tab: 1 },
-
             { label: 'نظرات کاربران', tab: 4 },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
-
             { label: 'زمان بندی طرح', tab: 6 },
             { label: 'مشارکت', tab: 7 },
           ].map(({ label, tab }) => (
-            <li key={tab} className="mr-4">
+            <li key={tab} className="mb-2">
               <button
-                className={`py-2 px-1 font-semibold transition-all duration-300 ${
+                className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md ${
                   label === 'مشارکت'
-                    ? 'bg-blue-900 text-white rounded-sm'
+                    ? 'bg-blue-900 text-white'
                     : activeTab === tab
-                    ? 'text-blue-900 border-b-4 border-blue-900 font-semibold'
+                    ? 'text-blue-900 border-b-4 border-blue-900'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
                 }`}
                 onClick={() => setActiveTab(tab)}
@@ -59,37 +56,40 @@ const Plan = () => {
 
       <div className="mt-8">
         {activeTab === 0 && (
-          <div className="p-2 ">
+          <div >
             <Descript />
           </div>
         )}
 
-        {activeTab === 1 && <ReportsView />}
+        {activeTab === 1 && (
+          <div >
+            <ReportsView />
+          </div>
+        )}
 
         {activeTab === 4 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div >
             <CommentForm />
           </div>
         )}
 
         {activeTab === 5 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div>
             <InvestProfile />
           </div>
         )}
 
         {activeTab === 6 && (
-          <div className="p-2 bg-gray-50 rounded-lg shadow-md">
+          <div >
             <Roadmap />
           </div>
         )}
-        <div>
-          {activeTab === 7 && (
-            <div className="grid   gap-8">
-              <PaymentPage />
-            </div>
-          )}
-        </div>
+
+        {activeTab === 7 && (
+          <div >
+            <PaymentPage />
+          </div>
+        )}
       </div>
     </div>
   );

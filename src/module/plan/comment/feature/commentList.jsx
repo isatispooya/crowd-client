@@ -32,6 +32,7 @@ const CommentList = () => {
               lastName={commentData.lastName}
               comment={commentData.comment}
               known={commentData.known}
+              answer={commentData.answer}
             />
           ))
         ) : (
