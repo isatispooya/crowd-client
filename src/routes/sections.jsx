@@ -16,6 +16,7 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
+export const Success = lazy(() => import('src/pages/'));
 export const Card = lazy(() => import('src/components/stepper'));
 
 export default function Router() {
