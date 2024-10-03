@@ -69,7 +69,7 @@ const ManegersDetails = () => {
   const { mutate, isSuccess, isPending, isError } = usePostManager();
 
   const handlePost = async () => {
-    if (true) {
+  
       const sanitizedField = field.map((manager) => ({
         ...manager,
         national_id: manager.national_id || '',
@@ -77,7 +77,7 @@ const ManegersDetails = () => {
       }));
       mutate({ cartId, sanitizedField });
     }
-  };
+  
   useEffect(() => {
     if (!isPending && isSuccess) {
       toast.success('اطلاعات با موفقیت ارسال شد');
