@@ -8,7 +8,7 @@ import usePlan from '../service/use-plan';
 import CommentForm from '../comment/page/comment';
 import InvestProfile from '../investor/feature/Investorprofile';
 import Documentation from '../feature/documentation';
-// import Calculate from '../feature/calculate';
+
 import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Roadmap from '../feature/Roadmap';
@@ -67,11 +67,7 @@ const Plan = () => {
           </div>
         )}
 
-        {activeTab === 1 && (
-          <div className=" ">
-            <ReportsView />
-          </div>
-        )}
+        {activeTab === 1 && <ReportsView />}
 
         {activeTab === 4 && (
           <div className="p-2 bg-gray-50 rounded-lg shadow-md">
