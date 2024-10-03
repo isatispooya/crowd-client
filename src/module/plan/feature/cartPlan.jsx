@@ -33,12 +33,12 @@ const CartPlan = ({
             className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
           />
         )}
-        <div className="grid  gap-4">
+        <div className="grid  gap-8">
           <h2 className="text-2xl font-bold text-gray-900">{persianName}</h2>
           <p className="text-lg text-gray-600">{crowdFundingtypeDescription}</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <div className="grid ">
           <p className="text-sm text-gray-700">
             مبلغ کل: <span className="font-semibold">{totalPrice} ریال</span>
           </p>

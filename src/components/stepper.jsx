@@ -117,13 +117,13 @@ const Sterpercrowd = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
+    <div className="min-h-screen bg-gray-50 block mx-auto p-4 sm:p-6 md:p-8 lg:p-12 rounded-lg shadow-2xl">
       <ToastContainer />
       <Stepper
         activeStep={activeStep}
         alternativeLabel
         connector={null}
-        className="w-full flex-grow"
+        className="w-full flex-grow flex-wrap"
       >
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
@@ -133,7 +133,7 @@ const Sterpercrowd = () => {
               style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }}
             >
               <span
-                className={`block text-lg md:text-base font-semibold ${
+                className={`block text-sm sm:text-base lg:text-lg font-semibold ${
                   isStepLocked && index > 0 ? 'text-gray-400' : 'text-gray-700'
                 } transition-all duration-300 hover:text-blue-600 hover:scale-105`}
               >
@@ -144,7 +144,7 @@ const Sterpercrowd = () => {
         ))}
       </Stepper>
 
-      <div className="mt-12">{renderStepContent(activeStep)}</div>
+      <div className="mt-8 sm:mt-12">{renderStepContent(activeStep)}</div>
     </div>
   );
 };

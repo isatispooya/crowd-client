@@ -182,7 +182,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <label className="block text-gray-800 text-xs font-semibold mb-2">تاریخ تاسیس :</label>
         <DatePicker
       style={{
-        width: '100%',
+        width:"100%",
         padding: 22,
         backgroundColor: '#ffffff',
       }}

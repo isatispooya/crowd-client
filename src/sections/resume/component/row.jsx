@@ -21,7 +21,7 @@ const Row = ({ index, list, item, setList }) => {
   return (
     <div
       key={index}
-      className="flex justify-between disabled:bg-gray-300  mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative"
+      className=" flex flex-wrap gap-8  justify-between disabled:bg-gray-300  mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative"
     >
       <div className="flex items-center gap-4">
         <label className="text-gray-900 font-semibold">اسم:</label>

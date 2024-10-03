@@ -28,7 +28,7 @@ const ValidateRow = ({ index, list, item, setList }) => {
   return (
     <div
       key={index}
-      className="flex flex-wrap justify-between   disabled:bg-gray-300 mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative w-full"
+      className="flex flex-wrap justify-between  gap-8 disabled:bg-gray-300 mt-8 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out relative w-full"
     >
       <div className="flex items-center  w-full sm:w-auto">
         <label className="text-gray-900 font-semibold">اسم:</label>
