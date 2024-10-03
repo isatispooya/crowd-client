@@ -11,8 +11,8 @@ import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import CardList from '../module/cards/components/ListCard';
 import Form from '../module/companies/components/companyView';
-import ManegersDetails from '../module/manegers/components/manegersDetails';
 import Clearify from '../module/histories/components/clearify';
+import ManegersDetails from '../module/manegers/components/manegersDetails';
 import Shareholders from '../module/shareholders/components/shareholders';
 import CompletionMessage from './finishLine';
 import Validation from '../module/validations/Validation';
@@ -34,8 +34,8 @@ const Sterpercrowd = () => {
   const { setCartId } = UseCartId();
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const [cardSelected, setCardSelected] = useState(null); 
-  const [isStepLocked, setIsStepLocked] = useState(true); 
+  const [cardSelected, setCardSelected] = useState(null);
+  const [isStepLocked, setIsStepLocked] = useState(true);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const access = getCookie('access');
@@ -50,7 +50,6 @@ const Sterpercrowd = () => {
   }, [access, navigate]);
 
   const handleStepClick = (stepIndex) => {
-
     if (isStepLocked && stepIndex > 0) {
       toast.error('ابتدا یک لیست را انتخاب  یا ایجاد کنید');
       return;
@@ -87,11 +86,9 @@ const Sterpercrowd = () => {
             setCartId={setCartId}
             setCardSelected={(card) => {
               setCardSelected(card);
-              setIsStepLocked(false); 
-           
+              setIsStepLocked(false);
             }}
             incrementPage={incrementPage}
-     
           />
         );
       case 1:
@@ -122,13 +119,18 @@ const Sterpercrowd = () => {
   return (
     <div className="min-h-screen bg-gray-50 block z-50 mx-auto p-6 rounded-lg shadow-2xl">
       <ToastContainer />
-      <Stepper activeStep={activeStep} alternativeLabel connector={null} className="w-full flex-grow">
+      <Stepper
+        activeStep={activeStep}
+        alternativeLabel
+        connector={null}
+        className="w-full flex-grow"
+      >
         {steps.map((label, index) => (
           <Step key={index} className="flex flex-col items-center">
             <StepLabel
               icon={getStepIcon(index)}
               onClick={() => handleStepClick(index)}
-              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }} 
+              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }}
             >
               <span
                 className={`block text-lg md:text-base font-semibold ${
