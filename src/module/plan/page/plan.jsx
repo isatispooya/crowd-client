@@ -7,9 +7,6 @@ import Loader from 'src/components/loader';
 import usePlan from '../service/use-plan';
 import CommentForm from '../comment/page/comment';
 import InvestProfile from '../investor/feature/Investorprofile';
-import Documentation from '../feature/documentation';
-
-import Appendices from '../feature/appendices';
 import Descript from '../feature/descript';
 import Roadmap from '../feature/Roadmap';
 import PaymentPage from '../payment/page/pymentpage';

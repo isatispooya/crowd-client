@@ -69,7 +69,7 @@ const Other = () => {
 
       const access = await getCookie('access');
 
-      const response = await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
+       await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${access}`,

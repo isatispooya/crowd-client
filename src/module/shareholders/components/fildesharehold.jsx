@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { cleanNumber, formatNumber } from 'src/utils/formatNumbers';
+import { cleanNumber } from 'src/utils/formatNumbers';
 
 const FileSharehold = ({ index, validite, setValidite }) => {
   const handleChange = (input, value) => {

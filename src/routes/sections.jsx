@@ -8,6 +8,8 @@ import Plans from 'src/module/plan/page/plans';
 import Certificate from 'src/components/certificate';
 import Sterpercrowd from 'src/components/stepper';
 import PaymentPage from 'src/module/plan/payment/page/pymentpage';
+import PaymentConfirmation from 'src/pages/resultpayment/Success';
+import PaymentFailed from 'src/pages/resultpayment/Failed';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));
@@ -16,7 +18,8 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
-export const Success = lazy(() => import('src/pages/'));
+export const Success = lazy(() => import('src/pages/resultpayment/Success'));
+export const Failed = lazy(() => import('src/pages/resultpayment/Failed'));
 export const Card = lazy(() => import('src/components/stepper'));
 
 export default function Router() {
@@ -39,6 +42,8 @@ export default function Router() {
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <Certificate /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
+        { path: 'Success', element: <PaymentConfirmation /> },
+        { path: 'Failed', element: <PaymentFailed /> },
       ],
     },
     {
