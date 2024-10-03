@@ -1,23 +1,22 @@
 import React from 'react';
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import usecertificate from '../hooks/use-certificate';
-
 
 const Certificate = () => {
   const { id } = useParams();
   const { data: Data } = usecertificate(id);
 
-
-
-  const certificateData = Data ? Data.map(item => ({
-    id: item.id,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    amount: item.amount,
-    total_amount: item.total_amount,
-    link: item.link,
-  })) : [];
+  const certificateData = Data
+    ? Data.map((item) => ({
+        id: item.id,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        amount: item.amount,
+        total_amount: item.total_amount,
+        link: item.link,
+      }))
+    : [];
 
   return (
     <div className="w-full h-full flex flex-wrap justify-start gap-6 p-6 ">
@@ -38,7 +37,8 @@ const Certificate = () => {
                   مبلغ واحد: <span className="text-sm text-gray-700">{item.amount} تومان</span>
                 </p>
                 <p className="text-lg font-medium text-black">
-                  مجموع مبلغ: <span className="text-sm text-gray-700">{item.total_amount} تومان</span>
+                  مجموع مبلغ:{' '}
+                  <span className="text-sm text-gray-700">{item.total_amount} تومان</span>
                 </p>
               </div>
               <a

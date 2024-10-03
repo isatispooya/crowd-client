@@ -7,8 +7,6 @@ import { RouterLink } from 'src/routes/components';
 
 import Logo from 'src/services/logo';
 
-// ----------------------------------------------------------------------
-
 export default function NotFoundView() {
   const renderHeader = (
     <Box
@@ -49,7 +47,8 @@ export default function NotFoundView() {
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-          متأسفیم، ما نتوانستیم صفحه مورد نظر شما را پیدا کنیم. شاید شما آدرس را اشتباه تایپ کرده اید؟! از املایتان مطمئن شوید
+            متأسفیم، ما نتوانستیم صفحه مورد نظر شما را پیدا کنیم. شاید شما آدرس را اشتباه تایپ کرده
+            اید؟! از املایتان مطمئن شوید
           </Typography>
 
           <Box

@@ -12,7 +12,7 @@ const TransactionOptions = ({setOpenTransaction}) => {
   const [activeTab, setActiveTab] = useState('bankPortal');
   const [documentNumber, setDocumentNumber] = useState('');
   const [creditAmount, setCreditAmount] = useState('');
-  const [imageReceipt, setImageReceipt] = useState(null);
+  const [ setImageReceipt] = useState(null);
 
    
   const handleInputChange = (e) => {

@@ -1,7 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { getCookie } from 'src/api/cookie';
@@ -9,26 +5,23 @@ import { LuRefreshCw } from 'react-icons/lu';
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
 import ProfileField from '../components/profileField';
-// import useGetProfile from '../hooks/useGetProfile';
+
 import Refresh from '../components/refresh';
 import useRefreshOTP from '../hooks/useGetOTP';
 import useGetProfile from '../hooks/useGetProfile';
 
 const Profile = () => {
   const access = getCookie('access');
-const {data:profileData, isPending} = useGetProfile()
+  const { data: profileData, isPending } = useGetProfile();
   const [showRefresh, setShowRefresh] = useState(false);
   const { mutate } = useRefreshOTP();
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     if (!access) {
       navigate('/login');
     }
   }, [access, navigate]);
-
-
 
   if (isPending) {
     return <Loader />;
@@ -44,6 +37,7 @@ const {data:profileData, isPending} = useGetProfile()
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-extrabold text-gray-900">پروفایل کاربر</h1>
         <button
+          type="button"
           onClick={openModal}
           className="transition-colors p-3 text-white font-medium hover:scale-110 duration-700"
         >
@@ -73,6 +67,7 @@ const {data:profileData, isPending} = useGetProfile()
           <ProfileField
             label="جنسیت"
             value={
+              // eslint-disable-next-line no-nested-ternary
               profileData?.acc?.private_person?.[0]?.gender === 'Male'
                 ? 'مرد'
                 : profileData?.acc?.private_person?.[0]?.gender === 'Female'
@@ -80,7 +75,7 @@ const {data:profileData, isPending} = useGetProfile()
                 : ''
             }
           />
-          
+
           <ProfileField
             label="کد ملی"
             value={profileData?.acc?.private_person?.[0]?.shNumber || ''}
@@ -103,7 +98,6 @@ const {data:profileData, isPending} = useGetProfile()
         </div>
       </section>
 
-  
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
           اطلاعات بانکی
@@ -137,7 +131,6 @@ const {data:profileData, isPending} = useGetProfile()
           />
         </div>
       </section>
-
 
       <section>
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">

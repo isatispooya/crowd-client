@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const SmallError = ({ label }) => {
   return (
     <div role="alert" className="alert alert-error">
@@ -20,6 +20,10 @@ const SmallError = ({ label }) => {
       <span>{label}</span>
     </div>
   );
+};
+
+SmallError.propTypes = {
+  label: PropTypes.string.isRequired,
 };
 
 export default SmallError;

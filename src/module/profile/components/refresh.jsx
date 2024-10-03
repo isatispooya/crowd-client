@@ -14,7 +14,7 @@ const Refresh = ({ setShowRefresh }) => {
 
   const [countdown, setCountdown] = useState(60);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
 
   const handleClose = () => {
     setShowRefresh(false);
@@ -27,16 +27,15 @@ const Refresh = ({ setShowRefresh }) => {
   };
 
   const accessRefresh = () => {
-    if (value && value.length === 5) { 
+    if (value && value.length === 5) {
       refreshPatch({ otp: value });
       setShowRefresh(false);
-      toast.success("کد با موفقیت ارسال شد");
+      toast.success('کد با موفقیت ارسال شد');
     } else {
-      toast.error("کد نامعتبر است");
+      toast.error('کد نامعتبر است');
     }
   };
 
-  // مدیریت تایمر
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (isDisabled) {
@@ -76,7 +75,13 @@ const Refresh = ({ setShowRefresh }) => {
             {isError && <SmallError />}
             <label htmlFor="otp" className="input input-bordered flex items-center gap-2 bg-white">
               <IoKey className="text-xl" />
-              <input value={value} onChange={(e) => setValue(e.target.value)} type="text" className="grow bg-gray-400" placeholder="کد" />
+              <input
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                type="text"
+                className="grow bg-gray-400"
+                placeholder="کد"
+              />
             </label>
             <button
               type="button"
@@ -87,7 +92,9 @@ const Refresh = ({ setShowRefresh }) => {
             </button>
             <button
               type="button"
-              className={`mt-5 w-full btn btn-outline hover:bg-blue-500 text-black ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+              className={`mt-5 w-full btn btn-outline hover:bg-blue-500 text-black ${
+                isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
               onClick={refreshReq}
               disabled={isDisabled}
             >

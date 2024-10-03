@@ -1,25 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Drawer,
-  IconButton,
-
-} from '@mui/material';
+import { Box, Drawer, IconButton } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { usePathname } from 'src/routes/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 import Contant from 'src/module/navbar/feature/contante';
 import { NAV } from './config-layout';
 
-
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
   const upLg = useResponsive('up', 'lg');
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
 
   useEffect(() => {
     if (openNav) {
@@ -30,7 +22,7 @@ export default function Nav({ openNav, onCloseNav }) {
   return (
     <Box
       sx={{
-        backgroundColor : "#ffffff",
+        backgroundColor: '#ffffff',
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
         bgcolor: 'gray.200',
@@ -41,7 +33,7 @@ export default function Nav({ openNav, onCloseNav }) {
       {upLg ? (
         <Box
           sx={{
-            backgroundColor : "#ffffff",
+            backgroundColor: '#ffffff',
             height: 1,
             position: 'fixed',
             width: NAV.WIDTH,
@@ -53,7 +45,7 @@ export default function Nav({ openNav, onCloseNav }) {
             borderBottomRightRadius: 16,
           }}
         >
-          <Contant/>
+          <Contant />
         </Box>
       ) : (
         <>
@@ -102,8 +94,7 @@ export default function Nav({ openNav, onCloseNav }) {
               },
             }}
           >
-           
-            <Contant/>
+            <Contant />
           </Drawer>
         </>
       )}
@@ -115,4 +106,3 @@ Nav.propTypes = {
   openNav: PropTypes.bool,
   onCloseNav: PropTypes.func,
 };
-

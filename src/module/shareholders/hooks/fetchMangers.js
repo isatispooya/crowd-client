@@ -28,7 +28,7 @@ const useShareholders = (cartId) => {
   const { isLoading, error } = useQuery({
     queryKey: ['fetchShareholders', cartId],
     queryFn: fetchManager,
-    enabled: !!cartId, 
+    enabled: !!cartId,
   });
 
   const postShareholders = async () => {

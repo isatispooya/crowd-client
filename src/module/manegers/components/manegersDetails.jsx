@@ -36,7 +36,6 @@ const ManegersDetails = () => {
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
-
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   useEffect(() => {
@@ -63,12 +62,10 @@ const ManegersDetails = () => {
     setOpenDialog(false);
   };
 
-
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { mutate, isSuccess, isPending, isError } = usePostManager();
 
   const handlePost = async () => {
+    // eslint-disable-next-line no-constant-condition
     if (true) {
       const sanitizedField = field.map((manager) => ({
         ...manager,
@@ -85,8 +82,7 @@ const ManegersDetails = () => {
     } else if (!isPending && isError) {
       toast.error('خطا در ارسال اطلاعات');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending, isSuccess]);
+  }, [isPending, isSuccess, incrementPage, isError]);
 
   if (isLoading) return <Loader />;
   return (

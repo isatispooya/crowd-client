@@ -19,8 +19,7 @@ const useCaptcha = () => {
     onError: (error) => {
       console.error('Error fetching captcha:', error);
     },
-    onSuccess: (data) => {
-    },
+    onSuccess: (data) => {},
   });
 };
 export default useCaptcha;

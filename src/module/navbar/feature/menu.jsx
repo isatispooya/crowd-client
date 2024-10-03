@@ -8,14 +8,14 @@ const Menu = () => {
   const { logout } = useAuth();
 
   return (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2, backgroundColor : "#ffffff", }}>
+    <Stack component="nav" spacing={0.5} sx={{ px: 2, backgroundColor: '#ffffff' }}>
       {navConfig.map((item) => (
-        <NavItem sx={{ px: 2, backgroundColor : "#ffffff", }} key={item.title} item={item} />
+        <NavItem sx={{ px: 2, backgroundColor: '#ffffff' }} key={item.title} item={item} />
       ))}
       <ListItemButton
         onClick={() => logout()}
         sx={{
-          backgroundColor : "#ffffff",
+          backgroundColor: '#ffffff',
           minHeight: 44,
           borderRadius: 0.75,
           typography: 'body2',
@@ -28,13 +28,13 @@ const Menu = () => {
           },
         }}
       >
-        <Box component="span" sx={{ width: 24,  height: 24, mr: 2 }}>
+        <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
           <SvgColor
             src="/assets/icons/navbar/ic_exit.svg"
-            sx={{ width: 1,  height: 1, color: 'red' }}
+            sx={{ width: 1, height: 1, color: 'red' }}
           />
         </Box>
-        <Box  component="span">خروج</Box>
+        <Box component="span">خروج</Box>
       </ListItemButton>
     </Stack>
   );

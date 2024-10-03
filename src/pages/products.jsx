@@ -1,8 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-
 import { ProductsView } from 'src/sections/products/view';
-
-// ----------------------------------------------------------------------
 
 export default function ProductsPage() {
   return (
@@ -10,7 +7,6 @@ export default function ProductsPage() {
       <Helmet>
         <title> معاملات </title>
       </Helmet>
-
       <ProductsView />
     </>
   );

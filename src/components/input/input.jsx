@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const Input = ({ label, value, disabled, setValue }) => {
   const handleSetValue = (newValue) => {
     setValue(newValue);
@@ -13,7 +12,9 @@ const Input = ({ label, value, disabled, setValue }) => {
   };
   return (
     <div className="mb-6">
-      <label className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
+      <label htmlFor="number" className="block text-gray-800 text-xs font-semibold mb-2">
+        {label}
+      </label>
       <input
         type="number"
         name={label}
@@ -26,6 +27,13 @@ const Input = ({ label, value, disabled, setValue }) => {
       />
     </div>
   );
+};
+
+Input.propTypes = {
+  label: PropTypes.isRequired,
+  value: PropTypes.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  setValue: PropTypes.func.isRequired,
 };
 
 export default Input;

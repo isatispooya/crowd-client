@@ -15,13 +15,13 @@ export const useFinishCart = (cartId) => {
     return response.data;
   };
 
-  const { data , isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['Finish_Cart'],
     queryFn: getFinishCart,
   });
 
   return {
     data,
-    isLoading
+    isLoading,
   };
 };

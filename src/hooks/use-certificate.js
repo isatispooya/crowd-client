@@ -4,22 +4,20 @@ import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
 const getCertificate = async () => {
-  const access = await getCookie('access');
+  const access = getCookie('access');
   const response = await api.get(`/api/certificate/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-  console.log("response.data",response.data)
+  console.log('response.data', response.data);
   return response.data.data;
-  
 };
-const usecertificate  = () => {
+const usecertificate = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['certificate '],
     queryFn: () => getCertificate(),
-       
   });
   return {
     data,

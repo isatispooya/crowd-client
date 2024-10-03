@@ -5,7 +5,7 @@ import useNavigateStep from 'src/hooks/use-navigate-step';
 import { handleKeyPress } from 'src/utils/enterKey';
 import PropTypes from 'prop-types';
 
-const NewCard = ({setCardSelected}) => {
+const NewCard = ({ setCardSelected }) => {
   const { cardId, setCartId } = UseCartId(null);
   const { incrementPage } = useNavigateStep();
 
@@ -13,7 +13,7 @@ const NewCard = ({setCardSelected}) => {
     setCartId(null);
     incrementPage();
     setCartId(+cardId);
-    setCardSelected(true)
+    setCardSelected(true);
   };
 
   return (
@@ -21,8 +21,8 @@ const NewCard = ({setCardSelected}) => {
       className="bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-center items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px]"
       onClick={handleNewCardClick}
       onKeyDown={(e) => handleKeyPress(e, handleNewCardClick)}
-      tabIndex={0} 
-      role="button" 
+      tabIndex={0}
+      role="button"
       aria-label="افزودن کارت جدید"
     >
       <FaPlus className="text-5xl text-blue-700 mb-4" />
@@ -30,9 +30,9 @@ const NewCard = ({setCardSelected}) => {
     </div>
   );
 };
- 
+
 NewCard.propTypes = {
   setCardSelected: PropTypes.isRequired,
-}
+};
 
 export default NewCard;

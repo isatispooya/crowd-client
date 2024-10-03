@@ -7,18 +7,17 @@ const ScrollToTopButton = () => {
   useEffect(() => {
     const toggleVisibility = () => {
       // if the user scrolls down, show the button
+
       // eslint-disable-next-line no-unused-expressions
       window.scrollY > 100 ? setIsVisible(true) : setIsVisible(false);
     };
 
     window.addEventListener('scroll', toggleVisibility);
 
-   
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
-
 
   const scrollToTop = () => {
     // eslint-disable-next-line no-unused-expressions

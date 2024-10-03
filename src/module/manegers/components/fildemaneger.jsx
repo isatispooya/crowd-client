@@ -1,13 +1,10 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prop-types */
+
 import React from 'react';
-import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 const Fildemnager = ({ index, field, setField }) => {
-
-
-
   const types = [
     { type: false, title: 'حقیقی' },
     { type: true, title: 'حقوقی' },
@@ -134,7 +131,9 @@ const Fildemnager = ({ index, field, setField }) => {
           {field[index].is_legal && (
             <>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-semibold mb-2">شناسه ملی شرکت: </label>
+                <label className="block text-gray-700 text-sm font-semibold mb-2">
+                  شناسه ملی شرکت:{' '}
+                </label>
                 <input
                   type="text"
                   value={field[index].national_id}
@@ -164,6 +163,12 @@ const Fildemnager = ({ index, field, setField }) => {
       </form>
     </div>
   );
+};
+
+Fildemnager.propTypes = {
+  index: PropTypes.number.isRequired,
+  field: PropTypes.object.isRequired,
+  setField: PropTypes.func.isRequired,
 };
 
 export default Fildemnager;

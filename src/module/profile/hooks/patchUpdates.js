@@ -7,15 +7,11 @@ const usePatchRefresh = () => {
   const patchRefresh = async (data) => {
     const access = await getCookie('access');
 
-    const response = await axios.patch(
-      `${OnRun}/api/update/profile/`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      }
-    );
+    const response = await axios.patch(`${OnRun}/api/update/profile/`, data, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
 
     return response.data;
   };

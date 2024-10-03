@@ -1,9 +1,7 @@
-/* eslint-disable import/order */
-/* eslint-disable no-restricted-syntax */
 import { toast } from 'react-toastify';
+
 import api from '../../../api/apiClient';
 import { getCookie } from '../../../api/cookie';
-import UseCartId from 'src/hooks/use-cartId';
 
 const getFormData = (data) => {
   const formData = new FormData();
@@ -22,17 +20,16 @@ const getFormData = (data) => {
     'email',
     'newspaper',
     'date_newspaper',
-    "amount_of_registered_capital",
-    "amount_of_registered_shares",
-    "exchange_code"
+    'amount_of_registered_capital',
+    'amount_of_registered_shares',
+    'exchange_code',
   ];
 
   fields.forEach((field) => formData.append(field, data[field] || ''));
   if (data.date_newspaper) {
-    
     // const dateObject = new DateObject(data.date_newspaper);
-    // const formattedDate = dateObject.format("YYYY/MM/DD");  
-    formData.append('date_newspaper', data.date_newspaper); 
+    // const formattedDate = dateObject.format("YYYY/MM/DD");
+    formData.append('date_newspaper', data.date_newspaper);
   }
   const fileFields = [
     'financial_report_thisyear',
@@ -53,12 +50,11 @@ const getFormData = (data) => {
       formData.append(field, data[field]);
     }
   });
-  
+
   return formData;
 };
 
 export const getCart = async (cartId) => {
-
   if (!cartId) {
     return {
       data: {
@@ -130,17 +126,16 @@ export const getCart = async (cartId) => {
           Lock_claims_status: false,
           file_manager: null,
           file_validational: null,
-          amount_of_registered_capital:null,
-          amount_of_registered_shares:null,
-        lock_amount_of_registered_shares: false,
-          exchange_code:null,
+          amount_of_registered_capital: null,
+          amount_of_registered_shares: null,
+          lock_amount_of_registered_shares: false,
+          exchange_code: null,
           lock_bounced_check: false,
-
         },
       },
     };
   }
-  const access =  getCookie('access');
+  const access = getCookie('access');
   return api.get(`/api/cart/detail/${cartId}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
@@ -149,8 +144,6 @@ export const getCart = async (cartId) => {
 };
 
 export const createCart = async (data, handleNext) => {
-  // eslint-disable-next-line no-unused-vars
-  const { cartId } = UseCartId();
   const formData = getFormData(data);
   const access = await getCookie('access');
 

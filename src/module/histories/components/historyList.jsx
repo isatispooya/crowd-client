@@ -1,19 +1,16 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable import/order */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
 import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
-import HistoryRow from './historyRow';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { DateObject } from 'react-multi-date-picker';
 import SmallLoader from 'src/components/SmallLoader';
 import { useFinishCart } from 'src/hooks/useFinishCart';
+import HistoryRow from './historyRow';
 
 const HistoryList = () => {
   const { cartId } = UseCartId();
@@ -80,10 +77,19 @@ const HistoryList = () => {
 
   useEffect(() => {
     fetchManagerData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  let buttonClass = 'bg-blue-500 hover:bg-blue-600';
+
+  if (loading) {
+    buttonClass = 'bg-gray-500 cursor-wait';
+  } else if (isDisabled) {
+    buttonClass = 'bg-gray-400 cursor-not-allowed opacity-50';
+  }
+
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
-  
+
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   return (
@@ -102,17 +108,9 @@ const HistoryList = () => {
       </div>
       <div className="flex flex-col justify-center items-center mt-10">
         <button
+          type="button"
           onClick={handleSubmit}
-          className={`flex items-center px-4 py-2 
-      ${
-        // eslint-disable-next-line no-nested-ternary
-        loading
-          ? 'bg-gray-500 cursor-wait'
-          : isDisabled
-          ? 'bg-gray-400 cursor-not-allowed opacity-50'
-          : 'bg-blue-500 hover:bg-blue-600'
-      } 
-      text-white rounded-md font-semibold transition-all`}
+          className={`flex items-center px-4 py-2 ${buttonClass} text-white rounded-md font-semibold transition-all`}
           disabled={isDisabled || loading}
         >
           {loading ? 'در حال ارسال...' : 'ثبت'}

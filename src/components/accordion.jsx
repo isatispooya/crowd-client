@@ -39,7 +39,6 @@ export default function ContractsAccordion() {
     setCheckedContracts(newCheckedContracts);
     localStorage.setItem('checkedContracts', JSON.stringify(newCheckedContracts));
 
-    // Automatically close the accordion if checkbox is checked
     if (isChecked) {
       setExpandedPanels({
         ...expandedPanels,

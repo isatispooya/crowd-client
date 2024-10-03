@@ -5,7 +5,7 @@ import 'react-tabulator/css/tabulator_simple.min.css';
 import PropTypes from 'prop-types';
 import Loader from 'src/components/loader';
 import { useFetchTransaction } from '../hooks/getTransaction';
-import notData from './file-error-svgrepo-com.svg';
+
 
 const columns = [
   { title: 'ردیف', field: 'id', width: 150 },
@@ -28,7 +28,7 @@ const TranHistory = ({ setShowTranHistory }) => {
     return (
       <>
         <div className="text-center mt-4 text-2xl font-bold text-gray-700">
-          <img src={notData} alt="noData" className="w-20 ml-2 " />
+
           <span className=" bg-gradient-to-r from-[#004ff9] to-[#000000]  text-transparent bg-clip-text">
             تراکنشی یافت نشد
           </span>

@@ -9,7 +9,7 @@ import { bgBlur } from 'src/theme/css';
 import Iconify from 'src/services/iconify';
 import { NAV, HEADER } from './config-layout';
 
-// ----------------------------------------------------------------------
+
 
 export default function Header({ onOpenNav }) {
   const theme = useTheme();

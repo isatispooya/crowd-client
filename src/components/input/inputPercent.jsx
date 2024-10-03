@@ -1,4 +1,4 @@
-  /* eslint-disable jsx-a11y/label-has-associated-control */
+
   import React from 'react';
   import PropTypes from 'prop-types'; 
 
@@ -10,7 +10,7 @@
 
     return (
       <div className="mb-6 relative">
-        <label className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
+        <label htmlFor='persent' className="block text-gray-800 text-xs font-semibold mb-2">{label}</label>
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">% </span>
           <input
