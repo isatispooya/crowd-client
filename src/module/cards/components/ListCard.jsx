@@ -97,7 +97,7 @@ const CardList = ({ setCardSelected }) => {
   );
 };
 CardList.propTypes = {
-  setCardSelected: PropTypes.isRequired,
+  setCardSelected: PropTypes.func.isRequired,
 };
 
 export default CardList;

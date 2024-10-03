@@ -69,6 +69,7 @@ const ManegersDetails = () => {
   const { mutate, isSuccess, isPending, isError } = usePostManager();
 
   const handlePost = async () => {
+    // eslint-disable-next-line no-constant-condition
     if (true) {
       const sanitizedField = field.map((manager) => ({
         ...manager,

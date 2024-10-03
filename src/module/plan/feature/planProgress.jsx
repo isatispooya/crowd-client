@@ -11,7 +11,7 @@ const PlanProgress = () => {
   const { traceCode } = useParams();
   const { data: progress, isLoading, error } = usePlanProgress(traceCode);
 
-  console.log(progress);
+
   if (isLoading) {
     return <SmallLoader />;
   }

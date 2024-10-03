@@ -49,7 +49,7 @@ export default function LoginView() {
         {
           onSuccess: (data) => {
             setRegisterd(data.registered);
-            console.log(data.registered , "11111")
+  
             setStep(2);
 
             startTimer();
