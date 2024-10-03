@@ -3,13 +3,6 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
-import Plan from 'src/module/plan/page/plan';
-import Plans from 'src/module/plan/page/plans';
-import Certificate from 'src/components/certificate';
-import Sterpercrowd from 'src/components/stepper';
-import PaymentPage from 'src/module/plan/payment/page/pymentpage';
-import PaymentConfirmation from 'src/pages/resultpayment/Success';
-import PaymentFailed from 'src/pages/resultpayment/Failed';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const RequestPage = lazy(() => import('src/pages/request'));
@@ -21,6 +14,13 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const Success = lazy(() => import('src/pages/resultpayment/Success'));
 export const Failed = lazy(() => import('src/pages/resultpayment/Failed'));
 export const Card = lazy(() => import('src/components/stepper'));
+export const PaymentPage = lazy(() => import('src/module/plan/payment/page/pymentpage'));
+export const Plans = lazy(() => import('src/module/plan/page/plans'));
+export const Plan = lazy(() => import('src/module/plan/page/plan'));
+export const Certificate = lazy(() => import('src/components/certificate'));
+export const Sterpercrowd = lazy(() => import('src/components/stepper'));
+export const PaymentConfirmation = lazy(() => import('src/pages/resultpayment/Success'));
+export const PaymentFailed = lazy(() => import('src/pages/resultpayment/Failed'));
 
 export default function Router() {
   const routes = useRoutes([

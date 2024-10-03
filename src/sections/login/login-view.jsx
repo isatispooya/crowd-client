@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable no-undef */
 import { useState } from 'react';
 import Box from '@mui/material/Box';
@@ -12,6 +13,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
+import DOMPurify from 'dompurify';
 import ReferralCodeInput from './refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
@@ -72,6 +74,11 @@ export default function LoginView() {
         otp,
       });
     }
+  };
+
+  const createMarkup = (html) => {
+    const sanitizedHtml = DOMPurify.sanitize(html);
+    return { __html: sanitizedHtml };
   };
 
   const renderForm = (
@@ -199,19 +206,11 @@ export default function LoginView() {
         <Typography variant="body2" color="text.secondary">
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
-        <a
-          referrerPolicy="origin"
-          target="_blank"
-          href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-          rel="noreferrer"
-        >
-          <img
-            referrerPolicy="origin"
-            src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-            alt=""
-            style={{ cursor: 'pointer' }}
-          />
-        </a>
+        <div>
+        <div dangerouslySetInnerHTML={createMarkup("<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' alt='' style='cursor:pointer' code='W3y39nx7isNrGWpAJBpNE2KanNerFkB8'></a>")} />
+
+
+        </div>
       </Box>
     </Box>
   );
