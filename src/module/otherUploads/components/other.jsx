@@ -86,7 +86,7 @@ const Other = () => {
     <div>
       <div className="flex items-center justify-center">
         <ToastContainer />
-        <div className="bg-white w-1/2 items-center  shadow-2xl rounded-lg p-6 ">
+        <div className="bg-white w-[80%] md:w-[60%] items-center  shadow-2xl rounded-lg p-6 ">
           <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-700"> پیوست موارد دیگر</h1>
           </div>

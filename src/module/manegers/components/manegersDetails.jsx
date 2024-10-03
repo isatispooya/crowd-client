@@ -69,15 +69,13 @@ const ManegersDetails = () => {
   const { mutate, isSuccess, isPending, isError } = usePostManager();
 
   const handlePost = async () => {
-    // eslint-disable-next-line no-constant-condition
-    if (true) {
       const sanitizedField = field.map((manager) => ({
         ...manager,
         national_id: manager.national_id || '',
         representative: manager.representative || '',
       }));
       mutate({ cartId, sanitizedField });
-    }
+    
   };
   useEffect(() => {
     if (!isPending && isSuccess) {
