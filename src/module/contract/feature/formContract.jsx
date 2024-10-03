@@ -102,18 +102,18 @@ const FormContract = () => {
           />
         </div>
 
-        {toggleLabels.map(({ label, key }) => {
-          const lockKey = `Lock_${key}`;
+        {toggleLabels.map(({ label, keyName }) => {
+          const lockKey = `Lock_${keyName}`;
           const isDisabled = contractData[lockKey] === true;
 
           return (
             <ToggleContract
-              key={key}
+              key={keyName}
               label={label}
               value={contractData}
-              checked={contractData?.[key] || false}
-              handle={(e) => handleChangeToggle(e, key)}
-              name={key}
+              checked={contractData?.[keyName] || false}
+              handle={(e) => handleChangeToggle(e, keyName)}
+              name={keyName}
               disabled={isDisabled}
             />
           );

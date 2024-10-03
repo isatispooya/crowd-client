@@ -32,7 +32,7 @@ const NewCard = ({ setCardSelected }) => {
 };
 
 NewCard.propTypes = {
-  setCardSelected: PropTypes.isRequired,
+  setCardSelected: PropTypes.func.isRequired,
 };
 
 export default NewCard;

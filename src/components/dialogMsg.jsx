@@ -34,10 +34,11 @@ const ConfirmationDialog = ({
   );
 };
 
+
 ConfirmationDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
 };
