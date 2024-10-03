@@ -167,7 +167,7 @@ const Fildemnager = ({ index, field, setField }) => {
 
 Fildemnager.propTypes = {
   index: PropTypes.number.isRequired,
-  field: PropTypes.object.isRequired,
+  field: PropTypes.array.isRequired,
   setField: PropTypes.func.isRequired,
 };
 
