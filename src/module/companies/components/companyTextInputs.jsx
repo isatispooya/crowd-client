@@ -182,9 +182,12 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <label className="block text-gray-800 text-xs font-semibold mb-2">تاریخ تاسیس :</label>
         <DatePicker
       style={{
-        width:"100%",
+        width: "100%",
         padding: 22,
         backgroundColor: '#ffffff',
+        '@media (max-width: 640px)': {
+          width: "120%", 
+        },
       }}
       value={localData.year_of_establishment? new Date(localData.year_of_establishment) : null}
       onChange={handleDateChange}

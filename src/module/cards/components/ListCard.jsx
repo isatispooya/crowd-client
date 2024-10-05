@@ -33,13 +33,13 @@ const CardList = ({ setCardSelected }) => {
   }
 
   return (
-    <div className="p-4 sm:p-8 bg-transparent min-h-screen flex justify-center items-start">
-      <div className="bg-white shadow-2xl rounded-3xl p-4 sm:p-10 max-w-7xl w-full">
+    <div className="p-4 sm:p-8 bg-transparent flex justify-center items-start">
+      <div className="bg-white shadow-xl rounded-3xl p-4 sm:p-10 max-w-7xl w-full">
         <div className="bg-gray-200 text-white rounded-t-md p-2 text-center">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-700">لیست ها</h1>
         </div>
         <div className="p-4 sm:p-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10 justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 xl:gap-10 justify-center">
             <NewCard setCardSelected={setCardSelected} />
             {cards.length > 0 ? (
               cards.map((card) => (

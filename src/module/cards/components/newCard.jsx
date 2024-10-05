@@ -18,7 +18,7 @@ const NewCard = ({ setCardSelected }) => {
 
   return (
     <div
-      className="bg-white shadow-lg rounded-2xl p-6 flex flex-col justify-center items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[280px] max-w-[320px] h-[350px]"
+      className="bg-white shadow-lg rounded-2xl p-2 flex flex-col justify-center items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 w-[240px] h-[350px]"
       onClick={handleNewCardClick}
       onKeyDown={(e) => handleKeyPress(e, handleNewCardClick)}
       tabIndex={0}
