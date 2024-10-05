@@ -1,7 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/button-has-type */
+
 import React, { useState } from 'react';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { useParams } from 'react-router-dom';
@@ -16,11 +15,11 @@ const Payment = () => {
   const [attachment, setAttachment] = useState(null);
   const [paymentId, setPaymentId] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState(false); 
+  const [status, setStatus] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const { data } = usePlan(traceCode);
-  const totalPrice = Number(data.unit_price) * Number(amount) || "";
+  const totalPrice = Number(data.unit_price) * Number(amount) || '';
   const { mutate } = usePayment(traceCode);
 
   const handlePaymentMethodSelect = (method) => {
@@ -50,12 +49,11 @@ const Payment = () => {
 
   const handleAgreementAccept = () => {
     setIsPopupOpen(false);
-    
   };
 
   return (
     <div>
-      <div className='flex-col gap-6 p-8 max-w-4xl mx-auto'>
+      <div className="flex-col gap-6 p-8 max-w-4xl mx-auto">
         <h4 className="text-3xl text-center font-bold text-gray-900 mb-6">مشارکت</h4>
         <p className="text-blue-800 text-lg font-semibold">
           قیمت هر گواهی: <span>{formatNumber(data.unit_price)}</span>
@@ -160,6 +158,7 @@ const Payment = () => {
 
       <div className="flex items-center gap-2 mt-4 px-8 max-w-4xl mx-auto">
         <button
+          type="button"
           onClick={() => setIsPopupOpen(true)}
           className="text-blue-600 underline cursor-pointer focus:outline-none"
         >

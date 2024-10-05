@@ -1,4 +1,4 @@
-// src/hooks/useShareholders.js
+
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -46,7 +46,7 @@ const useShareholders = (cartId) => {
       );
       toast.success('اطلاعات با موفقیت ارسال شد');
     } catch (err) {
-      toast.error('خطا در ارسال اطلاعات');
+      toast.error('فیلد های نام و شماره تماس اجباریست.');
       throw error;
     }
   };

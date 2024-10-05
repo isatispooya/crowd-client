@@ -1,10 +1,11 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProfileField = ({ label, value }) => (
   <div>
-    <label className="block text-gray-700 text-sm font-semibold mb-2">{label}:</label>
+    <label htmlFor="label" className="block text-gray-700 text-sm font-semibold mb-2">
+      {label}:
+    </label>
     <input
       type="text"
       value={value}

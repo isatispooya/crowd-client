@@ -7,9 +7,6 @@ import { handleFileRemove } from '../utils/removeUploadFiles';
 import { renderFileSection } from './renderFiles';
 
 const CompanyUploads = ({ localData, setLocalData }) => {
-
-
-
   return (
     <div className="flex flex-col items-center justify-center mb-8">
       <div className="flex items-center justify-center mb-8">
@@ -18,7 +15,6 @@ const CompanyUploads = ({ localData, setLocalData }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-
         <div className="bg-white p-6">
           <h2 className="text-center text-gray-700 text-xl border-b font-bold mb-6 pb-4">
             گزارشات و مستندات منتهی به سال 1402

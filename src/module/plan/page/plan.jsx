@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
@@ -38,7 +36,9 @@ const Plan = () => {
           ].map(({ label, tab }) => (
             <li key={tab} className="mb-2">
               <button
+                type="button"
                 className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md ${
+                  // eslint-disable-next-line no-nested-ternary
                   label === 'مشارکت'
                     ? 'bg-blue-900 text-white'
                     : activeTab === tab
@@ -56,19 +56,19 @@ const Plan = () => {
 
       <div className="mt-8">
         {activeTab === 0 && (
-          <div >
+          <div>
             <Descript />
           </div>
         )}
 
         {activeTab === 1 && (
-          <div >
+          <div>
             <ReportsView />
           </div>
         )}
 
         {activeTab === 4 && (
-          <div >
+          <div>
             <CommentForm />
           </div>
         )}
@@ -80,13 +80,13 @@ const Plan = () => {
         )}
 
         {activeTab === 6 && (
-          <div >
+          <div>
             <Roadmap />
           </div>
         )}
 
         {activeTab === 7 && (
-          <div >
+          <div>
             <PaymentPage />
           </div>
         )}

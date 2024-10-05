@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdClose } from 'react-icons/io';
@@ -6,15 +5,13 @@ import { BsCloudUploadFill } from 'react-icons/bs';
 import { RiBankCardFill } from 'react-icons/ri';
 import { formatNumber } from 'src/utils/formatNumbers';
 
-
-const TransactionOptions = ({setOpenTransaction}) => {
+const TransactionOptions = ({ setOpenTransaction }) => {
   const [value] = useState('');
   const [activeTab, setActiveTab] = useState('bankPortal');
   const [documentNumber, setDocumentNumber] = useState('');
   const [creditAmount, setCreditAmount] = useState('');
-  const [ setImageReceipt] = useState(null);
+  const [setImageReceipt] = useState(null);
 
-   
   const handleInputChange = (e) => {
     const cleanedValue = e.target.value.replace(/,/g, '');
     setCreditAmount(cleanedValue);
@@ -24,9 +21,7 @@ const TransactionOptions = ({setOpenTransaction}) => {
     setImageReceipt(e.target.files[0]);
   };
 
-  const handleSubmit = () => {
- 
-  };
+  const handleSubmit = () => {};
 
   const closeModal = () => {
     setOpenTransaction(false);
@@ -50,14 +45,22 @@ const TransactionOptions = ({setOpenTransaction}) => {
         <div className="flex mb-4">
           <button
             type="button"
-            className={`flex-1 py-2 text-center border-b-2 ${activeTab === 'bankPortal' ? 'border-blue-500 text-blue-500' : 'border-transparent text-gray-500'}`}
+            className={`flex-1 py-2 text-center border-b-2 ${
+              activeTab === 'bankPortal'
+                ? 'border-blue-500 text-blue-500'
+                : 'border-transparent text-gray-500'
+            }`}
             onClick={() => setActiveTab('bankPortal')}
           >
             درگاه بانکی
           </button>
           <button
             type="button"
-            className={`flex-1 py-2 text-center border-b-2 ${activeTab === 'bankReceipt' ? 'border-blue-500 text-blue-500' : 'border-transparent text-gray-500'}`}
+            className={`flex-1 py-2 text-center border-b-2 ${
+              activeTab === 'bankReceipt'
+                ? 'border-blue-500 text-blue-500'
+                : 'border-transparent text-gray-500'
+            }`}
             onClick={() => setActiveTab('bankReceipt')}
           >
             فیش بانکی
@@ -107,15 +110,13 @@ const TransactionOptions = ({setOpenTransaction}) => {
               onChange={handleInputChange}
               className="input input-bordered w-full bg-gray-100 mb-4"
             />
-            <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none">
+            <label
+              htmlFor="پیوست فایل"
+              className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none"
+            >
               <BsCloudUploadFill />
               پیوست فایل
-              <input
-                id="file_input"
-                type="file"
-                onChange={handleFileChange}
-                className="hidden"
-              />
+              <input id="file_input" type="file" onChange={handleFileChange} className="hidden" />
             </label>
           </div>
         )}
@@ -125,13 +126,10 @@ const TransactionOptions = ({setOpenTransaction}) => {
             type="button"
             onClick={handleSubmit}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-     
           >
             تایید
           </button>
         </div>
-
-
       </div>
     </div>
   );

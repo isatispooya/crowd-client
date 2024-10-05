@@ -2,23 +2,24 @@ import React from 'react';
 import { FiDownload } from 'react-icons/fi';
 import { OnRun } from 'src/api/OnRun';
 import Loader from 'src/components/loader';
+import SmallError from 'src/components/smallError';
 import { useParams } from 'react-router-dom';
 import useGetAppenices from '../service/use-appendices';
 
 const Appendices = () => {
-  const { traceCode } = useParams(); 
-  
-  const { data: plans, isLoading, error } = useGetAppenices(traceCode); 
+  const { traceCode } = useParams();
+
+  const { data: plans, isLoading, error } = useGetAppenices(traceCode);
   if (isLoading) {
     return <Loader />;
   }
-  
+
   if (error) {
-    return <div className="text-red-500">خطایی رخ داده است</div>;
+    return <SmallError label="خطا در برقراری ارتباط" />;
   }
-  
+
   if (!plans) {
-    return <div className="text-gray-500">هیچ داده‌ای یافت نشد.</div>;
+    return <SmallError label="هیچ طر حی یافت نشد" />;
   }
 
   return (

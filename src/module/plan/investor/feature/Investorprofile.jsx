@@ -1,19 +1,7 @@
 import React from 'react';
-import { ReactTabulator } from 'react-tabulator';
-import 'react-tabulator/lib/styles.css';
-import 'react-tabulator/css/tabulator_simple.min.css';
 import { useParams } from 'react-router-dom';
 import moment from 'jalali-moment';
 import useGetInvesor from './service/use-getInvestor';
-
-const columns = [
-  { title: 'نام سرمایه گذار', field: 'name', width: 100 },
-  { title: 'تاریخ ایجاد', field: 'create_date', hozAlign: 'center',width: 100  },
-  { title: 'مبلغ واحد', field: 'amount', hozAlign: 'center', sorter: 'number', formatter: 'money' ,width: 100 },
-  { title: 'مجموع مبلغ', field: 'value', hozAlign: 'center', sorter: 'number', formatter: 'money',width: 100  },
-  { title: 'وضعیت', field: 'status', hozAlign: 'center', formatter: 'tickCross',width: 100  },
-  { title: 'پرداخت', field: 'payment_id', hozAlign: 'center', formatter: 'tickCross',width: 100 },
-];
 
 const InvestProfile = () => {
   const { traceCode } = useParams();
@@ -33,19 +21,70 @@ const InvestProfile = () => {
   return (
     <div className="max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4 text-center">پروفایل سرمایه‌گذاران</h1>
-      
+
       <div className="overflow-x-auto">
-        <ReactTabulator
-          data={transactionData}
-          columns={columns}
-          layout="fitData"
-          options={{
-            pagination: 'local',
-            paginationSize: 5,
-            responsiveLayout: 'collapse',
-          }}
-          className="tabulator-table"
-        />
+        <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                نام سرمایه گذار
+              </th>
+              <th scope="col" className="px-6 py-3">
+                تاریخ ایجاد
+              </th>
+              <th scope="col" className="px-6 py-3">
+                مبلغ واحد
+              </th>
+              <th scope="col" className="px-6 py-3">
+                مجموع مبلغ
+              </th>
+              <th scope="col" className="px-6 py-3">
+                وضعیت
+              </th>
+              <th scope="col" className="px-6 py-3">
+                پرداخت
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactionData.map((item, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
+                <td className="px-6 py-4">{item.name}</td>
+                <td className="px-6 py-4">{item.create_date}</td>
+                <td className="px-6 py-4">{item.amount}</td>
+                <td className="px-6 py-4">{item.value}</td>
+                <td className="px-6 py-4">{item.status ? 'فعال' : 'غیرفعال'}</td>
+                <td className="px-6 py-4">{item.payment_id ? 'پرداخت شده' : 'در انتظار'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:hidden">
+        {transactionData.map((item, index) => (
+          <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-lg font-bold mb-2">{item.name}</h2>
+            <p>
+              <strong>تاریخ ایجاد:</strong> {item.create_date}
+            </p>
+            <p>
+              <strong>مبلغ واحد:</strong> {item.amount}
+            </p>
+            <p>
+              <strong>مجموع مبلغ:</strong> {item.value}
+            </p>
+            <p>
+              <strong>وضعیت:</strong> {item.status ? 'فعال' : 'غیرفعال'}
+            </p>
+            <p>
+              <strong>پرداخت:</strong> {item.payment_id ? 'پرداخت شده' : 'در انتظار'}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

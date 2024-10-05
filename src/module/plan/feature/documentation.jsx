@@ -2,23 +2,23 @@ import React from 'react';
 import { FiDownload } from 'react-icons/fi';
 import { OnRun } from 'src/api/OnRun';
 import Loader from 'src/components/loader';
+import SmallError from 'src/components/smallError';
 import { useParams } from 'react-router-dom';
 import useDocumentation from '../service/use-documentation';
 
 const Documentation = () => {
-
-  const { traceCode } = useParams(); 
-  const { data:documents, isLoading, error } = useDocumentation(traceCode);
+  const { traceCode } = useParams();
+  const { data: documents, isLoading, error } = useDocumentation(traceCode);
   if (isLoading) {
     return <Loader />;
   }
 
   if (error) {
-    return <div className="text-red-500">خطایی رخ داده است</div>;
+    return <SmallError label="خطا در برقراری اتباط" />;
   }
 
   if (!documents) {
-    return <div className="text-gray-500">هیچ مستندی یافت نشد.</div>;
+    return <SmallError label="مستندات یافت نشد" />;
   }
 
   return (

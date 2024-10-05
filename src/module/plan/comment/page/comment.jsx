@@ -72,7 +72,9 @@ const CommentForm = () => {
             onChange={() => setShowName(!showName)}
             className="mr-2 bg-white"
           />
-          <label htmlFor="show-name" className="text-gray-700">نمایش نام</label>
+          <label htmlFor="show-name" className="text-gray-700">
+            نمایش نام
+          </label>
         </div>
 
         <button

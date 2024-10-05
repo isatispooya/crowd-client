@@ -36,6 +36,7 @@ const Refresh = ({ setShowRefresh }) => {
     }
   };
 
+
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (isDisabled) {

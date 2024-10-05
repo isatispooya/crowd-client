@@ -1,4 +1,4 @@
-// Shareholders.js
+
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
