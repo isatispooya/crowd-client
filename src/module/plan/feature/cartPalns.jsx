@@ -26,7 +26,7 @@ const CartPlans = () => {
         <div className="bg-gray-200 text-white rounded-t-md p-4 text-center mb-10">
           <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
         </div>
-        <div className="flex-col sm:flex space-y-12 gap-12 justify-center text-right">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center text-right">
           {data.map((item) => {
             const persianCreationDate = item.creation_date
               ? moment(item.creation_date).locale('fa').format('YYYY/MM/DD')

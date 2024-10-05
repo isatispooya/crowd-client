@@ -4,6 +4,7 @@ import { formatNumber } from 'src/utils/formatNumbers';
 import Loader from 'src/components/loader';
 import { useRouter } from 'src/routes/hooks';
 import PropTypes from 'prop-types';
+import { OnRun } from 'src/api/OnRun';
 import useGetPlan from '../service/use-plan';
 import useGetInformation from '../service/use-getinformtion';
 import usePicure from '../service/use-picture';
@@ -28,7 +29,6 @@ const Descript = () => {
   if (error) {
     return <div className="text-red-500 text-center py-4">خطایی رخ داده است: {error.message}</div>;
   }
-
   const fields = [
     { label: 'نام فارسی', value: data.persian_name },
     { label: 'نماد (فارسی)', value: data.persoan_approved_symbol || 'نامشخص' },
@@ -77,11 +77,19 @@ const Descript = () => {
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-8">
       <div className="bg-gray-100 w-full mb-8 p-4 rounded-lg shadow-md">
         {picture && picture.picture ? (
-          <img src={picture.picture} alt="تصویر پروژه" className="w-full h-auto rounded-lg mb-4" />
+          <img
+            src={`${OnRun}/${picture.picture}`}
+            alt="تصویر پروژه"
+            className="w-full h-36 rounded-lg mb-4"
+          />
         ) : (
-          <p className="text-gray-500">تصویر موجود نیست</p>
-        )}
+          <img
+          src="../../.../../public/img/nopic.jpg"
+          alt="تصویر موجود نیست"
+          className="w-full h-48  rounded-lg mb-4 "
+        />        )}
       </div>
+
       <div className="bg-gray-100 w-full mb-8 p-4 rounded-lg shadow-md">
         <p className="text-gray-500">توضیحات</p>
         <p className="text-lg text-gray-900 font-semibold break-words whitespace-normal">

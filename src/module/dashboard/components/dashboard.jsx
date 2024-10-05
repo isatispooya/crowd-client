@@ -3,48 +3,45 @@ import PeopleIcon from '@mui/icons-material/People';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import useGetDashbord from './service/use-getDashbord';
 
-const data = [
-  {
-    title: 'تعداد طرح ها',
-    total: 2500,
-    icon: <InsertDriveFileIcon style={{ fontSize: '2rem' }} className="text-green-500" />,
-  },
-  {
-    title: 'تعداد طرح های فعال',
-    total: 15000000,
-    icon: <AssignmentTurnedInIcon style={{ fontSize: '2rem' }} className="text-yellow-500" />,
-  },
-  {
-    title: 'تعداد مشارکت کاربر ',
-    total: 30000,
-    icon: <PeopleIcon style={{ fontSize: '2rem' }} className="text-red-500" />,
-  },
-  {
-    title: 'مبلغ مشارکت کاربر ',
-    total: 306330,
-    icon: <MonetizationOnIcon style={{ fontSize: '2rem' }} className="text-red-500" />,
-  },
-];
+const Dashboard = () => {
+  const { data: dashbord } = useGetDashbord();
 
-export default function Dashboard() {
+  if (!dashbord) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center mb-24 mx-auto w-full px-4 md:px-6">
-      {data.map((widget, index) => (
-        <div
-          key={index}
-          className="p-6 bg-white rounded-2xl shadow-lg flex items-center justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gray-100"
-        >
-          <div className="w-20 h-20 flex items-center justify-center">
-            {widget.icon}
-          </div>
-
-          <div className="text-right">
-            <div className="text-3xl font-bold">{widget.total.toLocaleString()}</div>
-            <div className="text-gray-600 text-lg">{widget.title}</div>
-          </div>
-        </div>
-      ))}
+    <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-white shadow-md p-6 rounded-lg">
+        <h2 className="text-lg font-bold"> تعداد طرح ها</h2>
+        <InsertDriveFileIcon style={{ fontSize: '2rem' }} color="error" />
+        <p className="text-2xl">{dashbord["all plan"]}</p>
+      </div>
+      <div className="bg-white shadow-md p-6 rounded-lg">
+        <h2 className="text-lg font-bold"> تعداد طرح های فعال</h2>
+        <AssignmentTurnedInIcon style={{ fontSize: '2rem' }} color="error"/>
+        <p className="text-2xl">{dashbord["active plan"]}</p>
+      </div>
+      <div className="bg-white shadow-md p-6 rounded-lg">
+        <h2 className="text-lg font-bold"> تعداد مشارکت کاربر</h2>
+        <PeopleIcon style={{ fontSize: '2rem' }} color="error" />
+        <p className="text-2xl">{dashbord["participant plan"]}</p>
+      </div>
+      <div className="bg-white shadow-md p-6 rounded-lg">
+        <h2 className="text-lg font-bold"> مبلغ مشارکت کاربر</h2>
+        <MonetizationOnIcon style={{ fontSize: '2rem' }} color="error" />
+        <p className="text-2xl">{dashbord["total value"]}</p>
+      </div>
+      <div className="bg-white shadow-md p-6 rounded-lg">
+        <h2 className="text-lg font-bold">سود</h2>
+        <TrendingUpIcon style={{ fontSize: '2rem' }} color="error" />
+        <p className="text-2xl">%{dashbord["all rate of return"]}</p>
+      </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { OnRun } from 'src/api/OnRun';
+import usePicure from '../service/use-picture';
 
 const CartPlan = ({
   trace_code,
@@ -12,32 +14,40 @@ const CartPlan = ({
   projectStatus,
   settlementDescription,
   realPersonMinPrice,
-  picture,
   creation_date,
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
 
+  const { data: picture } = usePicure(trace_code);
+  console.log('pic', picture);
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl max-w-lg mx-auto">
-      <div className="flex-col">
-        {picture && (
+    <div className="flex flex-col  gap-4 bg-white p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl w-full sm:w-96 h-auto mx-auto">
+      <div className="flex-col flex-grow">
+        {picture && picture.picture ? (
           <img
-            src={picture}
+            src={`${OnRun}/${picture.picture}`}
             alt={persianName}
             className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
           />
+        ) : (
+          <img
+            src="../../.../../public/img/nopic.jpg"
+            alt="تصویر موجود نیست"
+            className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
+          />
         )}
-        <div className="grid  gap-8">
+
+        <div className="grid gap-4">
           <h2 className="text-2xl font-bold text-gray-900">{persianName}</h2>
           <p className="text-lg text-gray-600">{crowdFundingtypeDescription}</p>
         </div>
 
-        <div className="grid ">
+        <div className="grid gap-2 mt-4">
           <p className="text-sm text-gray-700">
             مبلغ کل: <span className="font-semibold">{totalPrice} ریال</span>
           </p>
@@ -48,7 +58,7 @@ const CartPlan = ({
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
           </p>
           <p className="text-sm text-gray-700">
-            وضعیت پروژه: <span className="font-semibold">{projectStatus}</span>
+            وضعیت پروژه: <span className="font-semibold">{projectStatus ? 'فعال' : 'غیرفعال'}</span>
           </p>
           <p className="text-sm text-gray-700">
             حداقل سرمایه‌گذاری حقیقی:{' '}
@@ -56,7 +66,7 @@ const CartPlan = ({
           </p>
         </div>
       </div>
-      <div className="flex justify-center text-sm text-gray-600 mt-6">
+      <div className="flex justify-center mt-6">
         <button
           type="button"
           className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 hover:bg-blue-700"
@@ -79,7 +89,6 @@ CartPlan.propTypes = {
   projectStatus: PropTypes.bool.isRequired,
   settlementDescription: PropTypes.isRequired,
   realPersonMinPrice: PropTypes.isRequired,
-  picture: PropTypes.isRequired,
   creation_date: PropTypes.isRequired,
   crowdFundingtypeDescription: PropTypes.isRequired,
 };
