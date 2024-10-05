@@ -17,26 +17,27 @@ const FormContract = () => {
   const handleSubmit = () => {
     mutate(contractData);
     toast.success('اطلاعات با موفقیت بارگزاری شد');
+    
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
 
   const toggleLabels = [
-    { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', key: 'role_141' },
-    { label: 'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.', key: 'bounced_check' },
+    { label: 'متقاضی تعهد می‌نماید مشمول ماده ۱۴۱ نباشد.', toggleKey: 'role_141' },
+    { label: 'متقاضی تعهد می‌نماید هیچگونه چک برگشتی نداشته باشد.', toggleKey: 'bounced_check' },
     {
       label: 'متقاضی تعهد می‌نماید هیچگونه بدهی غیر جاری در شعبه بانکی نداشته باشد.',
-      key: 'non_current_debt',
+      toggleKey: 'non_current_debt',
     },
-    { label: 'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.', key: 'criminal_record' },
+    { label: 'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.', toggleKey: 'criminal_record' },
     {
       label: 'متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.',
-      key: 'prohibited',
+      toggleKey: 'prohibited',
     },
     {
       label:
         'متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز اقدام نماید.',
-      key: 'minimum_deposit_10',
+        toggleKey: 'minimum_deposit_10',
     },
   ];
 
@@ -46,11 +47,11 @@ const FormContract = () => {
     { type: '3', title: '(چک)اوراق بهادار' },
   ];
 
-  const handleChangeToggle = (e, key) => {
+  const handleChangeToggle = (e, toggleKey) => {
     const { checked } = e.target;
     setContractData((prevData) => ({
       ...prevData,
-      [key]: checked,
+      [toggleKey]: checked,
     }));
   };
 
@@ -102,18 +103,18 @@ const FormContract = () => {
           />
         </div>
 
-        {toggleLabels.map(({ label, keyName }) => {
-          const lockKey = `Lock_${keyName}`;
+        {toggleLabels.map(({ label, toggleKey }) => {
+          const lockKey = `Lock_${toggleKey}`;
           const isDisabled = contractData[lockKey] === true;
 
           return (
             <ToggleContract
-              key={keyName}
+              key={toggleKey}
               label={label}
               value={contractData}
-              checked={contractData?.[keyName] || false}
-              handle={(e) => handleChangeToggle(e, keyName)}
-              name={keyName}
+              checked={contractData?.[toggleKey] || false}
+              handle={(e) => handleChangeToggle(e, toggleKey)}
+              name={toggleKey}
               disabled={isDisabled}
             />
           );

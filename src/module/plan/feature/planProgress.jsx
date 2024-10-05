@@ -1,6 +1,5 @@
 import React from 'react';
 import { FiDownload } from 'react-icons/fi';
-
 import { OnRun } from 'src/api/OnRun';
 import { useParams } from 'react-router-dom';
 import SmallLoader from 'src/components/SmallLoader';
@@ -11,7 +10,6 @@ const PlanProgress = () => {
   const { traceCode } = useParams();
   const { data: progress, isLoading, error } = usePlanProgress(traceCode);
 
-
   if (isLoading) {
     return <SmallLoader />;
   }
@@ -21,7 +19,7 @@ const PlanProgress = () => {
   }
 
   if (!progress) {
-    return <div className="text-gray-500">هیچ مستندی یافت نشد.</div>;
+    return <SmallError label=" مستندات یافت نشد" />;
   }
 
   return (

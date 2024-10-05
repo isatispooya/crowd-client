@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const CartPlan = ({
   trace_code,
@@ -25,7 +24,7 @@ const CartPlan = ({
 
   return (
     <div className="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl max-w-lg mx-auto">
-      <div className='flex-col'>
+      <div className="flex-col">
         {picture && (
           <img
             src={picture}
@@ -59,6 +58,7 @@ const CartPlan = ({
       </div>
       <div className="flex justify-center text-sm text-gray-600 mt-6">
         <button
+          type="button"
           className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 hover:bg-blue-700"
           onClick={handleViewClick}
         >
@@ -67,6 +67,21 @@ const CartPlan = ({
       </div>
     </div>
   );
+};
+
+CartPlan.propTypes = {
+  trace_code: PropTypes.string.isRequired,
+  persianName: PropTypes.string.isRequired,
+  industryGroup: PropTypes.string.isRequired,
+  totalUnits: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  crowdFundingType: PropTypes.isRequired,
+  projectStatus: PropTypes.bool.isRequired,
+  settlementDescription: PropTypes.isRequired,
+  realPersonMinPrice: PropTypes.isRequired,
+  picture: PropTypes.isRequired,
+  creation_date: PropTypes.isRequired,
+  crowdFundingtypeDescription: PropTypes.isRequired,
 };
 
 export default CartPlan;

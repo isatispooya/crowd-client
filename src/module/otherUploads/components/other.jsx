@@ -7,6 +7,7 @@ import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
 import SmallLoader from 'src/components/SmallLoader';
+
 import { useFinishCart } from 'src/hooks/useFinishCart';
 import { getFormData } from '../utils/getFormData';
 import useFetchData from '../hooks/fetchData';
@@ -43,7 +44,8 @@ const Other = () => {
     licenses: null,
   });
 
-  const { isLoading, data } = useFetchData(cartId);
+  const { isLoading, data, isError } = useFetchData(cartId);
+
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
   useEffect(() => {
@@ -54,6 +56,9 @@ const Other = () => {
 
   if (isLoading) {
     return <Loader />;
+  }
+  if (isError) {
+    toast.info('فایلی برای مشاهده موجود نیست , یک فایل آپلود کنید');
   }
 
   const handleSubmit = async () => {

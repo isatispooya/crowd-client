@@ -1,22 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
+import SmallError from 'src/components/smallError';
 import CommentItem from './itemcomment';
 import useGetComments from '../service/getComments';
 
-
 const CommentList = () => {
   const { traceCode } = useParams();
-  const { isLoading, data, isError, error } = useGetComments(traceCode);
-  
+  const { isLoading, data, isError } = useGetComments(traceCode);
+
   if (isLoading) {
     return <Loader />;
   }
-  
+
   if (isError) {
-    return <div>Error loading comments: {error.message}</div>;
+    return <SmallError label="خطا در بارگزاری نظرات" />;
   }
-  
 
   return (
     <div className="max-w-6xl mx-auto  bg-white shadow-lg rounded-lg overflow-hidden mt-8">
@@ -41,7 +40,6 @@ const CommentList = () => {
       </div>
     </div>
   );
-  
 };
 
 export default CommentList;
