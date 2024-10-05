@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 const useTimer = () => {
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(90);
   const [step, setStep] = useState(1);
 
   const { mutate: startTimer } = useMutation({
@@ -16,7 +16,7 @@ const useTimer = () => {
             if (prevTimer <= 1) {
               clearInterval(countdown);
               setStep(1);
-              setTimer(60);
+              setTimer(90);
               toast.info('زمان وارد کردن کد تایید به پایان رسید. لطفاً دوباره تلاش کنید.');
               resolve();
             } else {
