@@ -84,7 +84,7 @@ const Descript = () => {
           />
         ) : (
           <img
-          src="../../.../../public/img/nopic.jpg"
+          src="/public/img/nopic.jpg"
           alt="تصویر موجود نیست"
           className="w-full h-48  rounded-lg mb-4 "
         />        )}
