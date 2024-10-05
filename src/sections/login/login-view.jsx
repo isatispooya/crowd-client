@@ -49,7 +49,7 @@ export default function LoginView() {
         {
           onSuccess: (data) => {
             setRegisterd(data.registered);
-  
+
             setStep(2);
 
             startTimer();
@@ -117,8 +117,11 @@ export default function LoginView() {
               label="کد تایید"
               fullWidth
             />
-            {registerd ? false : <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />}
-            
+            {registerd ? (
+              false
+            ) : (
+              <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
+            )}
           </>
         )}
       </Stack>
@@ -209,9 +212,11 @@ export default function LoginView() {
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
         <div>
-        <div dangerouslySetInnerHTML={createMarkup("<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' alt='' style='cursor:pointer' code='W3y39nx7isNrGWpAJBpNE2KanNerFkB8'></a>")} />
-
-
+          <div
+            dangerouslySetInnerHTML={createMarkup(
+              "<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' alt='' style='cursor:pointer' code='W3y39nx7isNrGWpAJBpNE2KanNerFkB8'></a>"
+            )}
+          />
         </div>
       </Box>
     </Box>

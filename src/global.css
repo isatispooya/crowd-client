@@ -5,6 +5,11 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'IRANSANS';
-    src: local('IRANSANS'), url(fonts/woff2/IRANSansXFaNum-Medium.woff2) format('woff2');
-  }
+  font-family: 'IRANSANS';
+  src:
+    local('IRANSANS'),
+    url(fonts/woff2/IRANSansXFaNum-Medium.woff2) format('woff2');
+}
+
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';

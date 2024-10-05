@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Stepper, Step, StepLabel } from '@mui/material';
+import { Stepper, Step, StepLabel, MobileStepper, Button, useMediaQuery } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,8 @@ const steps = [
 const Sterpercrowd = () => {
   const { setCartId } = UseCartId();
   const [isCompleted, setIsCompleted] = useState(false);
-
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const maxSteps = steps.length;
   const [cardSelected, setCardSelected] = useState(null);
   const [isStepLocked, setIsStepLocked] = useState(true);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
@@ -115,35 +116,71 @@ const Sterpercrowd = () => {
   if (isCheckingAuth) {
     return null;
   }
+  const handleNext = () => {
+    if (isStepLocked && activeStep > 0) {
+      toast.error('ابتدا یک لیست را انتخاب  یا ایجاد کنید');
+      return;
+    }
+    setIsCompleted(false);
+    incrementPage();
+  };
+
+  const handleBack = () => {
+    if (isStepLocked && activeStep > 0) {
+      toast.error('ابتدا یک لیست را انتخاب  یا ایجاد کنید');
+      return;
+    }
+    changePage(activeStep - 1);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 block mx-auto p-4 sm:p-6 md:p-8 lg:p-12 rounded-lg shadow-2xl">
       <ToastContainer />
-      <Stepper
-        activeStep={activeStep}
-        alternativeLabel
-        connector={null}
-        className="w-full flex-grow flex-wrap"
-      >
-        {steps.map((label, index) => (
-          <Step key={index} className="flex flex-col items-center">
-            <StepLabel
-              icon={getStepIcon(index)}
-              onClick={() => handleStepClick(index)}
-              style={{ cursor: isStepLocked && index > 0 ? 'not-allowed' : 'pointer' }}
-            >
-              <span
-                className={`block text-sm sm:text-base lg:text-lg font-semibold ${
-                  isStepLocked && index > 0 ? 'text-gray-400' : 'text-gray-700'
-                } transition-all duration-300 hover:text-blue-600 hover:scale-105`}
-              >
-                {label}
-              </span>
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+      {isMobile ? (
+        <div>
+          <MobileStepper
+            variant="dots"
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button
+                size="small"
+                onClick={handleNext}
 
+                disabled={(isStepLocked && activeStep === 0) || activeStep === maxSteps - 1}
+              >
+                بعدی
+              </Button>
+            }
+            backButton={
+              <Button
+                size="small"
+                onClick={handleBack}
+                disabled={activeStep === 0} 
+              >
+                قبلی
+              </Button>
+            }
+          />
+          
+        </div>
+      ) : (
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          connector={null}
+          className="w-full flex-grow flex-wrap"
+        >
+          {steps.map((label, index) => (
+            <Step key={index} className="flex flex-col items-center">
+              <StepLabel icon={getStepIcon(index)} onClick={() => handleStepClick(index)}>
+                <span>{label}</span>
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      )}
       <div className="mt-8 sm:mt-12">{renderStepContent(activeStep)}</div>
     </div>
   );
