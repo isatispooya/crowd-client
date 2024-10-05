@@ -1,26 +1,29 @@
-name: Node.js CI
+name: Deploy to Ubuntu Server
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # یا هر branchی که می‌خواهید استقرار بر روی سرور انجام شود
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@master
       with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
+        host: ${{ secrets.SSH_HOST }}  # آدرس IP سرور شما
+        username: ${{ secrets.SSH_USER }}  # نام کاربری سرور شما
+        port: 8110  # اینجا پورت 8110 تنظیم شده است
+        key: ${{ secrets.SSH_PRIVATE_KEY }}  # کلید خصوصی
+        passphrase: ''  # اگر کلید شما passphrase ندارد
+        script: |
+          cd /var/www/farasite-cli/crowd.isatispooya.com  # مسیر پروژه روی سرور
+          git pull origin main
+          npm install
+          npm run build
+          pm2 restart all  # اگر از pm2 برای مدیریت برنامه استفاده می‌کنید
