@@ -1,6 +1,5 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -48,7 +47,7 @@ const Fildemnager = ({ index, field, setField }) => {
   return (
     <div className="p-6 rounded-lg shadow-md">
       <form className="mt-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-medium mb-2">
               نام و نام خانوادگی :
