@@ -3,7 +3,7 @@ import { getInvestor } from './invesor';
 
 const useGetInvesor = (traceCode) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['partner', traceCode],
+    queryKey: ['investor', traceCode],
     queryFn: () => getInvestor(traceCode),
     enabled: !!traceCode,
   });

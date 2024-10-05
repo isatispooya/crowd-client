@@ -4,6 +4,7 @@ import { OnRun } from 'src/api/OnRun';
 
 const getCaptcha = async () => {
   const { data } = await axios.get(`${OnRun}/api/captcha/`);
+  console.log("captcha",data)
   return data.captcha;
 };
 const useCaptcha = () => {
