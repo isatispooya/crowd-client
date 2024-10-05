@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
@@ -51,19 +50,19 @@ const Shareholders = () => {
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
-
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   if (isLoading) return <Loader />;
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen p-8">
+    <div className="flex flex-col items-center w-full min-h-screen p-4 sm:p-8">
       <ToastContainer />
 
-      <div className="w-full max-w-4xl p-6 rounded-lg shadow-2xl bg-white">
+      <div className="w-full max-w-4xl p-4 sm:p-6 bg-white shadow-2xl rounded-lg">
         <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-700">سهامداران</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-700">سهامداران</h1>
         </div>
+
         <div className="w-full mb-4">
           {validite.map((item, index) => (
             <div key={index} className="relative w-full space-y-2 mb-6">
@@ -82,21 +81,23 @@ const Shareholders = () => {
             </div>
           ))}
         </div>
+
         <div className="flex justify-center items-center mt-6 w-full">
           <button
             onClick={handleAdd}
             type="button"
-            className="py-2 px-6 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition duration-200 font-semibold"
+            className="py-2 px-6 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition duration-200 font-semibold w-full sm:w-auto"
           >
             افزودن فرم جدید
           </button>
         </div>
+
         <div className="flex justify-center items-center mt-6 w-full">
           <button
             onClick={handlePost}
             disabled={isDisabled}
             type="button"
-            className={`py-2 w-full px-6 mx-24 text-white rounded-lg shadow-xl font-semibold transition-transform transform focus:outline-none focus:ring-4 focus:ring-blue-300 ${
+            className={`py-2 w-full sm:w-auto px-6 mx-0 sm:mx-24 text-white rounded-lg shadow-xl font-semibold transition-transform transform focus:outline-none focus:ring-4 focus:ring-blue-300 ${
               isDisabled
                 ? 'bg-gray-400 cursor-not-allowed opacity-50' // Disabled state styles
                 : 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800'
