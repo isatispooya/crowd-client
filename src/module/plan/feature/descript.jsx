@@ -116,7 +116,7 @@ const Descript = () => {
   );
 };
 Field.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 export default Descript;

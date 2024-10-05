@@ -6,7 +6,6 @@ import useGetInvesor from './service/use-getInvestor';
 const InvestProfile = () => {
   const { traceCode } = useParams();
   const { data } = useGetInvesor(traceCode);
-console.log("part",data)
   const transactionData = data
     ? data.map((item) => ({
         name: item.name,

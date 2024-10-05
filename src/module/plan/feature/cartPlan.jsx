@@ -20,7 +20,6 @@ const CartPlan = ({
   const navigate = useNavigate();
 
   const { data: picture } = usePicure(trace_code);
-  console.log('pic', picture);
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
@@ -87,10 +86,10 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.isRequired,
   projectStatus: PropTypes.bool.isRequired,
-  settlementDescription: PropTypes.isRequired,
-  realPersonMinPrice: PropTypes.isRequired,
-  creation_date: PropTypes.isRequired,
-  crowdFundingtypeDescription: PropTypes.isRequired,
+  settlementDescription:PropTypes.func.isRequired,
+  realPersonMinPrice: PropTypes.func.isRequired,
+  creation_date: PropTypes.func.isRequired,
+  crowdFundingtypeDescription:PropTypes.func.isRequired,
 };
 
 export default CartPlan;
