@@ -17,7 +17,7 @@ const Dashboard = () => {
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold"> تعداد طرح ها</h2>
-        <InsertDriveFileIcon style={{ fontSize: '2rem' }} color="error" />
+        <InsertDriveFileIcon style={{ fontSize: '2rem' }} color="primary" />
         <p className="text-2xl">{dashbord["all plan"]}</p>
       </div>
       <div className="bg-white shadow-md p-6 rounded-lg">
@@ -27,17 +27,17 @@ const Dashboard = () => {
       </div>
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold"> تعداد مشارکت کاربر</h2>
-        <PeopleIcon style={{ fontSize: '2rem' }} color="error" />
+        <PeopleIcon style={{ fontSize: '2rem' }} color="secondary" />
         <p className="text-2xl">{dashbord["participant plan"]}</p>
       </div>
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold"> مبلغ مشارکت کاربر</h2>
-        <MonetizationOnIcon style={{ fontSize: '2rem' }} color="error" />
+        <MonetizationOnIcon style={{ fontSize: '2rem' }} color="success" />
         <p className="text-2xl">{dashbord["total value"]}</p>
       </div>
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold">سود</h2>
-        <TrendingUpIcon style={{ fontSize: '2rem' }} color="error" />
+        <TrendingUpIcon style={{ fontSize: '2rem' }} color="warning" />
         <p className="text-2xl">%{dashbord["all rate of return"]}</p>
       </div>
     </div>
