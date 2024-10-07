@@ -87,10 +87,10 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.isRequired,
   projectStatus: PropTypes.bool.isRequired,
-  settlementDescription: PropTypes.isRequired,
-  realPersonMinPrice: PropTypes.isRequired,
-  creation_date: PropTypes.isRequired,
-  crowdFundingtypeDescription: PropTypes.isRequired,
+  settlementDescription:PropTypes.func.isRequired,
+  realPersonMinPrice: PropTypes.func.isRequired,
+  creation_date: PropTypes.func.isRequired,
+  crowdFundingtypeDescription:PropTypes.func.isRequired,
 };
 
 export default CartPlan;

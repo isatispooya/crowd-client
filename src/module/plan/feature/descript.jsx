@@ -44,15 +44,15 @@ const Descript = () => {
     { label: 'عنوان نوع تامین مالی', value: data.crowd_funding_type_description },
     {
       label: 'حداقل مبلغ مورد نیاز جهت موفقیت تامین مالی (ریال)',
-      value: `${formatNumber(data.minimum_required_price)} ریال`,
+      value: `${formatNumber(data.minimum_required_price)||0} ریال`,
     },
     {
       label: 'حداقل مبلغ سرمایه‌گذاری برای تامین کننده حقیقی (ریال)',
-      value: `${formatNumber(data.real_person_minimum_availabe_price)} ریال`,
+      value: `${formatNumber(data.real_person_minimum_availabe_price)||0} ریال`,
     },
     {
       label: 'حداکثر مبلغ سرمایه‌گذاری برای تامین کننده حقیقی (ریال)',
-      value: `${formatNumber(data.real_person_maximum_available_price)} ریال`,
+      value: `${formatNumber(data.real_person_maximum_available_price)||0} ریال`,
     },
     {
       label: 'حداقل مبلغ سرمایه‌گذاری برای تامین کننده حقوقی (ریال)',
@@ -60,8 +60,8 @@ const Descript = () => {
     },
     {
       label: 'حداکثر مبلغ سرمایه‌گذاری برای تامین کننده حقوقی (ریال)',
-      value: `${formatNumber(data.legal_person_maximum_availabe_price) || 'نامشخص'}`,
-    },
+      value: `${formatNumber(data.legal_person_maximum_availabe_price ?? 0)}`,
+    },    
     { label: 'تاریخ شروع جمع آوری وجوه', value: data.persian_suggested_underwiring_start_date },
     { label: 'تاریخ پایان جمع آوری وجوه', value: data.persian_suggested_underwriting_end_date },
     { label: 'تاریخ شروع اجرای طرح', value: data.persian_project_start_date },
@@ -84,7 +84,7 @@ const Descript = () => {
           />
         ) : (
           <img
-          src="../../.../../public/img/nopic.jpg"
+          src="/public/img/nopic.jpg"
           alt="تصویر موجود نیست"
           className="w-full h-48  rounded-lg mb-4 "
         />        )}
@@ -116,7 +116,7 @@ const Descript = () => {
   );
 };
 Field.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 export default Descript;

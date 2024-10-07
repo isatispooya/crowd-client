@@ -16,7 +16,9 @@ const CommentList = () => {
   if (isError) {
     return <SmallError label="خطا در بارگزاری نظرات" />;
   }
-
+  if (!data) {
+    return <SmallError label="کامنتی وجود ندارد" />;
+  }
   return (
     <div className="max-w-6xl mx-auto  bg-white shadow-lg rounded-lg overflow-hidden mt-8">
       <div className="bg-gradient-to-r from-[#004ff9] to-[#000000] p-3">

@@ -82,7 +82,7 @@ const FileSharehold = ({ index, validite, setValidite }) => {
 
 FileSharehold.propTypes = {
   index: PropTypes.number.isRequired,
-  validite: PropTypes.object.isRequired,
+  validite: PropTypes.array.isRequired,
   setValidite: PropTypes.func.isRequired,
 };
 export default FileSharehold;

@@ -80,17 +80,17 @@ const HistoryRow = ({ index, list, item, setList }) => {
         </div>
       ) : (
         <div className="flex items-center rounded-lg shadow-lg p-3 bg-gray-100 w-full sm:w-auto">
-          <label htmlFor='aaaa' className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-            انتخاب فایل
-            <BsCloudUploadFill className="ml-2" />
-            <input
-              name="file_upload"
-              type="file"
-              onChange={(e) => updateFile(e.target.files[0], item.national_code)}
-              disabled={item.lock}
-              className="hidden"
-            />
-          </label>
+            <label className="flex items-center rounded-md bg-gradient-to-tr from-blue-500 to-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+              انتخاب فایل
+              <BsCloudUploadFill className="ml-2" />
+              <input
+                name="file_upload"
+                type="file"
+                onChange={(e) => updateFile(e.target.files[0], item.national_code)}
+                disabled={item.lock}
+                className="hidden"
+              />
+            </label>
           <span className="ml-4 mr-8 text-xs">
             {item.file ? item.file.name : 'فایلی انتخاب نشده'}
           </span>
