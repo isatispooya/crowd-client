@@ -20,7 +20,7 @@ const CartPlan = ({
   const navigate = useNavigate();
 
   const { data: picture } = usePicure(trace_code);
-  console.log('pic', picture);
+ 
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };

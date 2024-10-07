@@ -6,6 +6,6 @@ const History = ({ cardSelected }) => {
 };
 
 History.propTypes = {
-  cardSelected: PropTypes.number.isRequired,
+  cardSelected: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 export default History;
