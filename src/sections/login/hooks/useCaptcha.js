@@ -10,8 +10,6 @@ const useCaptcha = () => {
   return useQuery({
     queryKey: ['captcha'],
     queryFn: getCaptcha,
-    cacheTime: 1000 * 90 * 5,
-    staleTime: 1000 * 90 * 2,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
     retry: 3,
