@@ -3,6 +3,7 @@ import { OnRun } from 'src/api/OnRun';
 import { handleFileRemove } from '../utils/removeUploadFiles';
 
 export const renderFileSection = (fileKey, label, linkText, localData, setLocalData) => (
+  
   <div className="mb-6">
     <label htmlFor="text" className="block text-right text-gray-700 text-sm font-medium">
       {label}:
@@ -42,7 +43,7 @@ export const renderFileSection = (fileKey, label, linkText, localData, setLocalD
           انتخاب فایل
           <BsCloudUploadFill className="ml-2" />
           <input
-            id="file_input"
+            id="uploadfile"
             name={fileKey}
             type="file"
             onChange={(e) => {
