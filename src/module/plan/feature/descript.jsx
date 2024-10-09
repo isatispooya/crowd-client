@@ -23,7 +23,7 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: addinformtion, isLoading: addloading } = useGetInformation(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
-  
+
   const router = useRouter();
 
   if (isPending || addloading || loadingpicture) {
@@ -69,7 +69,7 @@ const Descript = () => {
           مشاهده در فرابورس
         </a>
       ),
-    }
+    },
   ];
 
   const Real = [
@@ -124,30 +124,29 @@ const Descript = () => {
           <Field key={index} label={field.label} value={field.value} />
         ))}
       </div>
-      <ProgressLineChart progress={20} label='تامین شده' />
+      <ProgressLineChart progress={20} label="تامین شده" />
 
       <div className="flex p-6 gap-12">
-  <div className="flex-1">
-    <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقیقی</h3>
-    <div className="grid grid-cols-1 gap-6 mb-8">
-      {Real.map((field, index) => (
-        <Field key={index} label={field.label} value={field.value} bold />
-      ))}
-    </div>
-  </div>
+        <div className="flex-1">
+          <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقیقی</h3>
+          <div className="grid grid-cols-1 gap-6 mb-8">
+            {Real.map((field, index) => (
+              <Field key={index} label={field.label} value={field.value} bold />
+            ))}
+          </div>
+        </div>
 
-  <div className="border-l border-gray-300 h-auto" />
+        <div className="border-l border-gray-300 h-auto" />
 
-  <div className="flex-1">
-    <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقوقی</h3>
-    <div className="grid grid-cols-1  gap-6">
-      {Legal.map((field, index) => (
-        <Field key={index} label={field.label} value={field.value} bold />
-      ))}
-    </div>
-  </div>
-</div>
-
+        <div className="flex-1">
+          <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقوقی</h3>
+          <div className="grid grid-cols-1  gap-6">
+            {Legal.map((field, index) => (
+              <Field key={index} label={field.label} value={field.value} bold />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
