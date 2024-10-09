@@ -11,8 +11,10 @@ import ReportsView from '../modules/reportsView';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error } = usePlan(traceCode);
+  const { isLoading, error, data } = usePlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
+  const projectStatusId = data?.project_status_id;
+  // console.log(data)
 
   if (isLoading) {
     return <Loader />;
@@ -32,20 +34,18 @@ const Plan = () => {
             { label: 'نظرات کاربران', tab: 4 },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
             { label: 'زمان بندی طرح', tab: 6 },
-            { label: 'مشارکت', tab: 7 },
-          ].map(({ label, tab }) => (
+            { label: 'مشارکت', tab: 7 }, // بررسی وضعیت
+          ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
                 type="button"
                 className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md ${
-                  // eslint-disable-next-line no-nested-ternary
-                  label === 'مشارکت'
-                    ? 'bg-blue-900 text-white'
-                    : activeTab === tab
+                  activeTab === tab
                     ? 'text-blue-900 border-b-4 border-blue-900'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab(tab)}
+                } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => !disabled && setActiveTab(tab)} // اگر غیرفعال نباشد، تب را تغییر دهد
+                disabled={disabled} // غیرفعال کردن دکمه
               >
                 {label}
               </button>
@@ -55,41 +55,12 @@ const Plan = () => {
       </div>
 
       <div className="mt-8">
-        {activeTab === 0 && (
-          <div>
-            <Descript />
-          </div>
-        )}
-
-        {activeTab === 1 && (
-          <div>
-            <ReportsView />
-          </div>
-        )}
-
-        {activeTab === 4 && (
-          <div>
-            <CommentForm />
-          </div>
-        )}
-
-        {activeTab === 5 && (
-          <div>
-            <InvestProfile />
-          </div>
-        )}
-
-        {activeTab === 6 && (
-          <div>
-            <Roadmap />
-          </div>
-        )}
-
-        {activeTab === 7 && (
-          <div>
-            <PaymentPage />
-          </div>
-        )}
+        {activeTab === 0 && <Descript />}
+        {activeTab === 1 && <ReportsView />}
+        {activeTab === 4 && <CommentForm />}
+        {activeTab === 5 && <InvestProfile />}
+        {activeTab === 6 && <Roadmap />}
+        {activeTab === 7 && <PaymentPage />}
       </div>
     </div>
   );
