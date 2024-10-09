@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import usePicure from '../service/use-picture';
 
@@ -20,7 +21,7 @@ const CartPlan = ({
   const navigate = useNavigate();
 
   const { data: picture } = usePicure(trace_code);
- 
+
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
@@ -65,6 +66,9 @@ const CartPlan = ({
             <span className="font-semibold">{realPersonMinPrice} ریال</span>
           </p>
         </div>
+        <div className="grid gap-2 mt-4">
+          <ProgressLineChart progress={12} label="تامین شده" />
+        </div>
       </div>
       <div className="flex justify-center mt-6">
         <button
@@ -87,10 +91,10 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.isRequired,
   projectStatus: PropTypes.bool.isRequired,
-  settlementDescription:PropTypes.func.isRequired,
+  settlementDescription: PropTypes.func.isRequired,
   realPersonMinPrice: PropTypes.func.isRequired,
   creation_date: PropTypes.func.isRequired,
-  crowdFundingtypeDescription:PropTypes.func.isRequired,
+  crowdFundingtypeDescription: PropTypes.func.isRequired,
 };
 
 export default CartPlan;

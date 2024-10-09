@@ -5,6 +5,7 @@ import Loader from 'src/components/loader';
 import { useRouter } from 'src/routes/hooks';
 import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
+import ProgressLineChart from 'src/components/progressLine';
 import useGetPlan from '../service/use-plan';
 import useGetInformation from '../service/use-getinformtion';
 import usePicure from '../service/use-picture';
@@ -21,6 +22,7 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: addinformtion, isLoading: addloading } = useGetInformation(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
+  
   const router = useRouter();
   if (isPending || addloading || loadingpicture) {
     return <Loader />;
@@ -102,6 +104,7 @@ const Descript = () => {
           <Field key={index} label={field.label} value={field.value} />
         ))}
       </div>
+      <ProgressLineChart progress={20} label='تامین شده' />
 
       <div className="flex justify-end">
         <button
