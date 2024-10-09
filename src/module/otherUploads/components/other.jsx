@@ -57,9 +57,7 @@ const Other = () => {
   if (isLoading) {
     return <Loader />;
   }
-  if (isError) {
-    toast.info('فایلی برای مشاهده موجود نیست , یک فایل آپلود کنید');
-  }
+ 
 
   const handleSubmit = async () => {
     setLoading(true);
