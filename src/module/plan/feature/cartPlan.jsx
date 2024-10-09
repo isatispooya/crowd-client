@@ -18,6 +18,7 @@ const CartPlan = ({
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
+  console.log('datae', trace_code);
 
   const { data: picture } = usePicure(trace_code);
  
