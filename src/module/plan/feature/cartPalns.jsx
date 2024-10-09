@@ -9,7 +9,6 @@ const CartPlans = () => {
   const { data } = UsePlans();
   const access = getCookie('access');
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!access) {
       navigate('/login');
