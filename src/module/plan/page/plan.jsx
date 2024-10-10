@@ -8,6 +8,7 @@ import Descript from '../feature/descript';
 import Roadmap from '../feature/Roadmap';
 import PaymentPage from '../payment/page/pymentpage';
 import ReportsView from '../modules/reportsView';
+import Calculate from '../feature/calculate';
 
 const Plan = () => {
   const { traceCode } = useParams();
@@ -32,7 +33,8 @@ const Plan = () => {
             { label: 'نظرات کاربران', tab: 4 },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
             { label: 'زمان بندی طرح', tab: 6 },
-            { label: 'مشارکت', tab: 7 },
+            { label: 'محاسبه گر سود', tab: 7 },
+            { label: 'مشارکت', tab: 8 },
           ].map(({ label, tab }) => (
             <li key={tab} className="mb-2">
               <button
@@ -86,6 +88,12 @@ const Plan = () => {
         )}
 
         {activeTab === 7 && (
+          <div>
+            <Calculate />
+          </div>
+        )}
+
+        {activeTab === 8 && (
           <div>
             <PaymentPage />
           </div>
