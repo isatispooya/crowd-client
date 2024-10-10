@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetPlan from '../service/use-plan';
+import Registere from './registered';
 
 
 
@@ -11,7 +12,6 @@ const InvestorPlan = () => {
   const handleOpen = (accordionId) => {
     setOpenAccordion((prev) => (prev === accordionId ? null : accordionId));
   };
-console.log("pppppp",data)
   const renderComponents = [
     {
       label: 'اطلاعات ثبتی شرکت متقاضی',
@@ -23,7 +23,7 @@ console.log("pppppp",data)
     },
     {
       label: 'اطلاعات مدیر عامل و اعضای هیئت مدیره',
-      component:"" || 'اطلاعات مدیرعامل و اعضای هیئت مدیره',
+      component:<Registere/> || 'اطلاعات مدیرعامل و اعضای هیئت مدیره',
     },
   ];
 

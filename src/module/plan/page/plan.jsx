@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
-import usePlan from '../service/use-plan';
 import CommentForm from '../comment/page/comment';
 import InvestProfile from '../investor/feature/Investorprofile';
 import Descript from '../feature/descript';
@@ -9,11 +8,12 @@ import Roadmap from '../feature/Roadmap';
 import PaymentPage from '../payment/page/pymentpage';
 import ReportsView from '../modules/reportsView';
 import Calculate from '../feature/calculate';
-import InvestorPlan from '../feature/InvestorPlan';
+import InvestorPlan from '../investorPlan/InvestorPlan';
+import useGetPlan from '../service/use-plan';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error, data } = usePlan(traceCode);
+  const { isLoading, error, data } = useGetPlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
 
   if (isLoading) {
