@@ -1,16 +1,16 @@
-
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { useState } from 'react';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { useParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify'; // افزودن toast از react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // ایمپورت استایل‌ها
 import AgreementPopup from 'src/components/Agreement';
 import usePlan from '../../service/use-plan';
 import usePayment from '../service/use-postpayment';
 
 const Payment = () => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const { traceCode } = useParams();
   const [attachment, setAttachment] = useState(null);
   const [paymentId, setPaymentId] = useState('');
@@ -19,7 +19,7 @@ const Payment = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const { data } = usePlan(traceCode);
-  const totalPrice = Number(data.unit_price) * Number(amount) || '';
+  const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
   const { mutate } = usePayment(traceCode);
 
   const handlePaymentMethodSelect = (method) => {
@@ -36,14 +36,24 @@ const Payment = () => {
     if (amount < 1000) {
       alert('حداقل گواهی مشارکت باید 1000 عدد باشد.');
     } else {
-      mutate({
-        amount,
-        name_status: status,
-        payment_id: paymentId,
-        description,
-        risk_statement: true,
-        picture: attachment,
-      });
+      mutate(
+        {
+          amount,
+          name_status: status,
+          payment_id: paymentId,
+          description,
+          risk_statement: true,
+          picture: attachment,
+        },
+        {
+          onSuccess: () => {
+            toast.success('پرداخت با موفقیت ثبت شد!'); // نمایش پیغام موفقیت
+          },
+          onError: (error) => {
+            toast.error(`خطا در ثبت پرداخت: ${error.message}`); // نمایش پیغام خطا
+          },
+        }
+      );
     }
   };
 
@@ -56,7 +66,7 @@ const Payment = () => {
       <div className="flex-col gap-6 p-8 max-w-4xl mx-auto">
         <h4 className="text-3xl text-center font-bold text-gray-900 mb-6">مشارکت</h4>
         <p className="text-blue-800 text-lg font-semibold">
-          قیمت هر گواهی: <span>{formatNumber(data.unit_price)}</span>
+          قیمت هر گواهی: <span>{formatNumber(data?.plan?.unit_price)}</span>
         </p>
       </div>
 

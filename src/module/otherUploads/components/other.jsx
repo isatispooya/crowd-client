@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
@@ -9,6 +8,7 @@ import Loader from 'src/components/loader';
 import SmallLoader from 'src/components/SmallLoader';
 
 import { useFinishCart } from 'src/hooks/useFinishCart';
+import api from 'src/api/apiClient';
 import { getFormData } from '../utils/getFormData';
 import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
@@ -66,7 +66,7 @@ const Other = () => {
 
     const access = await getCookie('access');
 
-    const response = await axios.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
+    const response = await api.post(`${OnRun}/api/addinformation/${cartId}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${access}`,

@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from 'src/api/apiClient';
+
 import { OnRun } from 'src/api/OnRun';
 
 const fetchCards = async (access) => {
-  const response = await axios.get(`${OnRun}/api/cart/`, {
+  const response = await api.get(`${OnRun}/api/cart/`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${access}`,

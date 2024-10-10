@@ -15,7 +15,6 @@ const Plan = () => {
   const { traceCode } = useParams();
   const { isLoading, error, data } = usePlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
-  const projectStatusId = data?.project_status_id;
 
   if (isLoading) {
     return <Loader />;
@@ -33,11 +32,11 @@ const Plan = () => {
             { label: 'اطلاعات طرح', tab: 0, disabled: false },
             { label: 'گزارشات', tab: 1, disabled: false },
             { label: 'نظرات کاربران', tab: 4, disabled: false },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 5,  }, // غیرفعال براساس وضعیت پروژه
-            { label: 'زمان بندی طرح', tab: 6, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
+            { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: false },
+            { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
-            { label: '  سرمایه پذیر', tab: 8, },
-            { label: 'مشارکت', tab: 9, disabled: false },
+            { label: '  سرمایه پذیر', tab: 8, disabled: false },
+            { label: 'مشارکت', tab: 9, disabled: data?.rate_of_return?.status_second !== 4 },
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
@@ -47,8 +46,8 @@ const Plan = () => {
                     ? 'text-blue-900 border-b-4 border-blue-900'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
                 } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                onClick={() => !disabled && setActiveTab(tab)} // اگر غیرفعال نباشد، تب را تغییر دهد
-                disabled={disabled} // غیرفعال کردن دکمه
+                onClick={() => !disabled && setActiveTab(tab)}
+                disabled={disabled}
               >
                 {label}
               </button>

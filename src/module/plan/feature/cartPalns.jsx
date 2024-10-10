@@ -7,7 +7,6 @@ import UsePlans from '../service/use-plans';
 
 const CartPlans = () => {
   const { data } = UsePlans();
-  console.log(data, 'plansssss');
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
@@ -48,7 +47,8 @@ const CartPlans = () => {
                 crowdFundingtypeDescription={item.plan.crowd_funding_type_description}
                 creation_date={persianCreationDate}
                 persoanApprovedSymbol={item.plan.persoan_approved_symbol}
-                statusSecond={item.information_complete.status_second}
+                statusSecond={item?.information_complete?.status_second}
+                amountCollectedNow={item?.information_complete?.amount_collected_now}
               />
             );
           })}

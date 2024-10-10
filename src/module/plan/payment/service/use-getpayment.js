@@ -9,7 +9,6 @@ const useGetPayment = (traceCode) => {
     queryFn: () =>  getPayment(traceCode),
     enabled: !!traceCode,   
   });
-
   return {
     data,
     isLoading,

@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
@@ -18,9 +19,10 @@ const Field = ({ label, value, bold }) => (
 const Descript = () => {
   const { traceCode } = useParams();
   const { data, isPending, error } = useGetPlan(traceCode);
+
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
-console.log(";;;",data)
-  if (isPending  || loadingpicture) {
+
+  if (isPending || loadingpicture || !data) {
     return <Loader />;
   }
 
@@ -33,15 +35,24 @@ console.log(";;;",data)
     { label: 'نماد (فارسی)', value: data.plan.persoan_approved_symbol || 'نامشخص' },
     { label: 'نام انگلیسی', value: data.plan.english_name },
     { label: 'نماد (انگلیسی)', value: data.plan.english_approved_symbol || 'نامشخص' },
-    { label: 'سود', value: `%${data.information_compelte.rate_of_return/100 || 'نامشخص'}` },
+    { label: 'سود', value: `%${data.information_complete.rate_of_return / 100 || 'نامشخص'}` },
     { label: 'عنوان گروه صنعت', value: data.plan.industry_group_description },
     { label: 'عنوان زیر گروه صنعت', value: data.plan.sub_industry_group_description },
-    { label: 'قیمت اسمی هر گواهی شراکت (ریال)', value: `${formatNumber(data.plan.unit_price)} ریال` },
+    {
+      label: 'قیمت اسمی هر گواهی شراکت (ریال)',
+      value: `${formatNumber(data.plan.unit_price)} ریال`,
+    },
     { label: 'تعداد کل گواهی‌های شراکت قابل عرضه', value: formatNumber(data.plan.total_units) },
     { label: 'تعداد گواهی شراکت متقاضی', value: formatNumber(data.plan.company_unit_counts) },
     { label: 'عنوان نوع تامین مالی', value: data.plan.crowd_funding_type_description },
-    { label: 'تاریخ شروع جمع آوری وجوه', value: data.plan.persian_suggested_underwiring_start_date },
-    { label: 'تاریخ پایان جمع آوری وجوه', value: data.plan.persian_suggested_underwriting_end_date },
+    {
+      label: 'تاریخ شروع جمع آوری وجوه',
+      value: data.plan.persian_suggested_underwiring_start_date,
+    },
+    {
+      label: 'تاریخ پایان جمع آوری وجوه',
+      value: data.plan.persian_suggested_underwriting_end_date,
+    },
     { label: 'تاریخ شروع اجرای طرح', value: data.plan.persian_project_start_date },
     { label: 'تاریخ پایان اجرای طرح', value: data.plan.persian_project_end_date },
     { label: 'وضعیت پروژه', value: data.plan.project_status_description },
@@ -105,21 +116,29 @@ console.log(";;;",data)
           />
         )}
       </div>
-
       <div className="bg-gray-100 w-full mb-8 p-4 rounded-lg shadow-md">
         <p className="text-gray-500">توضیحات</p>
         <p className="text-lg text-gray-900 font-semibold break-words whitespace-normal">
           {data.plan.persian_subject}
         </p>
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {generalFields.map((field, index) => (
           <Field key={index} label={field.label} value={field.value} />
         ))}
       </div>
-      <ProgressLineChart progress={20} label="تامین شده" />
-
+      <ProgressLineChart
+        progress={
+          Math.round(
+            formatNumber(data?.information_complete.rate_of_return / data?.plan.total_price) * 100
+          ) / 100
+        }
+        label="تامین شده"
+      />
+      {Math.round(
+        formatNumber(data?.information_complete.rate_of_return / data?.plan.total_price) * 100
+      ) / 100}
+      مبلغ تامین شده (ریال)
       <div className="flex p-6 gap-12">
         <div className="flex-1">
           <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقیقی</h3>

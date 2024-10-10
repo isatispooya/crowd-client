@@ -19,6 +19,7 @@ const CartPlan = ({
   realPersonMinPrice,
   creation_date,
   statusSecond,
+  amountCollectedNow,
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
@@ -75,7 +76,6 @@ const CartPlan = ({
             )}
           </div>
         )}
-
         <div className="grid gap-4">
           <h2 className="text-2xl flex justify-center mt-2 items-center font-bold text-gray-900 mb-2">
             {persoanApprovedSymbol}
@@ -84,7 +84,6 @@ const CartPlan = ({
         <div className="grid gap-4">
           <p className="text-base text-gray-700">{persianName}</p>
         </div>
-
         <div className="grid gap-2 mt-4">
           <p className="text-sm text-gray-700">
             مبلغ کل: <span className="font-semibold">{formatNumber(totalPrice)} ریال</span>
@@ -97,7 +96,8 @@ const CartPlan = ({
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
           </p>
           <p className="text-sm text-gray-700">
-            وضعیت پروژه: <span className="font-semibold">{statusMapping[statusValue] || 'نامشخص'}</span>
+            وضعیت پروژه:{' '}
+            <span className="font-semibold">{statusMapping[statusValue] || 'نامشخص'}</span>
           </p>
           <p className="text-sm text-gray-700">
             حداقل سرمایه‌گذاری حقیقی:{' '}
@@ -105,8 +105,12 @@ const CartPlan = ({
           </p>
         </div>
         <div className="grid gap-2 mt-4">
-          <ProgressLineChart progress={12} label="تامین شده" />
+          <ProgressLineChart
+            progress= {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}
+            label="تامین شده"
+          />
         </div>
+        {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}مبلغ تامین شده (ریال)
       </div>
       <div className="flex justify-center mt-6">
         <button
@@ -132,6 +136,7 @@ CartPlan.propTypes = {
   settlementDescription: PropTypes.func.isRequired,
   realPersonMinPrice: PropTypes.isRequired,
   creation_date: PropTypes.isRequired,
+  amountCollectedNow: PropTypes.isRequired,
   crowdFundingtypeDescription: PropTypes.isRequired,
   persoanApprovedSymbol: PropTypes.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

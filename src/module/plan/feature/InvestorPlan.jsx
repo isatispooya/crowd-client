@@ -1,45 +1,8 @@
-// import React from 'react';
-// import { useParams } from "react-router-dom";
-// import { formatNumber } from "src/utils/formatNumbers";
-// import useGetPlan from "../service/use-plan";
-
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { formatNumber } from 'src/utils/formatNumbers';
 import useGetPlan from '../service/use-plan';
 
-// const InvestorPlan = () => {
-//     const { traceCode } = useParams();
-//     const { data, isPending, error } = useGetPlan(traceCode);
 
-//     if (isPending) return <div>در حال بارگذاری...</div>;
-//     if (error) return <div>خطا در دریافت اطلاعات: {error.message}</div>;
-
-//     if (!data || !data.plan) return <div>اطلاعاتی یافت نشد.</div>;
-
-//     const Real = [
-//         {
-//           label: 'حداقل مبلغ سرمایه‌گذاری برای تامین کننده حقیقی (ریال)',
-//           value: `${formatNumber(data.plan.real_person_minimum_availabe_price) || 0} ریال`,
-//         },
-//         {
-//           label: 'حداکثر مبلغ سرمایه‌گذاری برای تامین کننده حقیقی (ریال)',
-//           value: `${formatNumber(data.plan.real_person_maximum_available_price) || 0} ریال`,
-//         },
-//     ];
-
-//     return (
-//         <div>
-//             {Real.map((item, index) => (
-//                 <div key={index}>
-//                     <strong>{item.label}:</strong> {item.value}
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// };
-
-// export default InvestorPlan;
 
 const InvestorPlan = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
@@ -48,7 +11,7 @@ const InvestorPlan = () => {
   const handleOpen = (accordionId) => {
     setOpenAccordion((prev) => (prev === accordionId ? null : accordionId));
   };
-
+console.log("pppppp",data)
   const renderComponents = [
     {
       label: 'اطلاعات ثبتی شرکت متقاضی',

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import api from 'src/api/apiClient';
 import { setCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import { useRouter } from 'src/routes/hooks';
@@ -12,7 +12,7 @@ const useSubmitOtp = (registerd) => {
     mutationKey: ['submitOtp'],
     mutationFn: async ({ nationalCode, otp }) => {
       const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
-      const response = await axios.post(url_, {
+      const response = await api.post(url_, {
         uniqueIdentifier: nationalCode,
         otp,
       });

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
@@ -30,7 +29,7 @@ export const sendValidation = async (cartId, data) => {
       formData.append('file_validation', data.file_validation || '');
       formData.append('file_manager', data.file_manager || '');
   
-      const response = await axios.post(url, formData, {
+      const response = await api.post(url, formData, {
         headers: {
           Authorization: `Bearer ${access}`,
           'Content-Type': 'multipart/form-data',

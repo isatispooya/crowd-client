@@ -1,10 +1,10 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import { toast } from 'react-toastify';
+import api from 'src/api/apiClient';
 
 const useShareholders = (cartId) => {
   const [validite, setValidite] = useState([]);
@@ -12,7 +12,7 @@ const useShareholders = (cartId) => {
   const fetchManager = async () => {
     const access = await getCookie('access');
     if (cartId) {
-      const response = await axios.get(`${OnRun}/api/shareholder/${cartId}/`, {
+      const response = await api.get(`${OnRun}/api/shareholder/${cartId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -34,7 +34,7 @@ const useShareholders = (cartId) => {
   const postShareholders = async () => {
     const access = await getCookie('access');
     try {
-      await axios.post(
+      await api.post(
         `${OnRun}/api/shareholder/${cartId}/`,
         { shareholder: validite },
         {

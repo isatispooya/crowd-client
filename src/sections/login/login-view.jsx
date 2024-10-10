@@ -91,6 +91,7 @@ export default function LoginView() {
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
+            autoComplete="off"
           fullWidth
         />
         {step === 1 ? (
@@ -99,6 +100,7 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
+              autoComplete="off"
               fullWidth
             />
             <Button onClick={refreshCaptcha} fullWidth>
@@ -116,6 +118,7 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
+              autoComplete="off"
               fullWidth
             />
             {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}

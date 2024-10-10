@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
+import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
 const fetchTransaction = async () => {
   const access = getCookie('access');
-  const response = await axios.get(`${OnRun}/api/transaction/`, {
+  const response = await api.get(`${OnRun}/api/transaction/`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${access}`,
