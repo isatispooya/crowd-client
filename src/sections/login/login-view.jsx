@@ -14,10 +14,11 @@ import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import DOMPurify from 'dompurify';
-import ReferralCodeInput from './refferalView';
+import ReferralCodeInput from './components/refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
+import Calling from './components/callingRigester';
 import useTimer from './hooks/useTimer';
 
 export default function LoginView() {
@@ -117,6 +118,8 @@ export default function LoginView() {
               label="کد تایید"
               fullWidth
             />
+            {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}
+
             {registerd ? (
               false
             ) : (

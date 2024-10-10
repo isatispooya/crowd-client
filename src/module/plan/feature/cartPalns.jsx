@@ -7,6 +7,7 @@ import UsePlans from '../service/use-plans';
 
 const CartPlans = () => {
   const { data } = UsePlans();
+  console.log(data, 'plansssss');
   const access = getCookie('access');
   const navigate = useNavigate();
   useEffect(() => {
