@@ -7,7 +7,7 @@ const useGetPlan = (trace_code) => {
     queryFn: () => getPlan(trace_code),
     enabled: !!trace_code,   
   });
-
+console.log("datadata",data)
   return {
     data,
     isPending,
