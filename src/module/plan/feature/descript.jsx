@@ -19,7 +19,7 @@ const Descript = () => {
   const { traceCode } = useParams();
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
-
+console.log(";;;",data)
   if (isPending  || loadingpicture) {
     return <Loader />;
   }

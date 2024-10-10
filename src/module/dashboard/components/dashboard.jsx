@@ -4,6 +4,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { formatNumber } from 'src/utils/formatNumbers';
 import useGetDashbord from './service/use-getDashbord';
 
 const Dashboard = () => {
@@ -33,12 +34,12 @@ const Dashboard = () => {
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold"> مبلغ مشارکت کاربر</h2>
         <MonetizationOnIcon style={{ fontSize: '2rem' }} color="success" />
-        <p className="text-2xl">{dashbord["total value"]}</p>
+        <p className="text-2xl">{formatNumber(dashbord["total value"])}</p>
       </div>
       <div className="bg-white shadow-md p-6 rounded-lg">
         <h2 className="text-lg font-bold">سود</h2>
         <TrendingUpIcon style={{ fontSize: '2rem' }} color="warning" />
-        <p className="text-2xl">%{dashbord["all rate of return"]}</p>
+        <p className="text-2xl">%{dashbord["all rate of return"]/100}</p>
       </div>
     </div>
   );

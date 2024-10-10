@@ -9,6 +9,7 @@ import Roadmap from '../feature/Roadmap';
 import PaymentPage from '../payment/page/pymentpage';
 import ReportsView from '../modules/reportsView';
 import Calculate from '../feature/calculate';
+import InvestorPlan from '../feature/InvestorPlan';
 
 const Plan = () => {
   const { traceCode } = useParams();
@@ -35,7 +36,8 @@ const Plan = () => {
             { label: 'مشخصات سرمایه‌گذارن', tab: 5,  }, // غیرفعال براساس وضعیت پروژه
             { label: 'زمان بندی طرح', tab: 6, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
-            { label: 'مشارکت', tab: 8, disabled: false },
+            { label: '  سرمایه پذیر', tab: 8, },
+            { label: 'مشارکت', tab: 9, disabled: false },
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
@@ -62,7 +64,8 @@ const Plan = () => {
         {activeTab === 5 && <InvestProfile />}
         {activeTab === 6 && <Roadmap />}
         {activeTab === 7 && <Calculate />}
-        {activeTab === 8 && <PaymentPage />}
+        {activeTab === 8 && <InvestorPlan />}
+        {activeTab === 9 && <PaymentPage />}
       </div>
     </div>
   );

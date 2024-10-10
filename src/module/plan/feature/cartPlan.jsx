@@ -22,16 +22,16 @@ const CartPlan = ({
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
- 
 
   const { data: picture } = usePicure(trace_code);
+
+  const statusValue = parseInt(statusSecond, 10);
+
+  const isCompleted = statusValue === 4;
 
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
-
-  // بررسی وضعیت تکمیل بودن پروژه
-  const isCompleted = statusSecond === 4;
 
   const statusMapping = {
     1: 'شروع شده',
@@ -77,12 +77,12 @@ const CartPlan = ({
         )}
 
         <div className="grid gap-4">
-          <h2 className="text-2xl items-center font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl flex justify-center mt-2 items-center font-bold text-gray-900 mb-2">
             {persoanApprovedSymbol}
           </h2>
         </div>
         <div className="grid gap-4">
-          <p className="text-sm text-gray-700">{persianName}</p>
+          <p className="text-base text-gray-700">{persianName}</p>
         </div>
 
         <div className="grid gap-2 mt-4">
@@ -97,11 +97,11 @@ const CartPlan = ({
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
           </p>
           <p className="text-sm text-gray-700">
-            وضعیت پروژه: <span className="font-semibold">{statusMapping[statusSecond] || 'نامشخص'}</span>
+            وضعیت پروژه: <span className="font-semibold">{statusMapping[statusValue] || 'نامشخص'}</span>
           </p>
           <p className="text-sm text-gray-700">
             حداقل سرمایه‌گذاری حقیقی:{' '}
-            <span className="font-semibold">{realPersonMinPrice} ریال</span>
+            <span className="font-semibold">{formatNumber(realPersonMinPrice)} ریال</span>
           </p>
         </div>
         <div className="grid gap-2 mt-4">
@@ -111,11 +111,8 @@ const CartPlan = ({
       <div className="flex justify-center mt-6">
         <button
           type="button"
-          className={`bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 hover:bg-blue-700 ${
-            isCompleted ? 'bg-gray-500 cursor-not-allowed' : ''
-          }`}
+          className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 "
           onClick={handleViewClick}
-          disabled={isCompleted}
         >
           مشاهده جزئیات
         </button>
@@ -137,7 +134,7 @@ CartPlan.propTypes = {
   creation_date: PropTypes.isRequired,
   crowdFundingtypeDescription: PropTypes.isRequired,
   persoanApprovedSymbol: PropTypes.isRequired,
-  statusSecond: PropTypes.number.isRequired,
+  statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default CartPlan;

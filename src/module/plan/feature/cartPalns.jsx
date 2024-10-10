@@ -18,7 +18,6 @@ const CartPlans = () => {
   if (!data || data.length === 0) {
     return <p>هیچ درخواستی یافت نشد.</p>;
   }
-  console.log("''llplk", data[0].information_complete.status_second);
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">
