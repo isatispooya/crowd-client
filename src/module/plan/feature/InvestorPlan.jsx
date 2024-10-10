@@ -45,7 +45,6 @@ const InvestorPlan = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
   const { traceCode } = useParams();
   const { data } = useGetPlan(traceCode);
-  console.log('lkoih', data);
   const handleOpen = (accordionId) => {
     setOpenAccordion((prev) => (prev === accordionId ? null : accordionId));
   };
