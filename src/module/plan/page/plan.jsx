@@ -32,7 +32,7 @@ const Plan = () => {
             { label: 'اطلاعات طرح', tab: 0, disabled: false },
             { label: 'گزارشات', tab: 1, disabled: false },
             { label: 'نظرات کاربران', tab: 4, disabled: false },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
+            { label: 'مشخصات سرمایه‌گذارن', tab: 5,  }, // غیرفعال براساس وضعیت پروژه
             { label: 'زمان بندی طرح', tab: 6, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
             { label: 'مشارکت', tab: 8, disabled: false },
