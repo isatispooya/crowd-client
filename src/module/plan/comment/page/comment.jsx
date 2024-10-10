@@ -1,17 +1,26 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useGetProfile from 'src/module/profile/hooks/useGetProfile';
 import usePostComments from '../service/postsComments';
 import CommentList from '../feature/commentList';
 
 const CommentForm = () => {
-  const [name] = useState('محمدی');
+  const [name, setName] = useState('');
   const [comment, setComment] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [showName, setShowName] = useState(true);
   const { traceCode } = useParams();
 
   const { mutate: postComment, isLoading } = usePostComments(traceCode);
+  const { data: profileData} = useGetProfile();
+
+  useEffect(() => {
+    if (profileData && profileData.private_person && profileData.private_person.length > 0) {
+      setName(profileData.private_person.firstName);
+    }
+  }, [profileData]);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +46,7 @@ const CommentForm = () => {
 
   return (
     <div className="p-4 md:p-6 lg:p-8">
-      <CommentList traceCode={traceCode} />
+      <CommentList traceCode={traceCode}  />
       <h1 className="text-xl font-bold mb-4 mt-10">ارسال دیدگاه</h1>
 
       <div className="mb-4">

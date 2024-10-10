@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SmallError = ({ label }) => {
+const SmallError = ({ label  }) => {
   return (
     <div role="alert" className="alert alert-error">
       <svg

@@ -3,6 +3,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import PlanProgress from '../feature/planProgress';
 import Documentation from '../feature/documentation';
 import Appendices from '../feature/appendices';
+import Audit from '../feature/hesabrasi';
 
 const ReportsView = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
@@ -15,7 +16,7 @@ const ReportsView = () => {
     { label: 'مستندات', component: <Documentation /> },
     { label: 'تضامین و گزارشات اعتباری', component: <Appendices /> },
     { label: 'پیشرفت طرح', component: <PlanProgress /> },
-    { label: 'گزارش حسابرسی', component: <Documentation /> },
+    { label: 'گزارش حسابرسی', component: <Audit /> },
   ];
 
   return (

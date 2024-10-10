@@ -12,8 +12,9 @@ import Calculate from '../feature/calculate';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error } = usePlan(traceCode);
+  const { isLoading, error, data } = usePlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
+  const projectStatusId = data?.project_status_id;
 
   if (isLoading) {
     return <Loader />;
@@ -28,26 +29,24 @@ const Plan = () => {
       <div className="border-b-2 border-gray-200 mb-6">
         <ul className="flex flex-wrap justify-center space-x-1 text-sm text-center">
           {[
-            { label: 'اطلاعات طرح', tab: 0 },
-            { label: 'گزارشات', tab: 1 },
-            { label: 'نظرات کاربران', tab: 4 },
-            { label: 'مشخصات سرمایه‌گذارن', tab: 5 },
-            { label: 'زمان بندی طرح', tab: 6 },
-            { label: 'محاسبه گر سود', tab: 7 },
-            { label: 'مشارکت', tab: 8 },
-          ].map(({ label, tab }) => (
+            { label: 'اطلاعات طرح', tab: 0, disabled: false },
+            { label: 'گزارشات', tab: 1, disabled: false },
+            { label: 'نظرات کاربران', tab: 4, disabled: false },
+            { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
+            { label: 'زمان بندی طرح', tab: 6, disabled: projectStatusId !== 2 }, // غیرفعال براساس وضعیت پروژه
+            { label: 'محاسبه گر سود', tab: 7, disabled: false },
+            { label: 'مشارکت', tab: 8, disabled: false },
+          ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
                 type="button"
                 className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md ${
-                  // eslint-disable-next-line no-nested-ternary
-                  label === 'مشارکت'
-                    ? 'bg-blue-900 text-white'
-                    : activeTab === tab
+                  activeTab === tab
                     ? 'text-blue-900 border-b-4 border-blue-900'
                     : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab(tab)}
+                } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => !disabled && setActiveTab(tab)} // اگر غیرفعال نباشد، تب را تغییر دهد
+                disabled={disabled} // غیرفعال کردن دکمه
               >
                 {label}
               </button>
@@ -57,47 +56,13 @@ const Plan = () => {
       </div>
 
       <div className="mt-8">
-        {activeTab === 0 && (
-          <div>
-            <Descript />
-          </div>
-        )}
-
-        {activeTab === 1 && (
-          <div>
-            <ReportsView />
-          </div>
-        )}
-
-        {activeTab === 4 && (
-          <div>
-            <CommentForm />
-          </div>
-        )}
-
-        {activeTab === 5 && (
-          <div>
-            <InvestProfile />
-          </div>
-        )}
-
-        {activeTab === 6 && (
-          <div>
-            <Roadmap />
-          </div>
-        )}
-
-        {activeTab === 7 && (
-          <div>
-            <Calculate />
-          </div>
-        )}
-
-        {activeTab === 8 && (
-          <div>
-            <PaymentPage />
-          </div>
-        )}
+        {activeTab === 0 && <Descript />}
+        {activeTab === 1 && <ReportsView />}
+        {activeTab === 4 && <CommentForm />}
+        {activeTab === 5 && <InvestProfile />}
+        {activeTab === 6 && <Roadmap />}
+        {activeTab === 7 && <Calculate />}
+        {activeTab === 8 && <PaymentPage />}
       </div>
     </div>
   );
