@@ -5,6 +5,29 @@ import moment from 'jalali-moment';
 import CartPlan from './cartPlan';
 import UsePlans from '../service/use-plans';
 
+const calculateDateDifference = (startDate, endDate) => {
+  const today = new Date(); 
+  const StartDate = new Date(startDate);
+  const EndeDate = new Date(endDate);
+
+  let differenceInDays;
+  let message;
+
+  if (StartDate > today) {
+    const differenceInTime = StartDate.getTime() - today.getTime(); 
+    differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    message = ` ${differenceInDays} روز مانده به شروع `;
+  } else if (EndeDate > today){
+    const differenceInTime = EndeDate.getTime() - today.getTime(); 
+    differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    message = ` ${differenceInDays} روز مانده به پایان `;
+  }else {
+    message = 'طرح مورد نظر منقضی شده است.';
+  }
+
+  return { differenceInDays, message };
+};
+
 const CartPlans = () => {
   const { data } = UsePlans();
   const access = getCookie('access');
@@ -28,22 +51,11 @@ const CartPlans = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center text-right">
           {data.map((item) => {
-            const today = new Date(); 
-            const StartDate = new Date(item.plan.approved_underwriting_start_date);
-            const EndeDate = new Date(item.plan.approved_underwriting_end_date); 
+            const { differenceInDays, message } = calculateDateDifference(
+              item.plan.approved_underwriting_start_date,
+              item.plan.approved_underwriting_end_date
+            );
 
-            let differenceInDays;
-            let message;
-
-            if (StartDate > today) {
-              const differenceInTime = StartDate.getTime() - today.getTime(); 
-              differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-              message = ` ${differenceInDays} روز مانده به شروع `;
-            } else {
-              const differenceInTime = EndeDate.getTime() - today.getTime(); 
-              differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-              message = ` ${differenceInDays}روز مانده به پایان `;
-            }
             const persianCreationDate = item.plan.creation_date
               ? moment(item.plan.creation_date).locale('fa').format('YYYY/MM/DD')
               : 'تاریخ نامعتبر';
@@ -70,7 +82,6 @@ const CartPlans = () => {
                   company={item?.company?.name}
                   date={differenceInDays}
                   message={message}
-                
                 />
               </div>
             );
