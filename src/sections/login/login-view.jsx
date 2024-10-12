@@ -185,7 +185,8 @@ export default function LoginView() {
             sx={{
               p: 5,
               width: 1,
-              maxWidth: 420,
+              maxWidth: { xs: '100vw', md: 'vw' },
+              minWidth: '23vw',
             }}
           >
             <Typography variant="h4" style={{ textAlign: 'center' }}>
