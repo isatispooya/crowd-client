@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import PlanProgress from '../feature/planProgress';
-import Documentation from '../feature/documentation';
-import Appendices from '../feature/appendices';
-import Audit from '../feature/hesabrasi';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useGetPlan from '../service/use-plan';
+import Registere from './registered';
 
-const ReportsView = () => {
+
+
+const InvestorPlan = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
-
+  const { traceCode } = useParams();
+  const { data } = useGetPlan(traceCode);
   const handleOpen = (accordionId) => {
     setOpenAccordion((prev) => (prev === accordionId ? null : accordionId));
   };
-
   const renderComponents = [
-    { label: 'مستندات', component: <Documentation /> },
-    { label: 'تضامین و گزارشات اعتباری', component: <Appendices /> },
-    { label: 'پیشرفت طرح', component: <PlanProgress /> },
-    { label: 'گزارش حسابرسی', component: <Audit /> },
+    {
+      label: 'اطلاعات ثبتی شرکت متقاضی',
+      component: data.plan.total_price || 'اطلاعاتی ثبتی شرکت متقاضی ',
+    },
+    {
+      label: 'اطلاعات سهام داران بالای 10درصد',
+      component: data.plan.industry_group_description || 'اطلاعات سهام دارن بالای 10 درصد',
+    },
+    {
+      label: 'اطلاعات مدیر عامل و اعضای هیئت مدیره',
+      component:<Registere/> || 'اطلاعات مدیرعامل و اعضای هیئت مدیره',
+    },
   ];
 
   return (
@@ -30,11 +38,7 @@ const ReportsView = () => {
             aria-expanded={openAccordion === index}
           >
             <span>{item.label}</span>
-            <RiArrowDropDownLine
-              className={`text-2xl transition-transform duration-300 ${
-                openAccordion === index ? 'rotate-180' : ''
-              }`}
-            />
+            <span className={`text-2xl transition-transform duration-300 ${openAccordion}`} />
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out bg-white ${
@@ -49,4 +53,4 @@ const ReportsView = () => {
   );
 };
 
-export default ReportsView;
+export default InvestorPlan;

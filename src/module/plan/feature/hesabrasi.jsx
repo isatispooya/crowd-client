@@ -1,16 +1,15 @@
 import React from 'react';
 import { FiDownload } from 'react-icons/fi';
 import { OnRun } from 'src/api/OnRun';
-
-import SmallLoader from 'src/components/SmallLoader';
 import SmallError from 'src/components/smallError';
 import { useParams } from 'react-router-dom';
-import useGetAppenices from '../service/use-appendices';
+import SmallLoader from 'src/components/SmallLoader';
+import useAudit from '../service/useAudit';
 
-const Appendices = () => {
+const Audit = () => {
   const { traceCode } = useParams();
+  const { data: Audits, isLoading, error } = useAudit(traceCode);
 
-  const { data: plans, isLoading, error } = useGetAppenices(traceCode);
   if (isLoading) {
     return <SmallLoader />;
   }
@@ -19,13 +18,13 @@ const Appendices = () => {
     return <SmallError label="یافت نشد" />;
   }
 
-  if (!plans) {
-    return <SmallError label="هیچ طر حی یافت نشد" />;
+  if (!Audits) {
+    return <SmallError label=" یافت نشد" />;
   }
 
   return (
-    <div className="p-4 bg-white ">
-      {plans.map((item, index) => (
+    <div className="p-4 bg-white">
+      {Audits.map((item, index) => (
         <div
           key={index}
           className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
@@ -50,4 +49,4 @@ const Appendices = () => {
   );
 };
 
-export default Appendices;
+export default Audit;

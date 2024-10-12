@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import moment from 'jalali-moment';
 import { FaCheck } from 'react-icons/fa6';
 import { IoClose } from 'react-icons/io5';
+import { formatNumber } from 'src/utils/formatNumbers';
 import useGetPayment from '../service/use-getpayment';
 
 const PaymentCalculate = () => {
   const { traceCode } = useParams();
 
   const { data, isLoading } = useGetPayment(traceCode);
-
   if (isLoading) {
     return <Loader />;
   }
@@ -33,13 +33,13 @@ const PaymentCalculate = () => {
                 <div className="flex-1">
                   <p className="text-gray-700 font-semibold">
                     مبلغ:{' '}
-                    <span className="text-blue-600">{item.amount.toLocaleString()} تومان</span>
+                    <span className="text-blue-600">{formatNumber(item.amount)} تومان</span>
                   </p>
                   <p className="text-gray-700 font-semibold">
-                    مقدار: <span className="text-blue-600">{item.value.toLocaleString()}</span>
+                    مقدار: <span className="text-blue-600">{formatNumber(item.value)}</span>
                   </p>
                   <p className="text-gray-700 font-semibold">
-                    تاریخ: <span className="text-blue-600">{persianCreationDate}</span>
+                    تاریخ: <span className="text-blue-600">{formatNumber(persianCreationDate)}</span>
                   </p>
                   <p className=" flex text-gray-700 font-semibold">
                     وضعیت:

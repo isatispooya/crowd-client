@@ -25,16 +25,16 @@ const Roadmap = () => {
             {roadmap.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end  bg-white">
-            {roadmap.persian_suggested_underwiring_start_date || 'وضعیت نامشخص'}
+            {roadmap.plan.persian_suggested_underwiring_start_date || 'وضعیت نامشخص'}
           </div>
           <hr />
         </li>
         <li>
           <div className="timeline-start bg-white">
-            {roadmap.persian_suggested_underwiring_start_date}
+            {roadmap.plan.persian_suggested_underwiring_start_date}
           </div>
           <div className="timeline-middle bg-white">
-            {roadmap.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {roadmap.plan.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end timeline-box bg-white">تاریخ شروع جمع آوری وجوه</div>
           <hr />
@@ -43,17 +43,17 @@ const Roadmap = () => {
           <hr />
           <div className="timeline-start timeline-box bg-white">تاریخ پایان جمع آوری وجوه</div>
           <div className="timeline-middle bg-white">
-            {roadmap.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {roadmap.plan.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end  bg-white">
-            {roadmap.persian_suggested_underwriting_end_date || 'وضعیت نامشخص'}
+            {roadmap.plan.persian_suggested_underwriting_end_date || 'وضعیت نامشخص'}
           </div>
           <hr />
         </li>
         <li>
-          <div className="timeline-start bg-white">{roadmap.persian_project_start_date}</div>
+          <div className="timeline-start bg-white">{roadmap.plan.persian_project_start_date}</div>
           <div className="timeline-middle bg-white">
-            {roadmap.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {roadmap.plan.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end timeline-box bg-white">تاریخ شروع اجرا طرح</div>
           <hr />
@@ -61,9 +61,9 @@ const Roadmap = () => {
         <li>
           <div className="timeline-start timeline-box bg-white">تاریخ پایان اجرا طرح</div>
           <div className="timeline-middle  bg-white">
-            {roadmap.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {roadmap.plan.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
-          <div className="timeline-end  bg-white">{roadmap.persian_project_end_date}</div>
+          <div className="timeline-end  bg-white">{roadmap.plan.persian_project_end_date}</div>
           <hr />
         </li>
       </ul>

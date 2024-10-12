@@ -1,16 +1,16 @@
 import React from 'react';
-import axios from 'axios';
 import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import UseCartId from 'src/hooks/use-cartId';
+import api from 'src/api/apiClient';
 import SmallLoader from './SmallLoader';
 
 const fetchMessage = async (cartId) => {
   const access = await getCookie('access');
   if (cartId) {
-    const response = await axios.get(`${OnRun}/api/message/${cartId}/`, {
+    const response = await api.get(`${OnRun}/api/message/${cartId}/`, {
       headers: {
         Authorization: `Bearer ${access}`,
       },

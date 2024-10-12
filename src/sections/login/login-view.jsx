@@ -14,10 +14,12 @@ import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import DOMPurify from 'dompurify';
-import ReferralCodeInput from './refferalView';
+import { Link } from '@mui/material';
+import ReferralCodeInput from './components/refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
+import Calling from './components/callingRigester';
 import useTimer from './hooks/useTimer';
 
 export default function LoginView() {
@@ -56,7 +58,7 @@ export default function LoginView() {
             toast.success(data.message);
           },
           onError: () => {
-            toast.error('خطا در ارسال درخواست');
+            toast.error('کد کپچا را چک کنید');
           },
           onSettled: () => {
             setIsButtonDisabled(false);
@@ -75,7 +77,9 @@ export default function LoginView() {
         otp,
       });
     }
-  };
+  }; 
+
+  
 
   const createMarkup = (html) => {
     const sanitizedHtml = DOMPurify.sanitize(html);
@@ -90,6 +94,7 @@ export default function LoginView() {
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
+          autoComplete="off"
           fullWidth
         />
         {step === 1 ? (
@@ -98,6 +103,7 @@ export default function LoginView() {
               onChange={(e) => setCaptchaInput(e.target.value)}
               label="کپچا"
               value={captchaInput}
+              autoComplete="off"
               fullWidth
             />
             <Button onClick={refreshCaptcha} fullWidth>
@@ -115,8 +121,11 @@ export default function LoginView() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               label="کد تایید"
+              autoComplete="off"
               fullWidth
             />
+            {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}
+
             {registerd ? (
               false
             ) : (
@@ -212,6 +221,19 @@ export default function LoginView() {
         <Typography variant="body2" color="text.secondary">
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
+
+        <div className="mt-2 text-red-500">
+          <Link sx={{ textDecoration: 'NONE' }} href="tel:03535220088" variant="body2">
+            <button
+              type="button"
+              className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
+            >
+              راه های ارتباط با ما :{'  '}
+              03535220088
+            </button>
+          </Link>
+        </div>
+
         <div>
           <div
             dangerouslySetInnerHTML={createMarkup(

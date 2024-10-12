@@ -1,17 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from 'src/api/apiClient';
 import { OnRun } from 'src/api/OnRun';
 
 const getCaptcha = async () => {
-  const { data } = await axios.get(`${OnRun}/api/captcha/`);
+  const { data } = await api.get(`${OnRun}/api/captcha/`);
   return data.captcha;
 };
 const useCaptcha = () => {
   return useQuery({
     queryKey: ['captcha'],
     queryFn: getCaptcha,
-    cacheTime: 1000 * 90 * 5,
-    staleTime: 1000 * 90 * 2,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
     retry: 3,

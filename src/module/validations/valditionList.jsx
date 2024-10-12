@@ -1,14 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
-import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
 import { DateObject } from 'react-multi-date-picker';
 import SmallLoader from 'src/components/SmallLoader';
 import { useFinishCart } from 'src/hooks/useFinishCart';
+import api from 'src/api/apiClient';
 import ValidateRow from './validateRow';
 
 const ValditionList = () => {
@@ -20,7 +21,7 @@ const ValditionList = () => {
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
-      const response = await axios.get(`${OnRun}/api/validation/${cartId}/`, {
+      const response = await api.get(`${OnRun}/api/validation/${cartId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -59,8 +60,7 @@ const ValditionList = () => {
       }
 
       const access = await getCookie('access');
-      // eslint-disable-next-line no-unused-vars
-      const response = await axios.post(`${OnRun}/api/validation/${cartId}/`, formData, {
+      const response = await api.post(`${OnRun}/api/validation/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${access}`,

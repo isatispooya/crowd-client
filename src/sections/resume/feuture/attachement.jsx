@@ -7,11 +7,11 @@ import Row from '../component/row';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
-import axios from 'axios';
 import { OnRun } from 'src/api/OnRun';
 import UseCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { useFinishCart } from 'src/hooks/useFinishCart';
+import api from 'src/api/apiClient';
 
 const Attachement = () => {
   const { cartId } = UseCartId();
@@ -22,7 +22,7 @@ const Attachement = () => {
   const fetchManagerData = async () => {
     try {
       const access = await getCookie('access');
-      const response = await axios.get(`${OnRun}/api/resume/${cartId}/`, {
+      const response = await api.get(`${OnRun}/api/resume/${cartId}/`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -55,7 +55,7 @@ const Attachement = () => {
       }
 
       const access = await getCookie('access');
-      await axios.post(`${OnRun}/api/resume/${cartId}/`, formData, {
+      await api.post(`${OnRun}/api/resume/${cartId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${access}`,

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
+import { formatNumber } from 'src/utils/formatNumbers';
 import usePicure from '../service/use-picture';
 
 const CartPlan = ({
@@ -13,44 +15,80 @@ const CartPlan = ({
   crowdFundingType,
   projectStatus,
   settlementDescription,
+  persoanApprovedSymbol,
   realPersonMinPrice,
   creation_date,
+  statusSecond,
+  amountCollectedNow,
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
 
   const { data: picture } = usePicure(trace_code);
- 
+
+  const statusValue = parseInt(statusSecond, 10);
+
+  const isCompleted = statusValue === 4;
+
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
 
+  const statusMapping = {
+    1: 'شروع شده',
+    2: 'جمع آوری شده',
+    3: 'تمدید شده',
+    4: 'تکمیل شده',
+    5: 'سر رسید ناموفق',
+  };
+
   return (
-    <div className="flex flex-col  gap-4 bg-white p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl w-full sm:w-96 h-auto mx-auto">
-      <div className="flex-col flex-grow">
+    <div
+      className={`flex flex-col gap-4 p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl w-full sm:w-96 h-auto mx-auto ${
+        isCompleted ? 'bg-gray-300' : 'bg-white'
+      }`}
+    >
+      <div className="relative flex-col flex-grow">
         {picture && picture.picture ? (
-          <img
-            src={`${OnRun}/${picture.picture}`}
-            alt={persianName}
-            className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
-          />
+          <div className="relative">
+            <img
+              src={`${OnRun}/${picture.picture}`}
+              alt={persianName}
+              className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
+            />
+            {isCompleted && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 rounded-lg">
+                <span className="text-white text-3xl font-bold">تکمیل شد</span>
+              </div>
+            )}
+          </div>
         ) : (
-          <img
-            src="../../.../../public/img/nopic.jpg"
-            alt="تصویر موجود نیست"
-            className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
-          />
+          <div className="relative">
+            <img
+              src="../../.../../public/img/nopic.jpg"
+              alt="تصویر موجود نیست"
+              className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
+            />
+            {isCompleted && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 rounded-lg">
+                <span className="text-white text-3xl font-bold">تکمیل شد</span>
+              </div>
+            )}
+          </div>
         )}
-
         <div className="grid gap-4">
-          <h2 className="text-2xl font-bold text-gray-900">{persianName}</h2>
-          <p className="text-lg text-gray-600">{crowdFundingtypeDescription}</p>
+          <h2 className="text-2xl flex justify-center mt-2 items-center font-bold text-gray-900 mb-2">
+            {persoanApprovedSymbol}
+          </h2>
         </div>
-
+        <div className="grid gap-4">
+          <p className="text-base text-gray-700">{persianName}</p>
+        </div>
         <div className="grid gap-2 mt-4">
           <p className="text-sm text-gray-700">
-            مبلغ کل: <span className="font-semibold">{totalPrice} ریال</span>
+            مبلغ کل: <span className="font-semibold">{formatNumber(totalPrice)} ریال</span>
           </p>
+
           <p className="text-sm text-gray-700">
             تعداد گواهی‌های شراکت: <span className="font-semibold">{totalUnits}</span>
           </p>
@@ -58,18 +96,26 @@ const CartPlan = ({
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
           </p>
           <p className="text-sm text-gray-700">
-            وضعیت پروژه: <span className="font-semibold">{projectStatus ? 'فعال' : 'غیرفعال'}</span>
+            وضعیت پروژه:{' '}
+            <span className="font-semibold">{statusMapping[statusValue] || 'نامشخص'}</span>
           </p>
           <p className="text-sm text-gray-700">
             حداقل سرمایه‌گذاری حقیقی:{' '}
-            <span className="font-semibold">{realPersonMinPrice} ریال</span>
+            <span className="font-semibold">{formatNumber(realPersonMinPrice)} ریال</span>
           </p>
         </div>
+        <div className="grid gap-2 mt-4">
+          <ProgressLineChart
+            progress= {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}
+            label="تامین شده"
+          />
+        </div>
+        {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}مبلغ تامین شده (ریال)
       </div>
       <div className="flex justify-center mt-6">
         <button
           type="button"
-          className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 hover:bg-blue-700"
+          className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 "
           onClick={handleViewClick}
         >
           مشاهده جزئیات
@@ -87,10 +133,13 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.isRequired,
   projectStatus: PropTypes.bool.isRequired,
-  settlementDescription:PropTypes.func.isRequired,
-  realPersonMinPrice: PropTypes.func.isRequired,
-  creation_date: PropTypes.func.isRequired,
-  crowdFundingtypeDescription:PropTypes.func.isRequired,
+  settlementDescription: PropTypes.func.isRequired,
+  realPersonMinPrice: PropTypes.isRequired,
+  creation_date: PropTypes.isRequired,
+  amountCollectedNow: PropTypes.isRequired,
+  crowdFundingtypeDescription: PropTypes.isRequired,
+  persoanApprovedSymbol: PropTypes.isRequired,
+  statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default CartPlan;

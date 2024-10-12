@@ -8,6 +8,7 @@ import useGetComments from '../service/getComments';
 const CommentList = () => {
   const { traceCode } = useParams();
   const { isLoading, data, isError } = useGetComments(traceCode);
+  
 
   if (isLoading) {
     return <Loader />;

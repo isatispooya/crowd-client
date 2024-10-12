@@ -1,13 +1,13 @@
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import api from 'src/api/apiClient';
 
 const useRefreshOTP = () => {
   const postOtp = async () => {
     const access = await getCookie('access');
 
-    const response = await axios.post(
+    const response = await api.post(
       `${OnRun}/api/otp/update/`,
       {},
       {

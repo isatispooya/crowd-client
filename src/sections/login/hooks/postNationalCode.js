@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import api from 'src/api/apiClient';
 import { OnRun } from 'src/api/OnRun';
 
 const useApplyNationalCode = () => {
   return useMutation({
     mutationKey: ['applyNationalCode'],
     mutationFn: async ({ nationalCode, captchaInput, encryptedResponse }) => {
-      const response = await axios.post(`${OnRun}/api/otp/`, {
+      const response = await api.post(`${OnRun}/api/otp/`, {
         uniqueIdentifier: nationalCode,
         captcha: captchaInput,
         encrypted_response: encryptedResponse,
