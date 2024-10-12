@@ -13,7 +13,7 @@ import InvestorPlan from '../feature/InvestorPlan';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error, data } = usePlan(traceCode);
+  const { isLoading, error } = usePlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
 
   if (isLoading) {
@@ -36,7 +36,7 @@ const Plan = () => {
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
             { label: '  سرمایه پذیر', tab: 8, disabled: false },
-            { label: 'مشارکت', tab: 9, disabled: data?.rate_of_return?.status_second !== 4 },
+            { label: 'مشارکت', tab: 9 },
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
