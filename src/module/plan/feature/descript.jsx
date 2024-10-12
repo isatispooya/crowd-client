@@ -6,6 +6,7 @@ import Loader from 'src/components/loader';
 import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
 import ProgressLineChart from 'src/components/progressLine';
+import PercentageCollected from 'src/utils/percentCollected';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
 
@@ -21,6 +22,9 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
 
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
+  console.log('s', Math.round((data?.information_complete?.amount_collected_now / data?.plan?.total_price)*100));
+  console.log('s',data?.plan?.total_price);
+  
 
   if (isPending || loadingpicture || !data) {
     return <Loader />;
@@ -86,10 +90,9 @@ const Descript = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-4">
-  <div className='text-center font-bold mb-4 text-xl'>
-  <h >{data.plan.persian_name}</h>
-</div>
-
+      <div className="text-center font-bold mb-4 text-xl">
+        <h>{data.plan.persian_name}</h>
+      </div>
       <div className="bg-gray-100 w-full mb-8 p-4 rounded-lg shadow-md">
         {picture && picture.picture ? (
           <img
@@ -126,18 +129,10 @@ const Descript = () => {
           <Field key={index} label={field.label} value={field.value} />
         ))}
       </div>
-      <ProgressLineChart
-        progress={
-          Math.round(
-            formatNumber(data?.information_complete.rate_of_return / data?.plan.total_price) * 100
-          ) / 100
-        }
-        label="تامین شده"
-      />
-      {Math.round(
-        formatNumber(data?.information_complete.rate_of_return / data?.plan.total_price) * 100
-      ) / 100}
-      مبلغ تامین شده (ریال)
+      <div>
+      <ProgressLineChart progress={<percentageCollected/>} />
+    </div>
+       <PercentageCollected/>
       <div className="flex p-6 gap-12">
         <div className="flex-1">
           <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقیقی</h3>

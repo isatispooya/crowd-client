@@ -8,9 +8,12 @@ const InvestProfile = () => {
   const { data } = useGetInvesor(traceCode);
   const transactionData = data
     ? data.map((item) => ({
-        name: item.name,
+        
+fulname: item.
+fulname,
         create_date: moment(item.create_date).locale('fa').format('YYYY/MM/DD'),
         amount: item.amount,
+        user: item.user        ,
         value: item.value,
         status: item.status,
         payment_id: item.payment_id === 'True',
@@ -26,6 +29,9 @@ const InvestProfile = () => {
       <tr>
         <th scope="col" className="px-6 py-3">
           نام سرمایه گذار
+        </th>
+        <th scope="col" className="px-6 py-3">
+            کدملی
         </th>
         <th scope="col" className="px-6 py-3 hidden sm:table-cell">
           تاریخ ایجاد
@@ -50,7 +56,8 @@ const InvestProfile = () => {
           key={index}
           className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          <td className="px-6 py-4">{item.name}</td>
+          <td className="px-6 py-4">{item.fulname}</td>
+          <td className="px-6 py-4">{item.user}</td>
           <td className="px-6 py-4 hidden sm:table-cell">{item.create_date}</td>
           <td className="px-6 py-4">{item.amount}</td>
           <td className="px-6 py-4">{item.value}</td>

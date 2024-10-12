@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
+import PercentageCollected from 'src/utils/percentCollected';
 import usePicure from '../service/use-picture';
+import DateDifference from './dateDifference';
 
 const CartPlan = ({
   trace_code,
@@ -98,7 +100,7 @@ const CartPlan = ({
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
           </p>
           <p className="text-sm text-gray-700">
-            تاریخ جمع آوری وجوه:<span className="font-semibold">{message}</span>
+            تاریخ جمع آوری وجوه:<span className="font-semibold"><DateDifference/></span>
           </p>
           <p className="text-sm text-gray-700">
             وضعیت پروژه:{' '}
@@ -115,8 +117,8 @@ const CartPlan = ({
             label="تامین شده"
           />
         </div>
-        {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}مبلغ تامین شده (ریال)
-      </div>
+        <PercentageCollected/>
+        </div>
       <div className="flex justify-center mt-6">
         <button
           type="button"
