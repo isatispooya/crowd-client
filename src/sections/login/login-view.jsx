@@ -58,7 +58,7 @@ export default function LoginView() {
             toast.success(data.message);
           },
           onError: () => {
-            toast.error('خطا در ارسال درخواست');
+            toast.error('کد کپچا را چک کنید');
           },
           onSettled: () => {
             setIsButtonDisabled(false);
@@ -77,7 +77,9 @@ export default function LoginView() {
         otp,
       });
     }
-  };
+  }; 
+
+  
 
   const createMarkup = (html) => {
     const sanitizedHtml = DOMPurify.sanitize(html);
