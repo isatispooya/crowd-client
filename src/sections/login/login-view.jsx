@@ -14,6 +14,7 @@ import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import DOMPurify from 'dompurify';
+import { Link } from '@mui/material';
 import ReferralCodeInput from './components/refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
@@ -57,7 +58,7 @@ export default function LoginView() {
             toast.success(data.message);
           },
           onError: () => {
-            toast.error('خطا در ارسال درخواست');
+            toast.error('کد کپچا را چک کنید');
           },
           onSettled: () => {
             setIsButtonDisabled(false);
@@ -76,7 +77,9 @@ export default function LoginView() {
         otp,
       });
     }
-  };
+  }; 
+
+  
 
   const createMarkup = (html) => {
     const sanitizedHtml = DOMPurify.sanitize(html);
@@ -91,7 +94,7 @@ export default function LoginView() {
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
           label="شماره ملی"
-            autoComplete="off"
+          autoComplete="off"
           fullWidth
         />
         {step === 1 ? (
@@ -191,7 +194,8 @@ export default function LoginView() {
             sx={{
               p: 5,
               width: 1,
-              maxWidth: 420,
+              maxWidth: { xs: '100vw', md: 'vw' },
+              minWidth: '23vw',
             }}
           >
             <Typography variant="h4" style={{ textAlign: 'center' }}>
@@ -217,6 +221,19 @@ export default function LoginView() {
         <Typography variant="body2" color="text.secondary">
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
+
+        <div className="mt-2 text-red-500">
+          <Link sx={{ textDecoration: 'NONE' }} href="tel:03535220088" variant="body2">
+            <button
+              type="button"
+              className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
+            >
+              راه های ارتباط با ما :{'  '}
+              03535220088
+            </button>
+          </Link>
+        </div>
+
         <div>
           <div
             dangerouslySetInnerHTML={createMarkup(
