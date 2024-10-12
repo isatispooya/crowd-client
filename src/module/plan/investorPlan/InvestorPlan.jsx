@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useGetPlan from '../service/use-plan';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 import Registere from './registered';
 import PlanShareholders from './planShareholders';
 import ApplicantCompany from './applicantCompany';
 
 const InvestorPlan = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
-  const { traceCode } = useParams();
-  const { data } = useGetPlan(traceCode);
 
   const handleOpen = (accordionId) => {
     setOpenAccordion((prev) => (prev === accordionId ? null : accordionId));
@@ -40,7 +37,7 @@ const InvestorPlan = () => {
             aria-expanded={openAccordion === index}
           >
             <span>{item.label}</span>
-         
+            <RiArrowDropDownLine/>
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out bg-white ${
