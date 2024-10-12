@@ -106,7 +106,10 @@ const CartPlan = ({
         </div>
 
         <div className="mt-6 px-4">
-          <ProgressLineChart progress={progressPercentage / 100} label="تامین شده" />
+          <ProgressLineChart
+            progress={Math.round((amountCollectedNow / totalPrice) * 100)}
+            label="تامین شده"
+          />
           <p className="text-center text-sm  text-gray-800 mt-4">
             مبلغ تامین شده: {formatNumber(amountCollectedNow ?? 0)} ریال
           </p>
