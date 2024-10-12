@@ -13,7 +13,7 @@ import useGetPlan from '../service/use-plan';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error, data } = useGetPlan(traceCode);
+  const { isLoading, error} = useGetPlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
 
   if (isLoading) {
