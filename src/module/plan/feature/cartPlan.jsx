@@ -20,6 +20,8 @@ const CartPlan = ({
   creation_date,
   statusSecond,
   amountCollectedNow,
+  company,
+  message,
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
@@ -78,22 +80,25 @@ const CartPlan = ({
         )}
         <div className="grid gap-4">
           <h2 className="text-2xl flex justify-center mt-2 items-center font-bold text-gray-900 mb-2">
-            {persoanApprovedSymbol}
-          </h2>
+          {persianName}          </h2>
         </div>
-        <div className="grid gap-4">
-          <p className="text-base text-gray-700">{persianName}</p>
-        </div>
+      
         <div className="grid gap-2 mt-4">
           <p className="text-sm text-gray-700">
             مبلغ کل: <span className="font-semibold">{formatNumber(totalPrice)} ریال</span>
           </p>
 
           <p className="text-sm text-gray-700">
+              شرکت: <span className="font-semibold">{company}</span>
+          </p>
+          <p className="text-sm text-gray-700">
             تعداد گواهی‌های شراکت: <span className="font-semibold">{totalUnits}</span>
           </p>
           <p className="text-sm text-gray-700">
             نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
+          </p>
+          <p className="text-sm text-gray-700">
+            تاریخ جمع آوری وجوه:<span className="font-semibold">{message}</span>
           </p>
           <p className="text-sm text-gray-700">
             وضعیت پروژه:{' '}
@@ -127,6 +132,8 @@ const CartPlan = ({
 
 CartPlan.propTypes = {
   trace_code: PropTypes.string.isRequired,
+  company: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
   persianName: PropTypes.string.isRequired,
   industryGroup: PropTypes.string.isRequired,
   totalUnits: PropTypes.number.isRequired,
