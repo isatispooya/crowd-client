@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { motion } from 'framer-motion';
 import usePicure from '../service/use-picture';
 
 const CartPlan = ({
@@ -25,108 +27,104 @@ const CartPlan = ({
   crowdFundingtypeDescription,
 }) => {
   const navigate = useNavigate();
-
   const { data: picture } = usePicure(trace_code);
 
   const statusValue = parseInt(statusSecond, 10);
-
   const isCompleted = statusValue === 4;
-
-  const handleViewClick = () => {
-    navigate(`/plan/${trace_code}`);
-  };
+  const progressPercentage = Math.round((amountCollectedNow / totalPrice) * 100);
 
   const statusMapping = {
     1: 'شروع شده',
-    2: 'جمع آوری شده',
+    2: 'جمع‌آوری شده',
     3: 'تمدید شده',
     4: 'تکمیل شده',
     5: 'سر رسید ناموفق',
   };
 
+  const handleViewClick = () => {
+    navigate(`/plan/${trace_code}`);
+  };
+
   return (
-    <div
-      className={`flex flex-col gap-4 p-6 rounded-lg shadow-lg transition-shadow hover:shadow-xl w-full sm:w-96 h-auto mx-auto ${
-        isCompleted ? 'bg-gray-300' : 'bg-white'
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.5 }}
+      className={`flex flex-col gap-6 p-6 rounded-xl shadow-lg transition-shadow hover:shadow-2xl w-full sm:w-96 mx-auto h-full ${
+        isCompleted ? 'bg-gray-300' : 'bg-gray-50'
       }`}
     >
-      <div className="relative flex-col flex-grow">
-        {picture && picture.picture ? (
-          <div className="relative">
-            <img
-              src={`${OnRun}/${picture.picture}`}
-              alt={persianName}
-              className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
-            />
-            {isCompleted && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 rounded-lg">
-                <span className="text-white text-3xl font-bold">تکمیل شد</span>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="relative">
-            <img
-              src="../../.../../public/img/nopic.jpg"
-              alt="تصویر موجود نیست"
-              className="w-full h-48 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
-            />
-            {isCompleted && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 rounded-lg">
-                <span className="text-white text-3xl font-bold">تکمیل شد</span>
-              </div>
-            )}
-          </div>
-        )}
-        <div className="grid gap-4">
-          <h2 className="text-2xl flex justify-center mt-2 items-center font-bold text-gray-900 mb-2">
-          {persianName}          </h2>
-        </div>
-      
-        <div className="grid gap-2 mt-4">
-          <p className="text-sm text-gray-700">
-            مبلغ کل: <span className="font-semibold">{formatNumber(totalPrice)} ریال</span>
-          </p>
-
-          <p className="text-sm text-gray-700">
-              شرکت: <span className="font-semibold">{company}</span>
-          </p>
-          <p className="text-sm text-gray-700">
-            تعداد گواهی‌های شراکت: <span className="font-semibold">{totalUnits}</span>
-          </p>
-          <p className="text-sm text-gray-700">
-            نوع تامین مالی: <span className="font-semibold">{crowdFundingType}</span>
-          </p>
-          <p className="text-sm text-gray-700">
-            تاریخ جمع آوری وجوه:<span className="font-semibold">{message}</span>
-          </p>
-          <p className="text-sm text-gray-700">
-            وضعیت پروژه:{' '}
-            <span className="font-semibold">{statusMapping[statusValue] || 'نامشخص'}</span>
-          </p>
-          <p className="text-sm text-gray-700">
-            حداقل سرمایه‌گذاری حقیقی:{' '}
-            <span className="font-semibold">{formatNumber(realPersonMinPrice)} ریال</span>
-          </p>
-        </div>
-        <div className="grid gap-2 mt-4">
-          <ProgressLineChart
-            progress= {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}
-            label="تامین شده"
+      <div className="relative flex flex-col flex-grow h-full">
+        <div className="relative">
+          <motion.img
+            src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
+            alt={persianName || 'تصویر موجود نیست'}
+            className="w-full h-52 object-cover rounded-2xl mb-4"
+            whileHover={{ scale: 1.1 }}
           />
+          <div
+            className={`absolute top-4 left-4 py-1 px-3 rounded-md text-white text-xs font-bold ${
+              isCompleted ? 'bg-gray-600' : 'bg-blue-600'
+            }`}
+          >
+            {statusMapping[statusValue]}
+          </div>
         </div>
-        {Math.round(formatNumber(amountCollectedNow / totalPrice) * 100) / 100}مبلغ تامین شده (ریال)
+
+        <div className="px-4 py-2">
+          <h2 className="text-lg text-center font-bold text-gray-700 mb-4 tracking-wide">
+            {persianName}
+          </h2>
+        </div>
+
+        <div className="grid gap-4 mt-4 text-gray-800 px-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">مبلغ کل:</span>
+            <span className="text-sm ">{formatNumber(totalPrice)} ریال</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">شرکت:</span>
+            <span className="text-sm ">{company}</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">تعداد گواهی‌های شراکت:</span>
+            <span className="text-sm ">{totalUnits}</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">نوع تامین مالی:</span>
+            <span className="text-sm">{crowdFundingType}</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">تاریخ جمع‌آوری وجوه:</span>
+            <span className="text-sm ">{message}</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="text-sm ">حداقل سرمایه‌گذاری:</span>
+            <span className="text-sm ">{formatNumber(realPersonMinPrice)} ریال</span>
+          </div>
+        </div>
+
+        <div className="mt-6 px-4">
+          <ProgressLineChart progress={progressPercentage / 100} label="تامین شده" />
+          <p className="text-center text-sm  text-gray-800 mt-4">
+            مبلغ تامین شده: {formatNumber(amountCollectedNow ?? 0)} ریال
+          </p>
+        </div>
       </div>
-      <div className="flex justify-center mt-6">
-        <button
+
+      <div className="flex justify-center mt-8 px-4">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           type="button"
-          className="bg-blue-600 text-white rounded-md px-6 py-3 w-full sm:w-auto transition-transform hover:scale-105 "
+          className="bg-blue-600 text-white rounded-md px-8 py-3 w-full sm:w-auto"
           onClick={handleViewClick}
         >
-          مشاهده جزئیات
-        </button>
+          {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -138,14 +136,14 @@ CartPlan.propTypes = {
   industryGroup: PropTypes.string.isRequired,
   totalUnits: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
-  crowdFundingType: PropTypes.isRequired,
+  crowdFundingType: PropTypes.string.isRequired,
   projectStatus: PropTypes.bool.isRequired,
   settlementDescription: PropTypes.func.isRequired,
-  realPersonMinPrice: PropTypes.isRequired,
-  creation_date: PropTypes.isRequired,
-  amountCollectedNow: PropTypes.isRequired,
-  crowdFundingtypeDescription: PropTypes.isRequired,
-  persoanApprovedSymbol: PropTypes.isRequired,
+  realPersonMinPrice: PropTypes.number.isRequired,
+  creation_date: PropTypes.string.isRequired,
+  amountCollectedNow: PropTypes.number.isRequired,
+  crowdFundingtypeDescription: PropTypes.string.isRequired,
+  persoanApprovedSymbol: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 

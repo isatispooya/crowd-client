@@ -77,9 +77,7 @@ export default function LoginView() {
         otp,
       });
     }
-  }; 
-
-  
+  };
 
   const createMarkup = (html) => {
     const sanitizedHtml = DOMPurify.sanitize(html);
@@ -188,7 +186,6 @@ export default function LoginView() {
       }}
     >
       <Box>
-        <ToastContainer />
         <Stack alignItems="center" justifyContent="center" sx={{ pt: 4, height: 1 }}>
           <Card
             sx={{
