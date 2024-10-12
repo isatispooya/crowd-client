@@ -6,7 +6,6 @@ import useGetPlan from '../service/use-plan';
 const Registere = () => {
   const { traceCode } = useParams();
   const { isLoading, error, data } = useGetPlan(traceCode);
-  console.log(data);
   
   if (isLoading) {
     return <Loader />;

@@ -7,6 +7,7 @@ import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { motion } from 'framer-motion';
 import usePicure from '../service/use-picture';
+import DateDifference from './dateDifference';
 
 const CartPlan = ({
   trace_code,
@@ -23,15 +24,15 @@ const CartPlan = ({
   statusSecond,
   amountCollectedNow,
   company,
-  message,
-  crowdFundingtypeDescription,
+  endDate,
+  startDate,
+
 }) => {
   const navigate = useNavigate();
   const { data: picture } = usePicure(trace_code);
 
   const statusValue = parseInt(statusSecond, 10);
   const isCompleted = statusValue === 4;
-  const progressPercentage = Math.round((amountCollectedNow / totalPrice) * 100);
 
   const statusMapping = {
     1: 'شروع شده',
@@ -44,7 +45,6 @@ const CartPlan = ({
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -86,7 +86,7 @@ const CartPlan = ({
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">شرکت:</span>
             <span className="text-sm ">{company}</span>
-          </div>
+          </div>   
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">تعداد گواهی‌های شراکت:</span>
             <span className="text-sm ">{totalUnits}</span>
@@ -94,10 +94,6 @@ const CartPlan = ({
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">نوع تامین مالی:</span>
             <span className="text-sm">{crowdFundingType}</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">تاریخ جمع‌آوری وجوه:</span>
-            <span className="text-sm ">{message}</span>
           </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">حداقل سرمایه‌گذاری:</span>
@@ -115,7 +111,12 @@ const CartPlan = ({
           </p>
         </div>
       </div>
-
+      <div className="mt-6">
+        <DateDifference
+          startDate={startDate}
+          endDate={endDate}
+        />
+      </div>
       <div className="flex justify-center mt-8 px-4">
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -134,7 +135,8 @@ const CartPlan = ({
 CartPlan.propTypes = {
   trace_code: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
   persianName: PropTypes.string.isRequired,
   industryGroup: PropTypes.string.isRequired,
   totalUnits: PropTypes.number.isRequired,
@@ -145,9 +147,9 @@ CartPlan.propTypes = {
   realPersonMinPrice: PropTypes.number.isRequired,
   creation_date: PropTypes.string.isRequired,
   amountCollectedNow: PropTypes.number.isRequired,
-  crowdFundingtypeDescription: PropTypes.string.isRequired,
   persoanApprovedSymbol: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+
 };
 
 export default CartPlan;

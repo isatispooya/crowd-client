@@ -3,36 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import moment from 'jalali-moment';
 import CartPlan from './cartPlan';
-import UsePlans from '../service/use-plans';
+import useGetPlans from '../service/use-plans';
 
-const calculateDateDifference = (startDate, endDate) => {
-  const today = new Date(); 
-  const StartDate = new Date(startDate);
-  const EndeDate = new Date(endDate);
 
-  let differenceInDays;
-  let message;
-
-  if (StartDate > today) {
-    const differenceInTime = StartDate.getTime() - today.getTime(); 
-    differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-    message = ` ${differenceInDays} روز مانده به شروع `;
-  } else if (EndeDate > today){
-    const differenceInTime = EndeDate.getTime() - today.getTime(); 
-    differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-    message = ` ${differenceInDays} روز مانده به پایان `;
-  }else {
-    message = 'طرح مورد نظر منقضی شده .';
-  }
-
-  return { differenceInDays, message };
-};
 
 const CartPlans = () => {
-  const { data } = UsePlans();
+  const { data } = useGetPlans();
   const access = getCookie('access');
   const navigate = useNavigate();
 
+  console.log("j,lul",data)
   useEffect(() => {
     if (!access) {
       navigate('/login');
@@ -50,11 +30,7 @@ const CartPlans = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center text-right">
           {data.map((item) => {
-            const { differenceInDays, message } = calculateDateDifference(
-              item.plan.approved_underwriting_start_date,
-              item.plan.approved_underwriting_end_date
-            );
-
+          
             const persianCreationDate = item.plan.creation_date
               ? moment(item.plan.creation_date).locale('fa').format('YYYY/MM/DD')
               : 'تاریخ نامعتبر';
@@ -78,9 +54,9 @@ const CartPlans = () => {
                   persoanApprovedSymbol={item.plan.persoan_approved_symbol}
                   statusSecond={item?.information_complete?.status_second}
                   amountCollectedNow={item?.information_complete?.amount_collected_now}
-                  company={item?.company[0]?.name}
-                  date={differenceInDays}
-                  message={message}
+                  company={item?.company?.name}
+                  startDate={item.plan.suggested_underwriting_start_date}
+                  endDate={item.plan.suggested_underwriting_end_date}
                 />
               </div>
             );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { getCookie } from 'src/api/cookie';
 
 import Loader from 'src/components/loader';

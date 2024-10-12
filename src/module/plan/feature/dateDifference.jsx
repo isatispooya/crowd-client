@@ -1,48 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import useGetPlans from '../service/use-plans';
+import PropTypes from 'prop-types';
 
-const DateDifference = () => {
-  const { data, isPending, error } = useGetPlans();
+const DateDifference = ({ startDate, endDate }) => {
   const [message, setMessage] = useState('');
 
-  console.log("jki",data)
   useEffect(() => {
-    if (data && data.plan) {
-      const today = new Date(); 
-      const startDate = new Date(data.plan.approved_underwriting_start_date);
-      const endDate = new Date(data.plan.approved_underwriting_end_date);
-      let differenceInDays;
-      let calculatedMessage;
+    const today = new Date();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-      if (startDate > today) {
-        const differenceInTime = startDate.getTime() - today.getTime(); 
-        differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-        calculatedMessage = ` ${differenceInDays} روز مانده به شروع `;
-      } else if (endDate > today) {
-        const differenceInTime = endDate.getTime() - today.getTime(); 
-        differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-        calculatedMessage = ` ${differenceInDays} روز مانده به پایان `;
-      } else {
-        calculatedMessage = 'طرح مورد نظر منقضی شده است.';
-      }
+    let calculatedMessage;
 
-      setMessage(calculatedMessage);
+    if (start > today) {
+      const difference = Math.ceil((start - today) / (1000 * 3600 * 24));
+      calculatedMessage = `${difference} روز مانده به شروع`;
+    } else if (end > today) {
+      const difference = Math.ceil((end - today) / (1000 * 3600 * 24));
+      calculatedMessage = `${difference} روز مانده به پایان`;
+    } else {
+      calculatedMessage = 'زمان طرح به پایان رسیده است.';
     }
-  }, [data]);
 
-  if (isPending) {
-    return <div>Loading...</div>;
-  }
+    setMessage(calculatedMessage);
+  }, [startDate, endDate]);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  return <p className="text-lg font-semibold text-center">{message}</p>;
+};
 
-  return (
-    <div>
-      <p>{message}</p>
-    </div>
-  );
+DateDifference.propTypes = {
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
 };
 
 export default DateDifference;

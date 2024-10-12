@@ -6,9 +6,9 @@ import Loader from 'src/components/loader';
 import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
 import ProgressLineChart from 'src/components/progressLine';
-import PercentageCollected from 'src/utils/percentCollected';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
+import DateDifference from './dateDifference';
 
 const Field = ({ label, value, bold }) => (
   <div className="bg-gray-100 p-4 rounded-lg shadow-md">
@@ -22,9 +22,6 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
 
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
-  console.log('s', Math.round((data?.information_complete?.amount_collected_now / data?.plan?.total_price)*100));
-  console.log('s',data?.plan?.total_price);
-  
 
   if (isPending || loadingpicture || !data) {
     return <Loader />;
@@ -108,7 +105,7 @@ const Descript = () => {
           />
         )}
       </div>
-      <div>
+      <div className='flex justify-between'>
         <a
           href="https://cf.ifb.ir/home/viewproject"
           target="_blank"
@@ -117,6 +114,12 @@ const Descript = () => {
         >
           مشاهده در فرابورس
         </a>
+        <div className="mt-6">
+        <DateDifference
+          startDate={data.plan.suggested_underwriting_start_date}
+          endDate={data.plan.suggested_underwriting_end_date}
+        />
+      </div>
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-gray-500">توضیحات</p>
@@ -129,10 +132,17 @@ const Descript = () => {
           <Field key={index} label={field.label} value={field.value} />
         ))}
       </div>
-      <div>
-      <ProgressLineChart progress={<percentageCollected/>} />
-    </div>
-       <PercentageCollected/>
+    
+      <div className="mt-6 px-4">
+          <ProgressLineChart
+            progress={Math.round((data.information_complete.amount_collected_now / data.plan.total_price) * 100)}
+            label="تامین شده"
+          />
+          <p className="text-center text-sm  text-gray-800 mt-4">
+            مبلغ تامین شده: {formatNumber(data.information_complete.amount_collected_now ?? 0)} ریال
+          </p>
+        </div>
+   
       <div className="flex p-6 gap-12">
         <div className="flex-1">
           <h3 className="text-gray-700 font-bold mb-4 text-lg">سرمایه‌گذاری حقیقی</h3>
