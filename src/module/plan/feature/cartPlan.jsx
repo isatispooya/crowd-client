@@ -1,14 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
-import PercentageCollected from 'src/utils/percentCollected';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { motion } from 'framer-motion';
 import usePicure from '../service/use-picture';
-import DateDifference from './dateDifference';
 
 const CartPlan = ({
   trace_code,

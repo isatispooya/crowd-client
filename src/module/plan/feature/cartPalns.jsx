@@ -42,7 +42,6 @@ const CartPlans = () => {
   if (!data || data.length === 0) {
     return <p>هیچ درخواستی یافت نشد.</p>;
   }
-
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">
@@ -79,7 +78,7 @@ const CartPlans = () => {
                   persoanApprovedSymbol={item.plan.persoan_approved_symbol}
                   statusSecond={item?.information_complete?.status_second}
                   amountCollectedNow={item?.information_complete?.amount_collected_now}
-                  company={item?.company?.name}
+                  company={item?.company[0]?.name}
                   date={differenceInDays}
                   message={message}
                 />
