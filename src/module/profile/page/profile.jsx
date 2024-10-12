@@ -1,20 +1,16 @@
-
 import React, { useState, useEffect } from 'react';
 import { getCookie } from 'src/api/cookie';
-import { LuRefreshCw } from 'react-icons/lu';
+
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
 import ProfileField from '../components/profileField';
 
-import Refresh from '../components/refresh';
-import useRefreshOTP from '../hooks/useGetOTP';
 import useGetProfile from '../hooks/useGetProfile';
 
 const Profile = () => {
   const access = getCookie('access');
   const { data: profileData, isPending } = useGetProfile();
-  const [showRefresh, setShowRefresh] = useState(false);
-  const { mutate } = useRefreshOTP();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,25 +23,11 @@ const Profile = () => {
     return <Loader />;
   }
 
-  const openModal = () => {
-    mutate();
-    setShowRefresh(true);
-  };
-
   return profileData ? (
     <div className="max-w-8xl mx-auto p-8 mt-10 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-extrabold text-gray-900">پروفایل کاربر</h1>
-        <button
-          type="button"
-          onClick={openModal}
-          className="transition-colors p-3 text-white font-medium hover:scale-110 duration-700"
-        >
-          <LuRefreshCw className="text-black text-3xl" />
-        </button>
       </div>
-
-      {showRefresh && <Refresh setShowRefresh={setShowRefresh} profileData={profileData} />}
 
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">

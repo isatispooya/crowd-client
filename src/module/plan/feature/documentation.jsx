@@ -1,8 +1,8 @@
 import React from 'react';
 import { FiDownload } from 'react-icons/fi';
 import { OnRun } from 'src/api/OnRun';
-import Loader from 'src/components/loader';
 import SmallError from 'src/components/smallError';
+import SmallLoader from 'src/components/SmallLoader';
 import { useParams } from 'react-router-dom';
 import useDocumentation from '../service/use-documentation';
 
@@ -10,7 +10,7 @@ const Documentation = () => {
   const { traceCode } = useParams();
   const { data: documents, isLoading, error } = useDocumentation(traceCode);
   if (isLoading) {
-    return <Loader />;
+    return <SmallLoader />;
   }
 
   if (error) {
