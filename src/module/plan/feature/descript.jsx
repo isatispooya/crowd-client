@@ -8,7 +8,14 @@ import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
 import ProgressLineChart from 'src/components/progressLine';
 import { GiSandsOfTime } from 'react-icons/gi';
-import {FiExternalLink,FiDollarSign,FiCalendar,FiFileText,FiFlag,FiHash} from 'react-icons/fi';
+import {
+  FiExternalLink,
+  FiDollarSign,
+  FiCalendar,
+  FiFileText,
+  FiFlag,
+  FiHash,
+} from 'react-icons/fi';
 import { FaRegMoneyBill1 } from 'react-icons/fa6';
 import { Divider } from '@mui/material';
 import useGetPlan from '../service/use-plan';
@@ -35,7 +42,6 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
 
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
- 
 
   if (isPending || loadingpicture || !data) {
     return <Loader />;
@@ -113,27 +119,23 @@ const Descript = () => {
     },
   ];
 
-
-
-
-
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-4">
       <div className="text-center font-bold mb-4 text-xl">
         <h>{data.plan.persian_name}</h>
       </div>
-      <div className="bg-gray-100 w-full mb-8 p-4 rounded-lg shadow-md">
+      <div className="bg-gray-100 w-full mb-8 p-4 items-center justify-center flex  rounded-lg shadow-md">
         {picture && picture.picture ? (
           <img
             src={`${OnRun}/${picture.picture}`}
             alt="تصویر پروژه"
-            className="w-full h-48 rounded-lg mb-4 object-cover"
+            className="w-[700px]  h-82 rounded-lg mb-4 object-cover"
           />
         ) : (
           <img
             src="/public/img/nopic.jpg"
             alt="تصویر موجود نیست"
-            className="w-full h-48 rounded-lg mb-4 object-cover"
+            className="w-[700px] h-64 rounded-lg mb-4 object-cover"
           />
         )}
       </div>
@@ -170,34 +172,39 @@ const Descript = () => {
           />
         ))}
       </div>
-      <div className="mt-6 px-4">
+      <div className="mt-6 px-4 mb-8">
         <ProgressLineChart
+          target={100}
           progress={Math.round(
             (data.information_complete.amount_collected_now / data.plan.total_price) * 100
           )}
           label="تامین شده"
         />
-        <p className="text-center text-sm  text-gray-800 mt-4">
-          مبلغ تامین شده: {formatNumber(data.information_complete.amount_collected_now ?? 0)} ریال
+
+        <p
+          className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
+          <span className="text-green-600">{formatNumber(data.plan.total_price ?? 0)}  مبلغ مورد نیاز </span>
+          <span className="text-gray-900">{formatNumber(data.information_complete.amount_collected_now ?? 0)}ریال تامین شده</span>
         </p>
       </div>
-      <ChartLimitInvest 
-  priceMin={data.plan.real_person_minimum_availabe_price} 
-  priceMax={data.plan.real_person_maximum_available_price}
-  unit_price={data?.plan?.unit_price} 
-/>
+      <ChartLimitInvest
+        priceMin={data.plan.real_person_minimum_availabe_price}
+        priceMax={data.plan.real_person_maximum_available_price}
+        unit_price={data?.plan?.unit_price}
+      />
 
-<Divider 
-  sx={{ 
-    borderBottomWidth: 3, marginY: 4,backgroundColor: 'gray'
-  }} 
-/>
-<ChartLimitInvest 
-  priceMin={data.plan.legal_person_minimum_availabe_price} 
-  priceMax={data.plan.legal_person_maximum_availabe_price}
-  unit_price={data?.plan?.unit_price} 
-/>
-
+      <Divider
+        sx={{
+          borderBottomWidth: 3,
+          marginY: 4,
+          backgroundColor: 'gray',
+        }}
+      />
+      <ChartLimitInvest
+        priceMin={data.plan.legal_person_minimum_availabe_price}
+        priceMax={data.plan.legal_person_maximum_availabe_price}
+        unit_price={data?.plan?.unit_price}
+      />
     </div>
   );
 };

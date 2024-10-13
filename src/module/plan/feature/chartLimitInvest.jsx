@@ -4,7 +4,6 @@ import { formatNumber } from 'src/utils/formatNumbers';
 import { FaInfinity } from 'react-icons/fa6';
 
 const ChartLimitInvest = ({ priceMin, priceMax, unit_price }) => {
-    console.log("pric",priceMax)
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex justify-between items-center text-lg font-semibold">
@@ -18,7 +17,7 @@ const ChartLimitInvest = ({ priceMin, priceMax, unit_price }) => {
         <p className="text-sm text-gray-500">حداقل</p>
         <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
           <motion.div
-            className="h-4 rounded-full bg-gradient-to-r from-blue-500 via-violet-900-500 to-purple-800"
+            className="h-4 rounded-full bg-gradient-to-r from-blue-500 via-violet-500 to-purple-800"
             initial={{ opacity: 0.6 }}
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -28,8 +27,8 @@ const ChartLimitInvest = ({ priceMin, priceMax, unit_price }) => {
       </div>
 
       <div className="flex justify-between items-center text-lg font-semibold">
-        <h2 className="text-blue-900">{Number(priceMin / unit_price)} واحد</h2>
-        <h2 className="text-blue-900">  {priceMax === null ? <FaInfinity /> : `${(priceMax/ unit_price)} `}
+        <h2 className="text-blue-900">{formatNumber(Number(priceMin / unit_price))} واحد</h2>
+        <h2 className="text-blue-900">  {priceMax === null ? <FaInfinity /> : `${formatNumber(priceMax/ unit_price)} `}
         واحد</h2>
       </div>
     </div>

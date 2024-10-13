@@ -45,7 +45,7 @@ const CartPlan = ({
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -107,9 +107,11 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-          <p className="text-center text-sm  text-gray-800 mt-4">
-            مبلغ تامین شده: {formatNumber(amountCollectedNow ?? 0)} ریال
-          </p>
+              <p
+          className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
+          <span className="text-green-600">{formatNumber(amountCollectedNow ?? 0)}  مبلغ مورد نیاز </span>
+          <span className="text-gray-900">{formatNumber(totalPrice ?? 0)}ریال تامین شده</span>
+        </p>
         </div>
       </div>
       <div className="mt-6">
@@ -130,7 +132,6 @@ const CartPlan = ({
   );
 };
 
-
 CartPlan.propTypes = {
   statusShow: PropTypes.bool.isRequired,
   trace_code: PropTypes.string.isRequired,
@@ -150,6 +151,5 @@ CartPlan.propTypes = {
   persoanApprovedSymbol: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
-
 
 export default CartPlan;

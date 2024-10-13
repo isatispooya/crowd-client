@@ -31,7 +31,7 @@ const Plan = () => {
           {[
             { label: 'اطلاعات طرح', tab: 0, disabled: false },
             { label: 'گزارشات', tab: 1, disabled: false },
-            { label: 'نظرات کاربران', tab: 4, disabled: false },
+            { label: 'نظرات کاربران', tab: 2, disabled: false },
             { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: false },
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
@@ -59,7 +59,7 @@ const Plan = () => {
       <div className="mt-8">
         {activeTab === 0 && <Descript />}
         {activeTab === 1 && <ReportsView />}
-        {activeTab === 4 && <CommentForm />}
+        {activeTab === 2 && <CommentForm />}
         {activeTab === 5 && <InvestProfile />}
         {activeTab === 6 && <Roadmap />}
         {activeTab === 7 && <Calculate />}

@@ -67,7 +67,7 @@ const CartPlans = () => {
                       persoanApprovedSymbol={item.plan.persoan_approved_symbol}
                       statusSecond={item?.information_complete?.status_second}
                       amountCollectedNow={item?.information_complete?.amount_collected_now}
-                      company={item?.company?.name}
+                      company={item?.company[0]?.name}
                       startDate={item.plan.suggested_underwriting_start_date}
                       endDate={item.plan.suggested_underwriting_end_date}
                       statusShow={item?.information_complete?.status_show}
@@ -75,7 +75,7 @@ const CartPlans = () => {
                   </div>
                 );
               }
-              return null; // Prevents undefined returns
+              return null;
             })
           ) : (
             <p>هیچ طرحی برای این فیلتر یافت نشد.</p>
