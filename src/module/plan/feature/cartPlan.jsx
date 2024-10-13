@@ -6,6 +6,7 @@ import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { motion } from 'framer-motion';
+import CountdownTimer from 'src/components/countDown';
 import usePicure from '../service/use-picture';
 import DateDifference from './dateDifference';
 
@@ -115,7 +116,7 @@ const CartPlan = ({
         </div>
       </div>
       <div className="mt-6">
-        <DateDifference startDate={startDate} endDate={endDate} />
+        <CountdownTimer startDate={startDate} endDate={endDate} />
       </div>
       <div className="flex justify-center mt-8 px-4">
         <motion.button
