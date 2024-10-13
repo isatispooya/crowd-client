@@ -26,7 +26,7 @@ const CartPlan = ({
   company,
   endDate,
   startDate,
-
+  statusShow,
 }) => {
   const navigate = useNavigate();
   const { data: picture } = usePicure(trace_code);
@@ -45,6 +45,7 @@ const CartPlan = ({
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -86,7 +87,7 @@ const CartPlan = ({
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">شرکت:</span>
             <span className="text-sm ">{company}</span>
-          </div>   
+          </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="text-sm ">تعداد گواهی‌های شراکت:</span>
             <span className="text-sm ">{totalUnits}</span>
@@ -112,10 +113,7 @@ const CartPlan = ({
         </div>
       </div>
       <div className="mt-6">
-        <DateDifference
-          startDate={startDate}
-          endDate={endDate}
-        />
+        <DateDifference startDate={startDate} endDate={endDate} />
       </div>
       <div className="flex justify-center mt-8 px-4">
         <motion.button
@@ -132,7 +130,9 @@ const CartPlan = ({
   );
 };
 
+
 CartPlan.propTypes = {
+  statusShow: PropTypes.bool.isRequired,
   trace_code: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
@@ -149,7 +149,7 @@ CartPlan.propTypes = {
   amountCollectedNow: PropTypes.number.isRequired,
   persoanApprovedSymbol: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-
 };
+
 
 export default CartPlan;
