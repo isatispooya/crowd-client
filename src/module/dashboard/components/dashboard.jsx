@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 
 import { formatNumber } from 'src/utils/formatNumbers';
 import useGetDashbord from './service/use-getDashbord';
+import ProfitUser from './profitUser';
 
 const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
@@ -64,7 +65,7 @@ const Dashboard = () => {
           <p className="text-3xl font-semibold text-gray-700">{item.value}</p>
         </motion.div>
       ))}
-  
+      <ProfitUser />
     </div>
   );
 };
