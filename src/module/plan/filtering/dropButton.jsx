@@ -48,8 +48,6 @@ const DropButton = ({ planStatusOptions, onSelectStatus, selectedStatuses }) => 
                       checked={selectedStatuses.includes(item.id)}
                       onChange={() => onSelectStatus(item.id)}
                       className="checkbox border-gray-300"
-                      defaultChecked={selectedStatuses.includes(item.id)}
-                      
                     />
                   </label>
                 </div>

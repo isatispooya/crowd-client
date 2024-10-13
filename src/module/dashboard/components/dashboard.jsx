@@ -3,7 +3,10 @@ import PeopleIcon from '@mui/icons-material/People';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import Loader from 'src/components/loader';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { motion } from 'framer-motion';
+
 import { formatNumber } from 'src/utils/formatNumbers';
 import useGetDashbord from './service/use-getDashbord';
 
@@ -11,36 +14,57 @@ const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
 
   if (!dashbord) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
+
+  console.log(dashbord);
+
+  const DashCards = [
+    {
+      title: 'تعداد طرح ها',
+      value: dashbord['all plan'],
+      icon: <InsertDriveFileIcon style={{ fontSize: '3rem' }} color="primary" />,
+    },
+    {
+      title: 'تعداد طرح های فعال',
+      value: dashbord['active plan'],
+      icon: <AssignmentTurnedInIcon style={{ fontSize: '3rem' }} color="error" />,
+    },
+    {
+      title: 'تعداد مشارکت فعال',
+      value: dashbord['participant plan'],
+      icon: <PeopleIcon style={{ fontSize: '3rem' }} color="secondary" />,
+    },
+    {
+      title: 'مبلغ مشارکت کاربر',
+      value: formatNumber(dashbord['total value']),
+      icon: <MonetizationOnIcon style={{ fontSize: '3rem' }} color="success" />,
+    },
+    {
+      title: 'سود',
+      value: dashbord['all rate of return'] / 100,
+      icon: <TrendingUpIcon style={{ fontSize: '3rem' }} color="warning" />,
+    },
+  ];
 
   return (
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div className="bg-white shadow-md p-6 rounded-lg">
-        <h2 className="text-lg font-bold"> تعداد طرح ها</h2>
-        <InsertDriveFileIcon style={{ fontSize: '2rem' }} color="primary" />
-        <p className="text-2xl">{dashbord["all plan"]}</p>
-      </div>
-      <div className="bg-white shadow-md p-6 rounded-lg">
-        <h2 className="text-lg font-bold"> تعداد طرح های فعال</h2>
-        <AssignmentTurnedInIcon style={{ fontSize: '2rem' }} color="error"/>
-        <p className="text-2xl">{dashbord["active plan"]}</p>
-      </div>
-      <div className="bg-white shadow-md p-6 rounded-lg">
-        <h2 className="text-lg font-bold"> تعداد مشارکت کاربر</h2>
-        <PeopleIcon style={{ fontSize: '2rem' }} color="secondary" />
-        <p className="text-2xl">{dashbord["participant plan"]}</p>
-      </div>
-      <div className="bg-white shadow-md p-6 rounded-lg">
-        <h2 className="text-lg font-bold"> مبلغ مشارکت کاربر</h2>
-        <MonetizationOnIcon style={{ fontSize: '2rem' }} color="success" />
-        <p className="text-2xl">{formatNumber(dashbord["total value"])}</p>
-      </div>
-      <div className="bg-white shadow-md p-6 rounded-lg">
-        <h2 className="text-lg font-bold">سود</h2>
-        <TrendingUpIcon style={{ fontSize: '2rem' }} color="warning" />
-        <p className="text-2xl">%{dashbord["all rate of return"]/100}</p>
-      </div>
+      {DashCards.map((item, index) => (
+        <motion.div
+          key={index}
+          className="bg-white shadow-lg p-8 rounded-xl flex flex-col items-center justify-center h-64 w-64 hover:shadow-2xl transition-shadow duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+          <div className="mb-4">{item.icon}</div>
+          <h2 className="text-xl font-bold mb-2 text-gray-800">{item.title}</h2>
+          <p className="text-3xl font-semibold text-gray-700">{item.value}</p>
+        </motion.div>
+      ))}
+  
     </div>
   );
 };

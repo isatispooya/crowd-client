@@ -6,6 +6,7 @@ import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { motion } from 'framer-motion';
+import CountdownTimer from 'src/components/countDown';
 import usePicure from '../service/use-picture';
 import DateDifference from './dateDifference';
 
@@ -45,7 +46,7 @@ const CartPlan = ({
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -113,7 +114,7 @@ const CartPlan = ({
         </div>
       </div>
       <div className="mt-6">
-        <DateDifference startDate={startDate} endDate={endDate} />
+        <CountdownTimer startDate={startDate} endDate={endDate} />
       </div>
       <div className="flex justify-center mt-8 px-4">
         <motion.button
@@ -129,7 +130,6 @@ const CartPlan = ({
     </motion.div>
   );
 };
-
 
 CartPlan.propTypes = {
   statusShow: PropTypes.bool.isRequired,
@@ -150,6 +150,5 @@ CartPlan.propTypes = {
   persoanApprovedSymbol: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
-
 
 export default CartPlan;

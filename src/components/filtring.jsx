@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import DropButton from 'src/module/plan/filtering/dropButton'; // Adjust this import based on your folder structure
+import { useState, useEffect } from 'react';
+import DropButton from 'src/module/plan/filtering/dropButton'; 
 
 const FilterPlans = ({ setFilterStatusSecond }) => {
   const planStatusOptions = [
@@ -11,21 +11,24 @@ const FilterPlans = ({ setFilterStatusSecond }) => {
     { id: '5', label: 'سررسید ناموفق' },
   ];
 
-  // Use state to track multiple selected statuses
-  const [selectedStatuses, setSelectedStatuses] = useState([]);
+
+  const [selectedStatuses, setSelectedStatuses] = useState(['1']);
+
+  useEffect(() => {
+
+    setFilterStatusSecond(['1']);
+  }, [setFilterStatusSecond]);
 
   const handleSelectStatus = (status) => {
-    // Check if the status is already selected
+
     if (selectedStatuses.includes(status)) {
-      // Remove it if it is already selected
       const updatedStatuses = selectedStatuses.filter((s) => s !== status);
       setSelectedStatuses(updatedStatuses);
-      setFilterStatusSecond(updatedStatuses); // Update the parent component with the new list
+      setFilterStatusSecond(updatedStatuses); 
     } else {
-      // Otherwise, add the new status
       const updatedStatuses = [...selectedStatuses, status];
       setSelectedStatuses(updatedStatuses);
-      setFilterStatusSecond(updatedStatuses); // Update the parent component with the new list
+      setFilterStatusSecond(updatedStatuses); 
     }
   };
 
@@ -37,7 +40,7 @@ const FilterPlans = ({ setFilterStatusSecond }) => {
         selectedStatuses={selectedStatuses}
       />
 
-      {/* Display selected statuses below the dropdown */}
+
       <nav className="bg-gray-100 p-3 mt-4 w-full shadow-inner">
         <div className="text-center">
           <p className="text-sm font-semibold text-gray-700 mb-1">وضعیت‌های انتخاب شده</p>
