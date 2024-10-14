@@ -7,8 +7,8 @@ const useGetInvesor = (traceCode) => {
     queryFn: () => getInvestor(traceCode),
     enabled: !!traceCode,
   });
-
-  return {
+  
+  return  {
     data,
     isLoading,
     error,

@@ -36,7 +36,7 @@ const Plan = () => {
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
             { label: '  سرمایه پذیر', tab: 8, disabled: false },
-            { label: 'مشارکت', tab: 9 },
+            { label: 'سرمایه گذاری', tab: 9 },
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button

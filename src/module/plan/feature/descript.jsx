@@ -155,10 +155,7 @@ const Descript = () => {
             endDate={data.plan.suggested_underwriting_end_date}
           />
         </div>
-        {/* <DateDifference
-            startDate={data.plan.suggested_underwriting_start_date}
-            endDate={data.plan.suggested_underwriting_end_date}
-          /> */}
+
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-base text-gray-700 font-medium break-words whitespace-normal">

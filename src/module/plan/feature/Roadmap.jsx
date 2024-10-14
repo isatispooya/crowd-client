@@ -9,7 +9,7 @@ const Roadmap = () => {
   const { traceCode } = useParams();
   const { data, isLoading } = useGetPlan(traceCode);
 
-  console.log(data);
+
 
   if (isLoading) {
     return <SmallLoader />;
