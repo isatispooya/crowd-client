@@ -91,7 +91,7 @@ export default function LoginView() {
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
-          label="شماره ملی"
+          label="کد ملی"
           autoComplete="off"
           fullWidth
         />

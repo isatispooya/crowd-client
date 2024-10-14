@@ -1,22 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useState } from 'react';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'; // افزودن toast از react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // ایمپورت استایل‌ها
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import AgreementPopup from 'src/components/Agreement';
 import usePlan from '../../service/use-plan';
 import usePayment from '../service/use-postpayment';
 
 const Payment = () => {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState('');
   const { traceCode } = useParams();
   const [attachment, setAttachment] = useState(null);
   const [paymentId, setPaymentId] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const { data } = usePlan(traceCode);
   const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
@@ -47,10 +46,10 @@ const Payment = () => {
         },
         {
           onSuccess: () => {
-            toast.success('پرداخت با موفقیت ثبت شد!'); // نمایش پیغام موفقیت
+            toast.success('پرداخت با موفقیت ثبت شد!');
           },
           onError: (error) => {
-            toast.error(`خطا در ثبت پرداخت: ${error.message}`); // نمایش پیغام خطا
+            toast.error(`خطا در ثبت پرداخت: ${error.message}`);
           },
         }
       );
@@ -58,7 +57,7 @@ const Payment = () => {
   };
 
   const handleAgreementAccept = () => {
-    setIsPopupOpen(false);
+    setIsPopupOpen(false); 
   };
 
   return (
@@ -164,16 +163,6 @@ const Payment = () => {
         <label htmlFor="show-name" className="text-gray-700 font-medium">
           اطلاعات شما برای دیگر کاربران قابل روئیت باشد؟
         </label>
-      </div>
-
-      <div className="flex items-center gap-2 mt-4 px-8 max-w-4xl mx-auto">
-        <button
-          type="button"
-          onClick={() => setIsPopupOpen(true)}
-          className="text-blue-600 underline cursor-pointer focus:outline-none"
-        >
-          قوانین و مقررات را می‌پذیرم
-        </button>
       </div>
 
       {isPopupOpen && <AgreementPopup onAccept={handleAgreementAccept} />}
