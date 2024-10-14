@@ -11,7 +11,6 @@ const PaymentCalculate = () => {
   const { traceCode } = useParams();
 
   const { data, isLoading } = useGetPayment(traceCode);
-  console.log(data);
 
   if (isLoading) {
     return <Loader />;

@@ -42,7 +42,6 @@ const InvestProfile = () => {
             <th scope="col" className="px-6 py-3">
               نام سرمایه گذار
             </th>
-
             <th scope="col" className="px-6 py-3 hidden sm:table-cell">
               تاریخ ایجاد
             </th>
@@ -55,9 +54,7 @@ const InvestProfile = () => {
             <th scope="col" className="px-6 py-3 hidden sm:table-cell">
               وضعیت
             </th>
-            <th scope="col" className="px-6 py-3">
-              پرداخت
-            </th>
+            
           </tr>
         </thead>
         <tbody>
@@ -71,8 +68,9 @@ const InvestProfile = () => {
               <td className="px-6 py-4 hidden sm:table-cell">{item.create_date}</td>
               <td className="px-6 py-4">{item.amount}</td>
               <td className="px-6 py-4">{item.value}</td>
-              <td className="px-6 py-4 hidden sm:table-cell">{item.status ? 'فعال' : 'غیرفعال'}</td>
-              <td className="px-6 py-4">{item.payment_id ? 'پرداخت شده' : 'در انتظار'}</td>
+              <td className="px-6 py-4 hidden sm:table-cell">
+                {item.status ? 'پرداخت شده' : 'در انتظار'}
+              </td>
             </tr>
           ))}
         </tbody>

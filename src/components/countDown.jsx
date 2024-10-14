@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-
 import { BsCalendarXFill } from 'react-icons/bs';
 import { GiSandsOfTime } from 'react-icons/gi';
+import useGetPlans from 'src/module/plan/service/use-plans';
 
 const CountdownTimer = ({ startDate, endDate }) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const now = new Date();
+  const { data } = useGetPlans();
+  console.log(data);
 
   const initialTime = () => {
     if (now < start) {
@@ -48,6 +50,11 @@ const CountdownTimer = ({ startDate, endDate }) => {
       </div>
     );
   }
+  const matchingPlan = data?.find((plan) => plan.information_complete?.status_second === '1');
+
+  if (!matchingPlan) {
+    return <p>شششب سیبتابت</p>;
+  }
 
   return (
     <motion.div
@@ -62,7 +69,7 @@ const CountdownTimer = ({ startDate, endDate }) => {
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 100 }}
       >
-   {`${days} روز ${hours} ساعت ${minutes} دقیقه ${seconds} ثانیه`}
+        {`${days} روز ${hours} ساعت ${minutes} دقیقه ${seconds} ثانیه`}
       </motion.p>
       <p className="text-base text-blue-500 mt-2 ">تا {now < start ? 'شروع' : 'پایان'} طرح</p>
       <GiSandsOfTime className="text-yellow-600 w-8 h-8  " />
