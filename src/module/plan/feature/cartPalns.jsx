@@ -11,7 +11,7 @@ const CartPlans = () => {
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
-
+console.log(".....",data )
   useEffect(() => {
     if (!access) {
       navigate('/login');

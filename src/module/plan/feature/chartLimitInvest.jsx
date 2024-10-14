@@ -9,7 +9,7 @@ const ChartLimitInvest = ({ priceMin, priceMax, unit_price }) => {
       <div className="flex justify-between items-center text-lg font-semibold">
         <h2 className="text-purple-900">{formatNumber(priceMin)} ریال</h2>
        <h2 className="text-purple-900">
-  {priceMax === null ? <FaInfinity /> : `${formatNumber(priceMax)} ریال`}
+  {priceMax === null ? "کل" : `${formatNumber(priceMax)} ریال`}
 </h2>
       </div>
 
@@ -28,7 +28,7 @@ const ChartLimitInvest = ({ priceMin, priceMax, unit_price }) => {
 
       <div className="flex justify-between items-center text-lg font-semibold">
         <h2 className="text-blue-900">{formatNumber(Number(priceMin / unit_price))} واحد</h2>
-        <h2 className="text-blue-900">  {priceMax === null ? <FaInfinity /> : `${formatNumber(priceMax/ unit_price)} `}
+        <h2 className="text-blue-900">  {priceMax === null ? 'کل ': `${formatNumber(priceMax/ unit_price)}`}
         واحد</h2>
       </div>
     </div>

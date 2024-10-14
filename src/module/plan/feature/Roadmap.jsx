@@ -64,13 +64,13 @@ const Roadmap = () => {
         <hr />
           <div className="timeline-start timeline-box bg-white">تاریخ پایان اجرا طرح</div>
           <div className="timeline-middle bg-white">
-            {data.plan.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {data?.plan?.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end bg-white">{data.plan.persian_project_end_date}</div>
           <hr />
         </li>
 
-        {data.date_profit.map((profit, index) => (
+        {data?.date_profit?.map((profit, index) => (
           <li key={index}>
             <hr />
             <div
@@ -78,10 +78,10 @@ const Roadmap = () => {
                 (index + 1) % 2 === 1 ? 'timeline-start' : ' timeline-end'
               }`}
             >
-              {profit.date}
+              {profit?.date}
             </div>
             <div className="timeline-middle bg-white">
-              {profit.type === '0' ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+              {profit?.type === '0' ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
             </div>
             <div
             
@@ -89,7 +89,7 @@ const Roadmap = () => {
                 (index + 1) % 2 === 1 ? ' timeline-end' : ' timeline-start'
               }`}
             >
-              {profit.type === '1' ? 'اصل پول' : 'پرداخت سود'}
+              {profit?.type === '1' ? 'اصل پول' : 'پرداخت سود'}
             </div>
             <hr />
           </li>
