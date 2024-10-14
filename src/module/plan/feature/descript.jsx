@@ -152,11 +152,6 @@ const Descript = () => {
             endDate={data.plan.suggested_underwriting_end_date}
           />
         </div>
-<<<<<<< HEAD
-
-=======
-     
->>>>>>> d368bbc474f741f09d3125684f076fd5f0828c7a
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-base text-gray-700 font-medium break-words whitespace-normal">
@@ -207,13 +202,12 @@ const Descript = () => {
           backgroundColor: 'gray',
         }}
       />
-            <h className="text-lg font-bold  mb-8 mt-8"> سرمایه گذاری حقوقی</h>
+      <h className="text-lg font-bold  mb-8 mt-8"> سرمایه گذاری حقوقی</h>
       <ChartLimitInvest
         priceMin={data.plan.legal_person_minimum_availabe_price}
         priceMax={data.plan.legal_person_maximum_availabe_price}
         unit_price={data?.plan?.unit_price}
         total_price={data?.plan?.total_price}
-
       />
     </div>
   );
