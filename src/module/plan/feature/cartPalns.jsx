@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import moment from 'jalali-moment';
 import FilterPlans from 'src/components/filtring';
-import CartPlan from './cartPlan';
 import useGetPlans from '../service/use-plans';
+import CartPlan from './cartPlan';
 
 const CartPlans = () => {
   const { data } = useGetPlans();
