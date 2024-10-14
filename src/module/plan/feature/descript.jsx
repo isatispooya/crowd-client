@@ -18,9 +18,10 @@ import {
 } from 'react-icons/fi';
 import { FaRegMoneyBill1 } from 'react-icons/fa6';
 import { Divider } from '@mui/material';
+import CountdownTimer from 'src/components/countDown';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
-import DateDifference from './dateDifference';
+// import DateDifference from './dateDifference';
 import ChartLimitInvest from './chartLimitInvest';
 
 const Field = ({ label, value, bold, hasBackground, icon: Icon }) => (
@@ -148,13 +149,16 @@ const Descript = () => {
         >
           مشاهده در فرابورس <FiExternalLink className="ml-2" />
         </a>
-        <div className="mt-6 flex items-center">
-          <GiSandsOfTime className="text-yellow-600 w-6 h-6 ml-2" />
-          <DateDifference
+        <div className="mt-6 flex ">
+          <CountdownTimer
             startDate={data.plan.suggested_underwriting_start_date}
             endDate={data.plan.suggested_underwriting_end_date}
           />
         </div>
+        {/* <DateDifference
+            startDate={data.plan.suggested_underwriting_start_date}
+            endDate={data.plan.suggested_underwriting_end_date}
+          /> */}
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-base text-gray-700 font-medium break-words whitespace-normal">
@@ -181,12 +185,16 @@ const Descript = () => {
           label="تامین شده"
         />
 
-        <p
-          className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
-          <span className="text-green-600">{formatNumber(data.plan.total_price ?? 0)}  مبلغ مورد نیاز </span>
-          <span className="text-gray-900">{formatNumber(data.information_complete.amount_collected_now ?? 0)}ریال تامین شده</span>
+        <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
+          <span className="text-green-600">
+            {formatNumber(data.plan.total_price ?? 0)} مبلغ مورد نیاز{' '}
+          </span>
+          <span className="text-gray-900">
+            {formatNumber(data.information_complete.amount_collected_now ?? 0)}ریال تامین شده
+          </span>
         </p>
       </div>
+      <h className="text-lg font-bold  mb-28 mt-8"> سرمایه گذاری حقیقی</h>
       <ChartLimitInvest
         priceMin={data.plan.real_person_minimum_availabe_price}
         priceMax={data.plan.real_person_maximum_available_price}
@@ -200,6 +208,7 @@ const Descript = () => {
           backgroundColor: 'gray',
         }}
       />
+            <h className="text-lg font-bold  mb-8 mt-8"> سرمایه گذاری حقوقی</h>
       <ChartLimitInvest
         priceMin={data.plan.legal_person_minimum_availabe_price}
         priceMax={data.plan.legal_person_maximum_availabe_price}

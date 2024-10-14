@@ -8,7 +8,6 @@ import { formatNumber } from 'src/utils/formatNumbers';
 import { motion } from 'framer-motion';
 import CountdownTimer from 'src/components/countDown';
 import usePicure from '../service/use-picture';
-import DateDifference from './dateDifference';
 
 const CartPlan = ({
   trace_code,
