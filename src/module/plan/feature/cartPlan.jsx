@@ -12,7 +12,7 @@ import usePicure from '../service/use-picture';
 const CartPlan = ({
   trace_code,
   persianName,
-  industryGroup,
+  rateOfReturn,
   totalUnits,
   totalPrice,
   crowdFundingType,
@@ -64,13 +64,14 @@ const CartPlan = ({
             className="w-full h-52 object-cover rounded-2xl mb-4"
             whileHover={{ scale: 1.1 }}
           />
-          <div
-            className={`absolute top-4 left-4 py-1 px-3 rounded-md text-white text-xs font-bold ${
-              isCompleted ? 'bg-gray-600' : 'bg-blue-600'
-            }`}
-          >
+
+          <div className="absolute top-4 left-4 bg-blue-600 py-1 px-3 rounded-md text-white text-xs font-bold">
             {statusMapping[statusValue]}
           </div>
+          <div className="absolute top-4 right-4 w-12 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
+            %{rateOfReturn}
+          </div>
+
         </div>
 
         <div className="px-4 py-2">
@@ -140,7 +141,7 @@ CartPlan.propTypes = {
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   persianName: PropTypes.string.isRequired,
-  industryGroup: PropTypes.string.isRequired,
+  rateOfReturn: PropTypes.number.isRequired,
   totalUnits: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.string.isRequired,
