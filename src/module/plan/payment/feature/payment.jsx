@@ -21,6 +21,7 @@ const Payment = () => {
   const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
   const { mutate } = usePayment(traceCode);
 
+  
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
     if (method !== 'fesh') {
@@ -29,6 +30,7 @@ const Payment = () => {
       setPaymentId('');
     }
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +57,7 @@ const Payment = () => {
       );
     }
   };
+
 
   const handleAgreementAccept = () => {
     setIsPopupOpen(false); 

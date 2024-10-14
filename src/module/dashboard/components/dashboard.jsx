@@ -18,8 +18,6 @@ const Dashboard = () => {
     return <Loader />;
   }
 
-  console.log(dashbord);
-
   const DashCards = [
     {
       title: 'تعداد طرح ها',
@@ -49,23 +47,35 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {DashCards.map((item, index) => (
-        <motion.div
-          key={index}
-          className="bg-white shadow-lg p-8 rounded-xl flex flex-col items-center justify-center h-64 w-64 hover:shadow-2xl transition-shadow duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-        >
-          <div className="mb-4">{item.icon}</div>
-          <h2 className="text-xl font-bold mb-2 text-gray-800">{item.title}</h2>
-          <p className="text-3xl font-semibold text-gray-700">{item.value}</p>
-        </motion.div>
-      ))}
-      <ProfitUser />
+    <div className="container mx-auto py-8">
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {DashCards.map((item, index) => (
+          <motion.div
+            key={index}
+            className="bg-white shadow-lg p-6 rounded-xl flex flex-col items-center justify-center h-64 hover:shadow-2xl transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            <div className="mb-4">{item.icon}</div>
+            <h2 className="text-xl font-bold mb-2 text-gray-800">{item.title}</h2>
+            <p className="text-3xl font-semibold text-gray-700">{item.value}</p>
+          </motion.div>
+        ))}
+      </div>
+
+   
+      <motion.div
+        className="bg-white shadow-lg p-6 rounded-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ProfitUser dashbord={dashbord} />
+      </motion.div>
     </div>
   );
 };
