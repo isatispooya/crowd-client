@@ -7,7 +7,6 @@ import Loader from 'src/components/loader';
 import PropTypes from 'prop-types';
 import { OnRun } from 'src/api/OnRun';
 import ProgressLineChart from 'src/components/progressLine';
-import { GiSandsOfTime } from 'react-icons/gi';
 import {
   FiExternalLink,
   FiDollarSign,
@@ -21,7 +20,6 @@ import { Divider } from '@mui/material';
 import CountdownTimer from 'src/components/countDown';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
-// import DateDifference from './dateDifference';
 import ChartLimitInvest from './chartLimitInvest';
 
 const Field = ({ label, value, bold, hasBackground, icon: Icon }) => (
@@ -41,7 +39,6 @@ const Field = ({ label, value, bold, hasBackground, icon: Icon }) => (
 const Descript = () => {
   const { traceCode } = useParams();
   const { data, isPending, error } = useGetPlan(traceCode);
-
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
   if (isPending || loadingpicture || !data) {
@@ -155,10 +152,7 @@ const Descript = () => {
             endDate={data.plan.suggested_underwriting_end_date}
           />
         </div>
-        {/* <DateDifference
-            startDate={data.plan.suggested_underwriting_start_date}
-            endDate={data.plan.suggested_underwriting_end_date}
-          /> */}
+     
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-base text-gray-700 font-medium break-words whitespace-normal">
@@ -199,6 +193,7 @@ const Descript = () => {
         priceMin={data.plan.real_person_minimum_availabe_price}
         priceMax={data.plan.real_person_maximum_available_price}
         unit_price={data?.plan?.unit_price}
+        total_price={data?.plan?.total_price}
       />
 
       <Divider
@@ -213,6 +208,8 @@ const Descript = () => {
         priceMin={data.plan.legal_person_minimum_availabe_price}
         priceMax={data.plan.legal_person_maximum_availabe_price}
         unit_price={data?.plan?.unit_price}
+        total_price={data?.plan?.total_price}
+
       />
     </div>
   );
