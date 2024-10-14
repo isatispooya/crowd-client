@@ -17,7 +17,7 @@ const ApplicantCompany = () => {
     return <div className="text-red-500 text-center">خطایی رخ داده است: {error.message}</div>;
   }
 
-  const registrationDateShamsi = moment(data.company[0].registration_date, 'YYYY-MM-DD').format(
+  const registrationDateShamsi = moment(data?.company[0]?.registration_date, 'YYYY-MM-DD').format(
     'jYYYY/jMM/jDD'
   );
 

@@ -109,10 +109,10 @@ const CartPlan = ({
             label="تامین شده"
           />
           <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
-            <span className="text-green-600">
-              {formatNumber(amountCollectedNow ?? 0)} مبلغ مورد نیاز{' '}
+            <span className="text-green-600">{formatNumber(totalPrice ?? 0)} مبلغ مورد نیاز </span>
+            <span className="text-gray-900">
+              {formatNumber(amountCollectedNow ?? 0)}ریال تامین شده
             </span>
-            <span className="text-gray-900">{formatNumber(totalPrice ?? 0)}ریال تامین شده</span>
           </p>
         </div>
       </div>

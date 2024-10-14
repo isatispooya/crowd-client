@@ -8,7 +8,7 @@ const ProfitUser = ({ dashbord }) => {
   return (
     <>
       <h1 className="text-2xl font-bold text-center mt-4">گزارش سود</h1>
-      <div dir='rtl' className="flex items-center justify-center min-h-[450px] my-8">
+      <div dir="rtl" className="flex items-center justify-center min-h-[450px] my-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -51,7 +51,7 @@ const ProfitUser = ({ dashbord }) => {
               ) : (
                 <tr>
                   <td className="py-4 px-6 text-center" colSpan="4">
-                    No data available
+                    گزارشی موجود نیست
                   </td>
                 </tr>
               )}

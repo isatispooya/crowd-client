@@ -42,8 +42,8 @@ const CartPlans = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center text-right">
           {filteredPlans.length > 0 ? (
             filteredPlans.map((item) => {
-              const persianCreationDate = item.plan.creation_date
-                ? moment(item.plan.creation_date).locale('fa').format('YYYY/MM/DD')
+              const persianCreationDate = item.plan?.creation_date
+                ? moment(item.plan?.creation_date).locale('fa').format('YYYY/MM/DD')
                 : 'تاریخ نامعتبر';
 
               if (item?.information_complete?.status_show === true) {
