@@ -10,7 +10,6 @@ const CountdownTimer = ({ startDate, endDate }) => {
   const end = new Date(endDate);
   const now = new Date();
   const { data } = useGetPlans();
-  console.log(data);
 
   const initialTime = () => {
     if (now < start) {
@@ -50,10 +49,10 @@ const CountdownTimer = ({ startDate, endDate }) => {
       </div>
     );
   }
-  const matchingPlan = data?.find((plan) => plan.information_complete?.status_second === '1');
+  const dd = data?.find((plan) => plan.information_complete?.status_second === '1');
 
-  if (!matchingPlan) {
-    return <p>شششب سیبتابت</p>;
+  if (!dd) {
+    return null;
   }
 
   return (

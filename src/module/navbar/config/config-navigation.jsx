@@ -31,11 +31,7 @@ const navConfig = [
     path: '/plans',
     icon: <GoProjectRoadmap className="text-2xl" />,
   },
-  {
-    title: 'گواهی شراکت',
-    path: 'certificate',
-    icon: <PiCertificateFill className="text-2xl" />,
-  },
+
 ];
 
 export default navConfig;

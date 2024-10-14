@@ -67,7 +67,7 @@ const Payment = () => {
         <label className="text-gray-700 font-medium mb-2">تعداد گواهی مشارکت:</label>
         <input
           type="number"
-          placeholder="تعداد گاهی مشارکت"
+          placeholder="تعداد گواهی مشارکت"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
           className="shadow-md bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:shadow-lg transition-all"

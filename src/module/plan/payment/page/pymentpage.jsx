@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Payment from '../feature/payment';
 import PaymentCalculate from '../feature/paymentcalculate';
 
@@ -10,6 +11,7 @@ const PaymentPage = () => {
       </div>
       <div>
         <PaymentCalculate />
+      
       </div>
     </div>
   );

@@ -1,23 +1,22 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 
-const getCertificate = async () => {
+const getCertificate = async (traceCode) => {
   const access = getCookie('access');
-  const response = await api.get(`/api/certificate/`, {
+  const response = await api.post(`/api/certificate/user/${traceCode}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
     },
   });
-
+  console.log(response.data);
   return response.data.data;
 };
-const usecertificate = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['certificate '],
-    queryFn: () => getCertificate(),
+const Usecertificate = (traceCode) => {
+  const { data, isLoading, error } = useMutation({
+    mutationKey: ['certificate', traceCode],
+    mutationFn: () => getCertificate(traceCode),
   });
   return {
     data,
@@ -26,4 +25,4 @@ const usecertificate = () => {
   };
 };
 
-export default usecertificate;
+export default Usecertificate;
