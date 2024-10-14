@@ -8,6 +8,7 @@ import CartPlan from './cartPlan';
 
 const CartPlans = () => {
   const { data } = useGetPlans();
+  console.log("k,j",data)
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);

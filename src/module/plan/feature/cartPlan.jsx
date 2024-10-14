@@ -68,7 +68,7 @@ const CartPlan = ({
           <div className="absolute top-4 left-4 bg-blue-600 py-1 px-3 rounded-md text-white text-xs font-bold">
             {statusMapping[statusValue]}
           </div>
-          <div className="absolute top-4 right-4 w-12 h-8 flex items-center justify-center bg-green-500 rounded-full text-white text-xs font-bold">
+          <div className="absolute top-4 right-4 w-12 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
             %{rateOfReturn}
           </div>
 
