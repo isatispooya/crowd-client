@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
+import Certificate from 'src/components/certificate';
 import PlanProgress from '../feature/planProgress';
 import Documentation from '../feature/documentation';
 import Appendices from '../feature/appendices';
 import Audit from '../feature/hesabrasi';
-import Certificate from 'src/components/certificate';
 
 const ReportsView = () => {
   const [openAccordion, setOpenAccordion] = useState(null);

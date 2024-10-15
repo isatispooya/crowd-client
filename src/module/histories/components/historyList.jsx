@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import HistoryRow from './historyRow';
-import UseCartId from 'src/hooks/use-cartId';
+import useCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import { DateObject } from 'react-multi-date-picker';
 import SmallLoader from 'src/components/SmallLoader';
@@ -16,7 +16,7 @@ import { useFinishCart } from 'src/hooks/useFinishCart';
 import api from 'src/api/apiClient';
 
 const HistoryList = () => {
-  const { cartId } = UseCartId();
+  const { cartId } = useCartId();
   const [historyList, setHistoryList] = useState([]);
   const { incrementPage } = useNavigateStep();
   const [loading, setLoading] = useState(false);

@@ -18,7 +18,7 @@ const InvestorPlan = () => {
     },
     {
       label: 'اطلاعات سهام داران بالای 10درصد',
-      component: <PlanShareholders /> || 'اطلاعات سهام دارن بالای 10 درصد',
+      component: <PlanShareholders /> || 'اطلاعات سهام داران بالای 10 درصد',
     },
     {
       label: 'اطلاعات مدیر عامل و اعضای هیئت مدیره',
@@ -27,17 +27,21 @@ const InvestorPlan = () => {
   ];
 
   return (
-    <div id="accordion-flush" className="shadow-lg rounded-lg items-center  overflow-hidden max-w-7xl mx-auto p-4">
+    <div
+      id="accordion-flush"
+      className="shadow-lg rounded-lg items-center overflow-hidden max-w-7xl mx-auto p-4"
+    >
       {renderComponents.map((item, index) => (
-        <div key={index} className="mb-4 text-center">
+        <div key={index} className="mb-4">
           <button
             type="button"
-            className="flex text-center items-center justify-between w-full py-4 px-6 font-semibold rtl:text-right text-gray-900 bg-gray-100 border-b border-gray-300 hover:bg-gray-300 transition-all duration-300"
+            className="flex items-center justify-between w-full py-4 px-6 font-semibold text-gray-900 bg-gray-100 border-b border-gray-300 hover:bg-gray-300 transition-all duration-300 
+            rtl:text-right"
             onClick={() => handleOpen(index)}
             aria-expanded={openAccordion === index}
           >
-            <span>{item.label}</span>
-            <RiArrowDropDownLine/>
+            <span className="text-base sm:text-lg">{item.label}</span>
+            <RiArrowDropDownLine className="text-2xl sm:text-3xl" />
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out bg-white ${

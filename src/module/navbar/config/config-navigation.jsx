@@ -2,7 +2,6 @@
 import SvgColor from 'src/services/svg-color';
 import { MdDashboard } from 'react-icons/md';
 import { GoProjectRoadmap } from 'react-icons/go';
-import { PiCertificateFill } from 'react-icons/pi';
 
 
 const icon = (name) => (

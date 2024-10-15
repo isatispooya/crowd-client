@@ -29,12 +29,12 @@ const CommentList = () => {
         {data.length > 0 ? (
           data.map((commentData) => (
             <CommentItem
-              key={commentData.id}
-              firstName={commentData.firstName}
-              lastName={commentData.lastName}
-              comment={commentData.comment}
-              known={commentData.known}
-              answer={commentData.answer}
+              key={commentData?.id}
+              firstName={commentData?.firstName}
+              lastName={commentData?.lastName}
+              comment={commentData?.comment}
+              known={commentData?.known}
+              answer={commentData?.answer}
             />
           ))
         ) : (

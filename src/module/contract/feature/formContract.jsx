@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import UseCartId from 'src/hooks/use-cartId';
+import useCartId from 'src/hooks/use-cartId';
 import InputPercent from 'src/components/input/inputPercent';
 import SelectInput from 'src/components/input/inputSelect';
 import { useFinishCart } from 'src/hooks/useFinishCart';
 import useGetContract from '../hooks/useGetContract';
 import ToggleContract from '../componets/toggelContract';
-import UsePostContract from '../hooks/use-contract';
+import usePostContract from '../hooks/use-contract';
 
 const FormContract = () => {
-  const { cartId } = UseCartId();
+  const { cartId } = useCartId();
   const [contractData, setContractData] = useState({});
   const { data: dataContract, isError } = useGetContract(cartId);
-  const { mutate, isLoading, isError: err } = UsePostContract(cartId);
+  const { mutate, isLoading, isError: err } = usePostContract(cartId);
 
   const handleSubmit = () => {
     mutate(contractData);
@@ -32,7 +32,7 @@ const FormContract = () => {
     { label: 'عامل این شرکت، دارای هیچگونه سابقه کیفری نباشند.', toggleKey: 'criminal_record' },
     {
       label: 'متقاضی تعهد می‌نماید هیچ یک از اعضای هیئت مدیره این شرکت ممنوع المعامله نباشند.',
-      toggleKey: 'prohibited',
+      toggleKey: 'Prohibited',
     },
     {
       label:
