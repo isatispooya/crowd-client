@@ -245,7 +245,7 @@ export default function LoginView() {
           </a>`
         )}
       />
-      <img
+      {/* <img
         id="rgvlgwmdxlaphwlabrgw"
         style={{ cursor: 'pointer' }}
         onClick={() =>
@@ -255,7 +255,7 @@ export default function LoginView() {
         }
         alt="نماد پلتفرم"
         src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
-      />
+      /> */}
     </div>
       </Box>
     </Box>
