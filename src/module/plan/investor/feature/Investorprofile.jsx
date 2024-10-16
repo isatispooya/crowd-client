@@ -36,45 +36,46 @@ const InvestProfile = () => {
     <div className="max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4 text-center">پروفایل سرمایه‌گذاران</h1>
 
-      <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              نام سرمایه گذار
-            </th>
-            <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-              تاریخ ایجاد
-            </th>
-            <th scope="col" className="px-6 py-3">
-              مبلغ واحد
-            </th>
-            <th scope="col" className="px-6 py-3">
-              مجموع مبلغ
-            </th>
-            <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-              وضعیت
-            </th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          {transactionData.map((item, index) => (
-            <tr
-              key={index}
-              className="bg-white border-b  text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-200"
-            >
-              <td className="px-6 py-4">{item.fulname}</td>
-
-              <td className="px-6 py-4 hidden sm:table-cell">{item.create_date}</td>
-              <td className="px-6 py-4">{item.amount}</td>
-              <td className="px-6 py-4">{item.value}</td>
-              <td className="px-6 py-4 hidden sm:table-cell">
-                {item.status ? 'پرداخت شده' : 'در انتظار'}
-              </td>
+      {/* Table Wrapper for Horizontal Scrolling on Small Screens */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                نام سرمایه گذار
+              </th>
+              <th scope="col" className="px-6 py-3">
+                تاریخ ایجاد
+              </th>
+              <th scope="col" className="px-6 py-3">
+                مبلغ واحد
+              </th>
+              <th scope="col" className="px-6 py-3">
+                مجموع مبلغ
+              </th>
+              <th scope="col" className="px-6 py-3">
+                وضعیت
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {transactionData.map((item, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-200"
+              >
+                <td className="px-6 py-4 whitespace-nowrap">{item.fulname}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.create_date}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.amount}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.value}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.status ? 'پرداخت شده' : 'در انتظار'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
