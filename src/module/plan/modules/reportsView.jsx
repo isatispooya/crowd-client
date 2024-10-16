@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri';
 import Certificate from 'src/components/certificate';
+import { RiArrowDropDownLine } from 'react-icons/ri';
+
 import PlanProgress from '../feature/planProgress';
 import Documentation from '../feature/documentation';
 import Appendices from '../feature/appendices';
@@ -21,8 +22,6 @@ const ReportsView = () => {
   ];
 
   return (
-
-
     <div id="accordion-flush" className="shadow-lg rounded-lg overflow-hidden">
       {renderComponents.map((item, index) => (
         <div key={index}>
@@ -48,7 +47,7 @@ const ReportsView = () => {
           </div>
         </div>
       ))}
-        <Certificate />
+      <Certificate />
     </div>
   );
 };
