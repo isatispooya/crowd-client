@@ -18,14 +18,12 @@ const ProgressLineChart = ({ progress, label }) => {
           aria-valuemax="100"
         >
           <motion.div
-            className="flex flex-col bg-white justify-center rounded-full overflow-hidden  text-xs text-white text-center whitespace-nowrap dark:bg-blue-500 transition duration-500"
+            className="flex flex-col bg-white  bg-gradient-to-r from-[#004ff9] to-[#000000]  hover:text-blue-300 justify-center rounded-full overflow-hidden  text-xs text-white text-center whitespace-nowrap dark:bg-blue-500 transition duration-500"
             style={{ width: `${progress}%` }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-          >
-            {progress}
-          </motion.div>
+           />
         </div>
 
 

@@ -35,8 +35,7 @@ const InvestorPlan = () => {
         <div key={index} className="mb-4">
           <button
             type="button"
-            className="flex items-center justify-between w-full py-4 px-6 font-semibold text-gray-900 bg-gray-100 border-b border-gray-300 hover:bg-gray-300 transition-all duration-300 
-            rtl:text-right"
+            className="flex items-center justify-between w-full py-4 px-6 font-semibold text-gray-900 bg-gray-100 border-b border-gray-300 hover:bg-gray-300 transition-all duration-300 rtl:text-right"
             onClick={() => handleOpen(index)}
             aria-expanded={openAccordion === index}
           >
@@ -50,8 +49,10 @@ const InvestorPlan = () => {
           >
             <div
               className={`${
-                openAccordion === index ? 'max-h-64' : 'max-h-0'
-              } overflow-y-auto transition-all duration-500 ease-in-out`}
+                openAccordion === index
+                  ? 'max-h-64 sm:max-h-screen overflow-y-auto'
+                  : 'max-h-0'
+              } transition-all duration-500 ease-in-out`}
             >
               {item.component}
             </div>

@@ -169,7 +169,7 @@ const Descript = () => {
           />
         ))}
       </div>
-      <div className="mt-6 px-4 mb-8">
+      <div className="mt-6  text-nowrap px-4 mb-8">
         <ProgressLineChart
           target={100}
           progress={Math.round(
@@ -177,7 +177,7 @@ const Descript = () => {
           )}
           label="تامین شده"
         />
-
+       % {Math.round((data.information_complete.amount_collected_now / data.plan.total_price) * 100)}
         <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
           <span className="text-green-600">
             {formatNumber(data.plan.total_price ?? 0)} مبلغ مورد نیاز{' '}

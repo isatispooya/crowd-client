@@ -104,6 +104,8 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
+                 % {Math.round((amountCollectedNow / totalPrice) * 100)}
+
           <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
       </div>
@@ -113,7 +115,7 @@ const CartPlan = ({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           type="button"
-          className="bg-blue-600 text-white rounded-full px-2 py-2 w-full sm:w-auto font-bold text-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="text- bg-gradient-to-r from-[#004ff9] to-[#000000]  hover:text-blue-300  text-white rounded-full px-2 py-2 w-full sm:w-auto font-bold text-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
           onClick={handleViewClick}
         >
           {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
