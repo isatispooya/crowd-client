@@ -30,7 +30,8 @@ const PaymentCalculate = () => {
             : 'تاریخ نامعتبر';
 
         return (
-          <div key={item.id} className="bg-white p-6 rounded-lg shadow-md">
+            <><p className='flex text-center font-bold text-xl items-center justify-center'>دارایی های شما </p>
+            <div key={item.id} className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex items-center gap-6">
               <div className="flex-1">
                 <p className="text-gray-700 font-semibold">
@@ -56,7 +57,7 @@ const PaymentCalculate = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div></>
         );
       })}
     </div>

@@ -46,6 +46,7 @@ const CartPlans = () => {
                 : 'تاریخ نامعتبر';
 
               if (item?.information_complete?.status_show === true) {
+
                 return (
                   <div key={item.plan.id}>
                     <CartPlan
