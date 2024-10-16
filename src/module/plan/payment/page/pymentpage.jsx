@@ -9,9 +9,9 @@ const PaymentPage = () => {
       <div className="p-2 bg-gray-100 shadow-inner rounded-2xl ">
         <Payment />
       </div>
-      <div>
-        <PaymentCalculate />
-      
+      <div >
+      <p className='flex text-center font-bold text-xl items-center justify-center'>دارایی های شما </p>
+        <PaymentCalculate />     
       </div>
     </div>
   );

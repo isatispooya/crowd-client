@@ -33,6 +33,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">نام شرکت:</label>
         <input
           type="text"
+          autoComplete="off"
           value={localData.company_name || ''}
           name="company_name"
           disabled={localData.Lock_company_name}
@@ -62,6 +63,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره شناسه:</label>
         <input
           type="text"
+          autoComplete="off"
           name="nationalid"
           disabled={localData.Lock_nationalid}
           value={localData.nationalid || ''}
@@ -75,6 +77,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">شماره ثبت:</label>
         <input
           type="text"
+          autoComplete="off"
           name="registration_number"
           value={localData.registration_number || ''}
           disabled={localData.Lock_registration_number}
@@ -93,6 +96,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
           name="registered_capital"
           value={formatNumber(localData.registered_capital) || ''}
           disabled={localData.Lock_registered_capital}
+          autoComplete="off"
           onChange={InputValues}
           className="shadow appearance-none border bg-white border-gray-300 rounded-lg w-full py-3 px-4 text-black leading-tight disabled:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 hover:border-indigo-300 transition-colors"
         />
@@ -115,6 +119,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="number"
           name="newspaper"
+          autoComplete="off"
           value={localData.newspaper || ''}
           disabled={localData.Lock_newspaper}
           onChange={InputValues}
@@ -144,6 +149,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">تعداد کارکنان:</label>
         <input
           type="number"
+          autoComplete="off"
           name="personnel"
           value={localData.personnel || ''}
           disabled={localData.Lock_personnel}
@@ -156,6 +162,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="city"
+          autoComplete="off"
           value={localData.city || ''}
           disabled={localData.lock_city}
           onChange={InputValues}
@@ -167,6 +174,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="address"
+          autoComplete="off"
           value={localData.address || ''}
           disabled={localData.Lock_address}
           onChange={InputValues}
@@ -176,11 +184,11 @@ const CompanyInputs = ({ localData, setLocalData }) => {
       <div className="mb-6">
         <label className="block text-gray-800 text-xs font-semibold mb-2">تاریخ تاسیس :</label>
         <DatePicker
-            style={{
-              width: '100%',
-              padding: 22,
-              backgroundColor: '#ffffff',
-            }}
+          style={{
+            width: '100%',
+            padding: 22,
+            backgroundColor: '#ffffff',
+          }}
           value={localData.year_of_establishment ? new Date(localData.year_of_establishment) : null}
           onChange={handleDateChange}
           calendar={persian}
@@ -194,6 +202,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="text"
           name="exchange_code"
+          autoComplete="off"
           value={localData.exchange_code || ''}
           disabled={localData.lock_exchange_code}
           onChange={InputValues}
@@ -206,6 +215,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="number"
           name="postal_code"
+          autoComplete="off"
           value={localData.postal_code || ''}
           disabled={localData.lock_postal_code}
           onChange={(e) => {
@@ -225,6 +235,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="email"
           name="email"
+          autoComplete="off"
           value={localData.email || ''}
           disabled={localData.Lock_email}
           onChange={InputValues}
@@ -235,6 +246,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <label className="block text-gray-800 text-xs font-semibold mb-2">موضوع فعالیت شرکت:</label>
         <input
           name="activity_industry"
+          autoComplete="off"
           value={localData.activity_industry || ''}
           disabled={localData.Lock_activity_industry}
           onChange={InputValues}
@@ -248,6 +260,7 @@ const CompanyInputs = ({ localData, setLocalData }) => {
         <input
           type="range"
           name="amount_of_request"
+          autoComplete="off"
           min={10000000000}
           max={250000000000}
           step={10000000000}
