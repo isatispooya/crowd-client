@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
@@ -13,7 +14,7 @@ import useGetPlan from '../service/use-plan';
 
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error} = useGetPlan(traceCode);
+  const { isLoading, error } = useGetPlan(traceCode);
   const [activeTab, setActiveTab] = useState(0);
 
   if (isLoading) {
@@ -21,7 +22,11 @@ const Plan = () => {
   }
 
   if (error) {
-    return <div className="text-red-500 text-center">خطایی رخ داده است: {error.message}</div>;
+    return (
+      <div className="text-red-500 text-center">
+        خطایی رخ داده است: {error.message}
+      </div>
+    );
   }
 
   return (
@@ -35,17 +40,21 @@ const Plan = () => {
             { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: false },
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
-            { label: '  سرمایه پذیر', tab: 8, disabled: false },
+            { label: 'سرمایه پذیر', tab: 8, disabled: false },
             { label: 'سرمایه گذاری', tab: 9 },
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
                 type="button"
-                className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md ${
-                  activeTab === tab
-                    ? 'text-blue-900 border-b-4 border-blue-900'
-                    : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
-                } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md
+                  ${
+                    activeTab === tab
+                      ? 'text-blue-900 border-b-4 border-blue-900'
+                      : tab === 9
+                      ? ' text-white bg-gradient-to-r from-[#004ff9] to-[#000000] rounded hover:text-blue-300 hover:outline-none'
+                      : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
+                  }
+                  ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={() => !disabled && setActiveTab(tab)}
                 disabled={disabled}
               >
