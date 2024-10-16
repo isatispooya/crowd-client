@@ -12,7 +12,7 @@ const Certificate = () => {
     mutate();
     if (data?.ErrorMessage) {
       toast.error(data.ErrorMessage);
-    } 
+    }
   };
 
   return (

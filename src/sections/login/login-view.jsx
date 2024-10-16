@@ -23,6 +23,7 @@ import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
 import Calling from './components/callingRigester';
 import useTimer from './hooks/useTimer';
+import NoSejam from './components/nosejam';
 
 export default function LoginView() {
   const theme = useTheme();
@@ -31,6 +32,7 @@ export default function LoginView() {
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
   const [registerd, setRegisterd] = useState(false);
+  const [noSejam, setNoSejam] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
@@ -55,12 +57,12 @@ export default function LoginView() {
             setRegisterd(data.registered);
 
             setStep(2);
-
             startTimer();
             toast.success(data.message);
+            setNoSejam(null);
           },
-          onError: () => {
-            toast.error('کد کپچا را چک کنید');
+          onError: (error) => {
+            setNoSejam(error);
           },
           onSettled: () => {
             setIsButtonDisabled(false);
@@ -88,85 +90,94 @@ export default function LoginView() {
 
   const renderForm = (
     <>
-      <ToastContainer autoClose={3000} />
-      <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
-        <TextField
-          value={nationalCode}
-          onChange={(e) => setNationalCode(e.target.value)}
-          label="شماره/شناسه ملی"
-          autoComplete="off"
-          fullWidth
-        />
-        {step === 1 ? (
-          <>
-            <TextField
-              onChange={(e) => setCaptchaInput(e.target.value)}
-              label="کپچا"
-              value={captchaInput}
-              autoComplete="off"
-              fullWidth
-            />
-            <Button onClick={refreshCaptcha} fullWidth>
-              {isCaptchaLoading ? (
-                <SmallLoader />
-              ) : (
-                <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
-              )}
-            </Button>
-            <Box sx={{ mb: 3 }} />
-          </>
-        ) : (
-          <>
-            <TextField
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              label="کد تایید"
-              autoComplete="off"
-              fullWidth
-            />
-            {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}
-
-            {registerd ? (
-              false
-            ) : (
-              <ReferralCodeInput value={refferal} onChange={(e) => setRefferal(e.target.value)} />
-            )}
-          </>
-        )}
-      </Stack>
-
-      {step === 1 ? (
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          sx={{
-            bgcolor: 'primary.main',
-            color: 'white',
-            '&:hover': {
-              bgcolor: 'primary.dark',
-            },
-          }}
-          onClick={handleApplyNationalCode}
-          loading={isCaptchaLoading}
-          disabled={isButtonDisabled}
-        >
-          تایید
-        </LoadingButton>
+      {noSejam ? (
+        <NoSejam />
       ) : (
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          color="inherit"
-          onClick={handleCode}
-          loading={loadingOtp}
-          disabled={isButtonDisabled}
-        >
-          تایید ({timer})
-        </LoadingButton>
+        <>
+          <ToastContainer autoClose={3000} />
+          <Stack spacing={3} sx={{ mb: 3, width: '100%' }}>
+            <TextField
+              value={nationalCode}
+              onChange={(e) => setNationalCode(e.target.value)}
+              label="شماره/شناسه ملی"
+              autoComplete="off"
+              fullWidth
+            />
+            {step === 1 ? (
+              <>
+                <TextField
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  label="کپچا"
+                  value={captchaInput}
+                  autoComplete="off"
+                  fullWidth
+                />
+                <Button onClick={refreshCaptcha} fullWidth>
+                  {isCaptchaLoading ? (
+                    <SmallLoader />
+                  ) : (
+                    <img src={`data:image/png;base64,${captchaData?.image}`} alt="captcha" />
+                  )}
+                </Button>
+                <Box sx={{ mb: 3 }} />
+              </>
+            ) : (
+              <>
+                <TextField
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  label="کد تایید"
+                  autoComplete="off"
+                  fullWidth
+                />
+                {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}
+
+                {registerd ? (
+                  false
+                ) : (
+                  <ReferralCodeInput
+                    value={refferal}
+                    onChange={(e) => setRefferal(e.target.value)}
+                  />
+                )}
+              </>
+            )}
+          </Stack>
+
+          {step === 1 ? (
+            <LoadingButton
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{
+                bgcolor: 'primary.main',
+                color: 'white',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
+                },
+              }}
+              onClick={handleApplyNationalCode}
+              loading={isCaptchaLoading}
+              disabled={isButtonDisabled}
+            >
+              تایید
+            </LoadingButton>
+          ) : (
+            <LoadingButton
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              color="inherit"
+              onClick={handleCode}
+              loading={loadingOtp}
+              disabled={isButtonDisabled}
+            >
+              تایید ({timer})
+            </LoadingButton>
+          )}
+        </>
       )}
     </>
   );
@@ -234,29 +245,18 @@ export default function LoginView() {
         </div>
 
         <div className="flex justify-between">
-      <div
-        dangerouslySetInnerHTML={createMarkup(
-          `<a referrerpolicy='origin' target='_blank' 
+          <div
+            dangerouslySetInnerHTML={createMarkup(
+              `<a referrerpolicy='origin' target='_blank' 
           href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'>
             <img referrerpolicy='origin' 
             src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' 
             alt='نماد اعتماد' 
             style='cursor: pointer;' />
           </a>`
-        )}
-      />
-      {/* <img
-        id="rgvlgwmdxlaphwlabrgw"
-        style={{ cursor: 'pointer' }}
-        onClick={() =>
-          window.open(
-            'https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealDetail?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}'
-          )
-        }
-        alt="نماد پلتفرم"
-        src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
-      /> */}
-    </div>
+            )}
+          />
+        </div>
       </Box>
     </Box>
   );
