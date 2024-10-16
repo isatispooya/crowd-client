@@ -11,7 +11,7 @@ const ProgressLineChart = ({ progress, label }) => {
 
       <div className="w-full flex items-center space-x-2">
         <div
-          className="flex w-full h-4 bg-blue-500 rounded-full overflow-hidden dark:bg-neutral-700"
+          className="flex w-full h-4 bg-gray-300 rounded-full overflow-hidden dark:bg-neutral-700"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin="0"

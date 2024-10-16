@@ -12,16 +12,21 @@ const useApplyNationalCode = () => {
         captcha: captchaInput,
         encrypted_response: encryptedResponse,
       });
+      console.log("پاسخ موفق:", response.data); 
       return response.data;
     },
     onSuccess: (data) => {
       toast.success(data.message);
-
       return data;
     },
     onError: (error) => {
+      if (error.response) {
+        console.error('پاسخ خطا:', error.response.data);
+
+      } else {
+        console.error('خطا بدون پاسخ:', error.message);
+      }
       toast.error('خطا در ارسال درخواست به سرور.');
-      console.error('خطا:', error);
     },
   });
 };

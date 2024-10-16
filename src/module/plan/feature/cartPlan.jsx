@@ -53,11 +53,11 @@ const CartPlan = ({
     >
       <div className="relative flex flex-col flex-grow h-full space-y-6 ">
         <div className="relative">
-          <motion.img
+          <img
             src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
             alt={persianName || 'تصویر موجود نیست'}
-            className="w-full h-60 object-cover rounded-3xl"
-            whileHover={{ scale: 1.1 }}
+            className="w-full max-h-96 object-cover rounded-3xl"
+            style={{ width: '100%', height: 'auto' }}
           />
 
           <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-sm font-medium shadow-md">
@@ -70,9 +70,7 @@ const CartPlan = ({
 
         <div className="bg-gray-50 rounded-2xl shadow-inner">
           <div className="px-1 py-1 my-5">
-            <h2 className="text-xl text-center  text-gray-800 ">
-              {persianName}
-            </h2>
+            <h2 className="text-xl text-center  text-gray-800 ">{persianName}</h2>
           </div>
 
           <div className="grid gap-4 text-gray-700 px-6">
@@ -104,8 +102,7 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-                 % {Math.round((amountCollectedNow / totalPrice) * 100)}
-
+          % {Math.round((amountCollectedNow / totalPrice) * 100)}
           <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
       </div>

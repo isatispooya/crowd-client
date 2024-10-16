@@ -16,7 +16,6 @@ const useRefreshOTP = () => {
         },
       }
     );
-
     return response.data;
   };
 

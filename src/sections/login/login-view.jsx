@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-danger */
-/* eslint-disable no-undef */
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -23,7 +20,7 @@ import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
 import Calling from './components/callingRigester';
 import useTimer from './hooks/useTimer';
-import NoSejam from './components/nosejam';
+import NoSejamModal from './components/nosejam';
 
 export default function LoginView() {
   const theme = useTheme();
@@ -32,7 +29,7 @@ export default function LoginView() {
   const [otp, setOtp] = useState('');
   const [refferal, setRefferal] = useState('');
   const [registerd, setRegisterd] = useState(false);
-  const [noSejam, setNoSejam] = useState(null);
+  const [isNoSejamModalOpen, setIsNoSejamModalOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
@@ -55,14 +52,17 @@ export default function LoginView() {
         {
           onSuccess: (data) => {
             setRegisterd(data.registered);
-
             setStep(2);
             startTimer();
             toast.success(data.message);
-            setNoSejam(null);
           },
           onError: (error) => {
-            setNoSejam(error);
+            if (error.response && error.response.data && error.response.data.message) {
+              console.log('پیام خطا:', error.response.data.message); 
+              if (error.response.data.message.includes('شما سجامی نیستید')) {
+                setIsNoSejamModalOpen(true); 
+              }
+            }
           },
           onSettled: () => {
             setIsButtonDisabled(false);
@@ -70,6 +70,10 @@ export default function LoginView() {
         }
       );
     }
+  };
+
+  const closeNoSejamModal = () => {
+    setIsNoSejamModalOpen(false);
   };
 
   const handleCode = () => {
@@ -90,8 +94,8 @@ export default function LoginView() {
 
   const renderForm = (
     <>
-      {noSejam ? (
-        <NoSejam />
+      {isNoSejamModalOpen ? (
+        <NoSejamModal isOpen={isNoSejamModalOpen} onClose={closeNoSejamModal} />
       ) : (
         <>
           <ToastContainer autoClose={3000} />
