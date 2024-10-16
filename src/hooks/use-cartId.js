@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-const UseCartId = () => {
+const useCartId = () => {
   const queryClient = useQueryClient();
 
   const { data: cartId = 0 } = useQuery({
@@ -17,4 +17,4 @@ const UseCartId = () => {
   };
 };
 
-export default UseCartId;
+export default useCartId;

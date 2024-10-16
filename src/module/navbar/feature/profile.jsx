@@ -49,10 +49,10 @@ const Profile = () => {
           {!isLoadingUser ? (
             <Box display="flex" justifyContent="center">
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {userData?.acc?.private_person[0].firstName}
+                {userData?.acc?.private_person[0]?.firstName}
               </Typography>
               <Typography variant="h6" sx={{ ml: 1, fontWeight: 'bold' }}>
-                {userData?.acc?.private_person[0].lastName}
+                {userData?.acc?.private_person[0]?.lastName}
               </Typography>
             </Box>
           ) : (

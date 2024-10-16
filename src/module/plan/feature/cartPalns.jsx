@@ -8,7 +8,6 @@ import CartPlan from './cartPlan';
 
 const CartPlans = () => {
   const { data } = useGetPlans();
-  console.log("k,j",data)
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
@@ -28,7 +27,6 @@ const CartPlans = () => {
           filterStatusSecond.includes(item?.information_complete?.status_second)
         )
       : data;
-  console.log(',', data);
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-7xl w-full bg-white rounded-lg shadow-2xl p-6">

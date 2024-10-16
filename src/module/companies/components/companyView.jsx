@@ -5,14 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getStep1, createCart, updateCart } from 'src/api/step1';
 import useNavigateStep from 'src/hooks/use-navigate-step';
-import UseCartId from 'src/hooks/use-cartId';
+import useCartId from 'src/hooks/use-cartId';
 import CompanyInputs from 'src/module/companies/components/companyTextInputs';
 import CompanyUploads from 'src/module/companies/components/companyUploadInputs';
 import SmallLoader from 'src/components/SmallLoader';
 import { Message } from '../../../components/massage';
 
 export default function Form() {
-  const { cartId, setCartId } = UseCartId();
+  const { cartId, setCartId } = useCartId();
 
   const { incrementPage } = useNavigateStep();
 

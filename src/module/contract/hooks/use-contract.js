@@ -21,7 +21,7 @@ const postContract = async ({ cartId, contractData }) => {
   return response.data.cart;
 };
 
-const UsePostContract = (cartId) => {
+const usePostContract = (cartId) => {
   const { mutate, isLoading, IsError, isPending, error } = useMutation({
     mutationKey: ['contract', cartId],
     mutationFn: (contractData) => postContract({ cartId, contractData }),
@@ -38,4 +38,4 @@ const UsePostContract = (cartId) => {
   };
 };
 
-export default UsePostContract;
+export default usePostContract;

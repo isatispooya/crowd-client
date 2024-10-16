@@ -17,7 +17,7 @@ const CommentForm = () => {
 
   useEffect(() => {
     if (profileData && profileData.private_person && profileData.private_person.length > 0) {
-      setName(profileData.private_person.firstName);
+      setName(profileData.private_person?.firstName);
     }
   }, [profileData]);
   

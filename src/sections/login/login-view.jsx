@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-danger */
 /* eslint-disable no-undef */
 import { useState } from 'react';
@@ -91,7 +93,7 @@ export default function LoginView() {
         <TextField
           value={nationalCode}
           onChange={(e) => setNationalCode(e.target.value)}
-          label="کد ملی"
+          label="شماره/شناسه ملی"
           autoComplete="off"
           fullWidth
         />
@@ -231,13 +233,30 @@ export default function LoginView() {
           </Link>
         </div>
 
-        <div>
-          <div
-            dangerouslySetInnerHTML={createMarkup(
-              "<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' alt='' style='cursor:pointer' code='W3y39nx7isNrGWpAJBpNE2KanNerFkB8'></a>"
-            )}
-          />
-        </div>
+        <div className="flex justify-between">
+      <div
+        dangerouslySetInnerHTML={createMarkup(
+          `<a referrerpolicy='origin' target='_blank' 
+          href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'>
+            <img referrerpolicy='origin' 
+            src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' 
+            alt='نماد اعتماد' 
+            style='cursor: pointer;' />
+          </a>`
+        )}
+      />
+      {/* <img
+        id="rgvlgwmdxlaphwlabrgw"
+        style={{ cursor: 'pointer' }}
+        onClick={() =>
+          window.open(
+            'https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealDetail?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}'
+          )
+        }
+        alt="نماد پلتفرم"
+        src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
+      /> */}
+    </div>
       </Box>
     </Box>
   );

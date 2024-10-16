@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { getCookie } from 'src/api/cookie';
 
 import Loader from 'src/components/loader';
@@ -10,7 +10,6 @@ import useGetProfile from '../hooks/useGetProfile';
 const Profile = () => {
   const access = getCookie('access');
   const { data: profileData, isPending } = useGetProfile();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,12 +81,16 @@ const Profile = () => {
 
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
-          اطلاعات بانکی
+          حساب‌های بانکی
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ProfileField label="بانک" value={profileData.acc.accounts[0].bank || ''} />
-          <ProfileField label="شعبه بانک" value={profileData.acc.accounts[0].branchName || ''} />
-          <ProfileField label="شماره شبا" value={profileData.acc.accounts[0].sheba || ''} />
+          {profileData.acc.accounts?.map((account, index) => (
+            <React.Fragment key={index}>
+              <ProfileField label="بانک" value={account?.bank || ''} />
+              <ProfileField label="شعبه بانک" value={account?.branchName || ''} />
+              <ProfileField label="شماره شبا" value={account?.sheba || ''} />
+            </React.Fragment>
+          ))}
         </div>
       </section>
 
@@ -96,34 +99,65 @@ const Profile = () => {
           اطلاعات شغلی
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ProfileField label="شغل" value={profileData.acc.job_info[0].job || ''} />
-          <ProfileField label="نوع شغل" value={profileData.acc.job_info[0].position || ''} />
-          <ProfileField label="محل کار" value={profileData.acc.job_info[0].companyAddress || ''} />
-          <ProfileField
-            label="شماره تلفن محل کار"
-            value={profileData.acc.job_info[0].companyPhone || ''}
-          />
-          <ProfileField
-            label="ایمیل محل کار"
-            value={profileData.acc.job_info[0].companyEmail || ''}
-          />
-          <ProfileField
-            label="کدپستی محل کار"
-            value={profileData.acc.job_info[0].companyPostalCode || ''}
-          />
+          {profileData.acc.job_info?.map((job_info, index) => (
+            <React.Fragment key={index}>
+              <ProfileField label="شغل" value={job_info?.job || ''} />
+              <ProfileField label="نوع شغل" value={job_info?.position || ''} />
+              <ProfileField label="محل کار"value={job_info?.companyAddress || ''}/>
+              <ProfileField label="شماره تلفن محل کار"/>
+              <ProfileField label="ایمیل محل کار"value={job_info?.companyEmail || ''}/>
+              <ProfileField label="کدپستی محل کار"value={job_info?.companyPostalCode || ''}/>
+            </React.Fragment>
+          ))}
         </div>
       </section>
 
-      <section>
+      <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
-          آدرس
+          آدرس‌ها
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ProfileField label="استان" value={profileData.acc.addresses[0].province} />
-          <ProfileField label="شهر" value={profileData.acc.addresses[0].city} />
-          <ProfileField label="خیابان" value={profileData.acc.addresses[0].remnantAddress} />
-          <ProfileField label="کوچه" value={profileData.acc.addresses[0].alley} />
-          <ProfileField label="کدپستی" value={profileData.acc.addresses[0].postalCode} />
+          {profileData.acc.addresses?.map((address, index) => (
+            <React.Fragment key={index}>
+              <ProfileField label="استان" value={address?.province || ''} />
+              <ProfileField label="شهر" value={address?.city || ''} />
+              <ProfileField label="خیابان" value={address?.remnantAddress || ''} />
+              <ProfileField label="کوچه" value={address?.alley || ''} />
+              <ProfileField label="کدپستی" value={address?.postalCode || ''} />
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
+          اطلاعات هیئت مدیره
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {profileData.acc.legalPersonStakeholders?.map((stakeholder, index) => (
+            <React.Fragment key={index}>
+              <ProfileField label="نام" value={stakeholder?.firstName || ''} />
+              <ProfileField label="نام خانوادگی" value={stakeholder?.lastName || ''} />
+              <ProfileField label="کدملی" value={stakeholder?.uniqueIdentifier || ''} />
+              <ProfileField label="سمت" value={stakeholder?.positionType || ''} />
+              <ProfileField label="نوع" value={stakeholder?.type || ''} />
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
+          اطلاعات سهامدارن
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {profileData.acc.legalPersonShareholders?.map((stakeholder, index) => (
+            <React.Fragment key={index}>
+              <ProfileField label="نام" value={stakeholder?.firstName || ''} />
+              <ProfileField label="نام خانوادگی" value={stakeholder?.lastName || ''} />
+              <ProfileField label="کدملی" value={stakeholder?.uniqueIdentifier || ''} />
+              <ProfileField label="سمت" value={stakeholder?.positionType || ''} />
+              <ProfileField label="نوع" value={stakeholder?.type || ''} />
+            </React.Fragment>
+          ))}
         </div>
       </section>
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { OnRun } from 'src/api/OnRun';
 import { getCookie } from 'src/api/cookie';
-import UseCartId from 'src/hooks/use-cartId';
+import useCartId from 'src/hooks/use-cartId';
 import useNavigateStep from 'src/hooks/use-navigate-step';
 import Loader from 'src/components/loader';
 import SmallLoader from 'src/components/SmallLoader';
@@ -14,7 +14,7 @@ import useFetchData from '../hooks/fetchData';
 import Inputs from '../Feature/inputs';
 
 const Other = () => {
-  const { cartId } = UseCartId();
+  const { cartId } = useCartId();
   const { incrementPage } = useNavigateStep();
 
   const [loading, setLoading] = useState(false);
