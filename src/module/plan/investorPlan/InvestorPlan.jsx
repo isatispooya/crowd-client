@@ -48,7 +48,13 @@ const InvestorPlan = () => {
               openAccordion === index ? 'max-h-screen py-4 px-6' : 'max-h-0'
             }`}
           >
-            {item.component}
+            <div
+              className={`${
+                openAccordion === index ? 'max-h-64' : 'max-h-0'
+              } overflow-y-auto transition-all duration-500 ease-in-out`}
+            >
+              {item.component}
+            </div>
           </div>
         </div>
       ))}
