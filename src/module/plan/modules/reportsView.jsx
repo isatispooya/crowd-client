@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Certificate from 'src/components/certificate';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import Certificate from 'src/components/certificate';
+
 import PlanProgress from '../feature/planProgress';
 import Documentation from '../feature/documentation';
 import Appendices from '../feature/appendices';

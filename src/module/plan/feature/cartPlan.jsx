@@ -16,17 +16,12 @@ const CartPlan = ({
   totalUnits,
   totalPrice,
   crowdFundingType,
-  projectStatus,
-  settlementDescription,
-  persoanApprovedSymbol,
-  realPersonMinPrice,
-  creation_date,
-  statusSecond,
-  amountCollectedNow,
   company,
   endDate,
   startDate,
-  statusShow,
+  statusSecond,
+  amountCollectedNow,
+  realPersonMinPrice,
 }) => {
   const navigate = useNavigate();
   const { data: picture } = usePicure(trace_code);
@@ -52,79 +47,73 @@ const CartPlan = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col gap-6 p-6 rounded-xl shadow-lg transition-shadow hover:shadow-2xl w-full sm:w-96 mx-auto h-full ${
-        isCompleted ? 'bg-gray-300' : 'bg-gray-50'
+      className={`flex flex-col gap-8 p-8 rounded-3xl shadow-xl transition-shadow hover:shadow-2xl w-full sm:w-96 mx-auto h-full ${
+        isCompleted ? 'bg-gray-200' : 'bg-white'
       }`}
     >
-      <div className="relative flex flex-col flex-grow h-full">
+      <div className="relative flex flex-col flex-grow h-full space-y-6 ">
         <div className="relative">
           <motion.img
             src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
             alt={persianName || 'تصویر موجود نیست'}
-            className="w-full h-52 object-cover rounded-2xl mb-4"
+            className="w-full h-60 object-cover rounded-3xl"
             whileHover={{ scale: 1.1 }}
           />
 
-          <div className="absolute top-4 left-4 bg-blue-600 py-1 px-3 rounded-md text-white text-xs font-bold">
+          <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-sm font-medium shadow-md">
             {statusMapping[statusValue]}
           </div>
-          <div className="absolute top-4 right-4 w-12 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
+          <div className="absolute top-4 right-4 w-14 h-10 flex items-center justify-center bg-green-600 rounded-full text-white text-sm font-semibold shadow-md">
             %{rateOfReturn}
           </div>
-
         </div>
 
-        <div className="px-4 py-2">
-          <h2 className="text-lg text-center font-bold text-gray-700 mb-4 tracking-wide">
-            {persianName}
-          </h2>
+        <div className="bg-gray-50 rounded-2xl shadow-inner">
+          <div className="px-1 py-1 my-5">
+            <h2 className="text-xl text-center  text-gray-800 ">
+              {persianName}
+            </h2>
+          </div>
+
+          <div className="grid gap-4 text-gray-700 px-6">
+            <div className="flex justify-between items-center ">
+              <span className="text-sm ">مبلغ کل:</span>
+              <span className="text-base font-bold">{formatNumber(totalPrice)} ریال</span>
+            </div>
+            <div className="flex justify-between items-center ">
+              <span className="text-sm font-medium">شرکت:</span>
+              <span className="text-base font-bold">{company}</span>
+            </div>
+            <div className="flex justify-between items-center ">
+              <span className="text-sm font-medium">تعداد گواهی‌های شراکت:</span>
+              <span className="text-base font-bold">{totalUnits}</span>
+            </div>
+            <div className="flex justify-between items-center ">
+              <span className="text-sm font-medium">نوع تامین مالی:</span>
+              <span className="text-base font-bold ">{crowdFundingType}</span>
+            </div>
+            <div className="flex justify-between items-center mb-4 ">
+              <span className="text-sm font-medium">حداقل سرمایه‌گذاری:</span>
+              <span className="text-base font-bold ">{formatNumber(realPersonMinPrice)} ریال</span>
+            </div>
+          </div>
         </div>
 
-        <div className="grid gap-4 mt-4 text-gray-800 px-4">
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">مبلغ کل:</span>
-            <span className="text-sm ">{formatNumber(totalPrice)} ریال</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">شرکت:</span>
-            <span className="text-sm ">{company}</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">تعداد گواهی‌های شراکت:</span>
-            <span className="text-sm ">{totalUnits}</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">نوع تامین مالی:</span>
-            <span className="text-sm">{crowdFundingType}</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-2">
-            <span className="text-sm ">حداقل سرمایه‌گذاری:</span>
-            <span className="text-sm ">{formatNumber(realPersonMinPrice)} ریال</span>
-          </div>
-        </div>
-
-        <div className="mt-6 px-4">
+        <div className="px-1">
           <ProgressLineChart
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-          <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
-            <span className="text-green-600">{formatNumber(totalPrice ?? 0)} مبلغ مورد نیاز </span>
-            <span className="text-gray-900">
-              {formatNumber(amountCollectedNow ?? 0)}ریال تامین شده
-            </span>
-          </p>
+          <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
       </div>
-      <div className="mt-6">
-        <CountdownTimer startDate={startDate} endDate={endDate} />
-      </div>
-      <div className="flex justify-center mt-8 px-4">
+
+      <div className="flex justify-center">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           type="button"
-          className="bg-blue-600 text-white rounded-md px-8 py-3 w-full sm:w-auto"
+          className="bg-blue-600 text-white rounded-full px-2 py-2 w-full sm:w-auto font-bold text-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
           onClick={handleViewClick}
         >
           {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
@@ -135,23 +124,18 @@ const CartPlan = ({
 };
 
 CartPlan.propTypes = {
-  statusShow: PropTypes.bool.isRequired,
   trace_code: PropTypes.string.isRequired,
-  company: PropTypes.string.isRequired,
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
   persianName: PropTypes.string.isRequired,
   rateOfReturn: PropTypes.number.isRequired,
   totalUnits: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.string.isRequired,
-  projectStatus: PropTypes.bool.isRequired,
-  settlementDescription: PropTypes.func.isRequired,
-  realPersonMinPrice: PropTypes.number.isRequired,
-  creation_date: PropTypes.string.isRequired,
-  amountCollectedNow: PropTypes.number.isRequired,
-  persoanApprovedSymbol: PropTypes.string.isRequired,
+  company: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  amountCollectedNow: PropTypes.number.isRequired,
+  realPersonMinPrice: PropTypes.number.isRequired,
 };
 
 export default CartPlan;

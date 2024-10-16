@@ -43,7 +43,7 @@ const CountdownTimer = ({ startDate, endDate }) => {
 
   if (initialTime() === 0 || timeRemaining === 0) {
     return (
-      <div className=" flex items-center justify-between text-center text-xl border-2 p-2 rounded-2xl shadow-inner ">
+      <div className="  mt-2 flex items-center justify-between text-center text-md border-2 p-2 rounded-2xl shadow-inner ">
         <h1>طرح پایان یافته!</h1>
         <BsCalendarXFill className="text-2xl text-blue-500" />
       </div>
@@ -57,21 +57,33 @@ const CountdownTimer = ({ startDate, endDate }) => {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 max-w-xs mx-auto"
+      className="flex flex-col items-center justify-center  max-w-xs mx-auto p-4 "
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <motion.p
-        className="text-sm text-gray-600 font-bold"
-        initial={{ y: 10 }}
-        animate={{ y: 0 }}
-        transition={{ type: 'spring', stiffness: 100 }}
-      >
-        {`${days} روز ${hours} ساعت ${minutes} دقیقه ${seconds} ثانیه`}
-      </motion.p>
-      <p className="text-base text-blue-500 mt-2 ">تا {now < start ? 'شروع' : 'پایان'} طرح</p>
-      <GiSandsOfTime className="text-yellow-600 w-8 h-8  " />
+      <div className="flex justify-center items-center ">
+
+        {[
+          { label: 'روز', value: days },
+          { label: 'ساعت', value: hours },
+          { label: 'دقیقه', value: minutes },
+          { label: 'ثانیه', value: seconds },
+        ].map((unit, index) => (
+          <motion.div
+            key={index}
+            className="flex flex-col items-center justify-center w-12 h-12 bg-white rounded-md shadow-md p-2"
+            initial={{ y: 10 }}
+            animate={{ y: 0 }}
+            transition={{ type: 'spring', stiffness: 100 }}
+          >
+            <span className="text-lg font-bold text-gray-700">{unit.value}</span>
+            <span className="text-xs text-gray-500">{unit.label}</span>
+          </motion.div>
+        ))}
+        <p className="text-base font-bold text-gray-900 mr-2">تا {now < start ? 'شروع' : 'پایان'} طرح</p>
+
+      </div>
     </motion.div>
   );
 };
