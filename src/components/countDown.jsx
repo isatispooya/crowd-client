@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { BsCalendarXFill } from 'react-icons/bs';
-import { GiSandsOfTime } from 'react-icons/gi';
 import useGetPlans from 'src/module/plan/service/use-plans';
 
 const CountdownTimer = ({ startDate, endDate }) => {
