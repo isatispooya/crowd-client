@@ -30,7 +30,7 @@ const CartPlans = () => {
       : data;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+    <div className="flex  items-center min-h-screen bg-gray-50 p-4">
       <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-6">
         <div className="bg-gray-200 text-white rounded-t-md p-4 text-center shadow-2xl">
           <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
