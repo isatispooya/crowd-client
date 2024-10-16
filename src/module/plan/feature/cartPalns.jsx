@@ -11,7 +11,6 @@ const CartPlans = () => {
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
-
   useEffect(() => {
     if (!access) {
       navigate('/login');
@@ -19,7 +18,7 @@ const CartPlans = () => {
   }, [access, navigate]);
 
   if (!data || data.length === 0) {
-    return <p className="text-center text-lg mt-4">هیچ درخواستی یافت نشد.</p>;
+    return <p>هیچ درخواستی یافت نشد.</p>;
   }
 
   const filteredPlans =
@@ -28,21 +27,18 @@ const CartPlans = () => {
           filterStatusSecond.includes(item?.information_complete?.status_second)
         )
       : data;
-
   return (
-    <div className="flex  items-center min-h-screen bg-gray-50 p-4">
+    <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-6">
-        <div className="bg-gray-200 text-white rounded-t-md p-4 text-center shadow-2xl">
+        <div className="bg-gray-200 text-white rounded-t-md p-4 text-center mb-10">
           <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
         </div>
-
-        <div className="bg-gray-100 shadow-inner p-4 text-center mb-10">
-          <div className="text-2xl font-semibold text-gray-700">
+        <div className="bg-gray-100 shadow-inner rounded-2xl text-white rounded-t-md p-4 text-center mb-10">
+          <div className="text-3xl font-bold text-gray-700">
             <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
           </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center text-right">
           {filteredPlans.length > 0 ? (
             filteredPlans.map((item) => {
               const persianCreationDate = item.plan?.creation_date
@@ -50,12 +46,8 @@ const CartPlans = () => {
                 : 'تاریخ نامعتبر';
 
               if (item?.information_complete?.status_show === true) {
-
                 return (
-                  <div
-                    key={item.plan.id}
-                    className=" p-4  transition-transform transform hover:scale-105"
-                  >
+                  <div key={item.plan.id}>
                     <CartPlan
                       trace_code={item.plan.trace_code}
                       persianName={item.plan.persian_name}
@@ -85,7 +77,7 @@ const CartPlans = () => {
               return null;
             })
           ) : (
-            <p className="text-center text-lg mt-4">هیچ طرحی برای این فیلتر یافت نشد.</p>
+            <p>هیچ طرحی برای این فیلتر یافت نشد.</p>
           )}
         </div>
       </div>
