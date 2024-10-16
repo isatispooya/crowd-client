@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-danger */
 import { useState } from 'react';
 import Box from '@mui/material/Box';
@@ -58,9 +60,9 @@ export default function LoginView() {
           },
           onError: (error) => {
             if (error.response && error.response.data && error.response.data.message) {
-              console.log('پیام خطا:', error.response.data.message); 
+              console.log('پیام خطا:', error.response.data.message);
               if (error.response.data.message.includes('شما سجامی نیستید')) {
-                setIsNoSejamModalOpen(true); 
+                setIsNoSejamModalOpen(true);
               }
             }
           },
@@ -248,19 +250,32 @@ export default function LoginView() {
           </Link>
         </div>
 
-        <div className="flex justify-between">
-          <div
-            dangerouslySetInnerHTML={createMarkup(
-              `<a referrerpolicy='origin' target='_blank' 
-          href='https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8'>
-            <img referrerpolicy='origin' 
-            src='https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8' 
-            alt='نماد اعتماد' 
-            style='cursor: pointer;' />
-          </a>`
-            )}
-          />
-        </div>
+        <div className="flex justify-between items-center gap-4">
+  <div>
+    <a
+      href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+        alt="نماد اعتماد"
+        className="cursor-pointer"
+        style={{ width: '100px', height: 'auto' }} 
+      />
+    </a>
+  </div>
+
+  <img
+    id="rgvlgwmdxlaphwlabrgw"
+    onClick={() => window.open('https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealDetail?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}')}
+    alt="نماد اعتماد پلتفرم"
+    src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
+    className="cursor-pointer"
+    style={{ width: '80px', height: 'auto' }} 
+  />
+</div>
+
       </Box>
     </Box>
   );
