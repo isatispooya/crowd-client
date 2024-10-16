@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import Certificate from 'src/components/certificate';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import PlanProgress from '../feature/planProgress';
 import Documentation from '../feature/documentation';
 import Appendices from '../feature/appendices';
 import Audit from '../feature/hesabrasi';
-import Certificate from 'src/components/certificate';
 
 const ReportsView = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
@@ -21,8 +21,6 @@ const ReportsView = () => {
   ];
 
   return (
-
-
     <div id="accordion-flush" className="shadow-lg rounded-lg overflow-hidden">
       {renderComponents.map((item, index) => (
         <div key={index}>
@@ -48,7 +46,7 @@ const ReportsView = () => {
           </div>
         </div>
       ))}
-        <Certificate />
+      <Certificate />
     </div>
   );
 };
