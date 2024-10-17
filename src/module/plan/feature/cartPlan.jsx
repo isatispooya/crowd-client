@@ -51,7 +51,7 @@ const CartPlan = ({
         isCompleted ? 'bg-gray-200' : 'bg-white'
       }`}
     >
-      <div className="relative flex flex-col flex-grow h-full space-y-6 ">
+      <div className="relative flex flex-col flex-grow h-full space-y-2 ">
         <div className="relative">
           <img
             src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
@@ -102,7 +102,7 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-          % {Math.round((amountCollectedNow / totalPrice) * 100)}
+   
           <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
       </div>
