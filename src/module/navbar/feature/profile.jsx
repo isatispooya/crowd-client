@@ -1,12 +1,13 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import Loader from 'src/components/loader';
+import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import useAuth from '../service/useAuth';
 
 const Profile = () => {
   const { mutate, userData, isLoadingUser, isError, logout } = useAuth();
-
+  const navigateToProfile = useNavigate();
   useEffect(() => {
     const access = getCookie('access');
 
@@ -20,6 +21,10 @@ const Profile = () => {
   if (isError) {
     return <Loader />;
   }
+
+  const handleNavigateToProfile = () => {
+    navigateToProfile('/ProfilePage');
+  };
 
   return (
     <Box sx={{ p: 3, textAlign: 'center', marginBottom: 5, backgroundColor: '#ffffff' }}>
@@ -58,9 +63,9 @@ const Profile = () => {
           ) : (
             <Typography variant="h6">در حال بارگذاری...</Typography>
           )}
-          <Typography variant="body1" sx={{ mt: 1, backgroundColor: '#ffffff' }}>
+          <Button onClick={handleNavigateToProfile} variant="body1" sx={{ mt: 1, backgroundColor: '#ffffff' }}>
             خوش آمدید 👋
-          </Typography>
+          </Button>
         </Grid>
       </Box>
     </Box>

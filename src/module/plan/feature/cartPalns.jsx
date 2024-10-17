@@ -27,13 +27,14 @@ const CartPlans = () => {
           filterStatusSecond.includes(item?.information_complete?.status_second)
         )
       : data;
-  return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-6">
-        <div className="bg-gray-200 text-white rounded-t-md p-4 text-center mb-10">
-          <h1 className="text-3xl font-bold text-gray-700">طرح ها</h1>
-        </div>
-        <div className="bg-gray-100 shadow-inner rounded-2xl text-white rounded-t-md p-4 text-center mb-10">
+  return ( <>
+      <div className="bg-gray-200 text-white rounded-t-md p-1 text-center ">
+    <h1 className="text-2xl  text-gray-700">طرح ها</h1>
+  </div>
+    <div className="flex justify-center items-center max-h-screen">
+      <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-2">
+
+        <div className="bg-gray-100 shadow-inner rounded-2xl text-white rounded-t-md  text-center ">
           <div className="text-3xl font-bold text-gray-700">
             <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
           </div>
@@ -81,7 +82,8 @@ const CartPlans = () => {
           )}
         </div>
       </div>
-    </div>
+    </div></>
+
   );
 };
 
