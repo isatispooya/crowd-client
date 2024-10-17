@@ -7,16 +7,16 @@ const ProfitUser = ({ dashbord }) => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center mt-4">گزارش سود</h1>
-      <div dir="rtl" className="flex items-center justify-center min-h-[450px] my-8">
+      <h1 className="text-2xl font-bold text-center mb-6">گزارش سود</h1>
+      <div dir="rtl" className="flex items-center justify-center ">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="overflow-x-auto w-full lg:w-3/4 relative shadow-md sm:rounded-lg"
         >
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase ">
+          <table className="w-full text-sm text-left bg-white text-gray-500 dark:text-gray-400">
+            <thead className="text-base text-gray-700 uppercase ">
               <tr>
                 <th scope="col" className="py-3 px-6">
                   مبلغ

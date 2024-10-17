@@ -6,7 +6,6 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import Loader from 'src/components/loader';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { motion } from 'framer-motion';
-
 import { formatNumber } from 'src/utils/formatNumbers';
 import useGetDashbord from './service/use-getDashbord';
 import ProfitUser from './profitUser';
@@ -47,9 +46,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="container mx-auto py-8">
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
         {DashCards.map((item, index) => (
           <motion.div
             key={index}
@@ -67,9 +65,8 @@ const Dashboard = () => {
         ))}
       </div>
 
-   
       <motion.div
-        className="bg-white shadow-lg p-6 rounded-xl"
+        className="shadow-xl bg-gray-50 p-6 rounded-xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
