@@ -12,7 +12,6 @@ const useApplyNationalCode = () => {
         captcha: captchaInput,
         encrypted_response: encryptedResponse,
       });
-      console.log("پاسخ موفق:", response.data); 
       return response.data;
     },
     onSuccess: (data) => {
