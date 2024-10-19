@@ -11,7 +11,7 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProcessProjectPage = lazy(() => import('src/pages/processProject'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
-export const Success = lazy(() => import('src/pages/resultpayment/Success'));
+export const Success = lazy(() => import('src/pages/resultpayment/paymentResualt'));
 export const Failed = lazy(() => import('src/pages/resultpayment/Failed'));
 export const Card = lazy(() => import('src/components/stepper'));
 export const PaymentPage = lazy(() => import('src/module/plan/payment/page/pymentpage'));
@@ -19,8 +19,7 @@ export const Plans = lazy(() => import('src/module/plan/page/plans'));
 export const Plan = lazy(() => import('src/module/plan/page/plan'));
 export const Certificate = lazy(() => import('src/components/certificate'));
 export const Sterpercrowd = lazy(() => import('src/components/stepper'));
-export const PaymentConfirmation = lazy(() => import('src/pages/resultpayment/Success'));
-export const PaymentFailed = lazy(() => import('src/pages/resultpayment/Failed'));
+export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -42,10 +41,14 @@ export default function Router() {
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <Certificate /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
-        { path: 'Success', element: <PaymentConfirmation /> },
-        { path: 'Failed', element: <PaymentFailed /> },
       ],
     },
+
+    {
+      path: 'paymentresult',
+      element: <PaymentResualt />,
+    },
+
     {
       path: 'login',
       element: <LoginPage />,

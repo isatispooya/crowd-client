@@ -11,11 +11,12 @@ import PaymentContext from '../service/paymentContext';
 import usePayment from '../service/use-postpayment';
 import PayCheck from './payCheck';
 import PaymentGateway from './PaymentGateway';
+import useDargah from '../service/useDargah';
 
 const Payment = () => {
   const { traceCode } = useParams();
+  const { mutate: mutatepost } = useDargah(traceCode);
 
- 
   const {
     amount,
     setAmount,
@@ -34,10 +35,10 @@ const Payment = () => {
   } = useContext(PaymentContext);
 
   const { data } = usePlan(traceCode);
-  const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
-  const { mutate } = usePayment(traceCode);
-  
 
+  const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
+
+  const { mutate } = usePayment(traceCode);
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
@@ -66,6 +67,25 @@ const Payment = () => {
       {
         onSuccess: () => toast.success('پرداخت با موفقیت ثبت شد!'),
         onError: (error) => toast.error(`خطا در ثبت پرداخت: ${error.message}`),
+      }
+    );
+  };
+
+  const handleDargah = () => {
+    mutatepost(
+      { totalPrice, status },
+      {
+        // eslint-disable-next-line no-shadow
+        onSuccess: (data) => {
+          if (data?.url) {
+            window.location.href = data.url;
+          } else {
+            console.error('No URL found in the response');
+          }
+        },
+        onError: (error) => {
+          console.error('Error during the payment process:', error);
+        },
       }
     );
   };
@@ -131,7 +151,7 @@ const Payment = () => {
       </div>
       <PayCheck handleSubmit={handleSubmit} />
       <div className="mt-10">
-        <PaymentGateway />
+        <PaymentGateway handleDargah={handleDargah} />
       </div>
 
       {isPopupOpen && <AgreementPopup onAccept={handleAgreementAccept} />}

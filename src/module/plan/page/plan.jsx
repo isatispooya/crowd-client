@@ -12,21 +12,25 @@ import Calculate from '../feature/calculate';
 import InvestorPlan from '../investorPlan/InvestorPlan';
 import useGetPlan from '../service/use-plan';
 
+
 const Plan = () => {
   const { traceCode } = useParams();
-  const { isLoading, error } = useGetPlan(traceCode);
+  const { isLoading, error , data } = useGetPlan(traceCode);
+  
+
   const [activeTab, setActiveTab] = useState(0);
+
+  const statusSecond = data?.information_complete?.status_second;
+
+
+  const isPaymentDisabled = statusSecond !== '1';
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (error) {
-    return (
-      <div className="text-red-500 text-center">
-        خطایی رخ داده است: {error.message}
-      </div>
-    );
+    return <div className="text-red-500 text-center">خطایی رخ داده است: {error.message}</div>;
   }
 
   return (
@@ -41,7 +45,7 @@ const Plan = () => {
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
             { label: 'سرمایه پذیر', tab: 8, disabled: false },
-            { label: 'سرمایه گذاری', tab: 9 },
+            { label: 'سرمایه گذاری', tab: 9, disabled: isPaymentDisabled }, // Disable Payment tab based on statusSecond
           ].map(({ label, tab, disabled }) => (
             <li key={tab} className="mb-2">
               <button
@@ -73,7 +77,11 @@ const Plan = () => {
         {activeTab === 6 && <Roadmap />}
         {activeTab === 7 && <Calculate />}
         {activeTab === 8 && <InvestorPlan />}
-        {activeTab === 9 && <PaymentPage />}
+        {activeTab === 9 && !isPaymentDisabled && <PaymentPage />}{' '}
+        {/* Conditionally render PaymentPage */}
+        {activeTab === 9 && isPaymentDisabled && (
+          <div className="text-red-500 text-center">پرداخت برای این طرح قفل شده است.</div>
+        )}
       </div>
     </div>
   );

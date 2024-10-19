@@ -58,7 +58,6 @@ export default function LoginView() {
           },
           onError: (error) => {
             if (error.response && error.response.data && error.response.data.message) {
-              console.log('پیام خطا:', error.response.data.message);
               if (error.response.data.message.includes('شما سجامی نیستید')) {
                 setIsNoSejamModalOpen(true);
               }
@@ -86,8 +85,6 @@ export default function LoginView() {
       });
     }
   };
-
- 
 
   const renderForm = (
     <>
@@ -154,7 +151,7 @@ export default function LoginView() {
               sx={{
                 bgcolor: 'primary.main',
                 color: 'white',
-                marginBottom:"24px",
+                marginBottom: '24px',
                 '&:hover': {
                   bgcolor: 'primary.dark',
                 },
@@ -186,96 +183,95 @@ export default function LoginView() {
 
   return (
     <Box
-    sx={{
-      ...bgGradient({
-        color: alpha(theme.palette.background.default, 0.9),
-        imgUrl: '/assets/background/overlay_4.jpg',
-      }),
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '100vh', 
-      width: '100%',
-    }}
-  >
-    <Box sx={{ width: '100%', maxWidth: '450px', p: 2 }}>
-      <Stack alignItems="center" justifyContent="center" sx={{ pt: 4, height: 1 }}>
-        <Card
-          sx={{
-            p: 5,
-            width: '100%',
-            maxWidth: { xs: '70%', md: '600px' },
-            maxHeight: '85vh',
-            minHeight: '450px', 
-          }}
-        >
-          <Typography variant="h4" style={{ textAlign: 'center' }}>
-            ایساتیس کراد
-          </Typography>
-          <Typography
-            sx={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}
-            variant="h6"
+      sx={{
+        ...bgGradient({
+          color: alpha(theme.palette.background.default, 0.9),
+          imgUrl: '/assets/background/overlay_4.jpg',
+        }),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        width: '100%',
+      }}
+    >
+      <Box sx={{ width: '100%', maxWidth: '450px', p: 2 }}>
+        <Stack alignItems="center" justifyContent="center" sx={{ pt: 4, height: 1 }}>
+          <Card
+            sx={{
+              p: 5,
+              width: '100%',
+              maxWidth: { xs: '70%', md: '600px' },
+              maxHeight: '85vh',
+              minHeight: '450px',
+            }}
           >
-            {' '}
-            درگاه ورود ایساتیس کراد{' '}
-          </Typography>
-          <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              ورود
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
+              ایساتیس کراد
             </Typography>
-          </Divider>
-          {renderForm}
-        </Card>
-      </Stack>
-    </Box>
-  
-    <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
-      <Typography variant="body2" color="text.secondary">
-        © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
-      </Typography>
-      <div className="mt-2 text-red-500">
-        <Link sx={{ textDecoration: 'none' }} href="tel:03535220088" variant="body2">
-          <button
-            type="button"
-            className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
-          >
-            راه های ارتباط با ما :{'  '} 03535220088
-          </button>
-        </Link>
-      </div>
-  
-      <div className="flex justify-between items-center gap-4">
-        <div>
-          <a
-            href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-              alt="نماد اعتماد"
-              className="cursor-pointer"
-              style={{ width: '100px', height: 'auto' }}
-            />
-          </a>
+            <Typography
+              sx={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              variant="h6"
+            >
+              {' '}
+              درگاه ورود ایساتیس کراد{' '}
+            </Typography>
+            <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                ورود
+              </Typography>
+            </Divider>
+            {renderForm}
+          </Card>
+        </Stack>
+      </Box>
+
+      <Box sx={{ mt: 5, pb: 4, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
+        </Typography>
+        <div className="mt-2 text-red-500">
+          <Link sx={{ textDecoration: 'none' }} href="tel:03535220088" variant="body2">
+            <button
+              type="button"
+              className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
+            >
+              راه های ارتباط با ما :{'  '} 03535220088
+            </button>
+          </Link>
         </div>
-  
-        <img
-          id="rgvlgwmdxlaphwlabrgw"
-          onClick={() =>
-            window.open(
-              'https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealDetail?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}'
-            )
-          }
-          alt="نماد اعتماد پلتفرم"
-          src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
-          className="cursor-pointer"
-          style={{ width: '80px', height: 'auto' }}
-        />
-      </div>
+
+        <div className="flex justify-between items-center gap-4">
+          <div>
+            <a
+              href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+                alt="نماد اعتماد"
+                className="cursor-pointer"
+                style={{ width: '100px', height: 'auto' }}
+              />
+            </a>
+          </div>
+
+          <img
+            id="rgvlgwmdxlaphwlabrgw"
+            onClick={() =>
+              window.open(
+                'https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealDetail?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}'
+              )
+            }
+            alt="نماد اعتماد پلتفرم"
+            src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
+            className="cursor-pointer"
+            style={{ width: '80px', height: 'auto' }}
+          />
+        </div>
+      </Box>
     </Box>
-  </Box>
-  
   );
 }

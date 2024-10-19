@@ -11,7 +11,6 @@ export const PaymentProvider = ({ children }) => {
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const [inputValueGateWay, setInputValueGateWay] = useState('');
 
   const contextValue = useMemo(
     () => ({
@@ -29,19 +28,8 @@ export const PaymentProvider = ({ children }) => {
       setStatus,
       isPopupOpen,
       setIsPopupOpen,
-      inputValueGateWay,
-      setInputValueGateWay,
     }),
-    [
-      amount,
-      paymentMethod,
-      attachment,
-      paymentId,
-      description,
-      status,
-      isPopupOpen,
-      inputValueGateWay,
-    ]
+    [amount, paymentMethod, attachment, paymentId, description, status, isPopupOpen]
   );
 
   return <PaymentContext.Provider value={contextValue}>{children}</PaymentContext.Provider>;
