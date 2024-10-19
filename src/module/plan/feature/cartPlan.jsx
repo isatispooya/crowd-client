@@ -33,8 +33,8 @@ const CartPlan = ({
     1: 'شروع شده',
     2: 'جمع‌آوری شده',
     3: 'تمدید شده',
-    4: 'تکمیل شده',
-    5: 'سر رسید ناموفق',
+    4: 'سر رسید ناموفق',
+    5: 'تکمیل شده',
   };
 
   const handleViewClick = () => {
@@ -102,7 +102,7 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-   
+
           <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
       </div>

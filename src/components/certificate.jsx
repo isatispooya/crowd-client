@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useCertificate from 'src/hooks/use-certificate';
@@ -7,11 +7,15 @@ import useCertificate from 'src/hooks/use-certificate';
 const Certificate = () => {
   const { traceCode } = useParams();
   const { data, mutate } = useCertificate(traceCode);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     mutate();
+
     if (data?.ErrorMessage) {
       toast.error(data.ErrorMessage);
+    } else if (data?.url) {
+      window.location.href = data.url;
     }
   };
 

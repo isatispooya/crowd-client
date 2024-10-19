@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
+import { formatNumber } from 'src/utils/formatNumbers';
 import moment from 'jalali-moment';
 import useGetInvesor from './service/use-getInvestor';
 
@@ -36,7 +37,7 @@ const InvestProfile = () => {
     <div className="max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4 text-center">پروفایل سرمایه‌گذاران</h1>
 
-      {/* Table Wrapper for Horizontal Scrolling on Small Screens */}
+
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
@@ -53,9 +54,6 @@ const InvestProfile = () => {
               <th scope="col" className="px-6 py-3">
                 مجموع مبلغ
               </th>
-              <th scope="col" className="px-6 py-3">
-                وضعیت
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -66,11 +64,8 @@ const InvestProfile = () => {
               >
                 <td className="px-6 py-4 whitespace-nowrap">{item.fulname}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{item.create_date}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.amount}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.value}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {item.status ? 'پرداخت شده' : 'در انتظار'}
-                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{formatNumber(item.amount)}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{formatNumber(item.value)}</td>
               </tr>
             ))}
           </tbody>

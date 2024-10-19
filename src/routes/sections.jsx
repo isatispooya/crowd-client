@@ -21,6 +21,7 @@ export const Certificate = lazy(() => import('src/components/certificate'));
 export const Sterpercrowd = lazy(() => import('src/components/stepper'));
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
 
+
 export default function Router() {
   const routes = useRoutes([
     {
@@ -41,6 +42,7 @@ export default function Router() {
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <Certificate /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
+       
       ],
     },
 

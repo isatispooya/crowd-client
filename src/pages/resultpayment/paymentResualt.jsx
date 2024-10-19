@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useDargahResult from 'src/module/plan/payment/service/useDargahResualt';
+import { motion } from 'framer-motion';
 
 const PaymentResualt = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const status = queryParams.get('status');
   const invoiceId = queryParams.get('invoiceId');
   const navigate = useNavigate();
   const { traceCode } = useParams();
@@ -16,29 +16,44 @@ const PaymentResualt = () => {
   const { data } = useDargahResult(traceCode, invoiceId);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-200">
+      <motion.div
+        className="bg-white shadow-lg rounded-lg w-full max-w-md p-8 text-center"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
         {data === true ? (
-          <>
-            <h1 className="text-2xl font-bold text-green-600 mb-4">پرداخت موفق بود!</h1>
-            <p className="text-gray-700 mb-6">
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h1 className="text-3xl font-extrabold text-green-600 mb-4">پرداخت موفق بود!</h1>
+            <p className="text-gray-600 mb-6">
               پرداخت شما با موفقیت انجام شد. از خرید شما متشکریم!
             </p>
-          </>
+          </motion.div>
         ) : (
-          <>
-            <h1 className="text-2xl font-bold text-red-600 mb-4">پرداخت ناموفق</h1>
-            <p className="text-gray-700 mb-6">پرداخت شما ناموفق بود. لطفاً مجدداً تلاش کنید.</p>
-          </>
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h1 className="text-3xl font-extrabold text-red-600 mb-4">پرداخت ناموفق</h1>
+            <p className="text-gray-600 mb-6">پرداخت شما ناموفق بود. لطفاً مجدداً تلاش کنید.</p>
+          </motion.div>
         )}
-        <button
+        <motion.button
           type="button"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+          className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300 shadow-lg"
           onClick={handleReturnToHome}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           بازگشت به صفحه اصلی
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

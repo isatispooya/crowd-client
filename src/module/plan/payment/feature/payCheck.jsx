@@ -49,6 +49,7 @@ const PayCheck = () => {
             />
           </div>
           <button
+            onClick={}
             type="submit"
             className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
           >
