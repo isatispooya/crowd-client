@@ -7,15 +7,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import AgreementPopup from 'src/components/Agreement';
 import { motion } from 'framer-motion';
 import usePlan from '../../service/use-plan';
+import PayCheck from './payCheck';
 import PaymentContext from '../service/paymentContext';
 import usePayment from '../service/use-postpayment';
-import PayCheck from './payCheck';
 import PaymentGateway from './PaymentGateway';
 import useDargah from '../service/useDargah';
 
 const Payment = () => {
   const { traceCode } = useParams();
-  const { mutate: mutatepost } = useDargah(traceCode);
+
+  const { mutate: mutatepost, error, isError } = useDargah(traceCode);
+
+  if (isError || error) {
+    toast.error('خطا در اتصال به درگاه بانکی');
+  }
 
   const {
     amount,
@@ -66,7 +71,7 @@ const Payment = () => {
       },
       {
         onSuccess: () => toast.success('پرداخت با موفقیت ثبت شد!'),
-        onError: (error) => toast.error(`خطا در ثبت پرداخت: ${error.message}`),
+        onError: (err) => toast.error(`خطا در ثبت پرداخت: ${err.message}`),
       }
     );
   };
@@ -83,8 +88,8 @@ const Payment = () => {
             console.error('No URL found in the response');
           }
         },
-        onError: (error) => {
-          console.error('Error during the payment process:', error);
+        onError: (err) => {
+          console.error('Error during the payment process:', err);
         },
       }
     );

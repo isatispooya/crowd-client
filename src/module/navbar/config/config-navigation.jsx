@@ -2,6 +2,7 @@
 import SvgColor from 'src/services/svg-color';
 import { MdDashboard } from 'react-icons/md';
 import { GoProjectRoadmap } from 'react-icons/go';
+import { PiCertificateFill } from "react-icons/pi";
 
 const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
@@ -32,7 +33,7 @@ const navConfig = [
   {
     title: 'گواهی مشارکت',
     path: '/certificate',
-    icon: <GoProjectRoadmap className="text-2xl" />,
+    icon: <PiCertificateFill className="text-2xl" />,
   },
 ];
 

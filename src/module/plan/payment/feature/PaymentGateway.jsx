@@ -12,13 +12,14 @@ const PaymentGateway = ({ handleDargah }) => {
     <div className="p-6 bg-gray-100 rounded-lg shadow-md w-full max-w-md mx-auto">
       {paymentMethod === 'dargah' && (
         <div className="space-y-4">
+          <h1>لطفا قبل از اتصال به درگاه فیلترشکن خود را قطع کنید.</h1>
           <motion.button
             type="button"
             onClick={handleDargah}
             className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
+          > 
             ارجاع به درگاه پرداخت
           </motion.button>
         </div>

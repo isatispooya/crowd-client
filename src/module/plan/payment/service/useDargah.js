@@ -18,7 +18,7 @@ const postAmountDargah = async (traceCode, totalPrice , status) => {
 };
 
 const useDargah = (traceCode) => {
-  const { data, isLoading, error, mutate } = useMutation({
+  const { data, isLoading, error, mutate , isError } = useMutation({
     mutationKey: ['dargah', traceCode],
     mutationFn: ({totalPrice , status}) => postAmountDargah(traceCode, totalPrice , status),
   });
@@ -27,6 +27,7 @@ const useDargah = (traceCode) => {
     isLoading,
     error,
     mutate,
+    isError
   };
 };
 

@@ -11,3 +11,4 @@ export const getPayment = async (traceCode) => {
   });
   return response.data;
 };
+

@@ -7,7 +7,6 @@ import useCertificate from 'src/hooks/use-certificate';
 const Certificate = () => {
   const { traceCode } = useParams();
   const { data, mutate } = useCertificate(traceCode);
-  const navigate = useNavigate();
 
   const handleClick = () => {
     mutate();

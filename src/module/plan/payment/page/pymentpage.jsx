@@ -11,10 +11,9 @@ const PaymentPage = () => {
           <Payment />
         </div>
         <div>
-          <p className="flex text-center font-bold text-xl items-center justify-center">
-            دارایی های شما{' '}
-          </p>
+        <div className="p-2 bg-gray-100 shadow-inner rounded-2xl">
           <PaymentCalculate />
+        </div>
         </div>
       </div>
     </PaymentProvider>

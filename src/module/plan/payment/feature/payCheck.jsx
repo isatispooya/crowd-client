@@ -1,23 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
+import PropTypes from 'prop-types';
 import PaymentContext from '../service/paymentContext';
 
-const PayCheck = () => {
-  const {
-    paymentMethod,
-    setAttachment,
-    description,
-    setDescription,
-    paymentId,
-    setPaymentId,
-    handleSubmit,
-  } = useContext(PaymentContext);
+const PayCheck = ({ handleSubmit }) => {
+  const { paymentMethod, setAttachment, description, setDescription, paymentId, setPaymentId } =
+    useContext(PaymentContext);
 
   return (
     <>
       {paymentMethod === 'fesh' && (
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4 px-8">
+        <form className="mt-6 space-y-4 px-8">
           <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-2">پیوست:</label>
             <input
@@ -49,7 +43,7 @@ const PayCheck = () => {
             />
           </div>
           <button
-            onClick={}
+            onClick={handleSubmit}
             type="submit"
             className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
           >
@@ -60,6 +54,10 @@ const PayCheck = () => {
       )}
     </>
   );
+};
+
+PayCheck.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default PayCheck;

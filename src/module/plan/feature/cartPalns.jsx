@@ -29,7 +29,7 @@ const CartPlans = () => {
         )
       : data;
 
-  // Reverse the filtered plans
+
   const reversedPlans = filteredPlans.slice().reverse();
 
   return (
