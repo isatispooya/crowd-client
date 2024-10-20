@@ -11,7 +11,7 @@ const DropButton = ({ planStatusOptions, onSelectStatus, selectedStatuses }) => 
   };
 
   return (
-    <nav className="p-3 w-full flex rounded-2xl">
+    <nav className="p-3 w-full flex rounded-2xl z-50">
       <div className="relative inline-block text-left z-50">
         <button
           onClick={HandleOpen}

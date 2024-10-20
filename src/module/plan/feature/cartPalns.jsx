@@ -29,22 +29,22 @@ const CartPlans = () => {
         )
       : data;
 
-
   const reversedPlans = filteredPlans.slice().reverse();
 
   return (
     <>
-      <div className="bg-gray-200 text-white rounded-t-md p-1 text-center">
-        <h1 className="text-2xl text-gray-700">طرح‌ها</h1>
+      <div className="bg-gray-200  text-white rounded-t-md p-2 md:p-4 lg:p-6 text-center ">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-700">طرح‌ها</h1>
       </div>
-      <div className="flex justify-center items-center max-h-screen">
-        <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-2">
-          <div className="bg-gray-100 shadow-inner rounded-2xl text-white text-center">
-            <div className="text-3xl font-bold text-gray-700">
+
+      <div className="flex justify-center items-center  ">
+        <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 overflow-y-auto">
+          <div className="bg-gray-100 shadow-inner rounded-2xl text-white text-center p-2">
+            <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-700">
               <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 lg:gap-10 justify-center text-right">
             {reversedPlans.length > 0 ? (
               reversedPlans.map((item) => {
                 const persianCreationDate = item.plan?.creation_date

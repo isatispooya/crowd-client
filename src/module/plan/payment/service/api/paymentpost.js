@@ -3,7 +3,7 @@ import api from 'src/api/apiClient';
 
 export const PostPyment = async ({ traceCode, data }) => {
   const access = getCookie('access');
-
+  
   const formData = new FormData();
   formData.append('amount', data.amount);
   formData.append('name_status', data.name_status);

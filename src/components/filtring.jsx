@@ -30,7 +30,7 @@ const FilterPlans = ({ setFilterStatusSecond }) => {
   };
 
   return (
-    <div className="flex flex-col w-full bg-transparent z-50 mb-10">
+    <div className="">
       <DropButton
         planStatusOptions={planStatusOptions}
         onSelectStatus={handleSelectStatus}
