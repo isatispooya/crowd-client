@@ -10,20 +10,15 @@ export const PostPyment = async ({ traceCode, data }) => {
   formData.append('payment_id', data.payment_id);
   formData.append('description', data.description);
   formData.append('risk_statement', 'true');
-  formData.append('picture', data.picture); 
-
+  formData.append('picture', data.picture);
 
   try {
-    const response = await api.post(
-      `/api/payment/document/${traceCode}/`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${access}`,
-          'Content-Type': 'multipart/form-data', 
-        },
-      }
-    );
+    const response = await api.post(`/api/payment/document/${traceCode}/`, formData, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return response.data;
   } catch (error) {
