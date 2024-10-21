@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useDargahResult from 'src/module/plan/payment/service/useDargahResualt';
 import { motion } from 'framer-motion';
+import Loader from 'src/components/loader';
+
 
 const PaymentResualt = () => {
   const location = useLocation();
@@ -13,7 +15,12 @@ const PaymentResualt = () => {
   const handleReturnToHome = () => {
     navigate('/');
   };
-  const { data } = useDargahResult(traceCode, invoiceId);
+  const { data , isLoading } = useDargahResult(traceCode, invoiceId);
+
+  if (isLoading) {
+    return <Loader/>;
+  }
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-200">

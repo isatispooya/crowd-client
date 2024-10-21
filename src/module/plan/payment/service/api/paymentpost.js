@@ -3,7 +3,7 @@ import api from 'src/api/apiClient';
 
 export const PostPyment = async ({ traceCode, data }) => {
   const access = getCookie('access');
-  
+
   const formData = new FormData();
   formData.append('amount', data.amount);
   formData.append('name_status', data.name_status);
@@ -12,17 +12,12 @@ export const PostPyment = async ({ traceCode, data }) => {
   formData.append('risk_statement', 'true');
   formData.append('picture', data.picture);
 
-  try {
-    const response = await api.post(`/api/payment/document/${traceCode}/`, formData, {
-      headers: {
-        Authorization: `Bearer ${access}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+  const response = await api.post(`/api/payment/document/${traceCode}/`, formData, {
+    headers: {
+      Authorization: `Bearer ${access}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 
-    return response.data;
-  } catch (error) {
-    console.error('Error posting detail:', error);
-    throw error;
-  }
+  return response.data;
 };

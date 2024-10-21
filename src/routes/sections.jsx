@@ -17,10 +17,9 @@ export const Card = lazy(() => import('src/components/stepper'));
 export const PaymentPage = lazy(() => import('src/module/plan/payment/page/pymentpage'));
 export const Plans = lazy(() => import('src/module/plan/page/plans'));
 export const Plan = lazy(() => import('src/module/plan/page/plan'));
-export const Certificate = lazy(() => import('src/components/certificate'));
+export const CertificateSideBar = lazy(() => import('src/module/certificateSideBar/cerSideBar')); //
 export const Sterpercrowd = lazy(() => import('src/components/stepper'));
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
-
 
 export default function Router() {
   const routes = useRoutes([
@@ -40,9 +39,8 @@ export default function Router() {
         { path: 'ProfilePage', element: <ProfilePage /> },
 
         { path: 'card', element: <Sterpercrowd /> },
-        { path: 'certificate', element: <Certificate /> },
+        { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
-       
       ],
     },
 

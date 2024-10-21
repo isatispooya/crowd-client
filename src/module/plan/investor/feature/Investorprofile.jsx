@@ -12,7 +12,8 @@ const InvestProfile = () => {
   if (isLoading) {
     return <Loader />;
   }
-
+  console.log(data , "123456");
+  
   const transactionData = data
     ? data.map((item) => {
         const creationDate = item?.create_date ? moment(item.create_date) : null;

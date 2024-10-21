@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
 const ProgressLineChart = ({ progress, label }) => {
+  console.log(progress , "progress")
   return (
     <div className="flex w-full items-center space-x-2">
       <label htmlFor="progress" className="flex items-center justify-center text-sm text-gray-900">
@@ -11,22 +12,37 @@ const ProgressLineChart = ({ progress, label }) => {
 
       <div className="w-full flex items-center space-x-2">
         <div
-          className="flex w-full h-4 bg-gray-300 rounded-full overflow-hidden dark:bg-neutral-700"
+          className="flex w-full h-4 bg-gray-300 rounded-full overflow-hidden dark:bg-neutral-700 flex-row-reverse"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin="0"
           aria-valuemax="100"
         >
-          <motion.div
-            className="flex flex-col bg-white  bg-gradient-to-r from-[#004ff9] to-[#000000]  hover:text-blue-300 justify-center rounded-full overflow-hidden  text-xs text-white text-center whitespace-nowrap dark:bg-blue-500 transition duration-500"
-            style={{ width: `${progress}%` }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-           />
+          <div className="flex w-full">
+            {progress > 0 && (
+              <motion.div
+                className="flex items-center justify-center bg-blue-500 overflow-hidden text-xs text-white text-center whitespace-nowrap transition duration-500"
+                style={{ width: `${Math.min(progress, 10)}%` }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {progress <= 10 ? `${progress}%` : '10%'}
+              </motion.div>
+            )}
+            {progress > 10 && (
+              <motion.div
+                className="flex items-center justify-center bg-green-500 overflow-hidden text-xs text-white text-center whitespace-nowrap transition duration-500"
+                style={{ width: `${progress - 10}%` }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {progress - 10}%
+              </motion.div>
+            )}
+          </div>
         </div>
-
-
       </div>
     </div>
   );

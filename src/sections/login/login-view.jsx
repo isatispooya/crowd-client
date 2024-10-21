@@ -237,7 +237,7 @@ export default function LoginView() {
               type="button"
               className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
             >
-              راه های ارتباط با ما :{'  '} 03535220088
+              راه های ارتباط با ما :{'  '} 035911090088
             </button>
           </Link>
         </div>
