@@ -12,7 +12,7 @@ const CartPlans = () => {
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
   
-
+  console.log(data , "123456789")
   useEffect(() => {
     if (!access) {
       navigate('/login');

@@ -107,6 +107,7 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
+          {console.log(amountCollectedNow / totalPrice , persianName )}
 
           <CountdownTimer startDate={startDate} endDate={endDate} />
         </div>
