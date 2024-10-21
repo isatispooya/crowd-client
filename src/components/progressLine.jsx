@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
 const ProgressLineChart = ({ progress, label }) => {
-  console.log(progress , "progress")
+  
   return (
     <div className="flex w-full items-center space-x-2">
       <label htmlFor="progress" className="flex items-center justify-center text-sm text-gray-900">

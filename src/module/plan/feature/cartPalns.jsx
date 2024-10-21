@@ -11,7 +11,7 @@ const CartPlans = () => {
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
-  console.log(data , "plans")
+  
 
   useEffect(() => {
     if (!access) {
