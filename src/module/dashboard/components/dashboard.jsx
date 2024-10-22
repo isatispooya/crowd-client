@@ -52,7 +52,7 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <Grid container spacing={2} justifyContent="center" sx={{ mt: 4, mb: 4 }}>
+      <Grid container spacing={2} justifyContent="center" sx={{  mb: 4 }}>
         {DashCards.map((item, index) => {
           const IconComponent = item.icon;
 
@@ -79,6 +79,8 @@ const Dashboard = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    width: '240px', // عرض مشخص برای آیکون
+                    height: '120px', // ارتفاع مشخص برای آیکون
                     flexGrow: 1,
                   }}
                 >
@@ -99,7 +101,7 @@ const Dashboard = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: item.color,
-                    transition: 'none', // آیکون‌ها تکان نخورند
+                    transition: 'none', 
                   }}
                 >
                   <IconComponent style={{ fontSize: '2.5rem' }} />
