@@ -5,8 +5,8 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import Loader from 'src/components/loader';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { motion } from 'framer-motion';
 import { formatNumber } from 'src/utils/formatNumbers';
+import { Card, Grid, Box, Typography } from '@mui/material';
 import useGetDashbord from './service/use-getDashbord';
 import ProfitUser from './profitUser';
 
@@ -21,58 +21,106 @@ const Dashboard = () => {
     {
       title: 'تعداد طرح ها',
       value: dashbord['all plan'],
-      icon: <InsertDriveFileIcon style={{ fontSize: '2.5rem' }} color="primary" />,
+      icon: InsertDriveFileIcon,
+      color: '#4a90e2', // Soft blue
     },
     {
       title: 'تعداد طرح های فعال',
       value: dashbord['active plan'],
-      icon: <AssignmentTurnedInIcon style={{ fontSize: '2.5rem' }} color="error" />,
+      icon: AssignmentTurnedInIcon,
+      color: '#e74c3c', // Soft red
     },
     {
       title: 'تعداد مشارکت فعال',
       value: dashbord['participant plan'],
-      icon: <PeopleIcon style={{ fontSize: '2.5rem' }} color="secondary" />,
+      icon: PeopleIcon,
+      color: '#27ae60', // Soft green
     },
     {
       title: 'مبلغ مشارکت کاربر',
       value: formatNumber(dashbord['total value']),
-      icon: <MonetizationOnIcon style={{ fontSize: '2.5rem' }} color="success" />,
+      icon: MonetizationOnIcon,
+      color: '#2980b9', // Soft blue
     },
     {
       title: 'سود',
       value: `${dashbord['all rate of return']}%`,
-      icon: <TrendingUpIcon style={{ fontSize: '2.5rem' }} color="warning" />,
+      icon: TrendingUpIcon,
+      color: '#f39c12', // Soft orange
     },
   ];
 
   return (
     <div className="container mx-auto px-4">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-4">
-        {DashCards.map((item, index) => (
-          <motion.div
-            key={index}
-            className="relative bg-white shadow-md p-4 rounded-lg flex flex-col justify-center h-48 hover:shadow-xl transition-shadow duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <div className="absolute top-2 right-2">{item.icon}</div>
-            <h2 className="text-lg font-semibold mb-1 text-gray-800 text-center">{item.title}</h2>
-            <p className="text-2xl font-medium text-gray-700 text-center">{item.value}</p>
-          </motion.div>
-        ))}
-      </div>
+      <Grid container spacing={2} justifyContent="center" sx={{ mt: 4, mb: 4 }}>
+        {DashCards.map((item, index) => {
+          const IconComponent = item.icon;
 
-      <motion.div
-        className="shadow-md bg-gray-50 p-4 rounded-lg"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+          return (
+            <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+              <Card
+                sx={{
+                  p: 2,
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+                  transition: '0.3s',
+                  background: `linear-gradient(135deg, ${item.color}15, ${item.color}30)`,
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                    boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    flexGrow: 1,
+                  }}
+                >
+                  <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '4px', color: item.color }}>
+                    {item.value}
+                  </Typography>
+
+                  <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: '500' }}>
+                    {item.title}
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: item.color,
+                    transition: 'none', // آیکون‌ها تکان نخورند
+                  }}
+                >
+                  <IconComponent style={{ fontSize: '2.5rem' }} />
+                </Box>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+
+      <Box
+        sx={{
+          mt: 4,
+          p: 2,
+          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+          borderRadius: '12px',
+          backgroundColor: 'white',
+        }}
       >
         <ProfitUser dashbord={dashbord} />
-      </motion.div>
+      </Box>
     </div>
   );
 };
