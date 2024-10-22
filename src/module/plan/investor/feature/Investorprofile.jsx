@@ -12,8 +12,7 @@ const InvestProfile = () => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log(data , "123456");
-  
+
   const transactionData = data
     ? data.map((item) => {
         const creationDate = item?.create_date ? moment(item.create_date) : null;
@@ -22,8 +21,9 @@ const InvestProfile = () => {
             ? creationDate.locale('fa').format('YYYY/MM/DD')
             : 'تاریخ نامعتبر';
 
-        return {
-          fulname: item.fulname,
+
+            return {
+          fulname: item.fullname,
           create_date: persianCreationDate,
           amount: item.amount,
           user: item.user,
@@ -37,7 +37,6 @@ const InvestProfile = () => {
   return (
     <div className="max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4 text-center">پروفایل سرمایه‌گذاران</h1>
-
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

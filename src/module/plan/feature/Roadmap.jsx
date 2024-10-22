@@ -3,13 +3,15 @@ import { FaSquareCheck } from 'react-icons/fa6';
 import { ImCheckboxUnchecked } from 'react-icons/im';
 import { useParams } from 'react-router-dom';
 import SmallLoader from 'src/components/SmallLoader';
+import moment from 'moment-jalaali';
 import useGetPlan from '../service/use-plan';
 
 const Roadmap = () => {
   const { traceCode } = useParams();
   const { data, isLoading } = useGetPlan(traceCode);
+  const persianDateStart = moment(data.date_start).format('jYYYY/jMM/jDD');
 
-
+  console.log('roub', data);
 
   if (isLoading) {
     return <SmallLoader />;
@@ -20,76 +22,29 @@ const Roadmap = () => {
       <ul className="timeline timeline-vertical bg-white text-right">
         <li>
           <hr />
-          <div className="timeline-start bg-white">تاریخ ایجاد:</div>
+          <div className="timeline-start timeline-box bg-white">تاریخ شروع اجرا طرح</div>
           <div className="timeline-middle bg-white">
-            {data.project_status_id === 5 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
+            {data.plan.date_start === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
-          <div className="timeline-end bg-white">
-            {data.plan.persian_suggested_underwiring_start_date || 'وضعیت نامشخص'}
-          </div>
-          <hr />
-        </li>
-        <li>
-        <hr />
-          <div className="timeline-start bg-white">
-            {data.plan.persian_suggested_underwiring_start_date}
-          </div>
-          <div className="timeline-middle bg-white">
-            {data.plan.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
-          </div>
-          <div className="timeline-end timeline-box bg-white">تاریخ شروع جمع آوری وجوه</div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div className="timeline-start timeline-box bg-white">تاریخ پایان جمع آوری وجوه</div>
-          <div className="timeline-middle bg-white">
-            {data.plan.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
-          </div>
-          <div className="timeline-end bg-white">
-            {data.plan.persian_suggested_underwriting_end_date || 'وضعیت نامشخص'}
-          </div>
-          <hr />
-        </li>
-        <li>
-        <hr />
-          <div className="timeline-start bg-white">{data.plan.persian_project_start_date}</div>
-          <div className="timeline-middle bg-white">
-            {data.plan.project_status_id === 15 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
-          </div>
-          <div className="timeline-end timeline-box bg-white">تاریخ شروع اجرا طرح</div>
-          <hr />
-        </li>
-        <li>
-        <hr />
-          <div className="timeline-start timeline-box bg-white">تاریخ پایان اجرا طرح</div>
-          <div className="timeline-middle bg-white">
-            {data?.plan?.project_status_id === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
-          </div>
-          <div className="timeline-end bg-white">{data.plan.persian_project_end_date}</div>
+          <div className="timeline-end bg-white">{persianDateStart}</div>
           <hr />
         </li>
 
         {data?.date_profit?.map((profit, index) => (
           <li key={index}>
             <hr />
-            <div
-              className={`  ${
-                (index + 1) % 2 === 1 ? 'timeline-start' : ' timeline-end'
-              }`}
-            >
-              {profit?.date}
+            <div className={`  ${(index + 1) % 2 === 1 ? 'timeline-start' : ' timeline-end'}`}>
+              {profit?.date?.replace(/-/g, '/')}
             </div>
             <div className="timeline-middle bg-white">
               {profit?.type === '0' ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
             </div>
             <div
-            
               className={`timeline-box bg-white  ${
                 (index + 1) % 2 === 1 ? ' timeline-end' : ' timeline-start'
               }`}
             >
-              {profit?.type === '1' ? 'اصل پول' : 'پرداخت سود'}
+              {profit?.type === '1' ? 'بازپرداخت اصل پول' : 'پرداخت سود علی الحساب'}
             </div>
             <hr />
           </li>

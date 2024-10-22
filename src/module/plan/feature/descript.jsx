@@ -120,24 +120,25 @@ const Descript = () => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-4">
       <div className="text-center font-bold mb-4 text-xl">
-        <h>{data.plan.persian_name}</h>
+        <h1>{data.plan.persian_name}</h1>
       </div>
-      <div className="bg-gray-100 w-full mb-8 p-4 items-center justify-center flex  rounded-lg shadow-md">
+      <div className="bg-gray-100 w-full mb-8 p-4 items-center justify-center flex rounded-lg shadow-md">
         {picture && picture.picture ? (
           <img
             src={`${OnRun}/${picture.picture}`}
             alt="تصویر پروژه"
-            className="w-[700px]  h-82 rounded-lg mb-4 object-cover"
+            className="w-full max-w-[700px] h-auto sm:h-80 lg:h-auto rounded-lg mb-4 object-cover"
           />
         ) : (
           <img
             src="/public/img/nopic.jpg"
             alt="تصویر موجود نیست"
-            className="w-[700px] h-64 rounded-lg mb-4 object-cover"
+            className="w-full max-w-[700px] h-auto rounded-lg mb-4 object-cover"
           />
         )}
       </div>
-      <div className="flex justify-between">
+
+      <div className="flex flex-col lg:flex-row justify-between">
         <a
           href="https://cf.ifb.ir/home/viewproject"
           target="_blank"
@@ -146,7 +147,7 @@ const Descript = () => {
         >
           مشاهده در فرابورس <FiExternalLink className="ml-2" />
         </a>
-        <div className="mt-6 flex ">
+        <div className="mt-6 flex justify-center lg:justify-start">
           <CountdownTimer
             startDate={data.plan.suggested_underwriting_start_date}
             endDate={data.plan.suggested_underwriting_end_date}
@@ -169,7 +170,7 @@ const Descript = () => {
           />
         ))}
       </div>
-      <div className="mt-6  text-nowrap px-4 mb-8">
+      <div className="mt-6 px-4 mb-8">
         <ProgressLineChart
           target={100}
           progress={Math.round(
@@ -177,17 +178,18 @@ const Descript = () => {
           )}
           label="تامین شده"
         />
-       % {Math.round((data.information_complete.amount_collected_now / data.plan.total_price) * 100)}
-        <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4 ">
+        %{' '}
+        {Math.round((data.information_complete.amount_collected_now / data.plan.total_price) * 100)}
+        <p className="text-center flex justify-between text-sm font-semibold text-gray-900 mt-2 p-4">
           <span className="text-green-600">
             {formatNumber(data.plan.total_price ?? 0)} مبلغ مورد نیاز{' '}
           </span>
           <span className="text-gray-900">
-            {formatNumber(data.information_complete.amount_collected_now ?? 0)}ریال تامین شده
+            {formatNumber(data.information_complete.amount_collected_now ?? 0)} ریال تامین شده
           </span>
         </p>
       </div>
-      <h className="text-lg font-bold  mb-28 mt-8"> سرمایه گذاری حقیقی</h>
+      <h1 className="text-lg font-bold mb-8 mt-8">سرمایه گذاری حقیقی</h1>
       <ChartLimitInvest
         priceMin={data.plan.real_person_minimum_availabe_price}
         priceMax={data.plan.real_person_maximum_available_price}
@@ -195,14 +197,9 @@ const Descript = () => {
         total_price={data?.plan?.total_price}
       />
 
-      <Divider
-        sx={{
-          borderBottomWidth: 3,
-          marginY: 4,
-          backgroundColor: 'gray',
-        }}
-      />
-      <h className="text-lg font-bold  mb-8 mt-8"> سرمایه گذاری حقوقی</h>
+      <Divider sx={{ borderBottomWidth: 3, marginY: 4, backgroundColor: 'gray' }} />
+
+      <h1 className="text-lg font-bold mb-8 mt-8">سرمایه گذاری حقوقی</h1>
       <ChartLimitInvest
         priceMin={data.plan.legal_person_minimum_availabe_price}
         priceMax={data.plan.legal_person_maximum_availabe_price}
@@ -217,6 +214,8 @@ Field.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   label: PropTypes.string.isRequired,
   bold: PropTypes.bool,
+  hasBackground: PropTypes.bool,
+  icon: PropTypes.elementType,
 };
 
 export default Descript;

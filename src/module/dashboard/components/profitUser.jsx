@@ -43,8 +43,8 @@ const ProfitUser = ({ dashbord }) => {
                     className=" border-b text-gray-800  hover:bg-gray-200 dark:hover:bg-gray-200"
                   >
                     <td className="py-4 px-6">{item.amount.toLocaleString()}</td>
-                    <td className="py-4 px-6">{item.date}</td>
-                    <td className="py-4 px-6">{item.type === '1' ? 'اصل پول' : 'سود'}</td>
+                    <td className="py-4 px-6">{item?.date?.replace(/-/g, '/')}</td>
+                    <td className="py-4 px-6">{item.type === '1' ? 'باز پرداخت اصل پول ' : 'سود علی الحساب'}</td>
                     <td className="py-4 px-6">{item.plan}</td>
                   </motion.tr>
                 ))

@@ -35,7 +35,7 @@ const PaymentCalculate = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 overflow-y-auto max-h-[58vh] bg-transparent">
+    <div className="p-4 md:p-8 overflow-y-auto max-h-[72vh] bg-transparent">
       <p className="flex mb-10 text-center font-bold text-xl items-center justify-center">
         دارایی های شما{' '}
       </p>
@@ -57,10 +57,10 @@ const PaymentCalculate = () => {
             <div className="flex items-center gap-6">
               <div className="flex-1">
                 <p className="text-gray-700 font-semibold">
-                  مبلغ: <span className="text-blue-600">{formatNumber(item.amount)} تومان</span>
+                  مبلغ: <span className="text-blue-600">{formatNumber(item.value)}ریال</span>
                 </p>
                 <p className="text-gray-700 font-semibold">
-                  مقدار: <span className="text-blue-600">{formatNumber(item.value)}</span>
+                  مقدار: <span className="text-blue-600">{formatNumber(item.amount)}</span>
                 </p>
                 <p className="text-gray-700 font-semibold">
                   تاریخ: <span className="text-blue-600">{persianCreationDate}</span>

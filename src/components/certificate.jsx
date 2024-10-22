@@ -8,7 +8,6 @@ const Certificate = () => {
   const { traceCode } = useParams();
   const { data, mutate } = useCertificate(traceCode);
 
-  console.log(data);
 
   const handleClick = () => {
     mutate();

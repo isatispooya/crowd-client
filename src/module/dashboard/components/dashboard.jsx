@@ -21,52 +21,52 @@ const Dashboard = () => {
     {
       title: 'تعداد طرح ها',
       value: dashbord['all plan'],
-      icon: <InsertDriveFileIcon style={{ fontSize: '3rem' }} color="primary" />,
+      icon: <InsertDriveFileIcon style={{ fontSize: '2.5rem' }} color="primary" />,
     },
     {
       title: 'تعداد طرح های فعال',
       value: dashbord['active plan'],
-      icon: <AssignmentTurnedInIcon style={{ fontSize: '3rem' }} color="error" />,
+      icon: <AssignmentTurnedInIcon style={{ fontSize: '2.5rem' }} color="error" />,
     },
     {
       title: 'تعداد مشارکت فعال',
       value: dashbord['participant plan'],
-      icon: <PeopleIcon style={{ fontSize: '3rem' }} color="secondary" />,
+      icon: <PeopleIcon style={{ fontSize: '2.5rem' }} color="secondary" />,
     },
     {
       title: 'مبلغ مشارکت کاربر',
       value: formatNumber(dashbord['total value']),
-      icon: <MonetizationOnIcon style={{ fontSize: '3rem' }} color="success" />,
+      icon: <MonetizationOnIcon style={{ fontSize: '2.5rem' }} color="success" />,
     },
     {
       title: 'سود',
-      value: dashbord['all rate of return'] / 100,
-      icon: <TrendingUpIcon style={{ fontSize: '3rem' }} color="warning" />,
+      value: `${dashbord['all rate of return']}%`,
+      icon: <TrendingUpIcon style={{ fontSize: '2.5rem' }} color="warning" />,
     },
   ];
 
   return (
     <div className="container mx-auto px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-4">
         {DashCards.map((item, index) => (
           <motion.div
             key={index}
-            className="bg-white shadow-lg p-6 rounded-xl flex flex-col items-center justify-center h-64 hover:shadow-2xl transition-shadow duration-300"
+            className="relative bg-white shadow-md p-4 rounded-lg flex flex-col justify-center h-48 hover:shadow-xl transition-shadow duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <div className="mb-4">{item.icon}</div>
-            <h2 className="text-xl font-bold mb-2 text-gray-800">{item.title}</h2>
-            <p className="text-3xl font-semibold text-gray-700">{item.value}</p>
+            <div className="absolute top-2 right-2">{item.icon}</div>
+            <h2 className="text-lg font-semibold mb-1 text-gray-800 text-center">{item.title}</h2>
+            <p className="text-2xl font-medium text-gray-700 text-center">{item.value}</p>
           </motion.div>
         ))}
       </div>
 
       <motion.div
-        className="shadow-xl bg-gray-50 p-6 rounded-xl"
+        className="shadow-md bg-gray-50 p-4 rounded-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

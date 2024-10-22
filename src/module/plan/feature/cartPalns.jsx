@@ -12,7 +12,6 @@ const CartPlans = () => {
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
   
-  console.log(data , "123456789")
   useEffect(() => {
     if (!access) {
       navigate('/login');
@@ -42,7 +41,7 @@ const CartPlans = () => {
       </div>
       <div className="flex justify-center items-center  ">
         <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 overflow-y-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 lg:gap-10 justify-center text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4   justify-center text-right">
             {reversedPlans.length > 0 ? (
               reversedPlans.map((item) => {
                 const persianCreationDate = item.plan?.creation_date

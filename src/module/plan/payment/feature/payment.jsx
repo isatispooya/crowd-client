@@ -106,7 +106,7 @@ const Payment = () => {
       <ToastContainer />
       <h4 className="text-3xl text-center font-bold text-gray-900 mb-6">شروع سرمایه گذاری</h4>
       <p className="text-blue-800 text-lg font-semibold">
-        قیمت هر گواهی: <span>{formatNumber(data?.plan?.unit_price)}</span>
+        قیمت هر گواهی: <span>{formatNumber(data?.plan?.unit_price)} ریال</span>
       </p>
 
       <div className="flex flex-col w-full mb-4 px-8">
@@ -122,7 +122,7 @@ const Payment = () => {
 
       <div className="px-8">
         <p className="text-blue-800 text-lg font-semibold">
-          مبلغ کل : <span>{formatNumber(totalPrice)}</span>
+          مبلغ کل : <span>{formatNumber(totalPrice)}ریال</span>
         </p>
       </div>
 
@@ -144,10 +144,13 @@ const Payment = () => {
             </motion.button>
           ))}
         </div>
-        <h3 className="text-gray-800 mt-5 mb-4">شماره حساب: 6037697551928564</h3>
-        <h3 className="text-gray-800 mt-5 mb-4">شماره شبای حساب: IR470570300211515884588001</h3>
+
       </div>
 
+      <PayCheck handleSubmit={handleSubmit} />
+      <div className="mt-10">
+        <PaymentGateway handleDargah={handleDargah} />
+      </div>
       <div className="flex items-center gap-2 mt-6 px-8">
         <input
           type="checkbox"
@@ -159,10 +162,6 @@ const Payment = () => {
         <label htmlFor="show-name" className="text-gray-700 font-medium">
           اطلاعات شما برای دیگر کاربران قابل روئیت باشد؟
         </label>
-      </div>
-      <PayCheck handleSubmit={handleSubmit} />
-      <div className="mt-10">
-        <PaymentGateway handleDargah={handleDargah} />
       </div>
 
       {isPopupOpen && <AgreementPopup onAccept={handleAgreementAccept} />}

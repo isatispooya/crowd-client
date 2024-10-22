@@ -10,7 +10,6 @@ export const getCer = async (traceCode) => {
       'Content-Type': 'application/json',
     },
   });
-  console.log(response.data , "123456789")
   return response.data;
 };
 
