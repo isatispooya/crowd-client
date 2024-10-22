@@ -46,7 +46,7 @@ const CartPlan = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col gap-4  lg:h-[750px] p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
+      className={`flex flex-col gap-4   p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
         w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl ${
           isCompleted ? 'bg-gray-200' : 'bg-white'
         }`}
@@ -66,7 +66,7 @@ const CartPlan = ({
         </div>
       </div>
 
-      <div className="flex flex-col bg-gray-50 rounded-lg shadow-inner p-4">
+      <div className="flex flex-col bg-gray-50 rounded-lg h-80 shadow-inner p-4">
         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4">
           {persianName}
         </h2>
