@@ -5,13 +5,13 @@ import { setCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 import { useRouter } from 'src/routes/hooks';
 
-const useSubmitOtp = (registerd) => {
+const useSubmitOtp = () => {
   const router = useRouter();
 
   return useMutation({
     mutationKey: ['submitOtp'],
     mutationFn: async ({ nationalCode, otp }) => {
-      const url_ = registerd ? `${OnRun}/api/login/` : `${OnRun}/api/signup/`;
+      const url_ = `${OnRun}/api/login/`;
       const response = await api.post(url_, {
         uniqueIdentifier: nationalCode,
         otp,
@@ -20,11 +20,9 @@ const useSubmitOtp = (registerd) => {
     },
     onSuccess: (data) => {
       setCookie('access', data.access, 5);
-      if (registerd) {
-        router.push('/');
-      } else {
-        router.push('/ProfilePage');
-      }
+
+      router.push('/');
+
       toast.warning(data.message);
     },
     onError: (error) => {

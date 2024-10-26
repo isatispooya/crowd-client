@@ -15,7 +15,6 @@ import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import { Link } from '@mui/material';
-import ReferralCodeInput from './components/refferalView';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
@@ -28,15 +27,13 @@ export default function LoginView() {
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
   const [otp, setOtp] = useState('');
-  const [refferal, setRefferal] = useState('');
-  const [registerd, setRegisterd] = useState(false);
+
   const [isNoSejamModalOpen, setIsNoSejamModalOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
-  const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
+  const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp();
   const { timer, step, setStep, startTimer } = useTimer();
-  console.log(timer, '123456789098765432345678987654');
 
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
@@ -53,7 +50,6 @@ export default function LoginView() {
         },
         {
           onSuccess: (data) => {
-            setRegisterd(data.registered);
             setStep(2);
             startTimer();
           },
@@ -130,16 +126,7 @@ export default function LoginView() {
                   autoComplete="off"
                   fullWidth
                 />
-                {!registerd ? false : <Calling label="مشکلی در ارتباط دارید تماس صوتی" />}
-
-                {registerd ? (
-                  false
-                ) : (
-                  <ReferralCodeInput
-                    value={refferal}
-                    onChange={(e) => setRefferal(e.target.value)}
-                  />
-                )}
+                <Calling label="مشکلی در ارتباط دارید تماس صوتی" />
               </>
             )}
           </Stack>
