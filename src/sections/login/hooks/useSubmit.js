@@ -30,6 +30,7 @@ const useSubmitOtp = (registerd) => {
     onError: (error) => {
       console.error('خطا:', error);
       toast.error('خطا در ارسال درخواست به سرور.');
+      toast.error(error.response.data.message, 'خطا در دسترسی.');
     },
   });
 };

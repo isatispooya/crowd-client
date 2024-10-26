@@ -16,12 +16,11 @@ import useDargah from '../service/useDargah';
 const Payment = () => {
   const { traceCode } = useParams();
 
-  const { mutate: mutatepost, error, isError } = useDargah(traceCode);
+  const { mutate: mutatepost, error, isError, data: payment1 } = useDargah(traceCode);
 
   if (isError || error) {
     toast.error('تعداد گواهی مجاز هست');
   }
-  
 
   const {
     amount,
@@ -44,7 +43,14 @@ const Payment = () => {
 
   const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
 
-  const { mutate: mutateFish, errorpost, isError: errorFish } = usePayment(traceCode);
+  const {
+    mutate: mutateFish,
+    errorpost,
+    isError: errorFish,
+    data: payment2,
+  } = usePayment(traceCode);
+
+  console.log(payment1, payment2, 'paymnet');
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
@@ -144,7 +150,6 @@ const Payment = () => {
             </motion.button>
           ))}
         </div>
-
       </div>
 
       <PayCheck handleSubmit={handleSubmit} />

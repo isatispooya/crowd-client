@@ -75,7 +75,6 @@ export const getStep1 = async (cartId) => {
       },
     });
 
-
     return response;
   }
   return {
@@ -161,49 +160,39 @@ export const createCart = async (data, incrementPage) => {
   const formData = getFormData(data);
 
   const access = getCookie('access');
-  try {
-    const response = await api.post('/api/cart/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${access}`,
-      },
-      maxBodyLength: Infinity,
-    });
 
-    if ([200, 201].includes(response.status)) {
-      toast.success('اطلاعات با موفقیت ارسال شد.');
-      handlePageIncrement(incrementPage);
-    }
-    
-    return response;
-  } catch (error) {
+  const response = await api.post('/api/cart/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${access}`,
+    },
+    maxBodyLength: Infinity,
+  });
 
-    toast.error('خطا در ارسال اطلاعات.');
-    throw error;
+  if ([200, 201].includes(response.status)) {
+    toast.success('اطلاعات با موفقیت ارسال شد.');
+    handlePageIncrement(incrementPage);
   }
+
+  return response;
 };
 
 export const updateCart = async (data, incrementPage, cartId) => {
   const formData = getFormData(data);
   const access = await getCookie('access');
 
-  try {
-    const response = await api.patch(`/api/cart/detail/${cartId}/`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${access}`,
-      },
-      maxBodyLength: Infinity,
-    });
+  const response = await api.patch(`/api/cart/detail/${cartId}/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${access}`,
+    },
+    maxBodyLength: Infinity,
+  });
 
-    if ([200, 201].includes(response.status)) {
-      toast.success('اطلاعات با موفقیت ارسال شد.');
-      handlePageIncrement(incrementPage);
-    }
-
-    return response;
-  } catch (error) {
-    toast.info('لطفا نام شرکت را وارد کنید');
-    throw error;
+  if ([200, 201].includes(response.status)) {
+    toast.success('اطلاعات با موفقیت ارسال شد.');
+    handlePageIncrement(incrementPage);
   }
+
+  return response;
 };

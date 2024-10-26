@@ -36,6 +36,7 @@ export default function LoginView() {
   const { mutate: applyNationalCode } = useApplyNationalCode();
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp(registerd);
   const { timer, step, setStep, startTimer } = useTimer();
+  console.log(timer, '123456789098765432345678987654');
 
   const handleApplyNationalCode = () => {
     if (captchaInput.length === 0) {
@@ -58,6 +59,7 @@ export default function LoginView() {
           },
           onError: (error) => {
             if (error.response && error.response.data && error.response.data.message) {
+              toast.error(error.response.data.message, 'خطا در دسترسی');
               if (error.response.data.message.includes('شما سجامی نیستید')) {
                 setIsNoSejamModalOpen(true);
               }

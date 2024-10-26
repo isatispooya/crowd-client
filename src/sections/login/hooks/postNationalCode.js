@@ -20,8 +20,7 @@ const useApplyNationalCode = () => {
     },
     onError: (error) => {
       if (error.response) {
-        console.error('پاسخ خطا:', error.response.data);
-
+        toast.error(error.response.data.message, 'خطا در دسترسی.');
       } else {
         console.error('خطا بدون پاسخ:', error.message);
       }

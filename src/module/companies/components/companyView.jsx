@@ -20,6 +20,7 @@ export default function Form() {
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
+
   const mutation = useMutation({
     mutationKey: ['cart'],
     mutationFn: () => createCart(localData, incrementPage),
@@ -28,8 +29,22 @@ export default function Form() {
     },
   });
 
+  if (isError) {
+    toast.error('فرمت فایل ها نامعتبر هست');
+  }
+
   const mutationUpdate = useMutation({
-    mutationFn: () => updateCart(localData, incrementPage, cartId),
+    mutationFn: () => {
+      if (!localData.company_name) {
+        toast.error('نام شرکت نمی‌تواند خالی باشد');
+
+        return Promise.reject(new Error('Company name is empty'));
+      }
+      return updateCart(localData, incrementPage, cartId);
+    },
+    onError: () => {
+      toast.error(' لطفا  فایل معتبر آپلود کنید');
+    },
   });
 
   const [localData, setLocalData] = useState(() => data || {});
@@ -75,6 +90,7 @@ export default function Form() {
           <h1 className="text-2xl font-bold text-gray-700">پیوست اسناد</h1>
         </div>
         <CompanyUploads localData={localData} setLocalData={setLocalData} cartId={cartId} />
+        <p>تایپ های مجاز برای ارسال فایل :png ,jpg ,pdf ,rar ,jpeg ,docx ,xlsx ,csv ,xls , zip</p>
       </div>
 
       <div className="flex justify-center mt-8">

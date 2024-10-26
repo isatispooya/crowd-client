@@ -1,11 +1,19 @@
 import { Stack, ListItemButton, alpha, Box } from '@mui/material';
 import SvgColor from 'src/services/svg-color';
+import useExist from 'src/hooks/useLogOut';
 import useAuth from '../service/useAuth';
 import navConfig from '../config/config-navigation';
 import NavItem from './navItem';
 
 const Menu = () => {
   const { logout } = useAuth();
+  const { mutate, data } = useExist();
+  console.log(data, '123456789');
+
+  const handleLogOut = () => {
+    logout();
+    mutate();
+  };
 
   return (
     <Stack component="nav" spacing={0.5} sx={{ px: 2, backgroundColor: '#ffffff' }}>
@@ -13,7 +21,7 @@ const Menu = () => {
         <NavItem sx={{ px: 2, backgroundColor: '#ffffff' }} key={item.title} item={item} />
       ))}
       <ListItemButton
-        onClick={() => logout()}
+        onClick={() => handleLogOut()}
         sx={{
           backgroundColor: '#ffffff',
           minHeight: 44,
