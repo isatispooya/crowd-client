@@ -53,12 +53,12 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <Grid container spacing={2} justifyContent="center" sx={{  mb: 4 }}>
+      <Grid container spacing={2} justifyContent="left" sx={{  mb: 4 }}>
         {DashCards.map((item, index) => {
           const IconComponent = item.icon;
 
           return (
-            <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={4} key={index}>
               <Card
                 sx={{
                   p: 2,
