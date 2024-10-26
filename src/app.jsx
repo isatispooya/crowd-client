@@ -3,7 +3,7 @@
 /* eslint-disable unused-imports/no-unused-imports */
 
 import { createTheme } from '@mui/material/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ThemeProvider from 'src/theme';
 import { CacheProvider } from '@emotion/react';
@@ -23,6 +23,12 @@ export default function App() {
     key: 'muirtl',
     stylisPlugins: [prefixer, rtlPlugin],
   });
+
+  useEffect(() => {
+    if (window.self !== window.top) {
+      window.top.location = window.self.location;
+    }
+  }, []);
 
   return (
     <CacheProvider value={cacheRtl}>

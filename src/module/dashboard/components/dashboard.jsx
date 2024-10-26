@@ -7,6 +7,7 @@ import Loader from 'src/components/loader';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { Card, Grid, Box, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import useGetDashbord from './service/use-getDashbord';
 import ProfitUser from './profitUser';
 
@@ -92,7 +93,7 @@ const Dashboard = () => {
                     {item.title}
                   </Typography>
                 </Box>
-
+                <motion.div whileHover={{ rotate: 20 }} transition={{ duration: 0.5 }}>
                 <Box
                   sx={{
                     width: 60,
@@ -106,6 +107,7 @@ const Dashboard = () => {
                 >
                   <IconComponent style={{ fontSize: '2.5rem' }} />
                 </Box>
+                </motion.div>
               </Card>
             </Grid>
           );
