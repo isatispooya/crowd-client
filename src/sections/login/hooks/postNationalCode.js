@@ -12,6 +12,8 @@ const useApplyNationalCode = () => {
         captcha: captchaInput,
         encrypted_response: encryptedResponse,
       });
+   
+
       return response.data;
     },
     onSuccess: (data) => {
@@ -19,6 +21,9 @@ const useApplyNationalCode = () => {
       return data;
     },
     onError: (error) => {
+      if (error.response.data.error) {
+        toast.error(error.response.data.error);
+      }
       if (error.response) {
         toast.error(error.response.data.message, 'خطا در دسترسی.');
       } else {
