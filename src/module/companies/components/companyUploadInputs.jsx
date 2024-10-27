@@ -51,7 +51,7 @@ const CompanyUploads = ({ localData, setLocalData }) => {
           )}
         </div>
 
-        {/* Card for 1401 Reports */}
+   
         <div className="bg-white p-6">
           <h2 className="text-center text-gray-700 text-xl font-bold mb-6 border-b pb-4">
             گزارشات و مستندات منتهی به سال 1401
@@ -88,7 +88,6 @@ const CompanyUploads = ({ localData, setLocalData }) => {
           )}
         </div>
 
-        {/* Card for Up-to-Date Reports */}
         <div className="bg-white p-6">
           <h2 className="text-center text-gray-700 text-xl font-bold mb-6 border-b pb-4">
             گزارشات و مستندات به روز
@@ -105,7 +104,7 @@ const CompanyUploads = ({ localData, setLocalData }) => {
           )}
         </div>
 
-        {/* Company Logo */}
+   
         <div className="bg-white p-6">
           <h2 className="text-center text-gray-700 text-xl font-bold mb-6 border-b pb-4">
             لوگوی شرکت
