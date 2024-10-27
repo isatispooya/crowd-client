@@ -1,8 +1,20 @@
-export function setCookie(cname, cvalue, exdays) {
+export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/`;
+
+  let cookieName = cname;
+  if (isHostPrefix) {
+    cookieName = `__Host-${cname}`;
+  } else if (window.location.protocol === 'https:') {
+    cookieName = `__Secure-${cname}`;
+  }
+
+  const secureFlag = window.location.protocol === 'https:' ? ';Secure' : '';
+  const sameSiteFlag = ';SameSite=Strict';
+  const pathFlag = ';Path=/';
+
+  document.cookie = `${cookieName}=${cvalue};${expires}${pathFlag}${secureFlag}${sameSiteFlag}`;
 }
 
 export function getCookie(cname) {

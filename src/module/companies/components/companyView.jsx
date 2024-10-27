@@ -20,7 +20,7 @@ export default function Form() {
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
-  
+
   const mutation = useMutation({
     mutationFn: () => createCart(localData, incrementPage),
     mutationKey: ['cart'],

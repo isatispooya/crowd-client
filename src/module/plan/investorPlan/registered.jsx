@@ -28,11 +28,8 @@ const Registere = () => {
               <th className="px-4 py-2">نام</th>
               <th className="px-4 py-2">نام خانوادگی</th>
               <th className="px-4 py-2">نام شرکت</th>
-              <th className="px-4 py-2">کد ملی</th>
               <th className="px-4 py-2">نماینده</th>
               <th className="px-4 py-2">سمت</th>
-              <th className="px-4 py-2">شماره موبایل</th>
-              <th className="px-4 py-2">ایمیل</th>
             </tr>
           </thead>
           <tbody>
@@ -41,11 +38,8 @@ const Registere = () => {
                 <td className="px-4 py-2">{item?.first_name}</td>
                 <td className="px-4 py-2">{item?.last_name}</td>
                 <td className="px-4 py-2">{item?.company_name}</td>
-                <td className="px-4 py-2">{item?.national_id}</td>
                 <td className="px-4 py-2">{item?.is_agent_from_company ? 'نماینده شرکت' : 'شخصی'}</td>
                 <td className="px-4 py-2">{item?.organization_post_description}</td>
-                <td className="px-4 py-2">{item?.mobile_number}</td>
-                <td className="px-4 py-2">{item?.email_address}</td>
               </tr>
             ))}
           </tbody>

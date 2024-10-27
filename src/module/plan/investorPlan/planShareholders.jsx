@@ -30,7 +30,6 @@ const PlanShareholders = () => {
               <th className="px-6 py-3">نام شخص/نام شرکت</th>
               <th className="px-6 py-3">نام خانوادگی/مدیر عامل</th>
               <th className="px-6 py-3">درصد سهام</th>
-              <th className="px-6 py-3">کد ملی</th>
               <th className="px-6 py-3">نوع سهام</th>
             </tr>
           </thead>
@@ -43,9 +42,12 @@ const PlanShareholders = () => {
                 <td className="px-6 py-4">{item?.first_name}</td>
                 <td className="px-6 py-4">{item?.last_name}</td>
                 <td className="px-6 py-4">%{item?.share_percent}</td>
-                <td className="px-6 py-4">{item?.national_id}</td>
                 <td className="px-6 py-4">
-                  {item?.shareholder_type === 2 ? 'حقوقی' : item?.shareholder_type === 1 ? 'حقیقی' : 'نامشخص'}
+                  {item?.shareholder_type === 2
+                    ? 'حقوقی'
+                    : item?.shareholder_type === 1
+                    ? 'حقیقی'
+                    : 'نامشخص'}
                 </td>
               </tr>
             ))}
@@ -57,11 +59,26 @@ const PlanShareholders = () => {
       <div className="block sm:hidden space-y-4">
         {shareholders.map((item, index) => (
           <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-md">
-            <p><strong>نام:</strong> {item?.first_name}</p>
-            <p><strong>نام خانوادگی:</strong> {item?.last_name}</p>
-            <p><strong>درصد سهام:</strong> %{item?.share_percent}</p>
-            <p><strong>کد ملی:</strong> {item?.national_id}</p>
-            <p><strong>نوع سهام:</strong> {item?.shareholder_type === 2 ? 'حقوقی' : item?.shareholder_type === 1 ? 'حقیقی' : 'نامشخص'}</p>
+            <p>
+              <strong>نام:</strong> {item?.first_name}
+            </p>
+            <p>
+              <strong>نام خانوادگی:</strong> {item?.last_name}
+            </p>
+            <p>
+              <strong>درصد سهام:</strong> %{item?.share_percent}
+            </p>
+            <p>
+              <strong>کد ملی:</strong> {item?.national_id}
+            </p>
+            <p>
+              <strong>نوع سهام:</strong>{' '}
+              {item?.shareholder_type === 2
+                ? 'حقوقی'
+                : item?.shareholder_type === 1
+                ? 'حقیقی'
+                : 'نامشخص'}
+            </p>
           </div>
         ))}
       </div>

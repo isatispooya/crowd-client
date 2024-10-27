@@ -11,7 +11,7 @@ const CartPlans = () => {
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
-  
+
   useEffect(() => {
     if (!access) {
       navigate('/login');
@@ -29,8 +29,9 @@ const CartPlans = () => {
         )
       : data;
 
-  const reversedPlans = filteredPlans.slice().reverse();
-
+      
+      const reversedPlans = filteredPlans.slice().reverse();
+      
   return (
     <>
       <div className="bg-gray-200  text-white rounded-t-md p-2 md:p-4 lg:p-6 text-center ">
@@ -44,6 +45,7 @@ const CartPlans = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4   justify-center text-right">
             {reversedPlans.length > 0 ? (
               reversedPlans.map((item) => {
+                
                 const persianCreationDate = item.plan?.creation_date
                   ? moment(item.plan?.creation_date).locale('fa').format('YYYY/MM/DD')
                   : 'تاریخ نامعتبر';

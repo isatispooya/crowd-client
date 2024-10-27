@@ -10,6 +10,9 @@ export const getPlan = async (trace_code) => {
       'Content-Type': 'application/json',
     },
   });
+
+  console.log(response.data);
+  
   return response.data;
 };
 

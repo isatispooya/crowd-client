@@ -6,12 +6,10 @@ import navConfig from '../config/config-navigation';
 import NavItem from './navItem';
 
 const Menu = () => {
-  const { logout } = useAuth();
   const { mutate, data } = useExist();
   console.log(data, '123456789');
 
   const handleLogOut = () => {
-    logout();
     mutate();
   };
 
