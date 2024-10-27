@@ -50,7 +50,6 @@ const Payment = () => {
     data: payment2,
   } = usePayment(traceCode);
 
-  console.log(payment1, payment2, 'paymnet');
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);

@@ -27,16 +27,8 @@ const useExist = () => {
   const { mutate, isLoading, isError, data, error } = useMutation({
     mutationFn: LogOut,
     mutationKey: ['exist'],
-    onSuccess: (id) => {
-      console.log('Logout successful:', id);
-    },
-    onError: (err) => {
-      console.error('Logout failed:', err);
-    },
     onSettled: () => {
       logout();
-
-      console.log('Logout mutation settled');
     },
   });
 

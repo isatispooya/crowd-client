@@ -1,13 +1,11 @@
 import { Stack, ListItemButton, alpha, Box } from '@mui/material';
 import SvgColor from 'src/services/svg-color';
 import useExist from 'src/hooks/useLogOut';
-import useAuth from '../service/useAuth';
 import navConfig from '../config/config-navigation';
 import NavItem from './navItem';
 
 const Menu = () => {
-  const { mutate, data } = useExist();
-  console.log(data, '123456789');
+  const { mutate } = useExist();
 
   const handleLogOut = () => {
     mutate();

@@ -11,8 +11,6 @@ const Roadmap = () => {
   const { data, isLoading } = useGetPlan(traceCode);
   const persianDateStart = moment(data.date_start).format('jYYYY/jMM/jDD');
 
-  console.log('roub', data);
-
   if (isLoading) {
     return <SmallLoader />;
   }
