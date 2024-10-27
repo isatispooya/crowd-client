@@ -44,7 +44,7 @@ const Other = () => {
     licenses: null,
   });
 
-  const { isLoading, data} = useFetchData(cartId);
+  const { isLoading, data } = useFetchData(cartId);
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
@@ -57,7 +57,6 @@ const Other = () => {
   if (isLoading) {
     return <Loader />;
   }
- 
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -93,6 +92,9 @@ const Other = () => {
           <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-700"> پیوست موارد دیگر</h1>
           </div>
+          <p className="mt-4 mb-4">
+            تایپ های مجاز برای ارسال فایل :png ,jpg ,pdf ,rar ,jpeg ,docx ,xlsx ,csv ,xls , zip
+          </p>
           <Inputs Data={Data} setData={setData} />
 
           <div className="flex flex-col justify-center items-center mt-10">

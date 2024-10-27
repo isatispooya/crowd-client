@@ -73,7 +73,6 @@ const Attachement = () => {
 
   const { data: finishCart, isLoading: loader } = useFinishCart(cartId);
 
-
   const isDisabled = loader || finishCart?.cart?.finish_cart === true;
 
   useEffect(() => {
@@ -94,6 +93,9 @@ const Attachement = () => {
           </div>
         ))}
       </div>
+      <p className="mt-4">
+        تایپ های مجاز برای ارسال فایل :png ,jpg ,pdf ,rar ,jpeg ,docx ,xlsx ,csv ,xls , zip
+      </p>
       <div className="flex flex-col justify-center items-center mt-10">
         <button
           onClick={handleSubmit}
