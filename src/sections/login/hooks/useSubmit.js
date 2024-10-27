@@ -21,7 +21,7 @@ const useSubmitOtp = () => {
     onSuccess: (data) => {
       setCookie('access', data.access, 5);
 
-      router.push('/');
+      router.push('/ProfilePage');
 
       toast.warning(data.message);
     },
