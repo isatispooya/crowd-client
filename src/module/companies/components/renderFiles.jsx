@@ -2,7 +2,8 @@ import { BsCloudUploadFill } from 'react-icons/bs';
 import { OnRun } from 'src/api/OnRun';
 import { handleFileRemove } from '../utils/removeUploadFiles';
 
-export const renderFileSection = (fileKey, label, linkText, localData, setLocalData) => (
+export const renderFileSection = (fileKey, label, linkText, localData, setLocalData) => (+
+  
   <div className="mb-6">
     <label
       htmlFor={`uploadfile_${fileKey}`}
