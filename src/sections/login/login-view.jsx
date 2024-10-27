@@ -18,7 +18,6 @@ import { Link } from '@mui/material';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
-import Calling from './components/callingRigester';
 import useTimer from './hooks/useTimer';
 import NoSejamModal from './components/nosejam';
 
@@ -118,16 +117,13 @@ export default function LoginView() {
                 <Box sx={{ mb: 3 }} />
               </>
             ) : (
-              <>
-                <TextField
+              <TextField
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                   label="کد تایید"
                   autoComplete="off"
                   fullWidth
                 />
-                <Calling label="مشکلی در ارتباط دارید تماس صوتی" />
-              </>
             )}
           </Stack>
 
