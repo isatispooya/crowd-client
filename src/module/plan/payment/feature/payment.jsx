@@ -16,7 +16,7 @@ import useDargah from '../service/useDargah';
 const Payment = () => {
   const { traceCode } = useParams();
 
-  const { mutate: mutatepost, error, isError, data: payment1 } = useDargah(traceCode);
+  const { mutate: mutatepost, error, isError } = useDargah(traceCode);
 
   if (isError || error) {
     toast.error('تعداد گواهی مجاز هست');
@@ -47,9 +47,7 @@ const Payment = () => {
     mutate: mutateFish,
     errorpost,
     isError: errorFish,
-    data: payment2,
   } = usePayment(traceCode);
-
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
