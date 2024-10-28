@@ -55,6 +55,7 @@ const Fildemnager = ({ index, field, setField }) => {
             <input
               type="text"
               name="name"
+              autoComplete="off"
               disabled={field[index].lock}
               value={field[index].name}
               onChange={(e) => handleChange('name', e.target.value)}
@@ -118,6 +119,7 @@ const Fildemnager = ({ index, field, setField }) => {
             <input
               type="text"
               name="national_code"
+              autoComplete="off"
               value={field[index].national_code}
               onChange={(e) => handleChange('national_code', e.target.value)}
               maxLength={10}
@@ -136,6 +138,7 @@ const Fildemnager = ({ index, field, setField }) => {
                 <input
                   type="text"
                   value={field[index].national_id}
+                  autoComplete="off"
                   onChange={(e) => handleChange('national_id', e.target.value)}
                   onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ''))}
                   name="national_id"
@@ -150,6 +153,7 @@ const Fildemnager = ({ index, field, setField }) => {
                 <input
                   type="text"
                   value={field[index].representative}
+                  autoComplete="off"
                   onChange={(e) => handleChange('representative', e.target.value)}
                   name="representative"
                   className="block w-full border bg-white rounded-lg py-2 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
