@@ -60,7 +60,7 @@ const Payment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (amount < 1000) {
+    if (amount < 1) {
       alert('حداقل گواهی مشارکت باید 1000 عدد باشد.');
       return;
     }
