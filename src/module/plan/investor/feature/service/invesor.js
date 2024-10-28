@@ -12,3 +12,4 @@ export const getInvestor = async (traceCode) => {
 
   return response.data;
 };
+

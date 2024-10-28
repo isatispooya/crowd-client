@@ -4,22 +4,34 @@ export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   const expires = `expires=${d.toUTCString()}`;
 
   let cookieName = cname;
-  if (isHostPrefix) {
+  const isHttps = window.location.protocol === 'https:';
+  if (isHostPrefix && isHttps) {
     cookieName = `__Host-${cname}`;
-  } else if (window.location.protocol === 'https:') {
+  } else if (isHttps) {
     cookieName = `__Secure-${cname}`;
   }
 
-  const secureFlag = window.location.protocol === 'https:' ? ';Secure' : '';
-  const sameSiteFlag = ';SameSite=Strict';
+  const secureFlag = isHttps ? ';Secure' : '';
+  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax'; // تست با None در HTTPS
   const pathFlag = ';Path=/';
 
   document.cookie = `${cookieName}=${cvalue};${expires}${pathFlag}${secureFlag}${sameSiteFlag}`;
 }
 
-export function getCookie(cname) {
-  const name = `${cname}=`;
+
+export function getCookie(cname, isHostPrefix = false) {
+  const isHttps = window.location.protocol === 'https:';
+  let cookieName = cname;
+
+  if (isHostPrefix && isHttps) {
+    cookieName = `__Host-${cname}`;
+  } else if (isHttps) {
+    cookieName = `__Secure-${cname}`;
+  }
+
+  const name = `${cookieName}=`;
   const ca = document.cookie.split(';');
+
   for (let i = 0; i < ca.length; i += 1) {
     let c = ca[i];
     while (c.charAt(0) === ' ') {

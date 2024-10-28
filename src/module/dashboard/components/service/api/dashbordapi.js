@@ -9,6 +9,6 @@ export const getDashbord = async () => {
       'Content-Type': 'application/json',
     },
   });
-  console.log("dashbord",access)
+
   return response.data;
 };
