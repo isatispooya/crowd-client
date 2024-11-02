@@ -19,7 +19,7 @@ const useSubmitOtp = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      setCookie('access', data.access, 5);
+      setCookie('access', data.access, 1);
 
       router.push('/ProfilePage');
 

@@ -1,6 +1,6 @@
 export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  d.setTime(d.getTime() + exdays * 15 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
 
   let cookieName = cname;
@@ -12,7 +12,7 @@ export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   }
 
   const secureFlag = isHttps ? ';Secure' : '';
-  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax'; // تست با None در HTTPS
+  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax';
   const pathFlag = ';Path=/';
 
   document.cookie = `${cookieName}=${cvalue};${expires}${pathFlag}${secureFlag}${sameSiteFlag}`;
