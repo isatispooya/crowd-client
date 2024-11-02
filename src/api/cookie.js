@@ -12,7 +12,8 @@ export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   }
 
   const secureFlag = isHttps ? ';Secure' : '';
-  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax';
+  // const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax';
+  const sameSiteFlag = ';SameSite=Lax';
   const pathFlag = ';Path=/';
 
   document.cookie = `${cookieName}=${cvalue};${expires}${pathFlag}${secureFlag}${sameSiteFlag}`;
