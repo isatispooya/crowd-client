@@ -18,9 +18,9 @@ const CardList = ({ setCardSelected }) => {
 
   const { data: cards = [], isLoading, error } = useFetchCards(access);
 
-  const handleCardClick = (id, status) => {
+  const handleCardClick = (unique_id, status) => {
     incrementPage();
-    setCartId(+id);
+    setCartId(unique_id);
     setCardSelected(true);
   };
 
@@ -44,18 +44,20 @@ const CardList = ({ setCardSelected }) => {
             {cards.length > 0 ? (
               cards.map((card) => (
                 <div
-                  key={card.id}
+                  key={card.unique_id}
                   className={`bg-white shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[240px] max-w-[320px] h-[350px] ${
                     cardId === card.id ? 'border-4 border-blue-600' : ''
                   }`}
-                  onClick={() => handleCardClick(card.id, card.status)}
+                  onClick={() => handleCardClick(card.unique_id, card.status)}
                   onKeyPress={handleKeyPress}
                   tabIndex={0}
                   role="button"
                   aria-label={`View card ${card.company_name}`}
                 >
                   <div className="flex flex-col items-center flex-grow space-y-4">
-                    <h2 className="text-lg sm:text-2xl font-bold text-gray-800">{card.company_name}</h2>
+                    <h2 className="text-lg sm:text-2xl font-bold text-gray-800">
+                      {card.company_name}
+                    </h2>
                     <div className="flex flex-col justify-center items-center space-y-4">
                       <p className="text-sm sm:text-lg font-medium text-black">
                         شناسه:
