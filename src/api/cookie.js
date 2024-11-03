@@ -12,7 +12,7 @@ export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   }
 
   const secureFlag = isHttps ? ';Secure' : '';
-  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax'; // تست با None در HTTPS
+  const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax';
   const pathFlag = ';Path=/';
 
   document.cookie = `${cookieName}=${cvalue};${expires}${pathFlag}${secureFlag}${sameSiteFlag}`;

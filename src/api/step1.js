@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import api from './apiClient';
 import { getCookie } from './cookie';
 
-// تابع برای ایجاد فرم دیتا
 const getFormData = (data) => {
   const formData = new FormData();
 
@@ -77,6 +76,7 @@ export const getStep1 = async (cartId) => {
 
     return response;
   }
+
   return {
     data: {
       cart: {
@@ -156,6 +156,7 @@ export const getStep1 = async (cartId) => {
     },
   };
 };
+
 export const createCart = async (data, incrementPage) => {
   const formData = getFormData(data);
 
@@ -173,7 +174,7 @@ export const createCart = async (data, incrementPage) => {
     toast.success('اطلاعات با موفقیت ارسال شد.');
     handlePageIncrement(incrementPage);
   }
-
+  console.log(response);
   return response;
 };
 

@@ -17,7 +17,6 @@ const FormContract = () => {
   const handleSubmit = () => {
     mutate(contractData);
     toast.success('اطلاعات با موفقیت بارگزاری شد');
-    
   };
 
   const periodOptions = [{ type: '1', title: '3ماهه' }];
@@ -37,7 +36,7 @@ const FormContract = () => {
     {
       label:
         'متقاضی متعهد است، پیش از انتشار کمپین نسبت به واریز حداقل 10 درصد از سرمایه مورد نیاز اقدام نماید.',
-        toggleKey: 'minimum_deposit_10',
+      toggleKey: 'minimum_deposit_10',
     },
   ];
 

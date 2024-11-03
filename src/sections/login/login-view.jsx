@@ -81,6 +81,7 @@ export default function LoginView() {
         otp,
       });
     }
+    refreshCaptcha();
   };
 
   const renderForm = (
@@ -118,12 +119,12 @@ export default function LoginView() {
               </>
             ) : (
               <TextField
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  label="کد تایید"
-                  autoComplete="off"
-                  fullWidth
-                />
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                label="کد تایید"
+                autoComplete="off"
+                fullWidth
+              />
             )}
           </Stack>
 

@@ -13,19 +13,17 @@ import { Message } from '../../../components/massage';
 
 export default function Form() {
   const { cartId, setCartId } = useCartId();
-
   const { incrementPage } = useNavigateStep();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['cartDetail', cartId],
     queryFn: () => getStep1(cartId),
   });
-
   const mutation = useMutation({
     mutationFn: () => createCart(localData, incrementPage),
     mutationKey: ['cart'],
     onSuccess: (value) => {
-      setCartId(value.data.id);
+      setCartId(value.data.unique_id);
     },
   });
 
