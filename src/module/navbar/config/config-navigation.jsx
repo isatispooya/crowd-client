@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import SvgColor from 'src/services/svg-color';
-import { MdDashboard } from 'react-icons/md';
+
 import { GoProjectRoadmap } from 'react-icons/go';
-import { PiCertificateFill } from "react-icons/pi";
+import { PiCertificateFill } from 'react-icons/pi';
+import { MdModelTraining, MdDashboard } from 'react-icons/md';
 
 const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
@@ -19,7 +20,6 @@ const navConfig = [
     path: '/ProfilePage',
     icon: icon('ic_blog'),
   },
-
   {
     title: 'ایجاد و پیگیری طرح',
     path: '/card',
@@ -34,6 +34,11 @@ const navConfig = [
     title: 'گواهی مشارکت',
     path: '/certificate',
     icon: <PiCertificateFill className="text-2xl" />,
+  },
+  {
+    title: 'آموزش',
+    path: '/training',
+    icon: <MdModelTraining className="text-2xl" />,
   },
 ];
 

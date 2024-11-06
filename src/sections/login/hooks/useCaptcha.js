@@ -11,7 +11,7 @@ const useCaptcha = () => {
     queryKey: ['captcha'],
     queryFn: getCaptcha,
     refetchOnMount: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: true, 
     retry: 3,
     retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 30000),
     onError: (error) => {

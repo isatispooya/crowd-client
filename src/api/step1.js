@@ -174,7 +174,7 @@ export const createCart = async (data, incrementPage) => {
     toast.success('اطلاعات با موفقیت ارسال شد.');
     handlePageIncrement(incrementPage);
   }
-  console.log(response);
+
   return response;
 };
 

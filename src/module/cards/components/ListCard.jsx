@@ -46,7 +46,7 @@ const CardList = ({ setCardSelected }) => {
                 <div
                   key={card.unique_id}
                   className={`bg-white shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col justify-between items-center cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 min-w-[240px] max-w-[320px] h-[350px] ${
-                    cardId === card.id ? 'border-4 border-blue-600' : ''
+                    cardId === card.unique_id ? 'border-4 border-blue-600' : ''
                   }`}
                   onClick={() => handleCardClick(card.unique_id, card.status)}
                   onKeyPress={handleKeyPress}

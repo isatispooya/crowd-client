@@ -5,6 +5,7 @@ import { getCookie } from '../../../api/cookie';
 
 const getFormData = (data) => {
   const formData = new FormData();
+
   const fields = [
     'company_name',
     'activity_industry',
@@ -179,12 +180,10 @@ export const updateCart = async (data, handleNext, cartId) => {
       },
       maxBodyLength: Infinity,
     });
-
     if ([200, 201].includes(response.status)) {
       toast.success('اطلاعات با موفقیت ارسال شد.');
       handleNext();
     }
-
     return response;
   } catch (error) {
     toast.error('خطا در به‌روزرسانی اطلاعات.');
