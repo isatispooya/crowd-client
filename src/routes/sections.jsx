@@ -20,6 +20,7 @@ export const Plan = lazy(() => import('src/module/plan/page/plan'));
 export const CertificateSideBar = lazy(() => import('src/module/certificateSideBar/cerSideBar')); //
 export const Sterpercrowd = lazy(() => import('src/components/stepper'));
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
+export const TrainingPage = lazy(() => import('src/module/train/training'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -41,6 +42,7 @@ export default function Router() {
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
+        { path: 'training', element: <TrainingPage /> },
       ],
     },
 
