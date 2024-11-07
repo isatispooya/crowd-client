@@ -21,6 +21,7 @@ export const CertificateSideBar = lazy(() => import('src/module/certificateSideB
 export const Sterpercrowd = lazy(() => import('src/components/stepper'));
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
 export const TrainingPage = lazy(() => import('src/module/train/training'));
+export const admin = lazy(() => import('src/module/anonymous/admin'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -63,6 +64,10 @@ export default function Router() {
     {
       path: '*',
       element: <Navigate to="/404" replace />,
+    },
+    {
+      path: '/admin',
+      element: <adminAccess />,
     },
   ]);
 

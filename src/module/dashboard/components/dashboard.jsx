@@ -23,37 +23,37 @@ const Dashboard = () => {
       title: 'تعداد طرح ها',
       value: dashbord['all plan'],
       icon: InsertDriveFileIcon,
-      color: '#4a90e2', // Soft blue
+      color: '#4a90e2',
     },
     {
       title: 'تعداد طرح های فعال',
       value: dashbord['active plan'],
       icon: AssignmentTurnedInIcon,
-      color: '#e74c3c', // Soft red
+      color: '#e74c3c',
     },
     {
       title: 'تعداد مشارکت فعال',
       value: dashbord['participant plan'],
       icon: PeopleIcon,
-      color: '#27ae60', // Soft green
+      color: '#27ae60',
     },
     {
       title: 'مبلغ مشارکت کاربر',
       value: formatNumber(dashbord['total value']),
       icon: MonetizationOnIcon,
-      color: '#2980b9', // Soft blue
+      color: '#2980b9',
     },
     {
       title: 'سود',
-      value: `${dashbord['all rate of return']}%`,
+      value: `${dashbord['all rate of return']}ریال`,
       icon: TrendingUpIcon,
-      color: '#f39c12', // Soft orange
+      color: '#f39c12',
     },
   ];
 
   return (
     <div className="container mx-auto px-4">
-      <Grid container spacing={2} justifyContent="left" sx={{  mb: 4 }}>
+      <Grid container spacing={2} justifyContent="left" sx={{ mb: 4 }}>
         {DashCards.map((item, index) => {
           const IconComponent = item.icon;
 
@@ -80,12 +80,15 @@ const Dashboard = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    width: '240px', // عرض مشخص برای آیکون
-                    height: '120px', // ارتفاع مشخص برای آیکون
+                    width: '240px',
+                    height: '120px',
                     flexGrow: 1,
                   }}
                 >
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '4px', color: item.color }}>
+                  <Typography
+                    variant="h5"
+                    sx={{ fontWeight: 'bold', marginBottom: '4px', color: item.color }}
+                  >
                     {item.value}
                   </Typography>
 
@@ -94,19 +97,19 @@ const Dashboard = () => {
                   </Typography>
                 </Box>
                 <motion.div whileHover={{ rotate: 20 }} transition={{ duration: 0.5 }}>
-                <Box
-                  sx={{
-                    width: 60,
-                    height: 60,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: item.color,
-                    transition: 'none', 
-                  }}
-                >
-                  <IconComponent style={{ fontSize: '2.5rem' }} />
-                </Box>
+                  <Box
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: item.color,
+                      transition: 'none',
+                    }}
+                  >
+                    <IconComponent style={{ fontSize: '2.5rem' }} />
+                  </Box>
                 </motion.div>
               </Card>
             </Grid>

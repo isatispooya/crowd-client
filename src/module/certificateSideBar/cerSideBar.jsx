@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
 import useCer from './useGetCerSidebar';
 import useCerti from './usePostCerSideBar';
+import imgs from './overlay_3.jpg';
 
 const CertificateSideBar = () => {
   const { data } = useCer();
@@ -22,24 +23,26 @@ const CertificateSideBar = () => {
       {data.map((item, index) => (
         <motion.div
           key={index}
-          className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-300 text-black shadow-lg rounded-2xl hover:shadow-2xl transition-all duration-300"
+          className="w-full md:w-1/2 lg:w-1/3 p-6 relative bg-gray-300 text-black shadow-lg rounded-2xl overflow-hidden transition-all duration-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <h2 className="text-xl font-bold mb-4">{item.persian_name}</h2>
-          <p className="text-black text-opacity-90 mb-2">
-            تاریخ شروع: {item.persian_approved_underwriting_start_date}
-          </p>
-          <p className="text-black text-opacity-90 mb-4">
-            تاریخ پایان: {item.persian_approved_underwriting_end_date}
-          </p>
-          <button
-            type="button"
-            onClick={() => mutate(item.trace_code)}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
-          >
-            دانلود گواهی
-          </button>
+          <img
+            src={imgs}
+            alt="dsssss"
+            className="absolute inset-0 w-full h-full object-cover opacity-70"
+          />
+
+          <div className="relative z-10 p-4">
+            <h2 className="text-xl font-bold mb-4 text-white">{item.persian_name}</h2>
+            <motion.button
+              type="button"
+              onClick={() => mutate(item.trace_code)}
+              className="absolute inset-0 flex items-center justify-center text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity"
+            >
+              دانلود
+            </motion.button>
+          </div>
         </motion.div>
       ))}
     </div>

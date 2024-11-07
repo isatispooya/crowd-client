@@ -27,9 +27,6 @@ const ProfitUser = ({ dashbord }) => {
                 <th scope="col" className="py-3 px-6">
                   نوع
                 </th>
-                <th scope="col" className="py-3 px-6">
-                  طرح
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -44,8 +41,9 @@ const ProfitUser = ({ dashbord }) => {
                   >
                     <td className="py-4 px-6">{item.amount.toLocaleString()}</td>
                     <td className="py-4 px-6">{item?.date?.replace(/-/g, '/')}</td>
-                    <td className="py-4 px-6">{item.type === '1' ? 'باز پرداخت اصل پول ' : 'سود علی الحساب'}</td>
-                    <td className="py-4 px-6">{item.plan}</td>
+                    <td className="py-4 px-6">
+                      {item.type === '1' ? 'باز پرداخت اصل پول ' : 'سود علی الحساب'}
+                    </td>
                   </motion.tr>
                 ))
               ) : (
