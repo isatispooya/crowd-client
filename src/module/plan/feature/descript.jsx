@@ -41,6 +41,7 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
+
   if (isPending || loadingpicture || !data) {
     return <Loader />;
   }
