@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
+import { OnRun } from 'src/api/OnRun';
 import useCer from './useGetCerSidebar';
 import useCerti from './usePostCerSideBar';
 import imgs from './overlay_3.jpg';
 
 const CertificateSideBar = () => {
   const { data } = useCer();
-  const { data: response, mutate } = useCerti();
+  const { data: response, mutate, error } = useCerti();
+
+  useEffect(() => {
+    if (response) {
+      window.open(`${OnRun}/${response.url}`, '_blank');
+    }
+  }, [response]);
+
+  if (error) {
+    toast.error('اطلاعاتی برای نمایش وجود ندارد');
+  }
 
   if (!data || data.length === 0) {
     return <div className="text-center text-gray-500">اطلاعاتی برای نمایش وجود ندارد</div>;
-  }
-
-  if (response) {
-    toast.error('اطلاعات مشارکت کننده یافت نشد');
   }
 
   return (

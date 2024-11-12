@@ -27,6 +27,7 @@ const useSubmitOtp = () => {
     },
     onError: (error) => {
       console.error('خطا:', error);
+      setCookie('access', '', 0);
       toast.error('خطا در ارسال درخواست به سرور.');
       toast.error(error.response.data.message, 'خطا در دسترسی.');
     },

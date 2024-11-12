@@ -1,6 +1,6 @@
 export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   const d = new Date();
-  d.setTime(d.getTime() + exdays * 14 * 60 * 1000);
+  d.setTime(d.getTime() + exdays * 2 * 60 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
 
   let cookieName = cname;
@@ -12,7 +12,7 @@ export function setCookie(cname, cvalue, exdays, isHostPrefix = false) {
   }
 
   const secureFlag = isHttps ? ';Secure' : '';
-  // const sameSiteFlag = isHttps ? ';SameSite=None' : ';SameSite=Lax';
+
   const sameSiteFlag = ';SameSite=Lax';
   const pathFlag = ';Path=/';
 

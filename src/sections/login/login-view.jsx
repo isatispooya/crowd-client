@@ -26,7 +26,6 @@ export default function LoginView() {
   const [nationalCode, setNationalCode] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
   const [otp, setOtp] = useState('');
-
   const [isNoSejamModalOpen, setIsNoSejamModalOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
@@ -123,6 +122,7 @@ export default function LoginView() {
                 onChange={(e) => setOtp(e.target.value)}
                 label="کد تایید"
                 autoComplete="off"
+                placeholder="کد تایید به شماره تماس و ایمیل ارسال شد"
                 fullWidth
               />
             )}
@@ -218,7 +218,7 @@ export default function LoginView() {
           © {new Date().getFullYear()} تمامی حقوق توسعه اطلاعات مالی محفوظ است.
         </Typography>
         <div className="mt-2 text-red-500">
-          <Link sx={{ textDecoration: 'none' }} href="tel:03535220088" variant="body2">
+          <Link sx={{ textDecoration: 'none' }} href="tel:03591090088" variant="body2">
             <button
               type="button"
               className="btn btn-info p-2 py-0 text-gray-500 shadow-lg bg-white border-none hover:bg-gray-200 "
@@ -229,22 +229,23 @@ export default function LoginView() {
         </div>
 
         <div className="flex justify-between items-center gap-4">
-          <div>
+          {/* <div>
             <a
-              href="https://trustseal.enamad.ir/?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
+              referrerPolicy="origin"
               target="_blank"
               rel="noopener noreferrer"
+              href="https://trustseal.enamad.ir/?id=501123&Code=cHybmVLI0vq2xtTA4W8N0chRpw6PqmOJ"
             >
               <img
-                src="https://trustseal.enamad.ir/logo.aspx?id=529924&Code=W3y39nx7isNrGWpAJBpNE2KanNerFkB8"
-                alt="نماد اعتماد"
-                className="cursor-pointer"
-                style={{ width: '100px', height: 'auto' }}
+                referrerPolicy="origin"
+                src="https://trustseal.enamad.ir/logo.aspx?id=501123&Code=cHybmVLI0vq2xtTA4W8N0chRpw6PqmOJ"
+                alt="Enamad Trust Seal"
+                style={{ cursor: 'pointer' }}
               />
             </a>
-          </div>
+          </div> */}
 
-          <img
+          {/* <img
             id="rgvlgwmdxlaphwlabrgw"
             onClick={() =>
               window.open(
@@ -255,7 +256,7 @@ export default function LoginView() {
             src="https://cf.ifb.ir/report/PlatformActivityLicenseTrustSealImage?licenseguid={f32f52dc-78c9-4403-a182-ec5f228ae357}"
             className="cursor-pointer"
             style={{ width: '80px', height: 'auto' }}
-          />
+          /> */}
         </div>
       </Box>
     </Box>

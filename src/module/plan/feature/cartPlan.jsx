@@ -35,7 +35,7 @@ const CartPlan = ({
     4: 'سر رسید ناموفق',
     5: 'تکمیل شده',
   };
-   
+
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };

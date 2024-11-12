@@ -42,7 +42,7 @@ const Roadmap = () => {
                 (index + 1) % 2 === 1 ? ' timeline-end' : ' timeline-start'
               }`}
             >
-              {profit?.type === '1' ? 'بازپرداخت اصل پول' : 'پرداخت سود علی الحساب'}
+              {profit?.type === '1' ? 'اصل مشارکت' : 'پیش بینی  سود'}
             </div>
             <hr />
           </li>

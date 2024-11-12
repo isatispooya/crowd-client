@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import DropButton from 'src/module/plan/filtering/dropButton';
 
 const FilterPlans = ({ setFilterStatusSecond }) => {
-  const planStatusOptions = [
+  const planStatusOptions = useMemo(() => [
     { id: '1', label: 'شروع شده' },
     { id: '2', label: 'جمع آوری شده' },
     { id: '3', label: 'تمدید شده' },
     { id: '5', label: 'تکمیل شده' },
     { id: '4', label: 'سررسید ناموفق' },
-  ];
+  ], []);
 
-  const [selectedStatuses, setSelectedStatuses] = useState(['1']);
+  const [selectedStatuses, setSelectedStatuses] = useState(
+    planStatusOptions.map(option => option.id)
+  );
 
   useEffect(() => {
-    setFilterStatusSecond(['1']);
-  }, [setFilterStatusSecond]);
+    setFilterStatusSecond(planStatusOptions.map(option => option.id));
+  }, [setFilterStatusSecond, planStatusOptions]);
 
   const handleSelectStatus = (status) => {
     if (selectedStatuses.includes(status)) {

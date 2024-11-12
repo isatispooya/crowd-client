@@ -9,8 +9,6 @@ import { bgBlur } from 'src/theme/css';
 import Iconify from 'src/services/iconify';
 import { NAV, HEADER } from './config-layout';
 
-
-
 export default function Header({ onOpenNav }) {
   const theme = useTheme();
 
@@ -31,7 +29,7 @@ export default function Header({ onOpenNav }) {
   return (
     <AppBar
       sx={{
-        backgroundColor : "#ffffff",
+        backgroundColor: '#ffffff',
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
@@ -49,7 +47,7 @@ export default function Header({ onOpenNav }) {
     >
       <Toolbar
         sx={{
-          backgroundColor : "#ffffff",
+          backgroundColor: '#ffffff',
           height: 1,
           px: { lg: 5 },
         }}

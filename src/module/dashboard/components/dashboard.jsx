@@ -4,7 +4,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import Loader from 'src/components/loader';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { Card, Grid, Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -44,9 +44,9 @@ const Dashboard = () => {
       color: '#2980b9',
     },
     {
-      title: 'سود',
-      value: `${dashbord['all rate of return']}ریال`,
-      icon: TrendingUpIcon,
+      title: 'پیش بینی کل سود',
+      value: `${formatNumber(dashbord['all rate of return'])}ریال`,
+      icon: CallMadeIcon,
       color: '#f39c12',
     },
   ];

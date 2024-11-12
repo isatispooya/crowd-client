@@ -84,7 +84,7 @@ export default function Nav({ openNav, onCloseNav }) {
                 width: NAV.WIDTH,
                 bgcolor: 'gray.200',
                 color: 'black',
-                // boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+
                 transition: 'transform 0.3s ease',
                 transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
                 position: 'relative',

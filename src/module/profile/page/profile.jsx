@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { getCookie } from 'src/api/cookie';
-
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
 import ProfileField from '../components/profileField';
-
 import useGetProfile from '../hooks/useGetProfile';
 
 const Profile = () => {
   const access = getCookie('access');
   const { data: profileData, isPending } = useGetProfile();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +26,6 @@ const Profile = () => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-extrabold text-gray-900">پروفایل کاربر</h1>
       </div>
-
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
           اطلاعات فردی
@@ -57,8 +55,9 @@ const Profile = () => {
             }
           />
 
+          <ProfileField label="شماره ملی" value={profileData?.acc?.uniqueIdentifier || ''} />
           <ProfileField
-            label="کد ملی"
+            label="شماره شناسنامه"
             value={profileData?.acc?.private_person?.[0]?.shNumber || ''}
           />
           <ProfileField
@@ -76,9 +75,12 @@ const Profile = () => {
           <ProfileField label="ایمیل" value={profileData?.acc?.addresses?.[0]?.email || ''} />
           <ProfileField label="فکس" value={profileData?.acc?.addresses?.[0]?.fax || ''} />
           <ProfileField label="شماره موبایل" value={profileData?.acc?.mobile || ''} />
+
+          {profileData?.acc?.trading_codes?.map((code, index) => (
+            <ProfileField key={index} label="کد بورسی" value={code?.code || ''} />
+          ))}
         </div>
       </section>
-
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
           حساب‌های بانکی
@@ -93,7 +95,6 @@ const Profile = () => {
           ))}
         </div>
       </section>
-
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
           اطلاعات شغلی
@@ -103,15 +104,14 @@ const Profile = () => {
             <React.Fragment key={index}>
               <ProfileField label="شغل" value={job_info?.job || ''} />
               <ProfileField label="نوع شغل" value={job_info?.position || ''} />
-              <ProfileField label="محل کار"value={job_info?.companyAddress || ''}/>
-              <ProfileField label="شماره تلفن محل کار"/>
-              <ProfileField label="ایمیل محل کار"value={job_info?.companyEmail || ''}/>
-              <ProfileField label="کدپستی محل کار"value={job_info?.companyPostalCode || ''}/>
+              <ProfileField label="محل کار" value={job_info?.companyAddress || ''} />
+              <ProfileField label="شماره تلفن محل کار" />
+              <ProfileField label="ایمیل محل کار" value={job_info?.companyEmail || ''} />
+              <ProfileField label="کدپستی محل کار" value={job_info?.companyPostalCode || ''} />
             </React.Fragment>
           ))}
         </div>
       </section>
-
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 pb-2 border-gray-300">
           آدرس‌ها

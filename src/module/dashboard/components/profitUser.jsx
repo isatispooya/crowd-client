@@ -1,31 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 const ProfitUser = ({ dashbord }) => {
   const { profit } = dashbord;
 
+  const navigate = useNavigate();
+
+  const handleNavigate = (traceCode) => navigate(`/plan/${traceCode}`);
+
   return (
     <>
-      <h1 className="text-2xl font-bold text-center mb-6">گزارش سود</h1>
-      <div dir="rtl" className="flex items-center justify-center ">
+      <h1 className="text-4xl font-bold text-center mb-12 text-gray-800 ">
+        گزارش پیش‌بینی مشارکت در طرح‌ها
+      </h1>
+      <div dir="rtl" className="flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="overflow-x-auto w-full lg:w-3/4 relative shadow-md sm:rounded-lg"
+          className="overflow-x-auto w-full lg:w-4/5 relative shadow-2xl rounded-xl border border-gray-100 "
         >
-          <table className="w-full text-sm text-left bg-white text-gray-500 dark:text-gray-400">
-            <thead className="text-base text-gray-700 uppercase ">
+          <table className="w-full text-sm text-left bg-white  text-gray-700 ">
+            <thead className="text-lg bg-gray-100 ">
               <tr>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6 font-bold">
                   مبلغ
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6 font-bold">
                   تاریخ سررسید
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6 font-bold">
                   نوع
+                </th>
+                <th scope="col" className="py-4 px-6 font-bold">
+                  طرح
                 </th>
               </tr>
             </thead>
@@ -37,18 +48,29 @@ const ProfitUser = ({ dashbord }) => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className=" border-b text-gray-800  hover:bg-gray-200 dark:hover:bg-gray-200"
+                    className="border-b border-gray-300  text-gray-800  hover:bg-gray-100  transition-colors duration-200"
                   >
-                    <td className="py-4 px-6">{item.amount.toLocaleString()}</td>
+                    <td className="py-4 px-6 font-semibold">
+                      {item.amount.toLocaleString()} ریال
+                    </td>
                     <td className="py-4 px-6">{item?.date?.replace(/-/g, '/')}</td>
                     <td className="py-4 px-6">
-                      {item.type === '1' ? 'باز پرداخت اصل پول ' : 'سود علی الحساب'}
+                      {item.type === '1' ? 'اصل مشارکت' : 'پیش‌بینی سود'}
+                    </td>
+                    <td className="py-4 px-6">
+                      <button
+                        onClick={() => handleNavigate(item.trace_code)}
+                        className="  text-white    px-4 py-2 transition-all duration-300"
+                        type="button"
+                      >
+                        <FiArrowLeftCircle className="text-xl  text-blue-600" />
+                      </button>
                     </td>
                   </motion.tr>
                 ))
               ) : (
                 <tr>
-                  <td className="py-4 px-6 text-center" colSpan="4">
+                  <td className="py-10 px-6 text-center text-gray-500 " colSpan="4">
                     گزارشی موجود نیست
                   </td>
                 </tr>

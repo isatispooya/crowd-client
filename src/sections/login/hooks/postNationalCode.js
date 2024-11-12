@@ -17,7 +17,7 @@ const useApplyNationalCode = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success(data.message);
+      toast.success("کد تایید به شماره تماس و ایمیل ارسال شد");
       return data;
     },
     onError: (error) => {
