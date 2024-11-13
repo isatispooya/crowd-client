@@ -9,8 +9,7 @@ import useGetPlan from '../service/use-plan';
 const Roadmap = () => {
   const { traceCode } = useParams();
   const { data, isLoading } = useGetPlan(traceCode);
-  const persianDateStart = moment(data.date_start).format('jYYYY/jMM/jDD');
-
+  const persianDateStart = data.date_start ? moment(data.date_start).format('jYYYY/jMM/jDD') : 'نامشخص';
   if (isLoading) {
     return <SmallLoader />;
   }
@@ -18,16 +17,17 @@ const Roadmap = () => {
   return (
     <div className="">
       <ul className="timeline timeline-vertical bg-white text-right">
+
         <li>
           <hr />
           <div className="timeline-start timeline-box bg-white">تاریخ شروع اجرا طرح</div>
           <div className="timeline-middle bg-white">
+
             {data.plan.date_start === 14 ? <FaSquareCheck /> : <ImCheckboxUnchecked />}
           </div>
           <div className="timeline-end bg-white">{persianDateStart}</div>
           <hr />
         </li>
-
         {data?.date_profit?.map((profit, index) => (
           <li key={index}>
             <hr />
