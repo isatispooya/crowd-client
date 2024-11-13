@@ -15,6 +15,7 @@ import { bgGradient } from 'src/theme/css';
 import { ToastContainer, toast } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import { Link } from '@mui/material';
+import { handleKeyPress } from 'src/utils/enterKey';
 import useCaptcha from './hooks/useCaptcha';
 import useApplyNationalCode from './hooks/postNationalCode';
 import useSubmitOtp from './hooks/useSubmit';
@@ -94,6 +95,15 @@ export default function LoginView() {
             <TextField
               value={nationalCode}
               onChange={(e) => setNationalCode(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (step === 1) {
+                    handleApplyNationalCode();
+                  } else {
+                    handleCode();
+                  }
+                }
+              }}
               label="شماره/شناسه ملی"
               autoComplete="off"
               fullWidth
@@ -102,6 +112,9 @@ export default function LoginView() {
               <>
                 <TextField
                   onChange={(e) => setCaptchaInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleApplyNationalCode();
+                  }}
                   label="کپچا"
                   value={captchaInput}
                   autoComplete="off"
@@ -120,6 +133,9 @@ export default function LoginView() {
               <TextField
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleCode();
+                }}
                 label="کد تایید"
                 autoComplete="off"
                 placeholder="کد تایید به شماره تماس و ایمیل ارسال شد"
