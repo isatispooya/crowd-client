@@ -30,7 +30,7 @@ const CartPlan = ({
 
   const statusMapping = {
     1: 'شروع شده',
-    2: 'جمع‌آوری شده',
+    2: 'شروع نشده',
     3: 'تمدید شده',
     4: 'سر رسید ناموفق',
     5: 'تکمیل شده',
@@ -54,8 +54,8 @@ const CartPlan = ({
       <div className="relative">
         <img
           src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
-          alt={persianName || 'تصویر موجود نیست'}
-          className="object-cover rounded-lg w-full aspect-[16/9]"
+          alt={persianName || 'تصویر موجود نیست'} 
+          className="object-contain rounded-lg w-full h-full"
         />
         <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left">
           {statusMapping[statusValue]}

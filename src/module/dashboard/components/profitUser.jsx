@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi';
+import { FiArrowLeftCircle } from 'react-icons/fi';
 
 const ProfitUser = ({ dashbord }) => {
   const { profit } = dashbord;
