@@ -45,7 +45,7 @@ const CertificateSideBar = () => {
             <motion.button
               type="button"
               onClick={() => mutate(item.trace_code)}
-              className="absolute inset-0 flex items-center justify-center text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity"
+              className="absolute inset-0 flex items-center justify-center text-blue-700 text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity"
             >
               دانلود
             </motion.button>

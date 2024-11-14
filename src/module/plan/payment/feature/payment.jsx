@@ -43,11 +43,7 @@ const Payment = () => {
 
   const totalPrice = Number(data?.plan?.unit_price) * Number(amount) || '';
 
-  const {
-    mutate: mutateFish,
-    errorpost,
-    isError: errorFish,
-  } = usePayment(traceCode);
+  const { mutate: mutateFish, errorpost, isError: errorFish } = usePayment(traceCode);
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);

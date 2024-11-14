@@ -11,8 +11,8 @@ const PayCheck = ({ handleSubmit }) => {
     <>
       {paymentMethod === 'fesh' && (
         <div className="text-center">
-          <h3 className="text-gray-800 mt-5 mb-4">شماره حساب: 6037697551928564</h3>
-          <h3 className="text-gray-800 mt-5 mb-4">شماره شبای حساب: IR470570300211515884588001</h3>
+          <h3 className="text-gray-800 mt-5 mb-4">شماره حساب پاسارگارد: 3002115158845881</h3>
+
           <form className="mt-6 space-y-4 px-8">
             <div className="flex flex-col">
               <label className="text-gray-700 font-medium mb-2">پیوست:</label>
