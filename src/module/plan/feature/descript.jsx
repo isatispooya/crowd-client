@@ -41,7 +41,6 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
-
   if (isPending || loadingpicture || !data) {
     return <Loader />;
   }
@@ -170,6 +169,10 @@ const Descript = () => {
             icon={field.icon}
           />
         ))}
+        <Field
+         label='دوره پرداخت سود پیش بینی شده '
+         value="سه ماهه"
+        hasBackground />
       </div>
       <div className="mt-6 px-4 mb-8">
         <ProgressLineChart

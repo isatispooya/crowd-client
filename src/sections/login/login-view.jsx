@@ -34,6 +34,7 @@ export default function LoginView() {
   const { timer, step, setStep, startTimer } = useTimer();
 
   const handleApplyNationalCode = () => {
+    refreshCaptcha();
     if (captchaInput.length === 0) {
       toast.warning('کد تصویر صحیح نیست');
     } else if (nationalCode.length < 10 || nationalCode.length > 12) {
@@ -105,6 +106,7 @@ export default function LoginView() {
               }}
               label="شماره/شناسه ملی"
               autoComplete="off"
+              disabled={step === 2}
               fullWidth
             />
             {step === 1 ? (

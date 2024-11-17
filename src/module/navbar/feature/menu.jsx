@@ -26,10 +26,7 @@ const Menu = () => {
           color: 'red',
           textTransform: 'capitalize',
           fontWeight: 'bold',
-          '&:hover': {
-            bgcolor: (theme) => alpha(theme.palette.error.main, 0.08),
-            color: (theme) => theme.palette.error.main,
-          },
+
         }}
       >
         <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
