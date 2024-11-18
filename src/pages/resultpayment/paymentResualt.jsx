@@ -8,21 +8,20 @@ import Loader from 'src/components/loader';
 const containerAnimation = {
   initial: { scale: 0.9, opacity: 0 },
   animate: { scale: 1, opacity: 1 },
-  transition: { duration: 0.5, ease: 'easeInOut' }
+  transition: { duration: 0.5, ease: 'easeInOut' },
 };
 
 const contentAnimation = {
   initial: { y: -20, opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  transition: { duration: 0.5, delay: 0.2 }
+  transition: { duration: 0.5, delay: 0.2 },
 };
 
 const PaymentResult = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { traceCode } = useParams();
-  
-  // استخراج invoiceId با destructuring
+
   const { invoiceId } = Object.fromEntries(new URLSearchParams(location.search));
 
   const { data, isLoading } = useDargahResult(traceCode, invoiceId);
@@ -35,6 +34,8 @@ const PaymentResult = () => {
     return <Loader />;
   }
 
+  console.log(data);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-200">
       <motion.div
@@ -44,21 +45,13 @@ const PaymentResult = () => {
         <motion.div {...contentAnimation}>
           {data ? (
             <>
-              <h1 className="text-3xl font-extrabold text-green-600 mb-4">
-                پرداخت موفق بود!
-              </h1>
-              <p className="text-gray-600 mb-6">
-                پرداخت شما با موفقیت انجام شد. از شما متشکریم!
-              </p>
+              <h1 className="text-3xl font-extrabold text-green-600 mb-4">پرداخت موفق بود!</h1>
+              <p className="text-gray-600 mb-6">پرداخت شما با موفقیت انجام شد. از شما متشکریم!</p>
             </>
           ) : (
             <>
-              <h1 className="text-3xl font-extrabold text-red-600 mb-4">
-                پرداخت ناموفق
-              </h1>
-              <p className="text-gray-600 mb-6">
-                پرداخت شما ناموفق بود. لطفاً مجدداً تلاش کنید.
-              </p>
+              <h1 className="text-3xl font-extrabold text-red-600 mb-4">پرداخت ناموفق</h1>
+              <p className="text-gray-600 mb-6">پرداخت شما ناموفق بود. لطفاً مجدداً تلاش کنید.</p>
             </>
           )}
         </motion.div>

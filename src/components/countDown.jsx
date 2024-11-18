@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { BsCalendarXFill } from 'react-icons/bs';
 import useGetPlans from 'src/module/plan/service/use-plans';
 
-const CountdownTimer = ({ startDate, endDate }) => {
+const CountdownTimer = ({ startDate, endDate , statusValue }) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const now = new Date();
   const { data } = useGetPlans();
+
+  console.log(data);
 
   const initialTime = () => {
     if (now < start) {
@@ -39,20 +41,22 @@ const CountdownTimer = ({ startDate, endDate }) => {
   const hours = Math.floor((timeRemaining % 86400) / 3600);
   const minutes = Math.floor((timeRemaining % 3600) / 60);
   const seconds = timeRemaining % 60;
+  const status = statusValue !== "1" || statusValue !== "2";
 
-  if (initialTime() === 0 || timeRemaining === 0) {
+  console.log(statusValue);
+  if ((initialTime() === 0 || timeRemaining === 0)  && status) {
     return (
-      <div className="  mt-2 flex items-center justify-between text-center text-md border-2 p-2 rounded-2xl shadow-inner ">
+      <div className="mt-2 flex items-center justify-between text-center text-md border-2 p-2 rounded-2xl shadow-inner ">
         <h1>طرح پایان یافته!</h1>
         <BsCalendarXFill className="text-2xl text-blue-500" />
       </div>
     );
   }
-  const dd = data?.find((plan) => plan.information_complete?.status_second === '1');
+     
 
-  if (!dd) {
-    return null;
-  }
+
+
+
 
   return (
     <motion.div
@@ -62,7 +66,6 @@ const CountdownTimer = ({ startDate, endDate }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="flex justify-center items-center ">
-
         {[
           { label: 'روز', value: days },
           { label: 'ساعت', value: hours },
@@ -80,8 +83,9 @@ const CountdownTimer = ({ startDate, endDate }) => {
             <span className="text-xs text-gray-500">{unit.label}</span>
           </motion.div>
         ))}
-        <p className="text-base font-bold text-gray-900 mr-2">تا {now < start ? 'شروع' : 'پایان'} طرح</p>
-
+        <p className="text-base font-bold text-gray-900 mr-2">
+          تا {now < start ? 'شروع' : 'پایان'} طرح
+        </p>
       </div>
     </motion.div>
   );
