@@ -4,18 +4,22 @@ import useDargahResult from 'src/module/plan/payment/service/useDargahResualt';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
 
-// انیمیشن‌های مشترک
+
 const containerAnimation = {
   initial: { scale: 0.9, opacity: 0 },
   animate: { scale: 1, opacity: 1 },
   transition: { duration: 0.5, ease: 'easeInOut' },
 };
 
+
+
 const contentAnimation = {
   initial: { y: -20, opacity: 0 },
   animate: { y: 0, opacity: 1 },
   transition: { duration: 0.5, delay: 0.2 },
 };
+
+
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -24,7 +28,7 @@ const PaymentResult = () => {
 
   const { invoiceId } = Object.fromEntries(new URLSearchParams(location.search));
 
-  const { data, isLoading } = useDargahResult(traceCode, invoiceId);
+  const { data, isLoading, isSuccess } = useDargahResult(traceCode, invoiceId);
 
   const handleReturnToHome = useCallback(() => {
     navigate('/');
@@ -43,7 +47,7 @@ const PaymentResult = () => {
         {...containerAnimation}
       >
         <motion.div {...contentAnimation}>
-          {data ? (
+          {isSuccess ? (
             <>
               <h1 className="text-3xl font-extrabold text-green-600 mb-4">پرداخت موفق بود!</h1>
               <p className="text-gray-600 mb-6">پرداخت شما با موفقیت انجام شد. از شما متشکریم!</p>
@@ -70,4 +74,7 @@ const PaymentResult = () => {
   );
 };
 
+
+
 export default PaymentResult;
+

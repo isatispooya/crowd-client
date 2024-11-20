@@ -12,24 +12,20 @@ import ReportsView from '../modules/reportsView';
 import Calculate from '../feature/calculate';
 import InvestorPlan from '../investorPlan/InvestorPlan';
 import useGetPlan from '../service/use-plan';
+import Complaints from '../feature/Complaints';
 
 const Plan = () => {
   const { traceCode } = useParams();
   const { isLoading, error, data } = useGetPlan(traceCode);
-
   const [activeTab, setActiveTab] = useState(0);
-
   const statusSecond = data?.information_complete?.status_second;
   const isPaymentDisabled = statusSecond !== '1';
-
   if (isLoading) {
     return <Loader />;
   }
-
   if (error) {
     return <div className="text-red-500 text-center">خطایی رخ داده است: {error.message}</div>;
   }
-
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="border-b-2 border-gray-200 mb-6">
@@ -41,8 +37,9 @@ const Plan = () => {
             { label: 'مشخصات سرمایه‌گذارن', tab: 5, disabled: false },
             { label: 'زمان بندی طرح', tab: 6, disabled: false },
             { label: 'محاسبه گر سود', tab: 7, disabled: false },
-            { label: 'سرمایه پذیر', tab: 8, disabled: false },
-            { label: 'سرمایه گذاری', tab: 9, disabled: isPaymentDisabled },
+            { label: 'شکایات', tab: 8, disabled: false },
+            { label: 'سرمایه پذیر', tab: 9, disabled: false },
+            { label: 'سرمایه گذاری', tab: 10, disabled: isPaymentDisabled },
           ].map(({ label, tab, disabled }) => (
             <motion.li
               key={tab}
@@ -56,12 +53,14 @@ const Plan = () => {
                 className={`py-2 px-4 font-semibold transition-all duration-300 rounded-md
                   ${
                     activeTab === tab
-                      ? 'text-white bg-blue-700 border-b-4 border-blue-900'
-                      : tab === 9
-                      ? 'text-white bg-blue-700 border-b-4 border-blue-900'
+                      ? 'text-white bg-indigo-700 border-b-4 border-indigo-700'
+                      : tab === 10
+                      ? 'text-white bg-green-700 border-b-4 border-blue-700'
                       : ''
                   }
-                  ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  ${
+                    disabled ? 'opacity-50 cursor-not-allowed' : tab === 10 ? 'cursor-pointer' : ''
+                  }`}
                 onClick={() => !disabled && setActiveTab(tab)}
                 disabled={disabled}
               >
@@ -79,12 +78,9 @@ const Plan = () => {
         {activeTab === 5 && <InvestProfile />}
         {activeTab === 6 && <Roadmap />}
         {activeTab === 7 && <Calculate />}
-        {activeTab === 8 && <InvestorPlan />}
-        {activeTab === 9 && !isPaymentDisabled && <PaymentPage />}
-
-        {activeTab === 9 && isPaymentDisabled && (
-          <div className="text-red-500 text-center">پرداخت برای این طرح قفل شده است.</div>
-        )}
+        {activeTab === 8 && <Complaints />}
+        {activeTab === 9 && <InvestorPlan />}
+        {activeTab === 10 && !isPaymentDisabled && <PaymentPage />}
       </div>
     </div>
   );

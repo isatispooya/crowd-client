@@ -19,12 +19,13 @@ const getDargahResult = async (invoiceId) => {
 
 
 const useDargahResult = (traceCode, invoiceId) => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error , isSuccess } = useQuery({
     queryKey: ['dargahResult', traceCode, invoiceId],
     queryFn: () => getDargahResult(invoiceId, traceCode), 
   });
 
   return {
+    isSuccess,
     data,
     isLoading,
     error,

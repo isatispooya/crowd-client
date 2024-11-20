@@ -10,7 +10,7 @@ const PaymentGateway = ({ handleDargah }) => {
   const { paymentMethod } = useContext(PaymentContext);
 
   if (paymentMethod !== 'dargah') {
-    return null; 
+    return null;
   }
 
   return (

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { BsCalendarXFill } from 'react-icons/bs';
 import useGetPlans from 'src/module/plan/service/use-plans';
 
-const CountdownTimer = ({ startDate, endDate , statusValue }) => {
+const CountdownTimer = ({ startDate, endDate, statusValue }) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const now = new Date();
   const { data } = useGetPlans();
 
-  console.log(data);
+
 
   const initialTime = () => {
     if (now < start) {
@@ -41,10 +41,10 @@ const CountdownTimer = ({ startDate, endDate , statusValue }) => {
   const hours = Math.floor((timeRemaining % 86400) / 3600);
   const minutes = Math.floor((timeRemaining % 3600) / 60);
   const seconds = timeRemaining % 60;
-  const status = statusValue !== "1" || statusValue !== "2";
+  const status = statusValue !== '1' || statusValue !== '2';
 
-  console.log(statusValue);
-  if ((initialTime() === 0 || timeRemaining === 0)  && status) {
+  
+  if ((initialTime() === 0 || timeRemaining === 0) && status) {
     return (
       <div className="mt-2 flex items-center justify-between text-center text-md border-2 p-2 rounded-2xl shadow-inner ">
         <h1>طرح پایان یافته!</h1>
@@ -52,11 +52,6 @@ const CountdownTimer = ({ startDate, endDate , statusValue }) => {
       </div>
     );
   }
-     
-
-
-
-
 
   return (
     <motion.div
@@ -94,6 +89,7 @@ const CountdownTimer = ({ startDate, endDate , statusValue }) => {
 CountdownTimer.propTypes = {
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date).isRequired,
+  statusValue: PropTypes.string.isRequired,
 };
 
 export default CountdownTimer;
