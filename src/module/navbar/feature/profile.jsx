@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
@@ -28,69 +28,117 @@ const Profile = () => {
     navigateToProfile('/ProfilePage');
   };
 
-
-  console.log(userData);
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.5 }}
     >
-      <Box sx={{ p: 3, textAlign: 'center', marginBottom: 5 }}>
-        <a href="https://isatiscrowd.ir">
+      <Box sx={{ 
+        p: 4, 
+        textAlign: 'center', 
+        marginBottom: 5,
+        maxWidth: '600px',
+        mx: 'auto'
+      }}>
+        <a href="https://isatiscrowd.ir" style={{ textDecoration: 'none' }}>
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 300 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
             <Box
               component="img"
               src="/assets/crowdlogo.png"
               alt="Logo"
               sx={{
-                width: 150,
-                height: 150,
+                width: 120,
+                height: 120,
                 mx: 'auto',
-                mb: 2,
-                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                mb: 3,
+                boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
                 borderRadius: '50%',
+                transition: 'box-shadow 0.3s ease',
+                '&:hover': {
+                  boxShadow: '0px 12px 25px rgba(0, 0, 0, 0.25)',
+                },
               }}
             />
+            <Typography 
+              variant="h4" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: '#524175',
+                mb: 3,
+                fontSize: { xs: '1.5rem', sm: '2rem' }
+              }}
+            >
+              ایساتیس کراد
+            </Typography>
           </motion.div>
         </a>
-        <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ duration: 0.5 }}>
+
+        <motion.div 
+          initial={{ scale: 0.9 }} 
+          animate={{ scale: 1 }} 
+          transition={{ duration: 0.5 }}
+        >
           <Box
             sx={{
-              bgcolor: '#f5f5f5',
+              bgcolor: '#ffffff',
               color: '#333',
               p: 4,
-              borderRadius: 3,
-              boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.1)',
+              borderRadius: 4,
+              boxShadow: '0px 8px 25px rgba(0, 0, 0, 0.08)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              '&:hover': {
+                boxShadow: '0px 12px 30px rgba(0, 0, 0, 0.12)',
+                transform: 'translateY(-5px)',
+              },
             }}
           >
             <Grid item xs={12}>
               {!isLoadingUser ? (
-                <Box display="flex" justifyContent="center">
-
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#524175' }}>
-                    {userData?.acc?.private_person[0]?.firstName}
-                  </Typography>
-                  <Typography variant="h6" sx={{ ml: 1, fontWeight: 'bold', color: '#524175' }}>
-                    {userData?.acc?.private_person[0]?.lastName}
-                  </Typography>
-                </Box>
-              ) : (
-                <Typography variant="h6">در حال بارگذاری...</Typography>
-              )}
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <button
-                  type="button"
-                  onClick={handleNavigateToProfile}
-                  className=" text-black px-4 py-2 rounded-md"
+                <motion.div 
+                  whileHover={{ scale: 1.02 }} 
+                  whileTap={{ scale: 0.98 }}
+                  style={{ position: 'relative' }}
                 >
-                  {userData?.acc?.uniqueIdentifier}
-                </button>
-              </motion.div>
+                  <button
+                    type="button"
+                    onClick={handleNavigateToProfile}
+                    className="relative px-6 py-4 rounded-lg w-full
+                             bg-white
+                             transition-all duration-300
+                             group"
+                  >
+                    <div className="text-xl font-semibold text-cyan-900">
+                      {userData?.acc?.private_person[0]?.firstName}{' '}
+                      {userData?.acc?.private_person[0]?.lastName}
+                    </div>
+                    <div className="absolute left-0 right-0 bottom-0 
+                                  text-gray-600 text-sm opacity-0 
+                                  group-hover:opacity-100 
+                                  transition-opacity duration-300 "
+                    >
+                      {userData?.acc?.uniqueIdentifier}
+                    </div>
+                  </button>
+                </motion.div>
+              ) : (
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    color: '#666',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1
+                  }}
+                >
+                  در حال بارگذاری...
+                </Typography>
+              )}
             </Grid>
           </Box>
         </motion.div>

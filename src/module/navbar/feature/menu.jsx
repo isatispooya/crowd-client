@@ -1,4 +1,4 @@
-import { Stack, ListItemButton, alpha, Box } from '@mui/material';
+import { Stack, ListItemButton, Box } from '@mui/material';
 import SvgColor from 'src/services/svg-color';
 import useExist from 'src/hooks/useLogOut';
 import navConfig from '../config/config-navigation';

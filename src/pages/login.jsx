@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> ورود | درگاه سرمایه پذیران </title>
+        <title> ایساتیس کراد | ورود </title>
       </Helmet>
       <LoginView />
     </>

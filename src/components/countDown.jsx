@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { BsCalendarXFill } from 'react-icons/bs';
-import useGetPlans from 'src/module/plan/service/use-plans';
 
 const CountdownTimer = ({ startDate, endDate, statusValue }) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const now = new Date();
-  const { data } = useGetPlans();
 
 
 

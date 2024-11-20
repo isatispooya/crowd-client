@@ -166,18 +166,33 @@ export default function LoginView() {
               تایید
             </LoadingButton>
           ) : (
-            <LoadingButton
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              color="inherit"
-              onClick={handleCode}
-              loading={loadingOtp}
-              disabled={isButtonDisabled}
-            >
-              تایید ({timer})
-            </LoadingButton>
+            <>
+              <LoadingButton
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                color="inherit"
+                onClick={handleCode}
+                loading={loadingOtp}
+                disabled={isButtonDisabled}
+              >
+                تایید ({timer})
+              </LoadingButton>
+              <LoadingButton
+                fullWidth
+                size="large"
+                variant="outlined"
+                color="inherit"
+                onClick={() => {
+                  setStep(1);
+                  refreshCaptcha(); // Refresh captcha when going back to step 1
+                }}
+                sx={{ mt: 1 }}
+              >
+                ویرایش شماره
+              </LoadingButton>
+            </>
           )}
         </>
       )}
