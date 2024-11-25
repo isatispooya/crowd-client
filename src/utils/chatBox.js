@@ -1,5 +1,5 @@
 function loadWidget() {
-  const i = 'AXVUju';
+  const i = 'PtQHNy';
   const a = window;
   const d = document;
 
