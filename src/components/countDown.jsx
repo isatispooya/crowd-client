@@ -39,10 +39,10 @@ const CountdownTimer = ({ startDate, endDate, statusValue }) => {
   const hours = Math.floor((timeRemaining % 86400) / 3600);
   const minutes = Math.floor((timeRemaining % 3600) / 60);
   const seconds = timeRemaining % 60;
-  const status = statusValue !== '1' || statusValue !== '2';
+  const isExpired = statusValue !== '1' && statusValue !== '2';
 
   
-  if ((initialTime() === 0 || timeRemaining === 0) && status) {
+  if (isExpired) {
     return (
       <div className="mt-2 flex items-center justify-between text-center text-md border-2 p-2 rounded-2xl shadow-inner ">
         <h1>طرح پایان یافته!</h1>
