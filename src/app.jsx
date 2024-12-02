@@ -14,6 +14,7 @@ import Router from 'src/routes/sections';
 import 'src/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
+import loadWidget from './utils/chatBox';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -29,6 +30,10 @@ export default function App() {
       window.top.location = window.self.location;
     }
   }, []);
+
+  useEffect(() => {
+    loadWidget();
+  });
 
   return (
     <CacheProvider value={cacheRtl}>
