@@ -46,16 +46,16 @@ const CartPlan = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col gap-4   p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
+      className={`flex flex-col h-[700px] p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
         w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl ${
           isCompleted ? 'bg-gray-200' : 'bg-white'
         }`}
     >
-      <div className="relative">
+      <div className="relative h-48 mb-10">
         <img
           src={picture?.picture ? `${OnRun}/${picture.picture}` : '/img/nopic.jpg'}
           alt={persianName || 'تصویر موجود نیست'}
-          className="object-contain rounded-lg w-full h-full"
+          className="object-cover w-full h-full rounded-lg"
         />
         <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left">
           {statusMapping[statusValue]}
@@ -66,55 +66,57 @@ const CartPlan = ({
         </div>
       </div>
 
-      <div className="flex flex-col bg-gray-50 rounded-lg h-80 shadow-inner p-4">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4">
+      <div className="flex flex-col bg-gray-50 rounded-lg h-72 shadow-inner p-4">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 line-clamp-2 overflow-hidden">
           {persianName}
         </h2>
 
         <div className="grid gap-2 sm:gap-3 text-gray-700">
-          <div className="flex justify-between items-center">
-            <span className="text-xs sm:text-sm">مبلغ کل:</span>
-            <span className="text-xs sm:text-sm font-bold">{formatNumber(totalPrice)} ریال</span>
+          <div className="grid grid-cols-12 items-center">
+            <span className="text-xs sm:text-sm col-span-5">مبلغ کل:</span>
+            <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{formatNumber(totalPrice)} ریال</span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-xs sm:text-sm">شرکت:</span>
-            <span className="text-xs sm:text-sm font-bold">{company}</span>
+          <div className="grid grid-cols-12 items-center">
+            <span className="text-xs sm:text-sm col-span-5">شرکت:</span>
+            <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{company}</span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-xs sm:text-sm">تعداد گواهی‌های شراکت:</span>
-            <span className="text-xs sm:text-sm font-bold">{totalUnits}</span>
+          <div className="grid grid-cols-12 items-center">
+            <span className="text-xs sm:text-sm col-span-5">تعداد گواهی‌های شراکت:</span>
+            <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{totalUnits}</span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-xs sm:text-sm">نوع تامین مالی:</span>
-            <span className="text-xs sm:text-sm font-bold">{crowdFundingType}</span>
+          <div className="grid grid-cols-12 items-center">
+            <span className="text-xs sm:text-sm col-span-5">نوع تامین مالی:</span>
+            <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{crowdFundingType}</span>
           </div>
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-xs sm:text-sm">حداقل سرمایه‌گذاری:</span>
-            <span className="text-xs sm:text-sm font-bold">
+          <div className="grid grid-cols-12 items-center mb-4">
+            <span className="text-xs sm:text-sm col-span-5">حداقل سرمایه‌گذاری:</span>
+            <span className="text-xs sm:text-sm font-bold col-span-7 text-left">
               {formatNumber(realPersonMinPrice)} ریال
             </span>
           </div>
         </div>
       </div>
 
-      <div className="px-4">
-        <ProgressLineChart
-          progress={Math.round((amountCollectedNow / totalPrice) * 100)}
-          label="تامین شده"
-        />
-        <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} />
-      </div>
+      <div className="flex flex-col flex-grow justify-end">
+        <div className="px-4">
+          <ProgressLineChart
+            progress={Math.round((amountCollectedNow / totalPrice) * 100)}
+            label="تامین شده"
+          />
+          <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} />
+        </div>
 
-      <div className="flex justify-center mt-4">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          type="button"
-          className="text-white  bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-3 font-bold text-sm sm:text-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
-          onClick={handleViewClick}
-        >
-          {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
-        </motion.button>
+        <div className="flex justify-center mt-4">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            type="button"
+            className="text-white bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-2 font-bold text-sm sm:text-base shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={handleViewClick}
+          >
+            {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );
