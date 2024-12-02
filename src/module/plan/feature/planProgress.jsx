@@ -22,9 +22,15 @@ const PlanProgress = () => {
     return <SmallError label=" مستندات یافت نشد" />;
   }
 
+  const filesWithAttachment = progress.filter(item => item.file);
+
+  if (filesWithAttachment.length === 0) {
+    return <SmallError label="فایلی موجود نمی‌باشد" />;
+  }
+
   return (
     <div className="p-4 bg-white">
-      {progress.map((item, index) => (
+      {filesWithAttachment.map((item, index) => (
         <div
           key={index}
           className="flex justify-between items-center mb-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
