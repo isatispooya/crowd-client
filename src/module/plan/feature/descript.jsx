@@ -41,6 +41,7 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
+
   if (isPending || loadingpicture || !data) {
     return <Loader />;
   }
@@ -48,6 +49,18 @@ const Descript = () => {
   if (error) {
     return <div className="text-red-500 text-center py-4">خطایی رخ داده است: {error.message}</div>;
   }
+
+  const payback_period_get = (id) => {
+    const payback_period_array = [
+      { id: "1", label: "سه ماه" },
+      { id: "2", label: "در پایان دوره" },
+    ];
+    const payback_period = payback_period_array.find((option) => option.id === id);
+    return payback_period || { id: "1", label: "سه ماه" };
+  };
+
+  const payback_period = payback_period_get(data.information_complete?.payback_period) || { id: "1", label: "سه ماه" };
+  const period_length = data.information_complete?.period_length || 12;
 
   const generalFields = [
     {
@@ -171,7 +184,11 @@ const Descript = () => {
         ))}
         <Field
          label='دوره پرداخت سود پیش بینی شده '
-         value="سه ماهه"
+         value={payback_period.label}
+        hasBackground />
+        <Field
+         label='طول دوره طرح '
+         value={`${period_length} ماه`} 
         hasBackground />
       </div>
       <div className="mt-6 px-4 mb-8">
