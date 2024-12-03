@@ -19,7 +19,7 @@ const Payment = () => {
   const { mutate: mutatepost, error, isError } = useDargah(traceCode);
 
   if (isError || error) {
-    toast.error('تعداد گواهی مجاز هست');
+    toast.error('تعداد گواهی مجاز نیست');
   }
 
   const {
