@@ -36,7 +36,7 @@ const InvestProfile = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h1 className="text-xl font-bold mb-4 text-center">پروفایل سرمایه‌گذاران</h1>
+      <h1 className="text-xl font-bold mb-4 text-center">سرمایه‌گذاران</h1>
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -46,10 +46,10 @@ const InvestProfile = () => {
                 نام سرمایه گذار
               </th>
               <th scope="col" className="px-6 py-3">
-                تاریخ ایجاد
+                تاریخ
               </th>
               <th scope="col" className="px-6 py-3">
-                مبلغ واحد
+                واحد
               </th>
               <th scope="col" className="px-6 py-3">
                 مجموع مبلغ
@@ -65,7 +65,7 @@ const InvestProfile = () => {
                 <td className="px-6 py-4 whitespace-nowrap">{item.fulname}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{item.create_date}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{formatNumber(item.amount)}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{formatNumber(item.value)}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{formatNumber(item.value)} ریال</td>
               </tr>
             ))}
           </tbody>
