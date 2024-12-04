@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import api from 'src/api/apiClient';
 import { getCookie } from 'src/api/cookie';
 
-// Function to fetch data from the API
 const getDargahResult = async (invoiceId) => {
   const access = getCookie('access');
   const response = await api.get(
@@ -11,17 +10,18 @@ const getDargahResult = async (invoiceId) => {
       headers: {
         Authorization: `Bearer ${access}`,
         'Content-Type': 'application/json',
-      },
+      }
+
     }
   );
   return response.data;
 };
 
 
-const useDargahResult = (traceCode, invoiceId) => {
+const useDargahResult = (invoiceId) => {
   const { data, isLoading, error , isSuccess } = useQuery({
-    queryKey: ['dargahResult', traceCode, invoiceId],
-    queryFn: () => getDargahResult(invoiceId, traceCode), 
+    queryKey: ['dargahResult', invoiceId],
+    queryFn: () => getDargahResult(invoiceId), 
   });
 
   return {
@@ -31,5 +31,5 @@ const useDargahResult = (traceCode, invoiceId) => {
     error,
   };
 };
-
+ 
 export default useDargahResult;

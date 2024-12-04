@@ -24,11 +24,10 @@ const contentAnimation = {
 const PaymentResult = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { traceCode } = useParams();
 
   const { invoiceId } = Object.fromEntries(new URLSearchParams(location.search));
 
-  const { data, isLoading, isSuccess } = useDargahResult(traceCode, invoiceId);
+  const { data, isLoading, isSuccess } = useDargahResult(invoiceId);
 
   const handleReturnToHome = useCallback(() => {
     navigate('/');
