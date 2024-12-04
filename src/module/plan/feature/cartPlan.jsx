@@ -103,7 +103,7 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-          <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} />
+          {/* <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} /> */}
         </div>
 
         <div className="flex justify-center mt-4">
