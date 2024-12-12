@@ -160,12 +160,12 @@ const Descript = () => {
         >
           مشاهده در فرابورس <FiExternalLink className="ml-2" />
         </a>
-        <div className="mt-6 flex justify-center lg:justify-start">
+        {/* <div className="mt-6 flex justify-center lg:justify-start">
           <CountdownTimer
             startDate={data.plan.suggested_underwriting_start_date}
             endDate={data.plan.suggested_underwriting_end_date}
           />
-        </div>
+        </div> */}
       </div>
       <div className="w-full mb-8 p-4">
         <p className="text-base text-gray-700 font-medium break-words whitespace-normal">
