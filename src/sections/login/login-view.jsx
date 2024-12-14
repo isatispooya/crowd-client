@@ -92,6 +92,9 @@ export default function LoginView() {
     refreshCaptcha();
   };
 
+
+  
+
   const renderForm = (
     <>
       {isNoSejamModalOpen ? (
@@ -203,15 +206,6 @@ export default function LoginView() {
             </>
           )}
 
-          <Button
-            fullWidth
-            size="large"
-            variant="text"
-            onClick={() => navigate('/')}
-            sx={{ mt: 1 }}
-          >
-            بازگشت به صفحه اصلی
-          </Button>
         </>
       )}
     </>

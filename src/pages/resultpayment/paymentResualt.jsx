@@ -30,8 +30,13 @@ const PaymentResult = () => {
   const { data, isLoading, isSuccess } = useDargahResult(invoiceId);
 
   const handleReturnToHome = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
+    const searchParams = new URLSearchParams(location.search);
+    const rf = searchParams.get('rf');
+    const returnUrl = rf ? `https://isatiscrowd.ir/?rf=${rf}` : 'https://isatiscrowd.ir/';
+    
+    console.log('Navigating to:', returnUrl);
+    navigate(returnUrl);
+  }, [navigate, location.search]);
 
   if (isLoading) {
     return <Loader />;
