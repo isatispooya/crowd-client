@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-danger */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -34,6 +34,11 @@ export default function LoginView() {
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp();
   const { timer, step, setStep, startTimer } = useTimer();
   const navigate = useNavigate();
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const rf = searchParams.get('rf');
+
+  
 
   const handleApplyNationalCode = () => {
     refreshCaptcha();
@@ -81,6 +86,7 @@ export default function LoginView() {
       submitOtp({
         nationalCode,
         otp,
+        rf
       });
     }
     refreshCaptcha();
