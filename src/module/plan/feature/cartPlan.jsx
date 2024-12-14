@@ -5,7 +5,6 @@ import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { motion } from 'framer-motion';
-import CountdownTimer from 'src/components/countDown';
 import usePicure from '../service/use-picture';
 
 const CartPlan = ({
@@ -36,6 +35,14 @@ const CartPlan = ({
     5: 'تکمیل شده',
   };
 
+  const statusColorMapping = {
+    1: 'bg-green-500', // شروع شده - سبز
+    2: 'bg-blue-500',  // شروع نشده - آبی
+    3: 'bg-yellow-500', // تمدید شده - زرد
+    4: 'bg-red-500',   // سر رسید ناموفق - قرمز
+    5: 'bg-blue-500',  // تکمیل شده - آبی
+  };
+
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
   };
@@ -57,7 +64,7 @@ const CartPlan = ({
           alt={persianName || 'تصویر موجود نیست'}
           className="object-cover w-full h-full rounded-lg"
         />
-        <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left">
+        <div className={`absolute top-4 left-4 ${statusColorMapping[statusValue]} py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left`}>
           {statusMapping[statusValue]}
         </div>
 
@@ -67,11 +74,11 @@ const CartPlan = ({
       </div>
 
       <div className="flex flex-col bg-gray-50 rounded-lg h-72 shadow-inner p-4">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 line-clamp-2 overflow-hidden">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mt-6 min-h-[3.5rem] break-words">
           {persianName}
         </h2>
 
-        <div className="grid gap-2 sm:gap-3 text-gray-700">
+        <div className="grid gap-2 mt-6 sm:gap-3 text-gray-700">
           <div className="grid grid-cols-12 items-center">
             <span className="text-xs sm:text-sm col-span-5">مبلغ کل:</span>
             <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{formatNumber(totalPrice)} ریال</span>
