@@ -13,7 +13,6 @@ const useApplyNationalCode = () => {
         encrypted_response: encryptedResponse,
       });
    
-
       return response.data;
     },
     onSuccess: (data) => {
@@ -21,15 +20,11 @@ const useApplyNationalCode = () => {
       return data;
     },
     onError: (error) => {
-      if (error.response.data.error) {
-        toast.error(error.response.data.error);
-      }
-      if (error.response) {
-        toast.error(error.response.data.message, 'خطا در دسترسی.');
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message || "برای ارسال کد مجدد 2 دقیقه منتظر بمانید");
       } else {
-        console.error('خطا بدون پاسخ:', error.message);
+        toast.error("برای ارسال کد مجدد 2 دقیقه منتظر بمانید");
       }
-      toast.error('خطا در ارسال درخواست به سرور.');
     },
   });
 };

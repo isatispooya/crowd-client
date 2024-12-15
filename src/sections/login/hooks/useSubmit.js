@@ -21,16 +21,12 @@ const useSubmitOtp = () => {
     },
     onSuccess: (data) => {
       setCookie('access', data.access, 1);
-
       router.push('/');
-
       toast.warning(data.message);
     },
     onError: (error) => {
-      console.error('خطا:', error);
       setCookie('access', '', 0);
-      toast.error('خطا در ارسال درخواست به سرور.');
-      toast.error(error.response.data.message, 'خطا در دسترسی.');
+      toast.error(error.response.data.message);
     },
   });
 };

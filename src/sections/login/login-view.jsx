@@ -38,41 +38,32 @@ export default function LoginView() {
   const searchParams = new URLSearchParams(window.location.search);
   const rf = searchParams.get('rf');
 
-  
-
   const handleApplyNationalCode = () => {
     refreshCaptcha();
-    if (captchaInput.length === 0) {
-      toast.warning('کد تصویر صحیح نیست');
-    } else if (nationalCode.length < 10 || nationalCode.length > 12) {
-      toast.warning('مقدار کد ملی را به صورت صحیح وارد کنید');
-    } else {
-      setIsButtonDisabled(true);
-      applyNationalCode(
-        {
-          nationalCode,
-          captchaInput,
-          encryptedResponse: captchaData?.encrypted_response,
+    setIsButtonDisabled(true);
+    applyNationalCode(
+      {
+        nationalCode,
+        captchaInput,
+        encryptedResponse: captchaData?.encrypted_response,
+      },
+      {
+        onSuccess: (data) => {
+          setStep(2);
+          startTimer();
         },
-        {
-          onSuccess: (data) => {
-            setStep(2);
-            startTimer();
-          },
-          onError: (error) => {
-            if (error.response && error.response.data && error.response.data.message) {
-              toast.error(error.response.data.message, 'خطا در دسترسی');
-              if (error.response.data.message.includes('شما سجامی نیستید')) {
-                setIsNoSejamModalOpen(true);
-              }
+        onError: (error) => {
+          if (error.response?.data?.message) {
+            if (error.response.data.message.includes('شما سجامی نیستید')) {
+              setIsNoSejamModalOpen(true);
             }
-          },
-          onSettled: () => {
-            setIsButtonDisabled(false);
-          },
-        }
-      );
-    }
+          }
+        },
+        onSettled: () => {
+          setIsButtonDisabled(false);
+        },
+      }
+    );
   };
 
   const closeNoSejamModal = () => {
@@ -80,18 +71,13 @@ export default function LoginView() {
   };
 
   const handleCode = () => {
-    if (otp.length !== 5) {
-      toast.warning('کد صحیح نیست');
-    } else {
-      submitOtp({
-        nationalCode,
-        otp,
-        rf
-      });
-    }
+    submitOtp({
+      nationalCode,
+      otp,
+      rf
+    });
     refreshCaptcha();
   };
-
 
   
 
