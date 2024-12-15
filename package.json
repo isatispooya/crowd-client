@@ -20,6 +20,7 @@
     "vite:build": "vite build"
   },
   "dependencies": {
+    "@emotion/cache": "^11.x.x",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@faker-js/faker": "^8.1.0",

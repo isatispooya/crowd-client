@@ -23,6 +23,14 @@ export default function App() {
   const trackingId = "G-5FBWJX4Q9P";
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const rfParam = queryParams.get('rf');
+    if (rfParam) {
+      localStorage.setItem('rf', rfParam);
+    }
+  }, []);
+
+  useEffect(() => {
     if (window.self !== window.top) {
       window.top.location = window.self.location;
     }

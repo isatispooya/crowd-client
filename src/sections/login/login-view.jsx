@@ -36,7 +36,7 @@ export default function LoginView() {
   const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(window.location.search);
-  const rf = searchParams.get('rf');
+  const referal = searchParams.get('rf');
 
   const handleApplyNationalCode = () => {
     refreshCaptcha();
@@ -74,7 +74,7 @@ export default function LoginView() {
     submitOtp({
       nationalCode,
       otp,
-      rf
+      referal
     });
     refreshCaptcha();
   };

@@ -31,8 +31,8 @@ const PaymentResult = () => {
 
   const handleReturnToHome = useCallback(() => {
     const searchParams = new URLSearchParams(location.search);
-    const rf = searchParams.get('rf');
-    const returnUrl = rf ? `https://isatiscrowd.ir/?rf=${rf}` : 'https://isatiscrowd.ir/';
+    const referal = searchParams.get('rf');
+    const returnUrl = referal ? `https://isatiscrowd.ir/?rf=${referal}` : 'https://isatiscrowd.ir/';
     
     console.log('Navigating to:', returnUrl);
     navigate(returnUrl);
