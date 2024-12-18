@@ -1,5 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import useAuth from '../service/useAuth';
 const Profile = () => {
   const { mutate, userData, isLoadingUser, isError, logout } = useAuth();
   const navigateToProfile = useNavigate();
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const access = getCookie('access');
@@ -26,6 +28,14 @@ const Profile = () => {
 
   const handleNavigateToProfile = () => {
     navigateToProfile('/ProfilePage');
+  };
+
+  const handleCopyCode = () => {
+    const baseUrl = "https://app.isatiscrowd.ir/login?rf=";
+    const referralLink = `${baseUrl}${userData?.acc?.uniqueIdentifier}`;
+    navigator.clipboard.writeText(referralLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -140,6 +150,41 @@ const Profile = () => {
                 </Typography>
               )}
             </Grid>
+            <Tooltip title={copied ? "کپی شد!" : "کپی لینک معرف"} arrow>
+              <Box
+                sx={{
+                  mt: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '6px 8px',
+                  borderRadius: '8px',
+                  backgroundColor: copied ? 'rgba(76, 175, 80, 0.15)' : 'rgba(82, 65, 117, 0.05)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: copied ? 'rgba(76, 175, 80, 0.2)' : 'rgba(82, 65, 117, 0.1)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(82, 65, 117, 0.1)',
+                  }
+                }}
+                onClick={handleCopyCode}
+              >
+                <Typography
+                  sx={{
+                    fontSize: '0.75rem',
+                    fontWeight: 500,
+                    color: copied ? '#4CAF50' : '#524175',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}
+                >
+                  <ContentCopyIcon sx={{ fontSize: '1rem' }} />
+                  {copied ? 'کپی شد!' : 'کد معرف شما'}
+                </Typography>
+              </Box>
+            </Tooltip>
           </Box>
         </motion.div>
       </Box>
