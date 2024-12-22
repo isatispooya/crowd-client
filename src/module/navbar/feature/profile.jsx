@@ -150,41 +150,7 @@ const Profile = () => {
                 </Typography>
               )}
             </Grid>
-            <Tooltip title={copied ? "کپی شد!" : "کپی لینک معرف"} arrow>
-              <Box
-                sx={{
-                  mt: 2,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '6px 8px',
-                  borderRadius: '8px',
-                  backgroundColor: copied ? 'rgba(76, 175, 80, 0.15)' : 'rgba(82, 65, 117, 0.05)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: copied ? 'rgba(76, 175, 80, 0.2)' : 'rgba(82, 65, 117, 0.1)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(82, 65, 117, 0.1)',
-                  }
-                }}
-                onClick={handleCopyCode}
-              >
-                <Typography
-                  sx={{
-                    fontSize: '0.75rem',
-                    fontWeight: 500,
-                    color: copied ? '#4CAF50' : '#524175',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1
-                  }}
-                >
-                  <ContentCopyIcon sx={{ fontSize: '1rem' }} />
-                  {copied ? 'کپی شد!' : 'کد معرف شما'}
-                </Typography>
-              </Box>
-            </Tooltip>
+   
           </Box>
         </motion.div>
       </Box>

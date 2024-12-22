@@ -128,17 +128,22 @@ export default function LoginView() {
                 <Box sx={{ mb: 3 }} />
               </>
             ) : (
-              <TextField
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleCode();
-                }}
-                label="کد تایید"
-                autoComplete="off"
-                placeholder="کد تایید به شماره تماس و ایمیل ارسال شد"
-                fullWidth
-              />
+              <>
+                <TextField
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleCode();
+                  }}
+                  label="کد تایید"
+                  autoComplete="off"
+                  placeholder="کد تایید به شماره تماس و ایمیل ارسال شد"
+                  fullWidth
+                />
+                <Typography variant="caption" color="textSecondary">
+                  درصورتی که کد تایید را دریافت نکردید عدد 12 را به 30001526 ارسال فرماید 
+                </Typography>
+              </>
             )}
           </Stack>
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
-import { motion } from 'framer-motion';
 import usePicure from '../service/use-picture';
+import useGetProfile from 'src/module/profile/hooks/useGetProfile';
 
 const CartPlan = ({
   trace_code,
@@ -23,6 +25,7 @@ const CartPlan = ({
 }) => {
   const navigate = useNavigate();
   const { data: picture } = usePicure(trace_code);
+  const { data: profileData } = useGetProfile();
 
   const statusValue = parseInt(statusSecond, 10);
   const isCompleted = statusValue === 4;
@@ -45,6 +48,29 @@ const CartPlan = ({
 
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
+  };
+
+  const handleShare = async () => {
+    try {
+      const nationalId = profileData?.acc?.uniqueIdentifier;
+      const shareUrl = `${window.location.origin}/plan/${trace_code}?rf=${nationalId}`;
+      
+      if (navigator.share) {
+        await navigator.share({
+          title: persianName,
+          text: `طرح سرمایه‌گذاری ${persianName} را مشاهده کنید`,
+          url: shareUrl
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('لینک با موفقیت کپی شد');
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        return;
+      }
+      toast.error('خطا در اشتراک‌گذاری لینک');
+    }
   };
 
   return (
@@ -113,16 +139,30 @@ const CartPlan = ({
           {/* <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} /> */}
         </div>
 
-        <div className="flex justify-center mt-4">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            type="button"
-            className="text-white bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-2 font-bold text-sm sm:text-base shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
-            onClick={handleViewClick}
-          >
-            {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
-          </motion.button>
+        <div className="flex justify-center items-center gap-4 mt-4">
+          <div className="flex justify-between w-full">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              type="button"
+              className="text-white bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-2 font-bold text-sm sm:text-base shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
+              onClick={handleViewClick}
+            >
+              {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              type="button" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 text-sm transition-all duration-300 flex items-center gap-2"
+              onClick={handleShare}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.div>

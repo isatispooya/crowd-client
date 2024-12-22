@@ -25,68 +25,64 @@ const CertificateSideBar = () => {
     return <div className="text-center text-gray-500">اطلاعاتی برای نمایش وجود ندارد</div>;
   }
 
-  console.log(response, '123456789');
-  console.log(data, 'dfghjkjhgfdsdfgh');
-
   return (
-    <div className="flex flex-wrap gap-4 p-3 sm:p-4 md:p-6 w-full">
-      <ToastContainer />
-      {data.map((item, index) => (
-        <motion.div
-          key={index}
-          className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] p-4 relative bg-white text-black shadow-lg rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-200"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <motion.div
-            animate={{
-              background: [
-                'linear-gradient(45deg, #4f46e5, #3b82f6)',
-                'linear-gradient(45deg, #3b82f6, #06b6d4)',
-                'linear-gradient(45deg, #06b6d4, #4f46e5)',
-              ],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-            className="absolute inset-0 w-full h-full opacity-70"
-          />
+    <div className="w-full p-4 sm:p-6 bg-white shadow-2xl rounded-lg">
+        <ToastContainer />
 
-          <div className="relative z-10 p-2 sm:p-4">
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <div className="flex items-center gap-2">
-                <div className="p-1 sm:p-2">
-                  <FaCertificate className="text-white text-xl sm:text-2xl" size={24} />
+      <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-700">گواهینامه‌های من</h1>
+      </div>
+      
+      <div className="grid grid-cols-3  gap-4">
+        {data.map((item, index) => (
+          <motion.div
+            key={index}
+            className="h-[220px] bg-gray-50 rounded-xl overflow-hidden relative shadow-[0_15px_50px_-15px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] transition-all duration-300"
+            whileHover={{ 
+              scale: 1.01,
+              transition: { duration: 0.2 }
+            }}
+            whileTap={{ scale: 0.99 }}
+          >
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-indigo-300 to-blue-300 shadow-[0_12px_35px_-6px_rgba(0,0,0,0.3)]" />
+            <div className="relative h-full flex flex-col justify-between p-5 bg-gradient-to-br from-gray-50 to-white">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-lg shadow-[0_8px_25px_-4px_rgba(0,0,0,0.2)]">
+                    <FaCertificate className="text-indigo-600 text-xl" />
+                  </div>
+                  <div className="space-y-1">
+                    <h2 className="text-[15px] font-bold text-gray-800 line-clamp-2 leading-6">
+                      {item.persian_name}
+                    </h2>
+                    <div className="flex items-center gap-1.5 text-gray-600">
+                      <FaCalendarAlt className="text-xs" />
+                      <span className="text-xs font-medium">
+                        {item.persian_creation_date || 'نامشخص'}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-lg sm:text-xl font-bold text-white tracking-wide break-words">
-                    {item.persian_name}
-                  </h2>
+
+                <div className="text-sm text-gray-700 bg-gray-100 p-2 rounded">
+                  این گواهینامه تایید شده و آماده دانلود می‌باشد
                 </div>
               </div>
+              <div className="flex items-center justify-end">
+                <motion.button
+                  type="button"
+                  onClick={() => mutate(item.trace_code)}
+                  className="group flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 text-white transition-all duration-200 shadow-[0_8px_20px_-3px_rgba(99,102,241,0.5)] hover:shadow-[0_12px_30px_-5px_rgba(99,102,241,0.7)]"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <FaDownload className="text-lg group-hover:translate-y-0.5 transition-transform" />
+                </motion.button>
+              </div>
             </div>
-
-            <div className="flex items-center gap-2 text-white/90">
-              <FaCalendarAlt className="text-base sm:text-lg" />
-              <span className="text-xs sm:text-sm">
-                تاریخ ایجاد طرح: {item.persian_creation_date || 'نامشخص'}
-              </span>
-            </div>
-
-            <motion.button
-              type="button"
-              onClick={() => mutate(item.trace_code)}
-              className="absolute bottom-1 left-2 sm:left-4 bg-white/20 hover:bg-white/30 p-2 sm:p-3 rounded-full backdrop-blur-sm transition-all duration-300"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaDownload className="text-white text-lg sm:text-xl" />
-            </motion.button>
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };
