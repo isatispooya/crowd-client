@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { OnRun } from 'src/api/OnRun';
 import { FaDownload, FaCertificate, FaCalendarAlt } from 'react-icons/fa';
 
@@ -27,8 +27,6 @@ const CertificateSideBar = () => {
 
   return (
     <div className="w-full p-4 sm:p-6 bg-white shadow-2xl rounded-lg">
-        <ToastContainer />
-
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-700">گواهینامه‌های من</h1>
       </div>
