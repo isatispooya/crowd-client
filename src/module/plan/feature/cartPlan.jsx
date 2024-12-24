@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
-import usePicure from '../service/use-picture';
 import useGetProfile from 'src/module/profile/hooks/useGetProfile';
+import usePicure from '../service/use-picture';
 
 const CartPlan = ({
   trace_code,

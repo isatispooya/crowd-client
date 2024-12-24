@@ -13,11 +13,11 @@ const CommentForm = () => {
   const { traceCode } = useParams();
 
   const { mutate: postComment, isLoading } = usePostComments(traceCode);
-  const { data: profileData} = useGetProfile();
+  const { data: profileData } = useGetProfile();
 
   useEffect(() => {
-    if (profileData && profileData.private_person && profileData.private_person.length > 0) {
-      setName(profileData.private_person?.firstName);
+    if (profileData?.private_person?.length > 0) {
+      setName(profileData.private_person.firstName);
     }
   }, [profileData]);
   
