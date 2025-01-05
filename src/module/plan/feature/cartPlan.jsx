@@ -197,8 +197,6 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   amountCollectedNow: PropTypes.number.isRequired,
   realPersonMinPrice: PropTypes.number.isRequired,
