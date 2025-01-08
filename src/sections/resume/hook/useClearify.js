@@ -18,7 +18,6 @@ export const fetchHistory = async (cartId) => {
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching history data:', error);
     throw new Error(error.response?.data?.message || 'Failed to fetch history data.');
   }
 };

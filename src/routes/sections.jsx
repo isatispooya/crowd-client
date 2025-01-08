@@ -18,6 +18,7 @@ export const Sterpercrowd = lazy(() => import('src/components/stepper'));
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
 export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
+export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -55,6 +56,10 @@ export default function Router() {
     {
       path: '404',
       element: <Page404 />,
+    },
+    {
+      path: 'onetimelogin/:uuid',
+      element: <OnetimeLogin />,
     },
     {
       path: '*',
