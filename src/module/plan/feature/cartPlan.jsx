@@ -67,7 +67,7 @@ const CartPlan = ({
       </div>
 
       <div className="flex flex-col bg-gray-50 rounded-lg h-72 shadow-inner p-4">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 line-clamp-2 overflow-hidden">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 min-h-[4rem] line-clamp-3 overflow-hidden">
           {persianName}
         </h2>
 
