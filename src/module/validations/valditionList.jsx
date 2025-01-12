@@ -34,7 +34,7 @@ const ValditionList = () => {
         setValidateList(managers);
       }
     } catch (error) {
-      console.error('خطا در دریافت اطلاعات:', error);
+
       toast.error('خطا!! مدیران یافت نشد , یک مدیر ایجاد کنید');
     }
   };
@@ -71,7 +71,6 @@ const ValditionList = () => {
       toast.success('اطلاعات با موفقیت ارسال شد!');
       incrementPage();
     } catch (error) {
-      console.error('خطا در ارسال اطلاعات:', error);
       toast.error('خطا در ارسال اطلاعات');
     }
   };

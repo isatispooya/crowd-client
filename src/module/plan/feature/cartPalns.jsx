@@ -73,6 +73,8 @@ const CartPlans = () => {
                         startDate={item.plan.suggested_underwriting_start_date}
                         endDate={item.plan.suggested_underwriting_end_date}
                         statusShow={item?.information_complete?.status_show}
+                        payment_date={item?.information_complete?.payment_date}
+                        approved_underwriting_start_date={item?.plan?.approved_underwriting_start_date}
                       />
                     </div>
                   );

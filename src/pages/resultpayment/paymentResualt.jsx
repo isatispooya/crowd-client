@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useDargahResult from 'src/module/plan/payment/service/useDargahResualt';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
-
 
 const containerAnimation = {
   initial: { scale: 0.9, opacity: 0 },
@@ -11,34 +10,34 @@ const containerAnimation = {
   transition: { duration: 0.5, ease: 'easeInOut' },
 };
 
-
-
 const contentAnimation = {
   initial: { y: -20, opacity: 0 },
   animate: { y: 0, opacity: 1 },
   transition: { duration: 0.5, delay: 0.2 },
 };
 
-
-
 const PaymentResult = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { traceCode } = useParams();
 
   const { invoiceId } = Object.fromEntries(new URLSearchParams(location.search));
 
-  const { data, isLoading, isSuccess } = useDargahResult(traceCode, invoiceId);
+  const { data, isLoading, isSuccess } = useDargahResult(invoiceId);
 
   const handleReturnToHome = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
+    const searchParams = new URLSearchParams(location.search);
+    const referal = searchParams.get('rf');
+    const returnUrl = referal ? `https://isatiscrowd.ir/?rf=${referal}` : 'https://isatiscrowd.ir/';
+
+
+    navigate(returnUrl);
+  }, [navigate, location.search]);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  console.log(data);
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-200">
@@ -74,7 +73,4 @@ const PaymentResult = () => {
   );
 };
 
-
-
 export default PaymentResult;
-

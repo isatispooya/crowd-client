@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 import ProgressLineChart from 'src/components/progressLine';
 import { OnRun } from 'src/api/OnRun';
 import { formatNumber } from 'src/utils/formatNumbers';
-import { motion } from 'framer-motion';
-import CountdownTimer from 'src/components/countDown';
+import useGetProfile from 'src/module/profile/hooks/useGetProfile';
 import usePicure from '../service/use-picture';
 
 const CartPlan = ({
@@ -16,14 +17,15 @@ const CartPlan = ({
   totalPrice,
   crowdFundingType,
   company,
-  endDate,
-  startDate,
   statusSecond,
   amountCollectedNow,
   realPersonMinPrice,
+  approved_underwriting_start_date,
+  payment_date
 }) => {
   const navigate = useNavigate();
   const { data: picture } = usePicure(trace_code);
+  const { data: profileData } = useGetProfile();
 
   const statusValue = parseInt(statusSecond, 10);
   const isCompleted = statusValue === 4;
@@ -36,8 +38,39 @@ const CartPlan = ({
     5: 'تکمیل شده',
   };
 
+  const statusColorMapping = {
+    1: 'bg-green-500', // شروع شده - سبز
+    2: 'bg-blue-500',  // شروع نشده - آبی
+    3: 'bg-yellow-500', // تمدید شده - زرد
+    4: 'bg-red-500',   // سر رسید ناموفق - قرمز
+    5: 'bg-blue-500',  // تکمیل شده - آبی
+  };
+
   const handleViewClick = () => {
     navigate(`/plan/${trace_code}`);
+  };
+
+  const handleShare = async () => {
+    try {
+      const nationalId = profileData?.acc?.uniqueIdentifier;
+      const shareUrl = `${window.location.origin}/plan/${trace_code}?rf=${nationalId}`;
+      
+      if (navigator.share) {
+        await navigator.share({
+          title: persianName,
+          text: `طرح سرمایه‌گذاری ${persianName} را مشاهده کنید`,
+          url: shareUrl
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('لینک با موفقیت کپی شد');
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        return;
+      }
+      toast.error('خطا در اشتراک‌گذاری لینک');
+    }
   };
 
   return (
@@ -46,7 +79,7 @@ const CartPlan = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col h-[700px] p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
+      className={`flex flex-col h-[750px] p-4 md:p-6 lg:p-8 rounded-lg shadow-2xl transition-shadow mx-auto 
         w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl ${
           isCompleted ? 'bg-gray-200' : 'bg-white'
         }`}
@@ -57,7 +90,7 @@ const CartPlan = ({
           alt={persianName || 'تصویر موجود نیست'}
           className="object-cover w-full h-full rounded-lg"
         />
-        <div className="absolute top-4 left-4 bg-blue-500 py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left">
+        <div className={`absolute top-4 left-4 ${statusColorMapping[statusValue]} py-1 px-4 rounded-full text-white text-xs sm:text-sm font-medium shadow-md transform -rotate-12 origin-top-left`}>
           {statusMapping[statusValue]}
         </div>
 
@@ -66,16 +99,17 @@ const CartPlan = ({
         </div>
       </div>
 
-      <div className="flex flex-col bg-gray-50 rounded-lg h-72 shadow-inner p-4">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 min-h-[4rem] line-clamp-3 overflow-hidden">
+      <div className="flex flex-col bg-gray-50 rounded-lg h-96 shadow-inner p-4">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center text-gray-800 mt-6 min-h-[3.5rem] break-words">
           {persianName}
         </h2>
 
-        <div className="grid gap-2 sm:gap-3 text-gray-700">
+        <div className="grid gap-2 mt-6 sm:gap-3 text-gray-700">
           <div className="grid grid-cols-12 items-center">
             <span className="text-xs sm:text-sm col-span-5">مبلغ کل:</span>
             <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{formatNumber(totalPrice)} ریال</span>
           </div>
+
           <div className="grid grid-cols-12 items-center">
             <span className="text-xs sm:text-sm col-span-5">شرکت:</span>
             <span className="text-xs sm:text-sm font-bold col-span-7 text-left">{company}</span>
@@ -94,6 +128,26 @@ const CartPlan = ({
               {formatNumber(realPersonMinPrice)} ریال
             </span>
           </div>
+
+          {payment_date && approved_underwriting_start_date && statusValue === 5 && (
+            <div className="flex items-center justify-between bg-gray-100 rounded-lg p-3 mt-2 shadow-sm">
+              <div className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-sm text-gray-700">جمع‌آوری وجوه:</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-blue-600 font-bold text-sm">
+                  {Math.ceil(
+                    (new Date(payment_date) - new Date(approved_underwriting_start_date)) /
+                    (1000 * 60 * 60 * 24)
+                  )}
+                </span>
+                <span className="text-gray-600 mr-1 text-sm">روز</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -103,19 +157,32 @@ const CartPlan = ({
             progress={Math.round((amountCollectedNow / totalPrice) * 100)}
             label="تامین شده"
           />
-          <CountdownTimer statusValue={statusValue} startDate={startDate} endDate={endDate} />
         </div>
 
-        <div className="flex justify-center mt-4">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            type="button"
-            className="text-white bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-2 font-bold text-sm sm:text-base shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
-            onClick={handleViewClick}
-          >
-            {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
-          </motion.button>
+        <div className="flex justify-center items-center gap-4 mt-4">
+          <div className="flex justify-between w-full">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              type="button"
+              className="text-white bg-blue-600 border-b-1 border-blue-900 rounded-2xl px-4 py-2 font-bold text-sm sm:text-base shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300"
+              onClick={handleViewClick}
+            >
+              {statusValue === 1 ? 'شروع سرمایه گذاری' : 'مشاهده جزئیات'}
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              type="button" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 text-sm transition-all duration-300 flex items-center gap-2"
+              onClick={handleShare}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -130,11 +197,11 @@ CartPlan.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   crowdFundingType: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
   statusSecond: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   amountCollectedNow: PropTypes.number.isRequired,
   realPersonMinPrice: PropTypes.number.isRequired,
+  approved_underwriting_start_date: PropTypes.string,
+  payment_date: PropTypes.string
 };
 
 export default CartPlan;

@@ -1,5 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import useAuth from '../service/useAuth';
 const Profile = () => {
   const { mutate, userData, isLoadingUser, isError, logout } = useAuth();
   const navigateToProfile = useNavigate();
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const access = getCookie('access');
@@ -26,6 +28,14 @@ const Profile = () => {
 
   const handleNavigateToProfile = () => {
     navigateToProfile('/ProfilePage');
+  };
+
+  const handleCopyCode = () => {
+    const baseUrl = "https://app.isatiscrowd.ir/login?rf=";
+    const referralLink = `${baseUrl}${userData?.acc?.uniqueIdentifier}`;
+    navigator.clipboard.writeText(referralLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -140,6 +150,7 @@ const Profile = () => {
                 </Typography>
               )}
             </Grid>
+   
           </Box>
         </motion.div>
       </Box>

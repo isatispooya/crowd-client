@@ -1,8 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-imports */
-
-import { createTheme } from '@mui/material/styles';
 import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ThemeProvider from 'src/theme';
@@ -25,15 +20,39 @@ export default function App() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
 
+  const trackingId = "G-5FBWJX4Q9P";
+
   useEffect(() => {
-    if (window.self !== window.top) {
-      window.top.location = window.self.location;
+    const queryParams = new URLSearchParams(window.location.search);
+    const rfParam = queryParams.get('rf');
+    if (rfParam) {
+      localStorage.setItem('rf', rfParam);
     }
   }, []);
 
   useEffect(() => {
+    if (window.self !== window.top) {
+      window.top.location = window.self.location;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
+    script.async = true;
+    document.body.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args) {
+      window.dataLayer.push(...args);
+    }
+    gtag("js", new Date());
+    gtag("config", trackingId, {
+      page_path: window.location.pathname,
+    });
+  }, [trackingId]);
+
+  useEffect(() => {
     loadWidget();
-  });
+  }, []);
 
   return (
     <CacheProvider value={cacheRtl}>

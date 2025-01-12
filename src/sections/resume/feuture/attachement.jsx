@@ -32,7 +32,7 @@ const Attachement = () => {
         setResumeList(response.data.manager);
       }
     } catch (error) {
-      console.error('خطا در دریافت اطلاعات:', error);
+
       toast.error('خطا!! مدیران یافت نشد , یک مدیر ایجاد کنید');
     }
   };
@@ -66,7 +66,7 @@ const Attachement = () => {
       toast.success('اطلاعات با موفقیت ارسال شد!');
       incrementPage();
     } catch (error) {
-      console.error('خطا :', error);
+
       toast.error('خطا در ارسال اطلاعات');
     }
   };
