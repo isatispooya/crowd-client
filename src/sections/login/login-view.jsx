@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-danger */
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -13,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import { bgGradient } from 'src/theme/css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import SmallLoader from 'src/components/SmallLoader';
 import { Link } from '@mui/material';
 import useCaptcha from './hooks/useCaptcha';
@@ -33,7 +32,6 @@ export default function LoginView() {
   const { mutate: applyNationalCode } = useApplyNationalCode();
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp();
   const { timer, step, setStep, startTimer } = useTimer();
-  const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(window.location.search);
   const referal = searchParams.get('rf');
@@ -74,12 +72,10 @@ export default function LoginView() {
     submitOtp({
       nationalCode,
       otp,
-      referal
+      referal,
     });
     refreshCaptcha();
   };
-
-  
 
   const renderForm = (
     <>
@@ -141,7 +137,7 @@ export default function LoginView() {
                   fullWidth
                 />
                 <Typography variant="caption" color="textSecondary">
-                  درصورتی که کد تایید را دریافت نکردید عدد 12 را به 30001526 ارسال فرماید 
+                  درصورتی که کد تایید را دریافت نکردید عدد 12 را به 30001526 ارسال فرماید
                 </Typography>
               </>
             )}
@@ -196,7 +192,6 @@ export default function LoginView() {
               </LoadingButton>
             </>
           )}
-
         </>
       )}
     </>
