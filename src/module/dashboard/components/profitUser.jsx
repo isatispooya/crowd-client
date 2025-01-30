@@ -1,89 +1,128 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeftCircle } from 'react-icons/fi';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box, Typography, IconButton } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const ProfitUser = ({ dashbord }) => {
   const { profit } = dashbord;
-
   const navigate = useNavigate();
+
+const theme = createTheme({
+  direction: 'rtl',
+  typography: {
+    fontFamily: 'Peyda',
+    allVariants: {
+      fontFamily: 'Peyda',
+    }
+  },
+  components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Peyda',
+          '& .MuiDataGrid-cell': {
+            fontFamily: 'Peyda',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            fontFamily: 'Peyda',
+          }
+        }
+      }
+    }
+  }
+});
 
   const handleNavigate = (traceCode) => navigate(`/plan/${traceCode}`);
 
-  return (
-    <>
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-800 ">
-        گزارش پیش‌بینی مشارکت در طرح‌ها
-      </h1>
-      <div dir="rtl" className="flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="overflow-x-auto w-full lg:w-4/5 relative shadow-2xl rounded-xl border border-gray-100 "
+  const columns = [
+    {
+      field: 'amount',
+      headerName: 'مبلغ',
+      flex: 1,
+      minWidth: 150,
+      renderCell: (params) => `${params.value.toLocaleString()} ریال`,
+    },
+    {
+      field: 'date',
+      headerName: 'تاریخ سررسید',
+      flex: 1,
+      minWidth: 150,
+      renderCell: (params) => params.value?.replace(/-/g, '/'),
+    },
+    {
+      field: 'type',
+      headerName: 'نوع',
+      flex: 1,
+      minWidth: 150,
+      renderCell: (params) => (params.value === '1' ? 'اصل مشارکت' : 'پیش‌بینی سود'),
+    },
+    {
+      field: 'plan_name',
+      headerName: 'طرح',
+      flex: 2,
+      minWidth: 200,
+      renderCell: (params) => (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
         >
-          <table className="w-full text-sm text-left bg-white  text-gray-700 ">
-            <thead className="text-lg bg-gray-100 ">
-              <tr>
-                <th scope="col" className="py-4 px-6 font-bold">
-                  مبلغ
-                </th>
-                <th scope="col" className="py-4 px-6 font-bold">
-                  تاریخ سررسید
-                </th>
-                <th scope="col" className="py-4 px-6 font-bold">
-                  نوع
-                </th>
-                <th scope="col" className="py-4 px-6 font-bold">
-                  وضعیت
-                </th>
-                <th scope="col" className="py-4 px-6 font-bold">
-                  طرح
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {profit && profit.length > 0 ? (
-                profit.map((item, index) => (
-                  <motion.tr
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="border-b border-gray-300  text-gray-800  hover:bg-gray-100  transition-colors duration-200"
-                  >
-                    <td className="py-4 px-6 font-semibold">{item.amount.toLocaleString()} ریال</td>
-                    <td className="py-4 px-6">{item?.date?.replace(/-/g, '/')}</td>
-                    <td className="py-4 px-6">
-                      {item.type === '1' ? 'اصل مشارکت' : 'پیش‌بینی سود'}
-                    </td>
-                    <td className="py-4 px-6">
-                      {item.profit_payment_completed ? 'واریز شده' : 'در انتظار واریز'}
-                    </td>
-                    <td className="py-4 px-6">
-                      <button
-                        onClick={() => handleNavigate(item.trace_code)}
-                        className="  text-white    px-4 py-2 transition-all duration-300"
-                        type="button"
-                      >
-                        <FiArrowLeftCircle className="text-xl  text-blue-600" />
-                      </button>
-                    </td>
-                  </motion.tr>
-                ))
-              ) : (
-                <tr>
-                  <td className="py-10 px-6 text-center text-gray-500 " colSpan="4">
-                    گزارشی موجود نیست
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </motion.div>
-      </div>
-    </>
+          <Typography>{params.value}</Typography>
+          <IconButton onClick={() => handleNavigate(params.row.trace_code)}>
+            <FiArrowLeftCircle className="text-xl text-blue-600" />
+          </IconButton>
+        </Box>
+      ),
+    },
+  ];
+
+  return (
+    <Box sx={{ width: '100%', textAlign: 'center', mt: 4 }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        گزارش پیش‌بینی مشارکت در طرح‌ها
+      </Typography>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            height: 400,
+            width: '80%',
+            mx: 'auto',
+            boxShadow: 3,
+            borderRadius: 2,
+            p: 2,
+            bgcolor: 'white',
+          }}
+        >
+          <DataGrid
+            rows={profit?.map((item, index) => ({ id: index, ...item })) || []}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            localeText={{
+              noRowsLabel: 'گزارشی موجود نیست',
+              MuiTablePagination: {
+                labelRowsPerPage: 'تعداد ردیف در هر صفحه:',
+                labelDisplayedRows: ({ from, to, count }) =>
+                  `${from}-${to} از ${count !== -1 ? count : `بیش از ${to}`}`,
+              },
+            }}
+            componentsProps={{
+              pagination: {
+                labelRowsPerPage: 'تعداد ردیف در هر صفحه',
+                dir: 'rtl',
+              },
+            }}
+          />
+        </Box>
+      </ThemeProvider>
+    </Box>
   );
 };
 
