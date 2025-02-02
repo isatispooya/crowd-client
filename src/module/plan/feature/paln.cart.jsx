@@ -250,14 +250,14 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
               strokeWidth: 6,
             }}
             value={Math.round(
-              (plan?.information_complete?.amount_collected_now / plan.plan.total_price) * 100
+              ((plan?.information_complete?.amount_collected_now ?? 0) / plan.plan.total_price) * 100
             )}
             min={0}
             max={100}
             labels={{
               valueLabel: {
                 matchColorWithArc: true,
-                formatTextValue: (value) => value + '%',
+                formatTextValue: (value) => `${value}%`,
                 style: {
                   fontSize: '35px',
                   textShadow: '2px 2px 4px rgba(85, 82, 82, 0.1)',

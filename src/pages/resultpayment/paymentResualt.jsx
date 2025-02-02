@@ -22,22 +22,15 @@ const PaymentResult = () => {
 
   const { invoiceId } = Object.fromEntries(new URLSearchParams(location.search));
 
-  const { data, isLoading, isSuccess } = useDargahResult(invoiceId);
+  const { isLoading, isSuccess } = useDargahResult(invoiceId);
 
   const handleReturnToHome = useCallback(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const referal = searchParams.get('rf');
-    const returnUrl = referal ? `https://isatiscrowd.ir/?rf=${referal}` : 'https://isatiscrowd.ir/';
-
-
-    navigate(returnUrl);
-  }, [navigate, location.search]);
+    navigate('/');
+  }, [navigate]);
 
   if (isLoading) {
     return <Loader />;
   }
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-200">
