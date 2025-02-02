@@ -37,7 +37,7 @@ const useAuth = () => {
     queryClient.removeQueries('profile');
     queryClient.invalidateQueries('profile');
     navigate('/login');
-  };
+  };  
   return {
     mutate,
     isError,

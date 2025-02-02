@@ -76,7 +76,6 @@ const Other = () => {
     setLoading(false);
 
     incrementPage();
-    console.error('خطا در ارسال اطلاعات:');
     toast.error('خطا در ارسال اطلاعات');
     setLoading(false);
     return response.data;
