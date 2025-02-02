@@ -39,18 +39,14 @@ const CartPlans = () => {
       <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-700 z-10">
         <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
       </div>
-      <div className="flex justify-center items-center ">
-        <div className="max-w-8xl w-full bg-white rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 overflow-y-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center text-right">
+      <div className="container mx-auto px-4 py-8 ">
+        <div className="bg-white rounded-lg shadow-2xl p-4">
+          <div className="flex flex-wrap grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {reversedPlans.length > 0 ? (
               reversedPlans.map((item) => {
-                const persianCreationDate = item.plan?.creation_date
-                  ? moment(item.plan?.creation_date).locale('fa').format('YYYY/MM/DD')
-                  : 'تاریخ نامعتبر';
-
                 if (item?.information_complete?.status_show === true) {
                   return (
-                    <div key={item.plan.id}>
+                    <div key={item.plan.id} className="flex">
                       <PlanCart
                         plan={item}
                         handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}
@@ -61,7 +57,9 @@ const CartPlans = () => {
                 return null;
               })
             ) : (
-              <p>هیچ طرحی برای این فیلتر یافت نشد.</p>
+              <p className="text-center col-span-full text-gray-600 text-lg">
+                هیچ طرحی برای این فیلتر یافت نشد.
+              </p>
             )}
           </div>
         </div>
