@@ -38,9 +38,9 @@ const CartPlans = () => {
       <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-700 z-10">
         <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
       </div>
-      <div className="container mx-auto px-4 py-8 ">
+      <div className="mx-auto px-4 py-8 ">
         <div className="bg-white rounded-lg shadow-2xl p-4">
-          <div className="flex flex-wrap grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-wrap flex-row justify-around">
             {reversedPlans.length > 0 ? (
               reversedPlans.map((item) => {
                 if (item?.information_complete?.status_show === true) {

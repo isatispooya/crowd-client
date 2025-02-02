@@ -58,7 +58,7 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       transition={{
         duration: 1,
       }}
-      className="flex flex-col items-center bg-white shadow-md rounded-lg w-[450px] min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
+      className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
       <img
