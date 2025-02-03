@@ -140,11 +140,11 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
                 <RiCalendarScheduleFill className="text-gray-500 text-lg" />
                 <div className="text-gray-500 text-xl font-bold">
                   <div className="flex items-center">
-                    {Math.ceil(
+                    {Math.max(1, Math.ceil(
                       (new Date(plan.information_complete.payment_date) -
                         new Date(plan.plan.approved_underwriting_start_date)) /
                         (1000 * 60 * 60 * 24)
-                    )}
+                    ))}
                     <p className="text-gray-500 text-[12px]">روز</p>
                   </div>
                 </div>

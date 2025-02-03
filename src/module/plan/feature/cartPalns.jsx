@@ -38,29 +38,27 @@ const CartPlans = () => {
       <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-700 z-10">
         <FilterPlans setFilterStatusSecond={setFilterStatusSecond} />
       </div>
-      <div className="mx-auto px-4 py-8 ">
-        <div className="bg-white rounded-lg shadow-2xl p-4">
-          <div className="flex flex-wrap flex-row justify-around">
-            {reversedPlans.length > 0 ? (
-              reversedPlans.map((item) => {
-                if (item?.information_complete?.status_show === true) {
-                  return (
-                    <div key={item.plan.id} className="flex">
-                      <PlanCart
-                        plan={item}
-                        handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}
-                      />
-                    </div>
-                  );
-                }
-                return null;
-              })
-            ) : (
-              <p className="text-center col-span-full text-gray-600 text-lg">
-                هیچ طرحی برای این فیلتر یافت نشد.
-              </p>
-            )}
-          </div>
+      <div className="bg-white rounded-lg shadow-2xl p-4">
+        <div className="flex flex-wrap flex-row justify-around">
+          {reversedPlans.length > 0 ? (
+            reversedPlans.map((item) => {
+              if (item?.information_complete?.status_show === true) {
+                return (
+                  <div key={item.plan.id} className="flex">
+                    <PlanCart
+                      plan={item}
+                      handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })
+          ) : (
+            <p className="text-center col-span-full text-gray-600 text-lg">
+              هیچ طرحی برای این فیلتر یافت نشد.
+            </p>
+          )}
         </div>
       </div>
     </>
