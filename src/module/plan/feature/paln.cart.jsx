@@ -61,13 +61,26 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
-      <img
-        src={`${OnRun}/${plan.picture_plan.picture}`}
-        alt="مشکل در بارگزاری عکس"
-        width={400}
-        height={200}
-        className="w-full object-cover rounded-t-lg"
-      />
+      {plan.information_complete.viedo ? (
+        <video
+          src={`${OnRun}/${plan.information_complete.viedo}`}
+          alt="مشکل در بارگزاری ویدیو"
+          width={400}
+          height={200}
+          controls
+          className="w-full object-cover rounded-t-lg"
+        >
+          <track kind="captions" srcLang="fa" label="Persian" src="" default />
+        </video>
+      ) : (
+        <img
+          src={`${OnRun}/${plan.picture_plan.picture}`}
+          alt="مشکل در بارگزاری عکس"
+          width={400}
+          height={200}
+          className="w-full object-cover rounded-t-lg"
+        />
+      )}
       <motion.div
         initial={{ opacity: 0.8 }}
         animate={{ opacity: 1 }}
@@ -140,11 +153,14 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
                 <RiCalendarScheduleFill className="text-gray-500 text-lg" />
                 <div className="text-gray-500 text-xl font-bold">
                   <div className="flex items-center">
-                    {Math.max(1, Math.ceil(
-                      (new Date(plan.information_complete.payment_date) -
-                        new Date(plan.plan.approved_underwriting_start_date)) /
-                        (1000 * 60 * 60 * 24)
-                    ))}
+                    {Math.max(
+                      1,
+                      Math.ceil(
+                        (new Date(plan.information_complete.payment_date) -
+                          new Date(plan.plan.approved_underwriting_start_date)) /
+                          (1000 * 60 * 60 * 24)
+                      )
+                    )}
                     <p className="text-gray-500 text-[12px]">روز</p>
                   </div>
                 </div>
@@ -183,10 +199,11 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
         </div>
       </motion.div>
 
-      <div className="w-3/4 flex justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-4">
-        <SlStar className="text-green-700 font-semibold" />
-        <p className="text-green-600 text-sm">دارای ضمانت و تعهد پرداخت بانکی</p>
+      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-4">
+        <SlStar className="text-green-700 font-semibold ml-2" />
+        <p className="text-green-600 text-sm ">{plan.appendices[0]?.title}</p>
       </div>
+      <p className="text-gray-300 text-left text-xs">(بدون تضمین سود)</p>
 
       <div className="flex flex-col items-center justify-around w-[350px] mt-4 mb-8">
         <motion.div className="flex flex-row items-center justify-around w-full mt-4 mb-8">
@@ -250,7 +267,8 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
               strokeWidth: 6,
             }}
             value={Math.round(
-              ((plan?.information_complete?.amount_collected_now ?? 0) / plan.plan.total_price) * 100
+              ((plan?.information_complete?.amount_collected_now ?? 0) / plan.plan.total_price) *
+                100
             )}
             min={0}
             max={100}
