@@ -7,6 +7,8 @@ import Loader from 'src/components/loader';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import { formatNumber } from 'src/utils/formatNumbers';
 import { Card, Grid, Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { CalendarMonthOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import useGetDashbord from './service/use-getDashbord';
 import ProfitUser from './profitUser';
@@ -49,7 +51,14 @@ const Dashboard = () => {
       icon: CallMadeIcon,
       color: '#f39c12',
     },
+    {
+      title: 'تقویم سود',
+      icon: CalendarMonthOutlined,
+      color: '#27ae60',
+      url: '/calender',
+    },
   ];
+
 
   return (
     <div className="container mx-auto px-4">
@@ -59,59 +68,61 @@ const Dashboard = () => {
 
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={4} key={index}>
-              <Card
-                sx={{
-                  p: 2,
-                  borderRadius: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-                  transition: '0.3s',
-                  background: `linear-gradient(135deg, ${item.color}15, ${item.color}30)`,
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
-                  },
-                }}
-              >
-                <Box
+              <Link to={item.url} style={{ textDecoration: 'none' }}>
+                <Card
                   sx={{
+                    p: 2,
+                    borderRadius: '12px',
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    width: '240px',
-                    height: '120px',
-                    flexGrow: 1,
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+                    transition: '0.3s',
+                    background: `linear-gradient(135deg, ${item.color}15, ${item.color}30)`,
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
+                    },
                   }}
                 >
-                  <Typography
-                    variant="h5"
-                    sx={{ fontWeight: 'bold', marginBottom: '4px', color: item.color }}
-                  >
-                    {item.value}
-                  </Typography>
-
-                  <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: '500' }}>
-                    {item.title}
-                  </Typography>
-                </Box>
-                <motion.div whileHover={{ rotate: 20 }} transition={{ duration: 0.5 }}>
                   <Box
                     sx={{
-                      width: 60,
-                      height: 60,
                       display: 'flex',
-                      alignItems: 'center',
+                      flexDirection: 'column',
                       justifyContent: 'center',
-                      color: item.color,
-                      transition: 'none',
+                      width: '240px',
+                      height: '120px',
+                      flexGrow: 1,
                     }}
                   >
-                    <IconComponent style={{ fontSize: '2.5rem' }} />
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 'bold', marginBottom: '4px', color: item.color }}
+                    >
+                      {item.value}
+                    </Typography>
+
+                    <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: '500' }}>
+                      {item.title}
+                    </Typography>
                   </Box>
-                </motion.div>
-              </Card>
+                  <motion.div whileHover={{ rotate: 20 }} transition={{ duration: 0.5 }}>
+                    <Box
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: item.color,
+                        transition: 'none',
+                      }}
+                    >
+                      <IconComponent style={{ fontSize: '2.5rem' }} />
+                    </Box>
+                  </motion.div>
+                </Card>
+              </Link>
             </Grid>
           );
         })}

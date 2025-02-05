@@ -19,6 +19,7 @@ export const PaymentResualt = lazy(() => import('src/pages/resultpayment/payment
 export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
+export const Calender = lazy(() => import('src/module/calender/features/clander'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -35,6 +36,7 @@ export default function Router() {
         { path: 'plans', element: <Plans /> },
         { path: 'plan/:traceCode', element: <Plan /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
+        { path: 'calender', element: <Calender /> },
 
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <CertificateSideBar /> },
