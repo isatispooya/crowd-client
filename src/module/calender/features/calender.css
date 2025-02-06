@@ -1,0 +1,67 @@
+/* src/styles/calendar.css */
+
+/* General Calendar Container */
+.rbc-calendar {
+    font-family: 'IRANSans', sans-serif;
+    direction: rtl; /* Right-to-left layout for Persian */
+  }
+  
+  /* Month View */
+  .rbc-month-view {
+    border: none; /* Remove borders if needed */
+  }
+  
+  /* Day Cell */
+  .rbc-day-bg {
+    background-color: #f9fafb; /* Light background for day cells */
+  }
+  
+  /* Today's Date */
+  .rbc-today {
+    background-color: #e0f2fe !important; /* Highlight today's date */
+  }
+  
+  /* Event Styling */
+  .rbc-event {
+    border: none; /* Remove default borders */
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header (Month/Year) */
+  .rbc-toolbar {
+    margin-bottom: 20px;
+  }
+  
+  .rbc-toolbar button {
+    background-color: #1e40af; /* Blue background for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .rbc-toolbar button:hover {
+    background-color: #1e3a8a; /* Darker blue on hover */
+  }
+  
+  /* Navigation Buttons */
+  .rbc-toolbar .rbc-btn-group button {
+    margin: 0 5px;
+  }
+
+  .income-event {
+  background-color: #d4edda;
+  color: #155724;
+  border: none;
+  border-radius: 5px;
+}
+
+.expense-event {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: none;
+  border-radius: 5px;
+}
