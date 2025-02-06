@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Divider } from '@mui/material';
 import { MdKeyboardDoubleArrowUp } from 'react-icons/md';
 import { FaPercent } from 'react-icons/fa';
-import { SlStar } from 'react-icons/sl';
 import GaugeComponent from 'react-gauge-component';
 import { BsPersonFillCheck } from 'react-icons/bs';
 import { RiFundsFill, RiCalendarScheduleFill } from 'react-icons/ri';
 import { HiCheckCircle } from 'react-icons/hi';
 import { useEffect } from 'react';
 import { OnRun } from '../../../api/OnRun';
+
 
 const PlanCart = ({ handleDetailsClick, key, plan }) => {
   const planStatusOptions = [
@@ -61,17 +61,18 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
-      {plan.information_complete.viedo ? (
+     {plan.information_complete.video ? (
         <video
-          src={`${OnRun}/${plan.information_complete.viedo}`}
+          src={`${OnRun}/${plan.information_complete.video}`}
           alt="مشکل در بارگزاری ویدیو"
           width={400}
           height={200}
-          controls
           className="w-full object-cover rounded-t-lg"
-        >
-          <track kind="captions" srcLang="fa" label="Persian" src="" default />
-        </video>
+          autoPlay
+          muted
+
+          loop
+        />
       ) : (
         <img
           src={`${OnRun}/${plan.picture_plan.picture}`}
@@ -79,6 +80,8 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
           width={400}
           height={200}
           className="w-full object-cover rounded-t-lg"
+
+
         />
       )}
       <motion.div
@@ -174,7 +177,11 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
           <div className="flex flex-row items-center w-full justify-around">
             <HiCheckCircle className="text-gray-500 text-lg" />
             <div className="flex items-center">
-              <h1 className="text-gray-500 text-xl font-bold">
+              <h1
+                className={`text-gray-500 ${
+                  plan.information_complete.payback_period === '1' ? 'text-xl' : 'text-[12px]'
+                } font-bold`}
+              >
                 {plan.information_complete.payback_period === '1' ? '3' : 'پایان طرح'}
               </h1>
               <p className="text-gray-500 text-[12px]">
@@ -199,9 +206,8 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
         </div>
       </motion.div>
 
-      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-4">
-        <SlStar className="text-green-700 font-semibold ml-2" />
-        <p className="text-green-600 text-sm ">{plan.appendices[0]?.title}</p>
+      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-4 h-10 overflow-hidden">
+        <p className="text-green-600 text-sm">{plan.appendices[0]?.title}</p>
       </div>
       <p className="text-gray-300 text-left text-xs">(بدون تضمین سود)</p>
 
