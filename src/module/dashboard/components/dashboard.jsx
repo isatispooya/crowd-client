@@ -12,6 +12,7 @@ import { CalendarMonthOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import useGetDashbord from './service/use-getDashbord';
 import ProfitUser from './profitUser';
+// import PieChart from './charts/pieChart';
 
 const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
@@ -139,8 +140,11 @@ const Dashboard = () => {
       >
         <ProfitUser dashbord={dashbord} />
       </Box>
+
+      {/* <PieChart data={dashbord}  /> */}
     </div>
   );
 };
+
 
 export default Dashboard;
