@@ -17,7 +17,7 @@ const Tabs = () => {
               activeTab === 'calendarYear' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
             }`}
           >
-            تقویم سال
+            تقویم سالانه
           </button>
           <button
             type="button"
@@ -26,7 +26,7 @@ const Tabs = () => {
               activeTab === 'clander' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
             }`}
           >
-            تقویم
+            تقویم ماهانه
           </button>
         </div>
       </div>

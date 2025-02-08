@@ -83,7 +83,7 @@ const CustomEvent = ({ event }) => {
           </Typography>
 
           <Typography variant="body2">
-            مبلغ: {event.details.amount.toLocaleString()} تومان
+            مبلغ: {event.details.amount.toLocaleString()} ریال
           </Typography>
 
           {event.type === '2' ? (

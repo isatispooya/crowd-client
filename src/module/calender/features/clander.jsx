@@ -67,7 +67,7 @@ const processEvents = (profitData) => {
       const jalaliDate = new Date(gy, gm - 1, gd);
 
       return {
-        title: ` ${item.amount.toLocaleString()} تومان`,
+        title: ` ${item.amount.toLocaleString()} ریال`,
         start: jalaliDate,
         end: jalaliDate,
         allDay: true,
@@ -84,9 +84,9 @@ const CustomEvent = ({ event }) => {
   }
 
   const getEventColor = (type) => {
-    if (type === '1') return 'bg-green-500 '; 
-    if (type === '2') return 'bg-blue-500'; 
-    return 'bg-gray-500'; 
+    if (type === '1') return 'bg-green-500 ';
+    if (type === '2') return 'bg-blue-500';
+    return 'bg-gray-500';
   };
 
   return (
@@ -130,7 +130,7 @@ const CustomEvent = ({ event }) => {
   );
 };
 
-const eventStyleGetter = (event, start, end, isSelected ) => {
+const eventStyleGetter = (event, start, end, isSelected) => {
   const style = {
     backgroundColor: 'transparent',
     color: event.type === 'income' ? '#155724' : '#721c24',
@@ -239,7 +239,7 @@ const MyCalendar = () => {
         views={['month', 'year']}
         culture="fa-IR"
         eventPropGetter={eventStyleGetter}
-        locale='fa-IR'
+        locale="fa-IR"
         components={{
           event: CustomEvent,
           toolbar: CustomToolbar,
