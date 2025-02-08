@@ -20,6 +20,7 @@ export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const Calender = lazy(() => import('src/module/calender/features/clander'));
+export const MyCalendarYear = lazy(() => import('src/module/calender/features/calenderYear'));
 
 export default function Router() {
   const routes = useRoutes([
