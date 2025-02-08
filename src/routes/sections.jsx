@@ -19,8 +19,7 @@ export const PaymentResualt = lazy(() => import('src/pages/resultpayment/payment
 export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
-export const Calender = lazy(() => import('src/module/calender/features/clander'));
-export const MyCalendarYear = lazy(() => import('src/module/calender/features/calenderYear'));
+export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -37,7 +36,7 @@ export default function Router() {
         { path: 'plans', element: <Plans /> },
         { path: 'plan/:traceCode', element: <Plan /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
-        { path: 'calender', element: <Calender /> },
+        { path: 'calender', element: <DashTabs /> },
 
         { path: 'card', element: <Sterpercrowd /> },
         { path: 'certificate', element: <CertificateSideBar /> },
@@ -45,17 +44,14 @@ export default function Router() {
         { path: 'training', element: <TrainingPage /> },
       ],
     },
-
     {
       path: 'paymentresult',
       element: <PaymentResualt />,
     },
-
     {
       path: 'login',
       element: <LoginPage />,
     },
-
     {
       path: '404',
       element: <Page404 />,
