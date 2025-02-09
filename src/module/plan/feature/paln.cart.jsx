@@ -72,6 +72,7 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
             autoPlay
             muted
             loop
+         
           />
         </React.Suspense>
       ) : (
