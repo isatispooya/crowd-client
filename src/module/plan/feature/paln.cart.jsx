@@ -10,7 +10,6 @@ import { HiCheckCircle } from 'react-icons/hi';
 import React, { useEffect } from 'react';
 import { OnRun } from '../../../api/OnRun';
 
-
 const PlanCart = ({ handleDetailsClick, key, plan }) => {
   const planStatusOptions = [
     { id: '1', label: 'شروع شده', color: 'bg-green-500' },
@@ -61,29 +60,36 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
-     {plan.information_complete.viedo ? (
-        <React.Suspense fallback={<div className="w-full h-52 flex items-center justify-center">در حال بارگذاری ویدیو...</div>}>
-          <video
-            src={`${OnRun}/${plan.information_complete.viedo}`}
-            alt="مشکل در بارگزاری ویدیو"
+      <div className="w-full h-[240px] ">
+        {plan.information_complete.viedo ? (
+          <React.Suspense
+            fallback={
+              <div className="w-full h-52 flex items-center justify-center">
+                در حال بارگذاری ویدیو...
+              </div>
+            }
+          >
+            <video
+              src={`${OnRun}/${plan.information_complete.viedo}`}
+              alt="مشکل در بارگزاری ویدیو"
+              width={400}
+              height={200}
+              className="w-full object-cover rounded-t-lg"
+              autoPlay
+              muted
+              loop
+            />
+          </React.Suspense>
+        ) : (
+          <img
+            src={`${OnRun}/${plan.picture_plan.picture}`}
+            alt="مشکل در بارگزاری عکس"
             width={400}
             height={200}
             className="w-full object-cover rounded-t-lg"
-            autoPlay
-            muted
-            loop
-         
           />
-        </React.Suspense>
-      ) : (
-        <img
-          src={`${OnRun}/${plan.picture_plan.picture}`}
-          alt="مشکل در بارگزاری عکس"
-          width={400}
-          height={200}
-          className="w-full object-cover rounded-t-lg"
-        />
-      )}
+        )}
+      </div>
       <motion.div
         initial={{ opacity: 0.8 }}
         animate={{ opacity: 1 }}
