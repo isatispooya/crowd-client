@@ -7,7 +7,7 @@ import GaugeComponent from 'react-gauge-component';
 import { BsPersonFillCheck } from 'react-icons/bs';
 import { RiFundsFill, RiCalendarScheduleFill } from 'react-icons/ri';
 import { HiCheckCircle } from 'react-icons/hi';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { OnRun } from '../../../api/OnRun';
 
 
@@ -61,18 +61,19 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
-     {plan.information_complete.video ? (
-        <video
-          src={`${OnRun}/${plan.information_complete.video}`}
-          alt="مشکل در بارگزاری ویدیو"
-          width={400}
-          height={200}
-          className="w-full object-cover rounded-t-lg"
-          autoPlay
-          muted
-
-          loop
-        />
+     {plan.information_complete.viedo ? (
+        <React.Suspense fallback={<div className="w-full h-52 flex items-center justify-center">در حال بارگذاری ویدیو...</div>}>
+          <video
+            src={`${OnRun}/${plan.information_complete.viedo}`}
+            alt="مشکل در بارگزاری ویدیو"
+            width={400}
+            height={200}
+            className="w-full object-cover rounded-t-lg"
+            autoPlay
+            muted
+            loop
+          />
+        </React.Suspense>
       ) : (
         <img
           src={`${OnRun}/${plan.picture_plan.picture}`}
@@ -80,8 +81,6 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
           width={400}
           height={200}
           className="w-full object-cover rounded-t-lg"
-
-
         />
       )}
       <motion.div

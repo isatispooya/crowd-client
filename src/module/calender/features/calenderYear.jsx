@@ -52,7 +52,7 @@ const processEvents = (profitData) => {
       const { gy, gm, gd } = toGregorian(year, month, day);
       const jalaliDate = new Date(gy, gm - 1, gd);
       return {
-        title: `${item.amount.toLocaleString()} تومان`,
+        title: `${item.amount.toLocaleString()} ریال`,
         start: jalaliDate,
         end: jalaliDate,
         allDay: true,
@@ -61,7 +61,6 @@ const processEvents = (profitData) => {
       };
     });
 };
-
 const CustomEvent = ({ event }) => {
   if (!event || !event.title) {
     console.error('Invalid event:', event);
@@ -110,7 +109,6 @@ const CustomEvent = ({ event }) => {
     </Tooltip>
   );
 };
-
 const MyCalendar = () => {
   const { data, isLoading, error } = useGetDashbord();
   const [events, setEvents] = useState([]);
@@ -209,7 +207,6 @@ const MyCalendar = () => {
     </div>
   );
 };
-
 CustomEvent.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string.isRequired,

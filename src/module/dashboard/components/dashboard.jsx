@@ -12,9 +12,12 @@ import { CalendarMonthOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import useGetDashbord from './service/use-getDashbord';
 
-
 const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
+
+  const totalValue = dashbord?.['total value'];
+  const allRateOfReturn = dashbord?.['all rate of return'];
+  const totalRateOfReturn = (allRateOfReturn / totalValue) * 100;
 
   if (!dashbord) {
     return <Loader />;
@@ -23,51 +26,51 @@ const Dashboard = () => {
   const DashCards = [
     {
       title: 'تعداد طرح ها',
-      value: dashbord['all plan'], // Replace with `dashbord['all plan']`
+      value: dashbord['all plan'],
       icon: InsertDriveFileIcon,
       color: '#4a90e2',
-
     },
     {
       title: 'تعداد طرح های فعال',
-      value: dashbord['active plan'], // Replace with `dashbord['active plan']`
+      value: dashbord['active plan'],
       icon: AssignmentTurnedInIcon,
       color: '#e74c3c',
     },
-
     {
       title: 'تعداد مشارکت فعال',
-      value: dashbord['participant plan'], // Replace with `dashbord['participant plan']`
+      value: dashbord['participant plan'],
       icon: PeopleIcon,
       color: '#27ae60',
     },
-
     {
       title: 'مبلغ مشارکت کاربر',
-      value: formatNumber(dashbord['total value']), // Replace with `formatNumber(dashbord['total value'])`
+      value: formatNumber(dashbord['total value']),
       icon: MonetizationOnIcon,
       color: '#2980b9',
     },
-
     {
       title: 'پیش بینی کل سود',
-      value: formatNumber(dashbord['all rate of return']), // Replace with `formatNumber(dashbord['all rate of return'])`
+      value: formatNumber(dashbord['all rate of return']),
       icon: CallMadeIcon,
       color: '#f39c12',
     },
-
     {
       title: 'تقویم سود',
       icon: CalendarMonthOutlined,
       color: '#27ae60',
       url: '/calender',
     },
+    {
+      title: 'نرخ پیش بینی سود',
+      value: ` % ${totalRateOfReturn.toFixed(2)} `,
+      icon: CallMadeIcon,
+      color: '#f39c12',
+    },
   ];
 
-
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div className="container mx-auto px-4 py-6 sm:py-8 md:py-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {DashCards.map((item, index) => {
           const IconComponent = item.icon;
           const getCardStyles = (title) => {
@@ -108,6 +111,13 @@ const Dashboard = () => {
                   hoverScale: 1.05,
                   iconRotate: 20,
                 };
+              case 'نرخ پیش بینی سود':
+                return {
+                  gradient: 'from-purple-100 to-purple-300',
+                  border: 'border-purple-500',
+                  text: 'text-purple-700',
+                  iconBg: 'bg-purple-500',
+                };
               case 'پیش بینی کل سود':
                 return {
                   gradient: 'from-yellow-100 to-yellow-300',
@@ -137,38 +147,29 @@ const Dashboard = () => {
                 };
             }
           };
-
           const styles = getCardStyles(item.title);
-
           return (
-            <Link
-              to={item.url || '#'}
-              key={index}
-              className="group block text-decoration-none"
-            >
+            <Link to={item.url || '#'} key={index} className="group block text-decoration-none">
               <motion.div
                 whileHover={{ scale: styles.hoverScale }}
                 transition={{ duration: 0.3 }}
-                className={`relative rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br ${styles.gradient} ${styles.border}`}
+                className={`relative w-full h-[150px] sm:h-[200px] rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br ${styles.gradient} ${styles.border}`}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col justify-center items-center h-full px-4">
                   {/* Content Section */}
-                  <div className="flex flex-col">
-                    <h3 className={`text-3xl font-bold mb-4 ${styles.text}`}>
+                  <div className="text-center">
+                    <h3 className={`text-lg sm:text-xl font-bold mb-1 ${styles.text}`}>
                       {item.value}
                     </h3>
-                    <p className={`text-lg font-medium ${styles.text}`}>
-                      {item.title}
-                    </p>
+                    <p className={`text-xs sm:text-sm font-medium ${styles.text}`}>{item.title}</p>
                   </div>
-
                   {/* Icon Section */}
                   <motion.div
                     whileHover={{ rotate: styles.iconRotate }}
                     transition={{ duration: 0.5 }}
-                    className={`flex items-center justify-center w-24 h-24 rounded-full ${styles.iconBg} shadow-md`}
+                    className={`flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full ${styles.iconBg} shadow-md mt-2`}
                   >
-                    <IconComponent className="w-12 h-12 text-white" />
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </motion.div>
                 </div>
               </motion.div>
@@ -179,6 +180,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
 
 export default Dashboard;
