@@ -6,15 +6,13 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import Loader from 'src/components/loader';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import { formatNumber } from 'src/utils/formatNumbers';
-
 import { Link } from 'react-router-dom';
-import { CalendarMonthOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import useGetDashbord from './service/use-getDashbord';
+import CalenderAccess from '../calenderAccess';
 
 const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
-
   const totalValue = dashbord?.['total value'];
   const allRateOfReturn = dashbord?.['all rate of return'];
   const totalRateOfReturn = (allRateOfReturn / totalValue) * 100;
@@ -55,12 +53,6 @@ const Dashboard = () => {
       color: '#f39c12',
     },
     {
-      title: 'تقویم سود',
-      icon: CalendarMonthOutlined,
-      color: '#27ae60',
-      url: '/calender',
-    },
-    {
       title: 'نرخ پیش بینی سود',
       value: ` % ${totalRateOfReturn.toFixed(2)} `,
       icon: CallMadeIcon,
@@ -70,9 +62,11 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 md:py-12">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      {/* Grid Layout for Six Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
         {DashCards.map((item, index) => {
           const IconComponent = item.icon;
+
           const getCardStyles = (title) => {
             switch (title) {
               case 'تعداد طرح ها':
@@ -127,15 +121,6 @@ const Dashboard = () => {
                   hoverScale: 1.05,
                   iconRotate: 20,
                 };
-              case 'تقویم سود':
-                return {
-                  gradient: 'from-teal-100 to-teal-300',
-                  border: 'border-teal-500',
-                  text: 'text-teal-700',
-                  iconBg: 'bg-teal-500',
-                  hoverScale: 1.1,
-                  iconRotate: 30,
-                };
               default:
                 return {
                   gradient: 'from-gray-100 to-gray-300',
@@ -147,7 +132,9 @@ const Dashboard = () => {
                 };
             }
           };
+
           const styles = getCardStyles(item.title);
+
           return (
             <Link to={item.url || '#'} key={index} className="group block text-decoration-none">
               <motion.div
@@ -176,6 +163,11 @@ const Dashboard = () => {
             </Link>
           );
         })}
+      </div>
+
+      {/* Quick Access Calendar Card */}
+      <div className="mt-6">
+        <CalenderAccess />
       </div>
     </div>
   );
