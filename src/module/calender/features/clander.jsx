@@ -20,13 +20,13 @@ const locales = {
     },
     firstDayOfWeek: 6,
     months: [
-      'فروردین',
-      'اردیبهشت',
-      'خرداد',
-      'تیر',
-      'مرداد',
-      'شهریور',
-      'مهر',
+      'فروردین/اردیبهشت',
+      'اردیبهشت/خرداد',
+      'خرداد/تیر',
+      'تیر/مرداد',
+      'مرداد/شهریور',
+      'شهریور/مهر',
+      'مهر/آبان',
       'آبان',
       'آذر',
       'دی',
@@ -148,39 +148,39 @@ const CustomToolbar = ({ onNavigate, label }) => {
   const goToBack = () => {
     onNavigate('PREV');
   };
-
   const goToNext = () => {
     onNavigate('NEXT');
   };
 
-  const goToToday = () => {
-    onNavigate('TODAY');
-  };
-
   return (
-    <div className="flex justify-between items-center mb-4">
-      <button
-        type="button"
-        onClick={goToBack}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-      >
-        قبلی
-      </button>
-      <span className="text-xl font-semibold">{label}</span>
-      <button
-        type="button"
-        onClick={goToNext}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-      >
-        بعدی
-      </button>
-      <button
-        type="button"
-        onClick={goToToday}
-        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
-      >
-        امروز
-      </button>
+    <div>
+      {/* Title Section */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col">
+          <h3 className="text-4xl font-bold text-gray-800">تقویم سود</h3>
+          <p className="text-lg font-medium text-gray-800">نمایش رویدادهای ماه جاری</p>
+        </div>
+      </div>
+
+      {/* Navigation Buttons */}
+      <div className="flex justify-between items-center mb-8">
+        <button
+          type="button"
+          onClick={goToBack}
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+        >
+          قبلی
+        </button>
+        <span className="text-2xl font-semibold">{label}</span>
+
+        <button
+          type="button"
+          onClick={goToNext}
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+        >
+          بعدی
+        </button>
+      </div>
     </div>
   );
 };
@@ -225,7 +225,7 @@ const MyCalendar = () => {
 
   return (
     <motion.div
-      className="h-[700px] rtl text-right p-4 bg-gray-50 rounded-lg shadow-lg"
+      className="h-[900px] rtl text-right p-4 bg-gray-50 rounded-lg shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -243,8 +243,19 @@ const MyCalendar = () => {
         components={{
           event: CustomEvent,
           toolbar: CustomToolbar,
+          month: {
+            dateHeader: ({ date, label }) => {
+              const monthName = localizer.format(date, 'MMMM');
+              return (
+                <div className="text-center text-sm rounded-lg">
+                  <span className="text-sm font-bold mr-2">{monthName}</span>
+                  <span className="text-sm">{label}</span>
+                </div>
+              );
+            },
+          },
         }}
-        className="rounded-lg overflow-hidden" // Add Tailwind classes here
+        className="rounded-lg overflow-hidden"
       />
     </motion.div>
   );

@@ -15,7 +15,9 @@ const AccessCalendar = () => {
         <img src={CalenderImg} alt="calender" className="w-72 h-72 sm:w-72 sm:h-72" />
 
         <div className="absolute bottom-4 left-4 text-white">
-          <h3 className="text-lg sm:text-xl font-bold">تقویم سود</h3>
+          <h3 className="text-lg sm:text-xl font-bold">
+            گزارش تقویمی مشارکت و سود پیش بینی شده شما    
+          </h3>
         </div>
       </motion.div>
     </Link>

@@ -2,57 +2,71 @@
 
 /* General Calendar Container */
 .rbc-calendar {
-    font-family: 'IRANSans', sans-serif;
-    direction: rtl; /* Right-to-left layout for Persian */
-  }
-  
-  /* Month View */
-  .rbc-month-view {
-    border: none; /* Remove borders if needed */
-  }
-  
-  /* Day Cell */
-  .rbc-day-bg {
-    background-color: #f9fafb; /* Light background for day cells */
-  }
-  
-  /* Today's Date */
-  .rbc-today {
-    background-color: #e0f2fe !important; 
-  }
-  
-  /* Event Styling */
-  .rbc-event {
-    border: none; /* Remove default borders */
-    padding: 5px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Header (Month/Year) */
-  .rbc-toolbar {
-    margin-bottom: 20px;
-  }
-  
-  .rbc-toolbar button {
-    background-color: #1e40af; /* Blue background for buttons */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .rbc-toolbar button:hover {
-    background-color: #1e3a8a; /* Darker blue on hover */
-  }
-  
-  /* Navigation Buttons */
-  .rbc-toolbar .rbc-btn-group button {
-    margin: 0 5px;
-  }
+  font-family: 'IRANSans', sans-serif;
+  direction: rtl; /* Right-to-left layout for Persian */
+}
 
-  .income-event {
+/* Month View */
+.rbc-month-view {
+  border: none; /* Remove borders if needed */
+}
+
+/* Day Cell */
+.rbc-day-bg {
+  background-color: transparent; /* Light background for day cells */
+  height: 60px; /* Height of the day cells */
+  width: 60px; /* Width of the day cells */
+}
+
+.rbc-date-cell {
+  color: black !important; /* Force black color for all day numbers */
+  font-size: 14px; /* Adjust font size if needed */
+  font-weight: bold; /* Optional: Make numbers bold for better visibility */
+}
+
+/* Override gray color for days outside the current month */
+.rbc-off-range {
+  color: black !important; /* Force black color for off-range days */
+  opacity: 0.7; /* Optional: Reduce opacity slightly for off-range days */
+}
+
+/* Today's Date */
+.rbc-today {
+  background-color: #e0f2fe !important;
+}
+
+/* Event Styling */
+.rbc-event {
+  border: none; /* Remove default borders */
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header (Month/Year) */
+.rbc-toolbar {
+  margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+  background-color: #1e40af; /* Blue background for buttons */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #1e3a8a; /* Darker blue on hover */
+}
+
+/* Navigation Buttons */
+.rbc-toolbar .rbc-btn-group button {
+  margin: 0 5px;
+}
+
+.income-event {
   background-color: #d4edda;
   color: #155724;
   border: none;
@@ -64,4 +78,19 @@
   color: #721c24;
   border: none;
   border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .rbc-month-view .rbc-row {
+    min-height: 100px; /* Smaller height for mobile */
+  }
+
+  .rbc-month-view .rbc-day-bg,
+  .rbc-month-view .rbc-date-cell {
+    font-size: 12px; /* Smaller font size for mobile */
+  }
+
+  .rbc-header {
+    font-size: 14px; /* Smaller header font size for mobile */
+  }
 }
