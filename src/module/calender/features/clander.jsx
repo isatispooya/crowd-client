@@ -1,201 +1,67 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { Calendar, Views, dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns-jalali';
-import { toGregorian } from 'jalaali-js';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { format, getDaysInMonth, startOfMonth, addMonths, subMonths } from 'date-fns-jalali';
 import { Tooltip, Typography } from '@mui/material';
-import useGetDashbord from 'src/module/dashboard/components/service/use-getDashbord';
 import { motion } from 'framer-motion';
+import useGetDashbord from 'src/module/dashboard/components/service/use-getDashbord';
 import './calender.css';
-import PropTypes from 'prop-types';
 
-const locales = {
-  'fa-IR': {
-    formats: {
-      dateFormat: 'jYYYY/jMM/jDD',
-      dayFormat: 'jDD',
-      monthFormat: 'jMMMM jYYYY',
-      yearFormat: 'jYYYY',
-    },
-    firstDayOfWeek: 6,
-    months: [
-      'فروردین/اردیبهشت',
-      'اردیبهشت/خرداد',
-      'خرداد/تیر',
-      'تیر/مرداد',
-      'مرداد/شهریور',
-      'شهریور/مهر',
-      'مهر/آبان',
-      'آبان',
-      'آذر',
-      'دی',
-      'بهمن',
-      'اسفند',
-    ],
-    days: ['یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'],
-    narrowWeekdays: ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'],
-  },
-};
-
-const localizer = dateFnsLocalizer({
-  format: (date, fmt) => format(date, fmt, { locale: null }),
-  parse,
-  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 6 }),
-  getDay,
-  locales,
-});
-
-const processEvents = (profitData) => {
-  const today = new Date();
-
-  return profitData
-    .filter((item) => {
-      if (!item || !item.date) {
-        console.error('Invalid data:', item);
-        return false;
-      }
-
-      const [year, month, day] = item.date.split('-').map(Number);
-      const { gy, gm, gd } = toGregorian(year, month, day);
-      const jalaliDate = new Date(gy, gm - 1, gd);
-      return jalaliDate >= today;
-    })
-    .map((item) => {
-      const [year, month, day] = item.date.split('-').map(Number);
-      const { gy, gm, gd } = toGregorian(year, month, day);
-      const jalaliDate = new Date(gy, gm - 1, gd);
-
-      return {
-        title: ` ${item.amount.toLocaleString()} ریال`,
-        start: jalaliDate,
-        end: jalaliDate,
-        allDay: true,
-        details: item,
-        type: item.type,
-      };
-    });
-};
-
-const CustomEvent = ({ event }) => {
-  if (!event || !event.title) {
-    console.error('Invalid event:', event);
-    return null;
-  }
-
-  const getEventColor = (type) => {
-    if (type === '1') return 'bg-green-500 ';
-    if (type === '2') return 'bg-blue-500';
-    return 'bg-gray-500';
-  };
-
-  return (
-    <Tooltip
-      title={
-        <div>
-          {/* Plan Name */}
-          <Typography variant="body1" fontWeight="bold">
-            {event.details.plan_name}
-          </Typography>
-
-          {/* Amount Details */}
-          <Typography variant="body2">
-            مبلغ: {event.details.amount.toLocaleString()} تومان
-          </Typography>
-
-          {/* Description Based on Event Type */}
-          {event.type === '2' ? (
-            <Typography variant="body2">
-              سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.
-            </Typography>
-          ) : (
-            <Typography variant="body2">
-              اصل پول مربوطه از مشارکت شما در طرح {event.details.plan_name}.
-            </Typography>
-          )}
-        </div>
-      }
-      placement="top"
-      arrow
-    >
-      {/* Event Title with Hover Effects */}
-      <motion.div
-        className={`${getEventColor(event.type)} text-white  rounded-lg cursor-pointer`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {event.title}
-      </motion.div>
-    </Tooltip>
-  );
-};
-
-const eventStyleGetter = (event, start, end, isSelected) => {
-  const style = {
-    backgroundColor: 'transparent',
-    color: event.type === 'income' ? '#155724' : '#721c24',
-    borderRadius: '5px',
-    border: 'none',
-  };
-
-  return {
-    style,
-    className: event.type === 'income' ? 'income-event' : 'expense-event',
-  };
-};
-
-const CustomToolbar = ({ onNavigate, label }) => {
-  const goToBack = () => {
-    onNavigate('PREV');
-  };
-  const goToNext = () => {
-    onNavigate('NEXT');
-  };
-
-  return (
-    <div>
-      {/* Title Section */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex flex-col">
-          <h3 className="text-4xl font-bold text-gray-800">تقویم سود</h3>
-          <p className="text-lg font-medium text-gray-800">نمایش رویدادهای ماه جاری</p>
-        </div>
-      </div>
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-between items-center mb-8">
-        <button
-          type="button"
-          onClick={goToBack}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-        >
-          قبلی
-        </button>
-        <span className="text-2xl font-semibold">{label}</span>
-
-        <button
-          type="button"
-          onClick={goToNext}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-        >
-          بعدی
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// Main Component
-const MyCalendar = () => {
+const PersianCalendar = () => {
   const { data, isLoading, error } = useGetDashbord();
+  const [currentDate, setCurrentDate] = useState(startOfMonth(new Date())); // Start with the first day of the current month
   const [events, setEvents] = useState([]);
+
+  // Generate days of the month using date-fns-jalali
+  const generateDaysOfMonth = () => {
+    const daysInMonth = [];
+    const totalDays = getDaysInMonth(currentDate); // Total days in the Jalali month
+
+    // Add days of the month
+    for (let day = 1; day <= totalDays; day++) {
+      daysInMonth.push(day);
+    }
+
+    return daysInMonth;
+  };
+
+  // Process events from the dashboard data
+  const processEvents = (profitData) => {
+    return profitData
+      .filter((item) => item && item.date)
+      .map((item) => {
+        const [year, month, day] = item.date.split('-').map(Number);
+
+        return {
+          title: `${item.amount.toLocaleString()} ریال`,
+          date: `${year}-${month}-${day}`,
+          details: item,
+          type: item.type,
+        };
+      });
+  };
 
   useEffect(() => {
     if (data && data.profit) {
       const processedEvents = processEvents(data.profit);
+      console.log('Processed Events:', processedEvents); // Debugging log
       setEvents(processedEvents);
     }
   }, [data]);
+
+  // Handle navigation between months
+  const goToNextMonth = () => setCurrentDate(startOfMonth(addMonths(currentDate, 1)));
+  const goToPreviousMonth = () => setCurrentDate(startOfMonth(subMonths(currentDate, 1)));
+
+  // Check if a day has an event
+  const getEventsForDay = (day) => {
+    if (!day) return [];
+    const jalaliDate = `${format(currentDate, 'yyyy')}-${format(currentDate, 'MM')}-${day}`;
+    console.log('Checking Events for Date:', jalaliDate); // Debugging log
+    console.log('All Events:', events); // Debugging log
+    const dayEvents = events.filter((event) => event.date === jalaliDate);
+    console.log('Events for Day:', dayEvents); // Debugging log
+    return dayEvents;
+  };
 
   if (isLoading) {
     return (
@@ -230,43 +96,88 @@ const MyCalendar = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        defaultView={Views.MONTH}
-        views={['month', 'year']}
-        culture="fa-IR"
-        eventPropGetter={eventStyleGetter}
-        locale="fa-IR"
-        components={{
-          event: CustomEvent,
-          toolbar: CustomToolbar,
-          month: {
-            dateHeader: ({ date, label }) => {
-              const monthName = localizer.format(date, 'MMMM');
-              return (
-                <div className="text-center text-sm rounded-lg">
-                  <span className="text-sm font-bold mr-2">{monthName}</span>
-                  <span className="text-sm">{label}</span>
+      {/* Toolbar */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col">
+          <h3 className="text-4xl font-bold text-gray-800">تقویم سود</h3>
+          <p className="text-lg font-medium text-gray-800">{format(currentDate, 'MMMM yyyy')}</p>
+        </div>
+        <div className="flex gap-4">
+          <button
+            type="button"
+            onClick={goToPreviousMonth}
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+          >
+            قبلی
+          </button>
+          <button
+            type="button"
+            onClick={goToNextMonth}
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+          >
+            بعدی
+          </button>
+        </div>
+      </div>
+
+      {/* Calendar Grid */}
+      <div className="grid grid-cols-7 gap-2 mt-2">
+        {generateDaysOfMonth().map((day, index) => {
+          const dayEvents = getEventsForDay(day);
+          return (
+            <div key={index} className={`relative h-20 p-2 border rounded-lg bg-white`}>
+              {/* Day Number */}
+              <span className="block text-sm font-bold">{day}</span>
+
+              {/* Events for the Day */}
+              {dayEvents.length > 0 ? (
+                <div className="mt-1 space-y-1">
+                  {dayEvents.map((event, idx) => (
+                    <Tooltip
+                      key={idx}
+                      title={
+                        <div>
+                          <Typography variant="body1" fontWeight="bold">
+                            {event.details.plan_name}
+                          </Typography>
+                          <Typography variant="body2">
+                            مبلغ: {event.details.amount.toLocaleString()} تومان
+                          </Typography>
+                          {event.type === '2' ? (
+                            <Typography variant="body2">
+                              سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.
+                            </Typography>
+                          ) : (
+                            <Typography variant="body2">
+                              اصل پول مربوطه از مشارکت شما در طرح {event.details.plan_name}.
+                            </Typography>
+                          )}
+                        </div>
+                      }
+                      placement="top"
+                      arrow
+                    >
+                      <motion.div
+                        className={`rounded-lg px-2 py-1 text-xs ${
+                          event.type === '1' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
+                        }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {event.title}
+                      </motion.div>
+                    </Tooltip>
+                  ))}
                 </div>
-              );
-            },
-          },
-        }}
-        className="rounded-lg overflow-hidden"
-      />
+              ) : (
+                <div className="text-gray-400 text-xs">بدون رویداد</div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </motion.div>
   );
 };
 
-CustomEvent.propTypes = {
-  event: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired, // Validate event.type
-    details: PropTypes.object.isRequired,
-  }).isRequired,
-};
-
-export default MyCalendar;
+export default PersianCalendar;

@@ -58,10 +58,10 @@
 }
 
 .rbc-toolbar button:hover {
-  background-color: #1e3a8a; /* Darker blue on hover */
+  background-color: #1e3a8a;
 }
 
-/* Navigation Buttons */
+
 .rbc-toolbar .rbc-btn-group button {
   margin: 0 5px;
 }
@@ -80,17 +80,4 @@
   border-radius: 5px;
 }
 
-@media (max-width: 768px) {
-  .rbc-month-view .rbc-row {
-    min-height: 100px; /* Smaller height for mobile */
-  }
 
-  .rbc-month-view .rbc-day-bg,
-  .rbc-month-view .rbc-date-cell {
-    font-size: 12px; /* Smaller font size for mobile */
-  }
-
-  .rbc-header {
-    font-size: 14px; /* Smaller header font size for mobile */
-  }
-}
