@@ -13,9 +13,14 @@ const CertificateSideBar = () => {
 
   useEffect(() => {
     if (response) {
-      window.open(`${OnRun}/${response.url}`, '_blank');
+      if (response.ErrorMessage === 'اطلاعات مشارکت کننده یافت نشد') {
+        window.location.href = '/404';
+        toast.error(response.ErrorMessage);
+      } else {
+        window.open(`${OnRun}/${response.url}`, '_blank');
+      }
     }
-  }, [response]);
+  }, [response, error]);
 
   if (error) {
     toast.error('اطلاعاتی برای نمایش وجود ندارد');
@@ -30,15 +35,15 @@ const CertificateSideBar = () => {
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-700">گواهینامه‌های من</h1>
       </div>
-      
+
       <div className="grid grid-cols-3  gap-4">
         {data.map((item, index) => (
           <motion.div
             key={index}
             className="h-[220px] bg-gray-50 rounded-xl overflow-hidden relative shadow-[0_15px_50px_-15px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] transition-all duration-300"
-            whileHover={{ 
+            whileHover={{
               scale: 1.01,
-              transition: { duration: 0.2 }
+              transition: { duration: 0.2 },
             }}
             whileTap={{ scale: 0.99 }}
           >

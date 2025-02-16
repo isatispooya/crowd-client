@@ -20,7 +20,7 @@ export default function App() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
 
-  const trackingId = "G-5FBWJX4Q9P";
+  const trackingId = 'G-5FBWJX4Q9P';
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -44,8 +44,8 @@ export default function App() {
     function gtag(...args) {
       window.dataLayer.push(...args);
     }
-    gtag("js", new Date());
-    gtag("config", trackingId, {
+    gtag('js', new Date());
+    gtag('config', trackingId, {
       page_path: window.location.pathname,
     });
   }, [trackingId]);
