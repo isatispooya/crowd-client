@@ -1,39 +1,37 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { format, getDaysInMonth, startOfMonth, addMonths, subMonths } from 'date-fns-jalali';
-import { Tooltip, Typography } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
 import useGetDashbord from 'src/module/dashboard/components/service/use-getDashbord';
-import './calender.css';
 
 const PersianCalendar = () => {
   const { data, isLoading, error } = useGetDashbord();
-  const [currentDate, setCurrentDate] = useState(startOfMonth(new Date())); // Start with the first day of the current month
+  const [currentDate, setCurrentDate] = useState(startOfMonth(new Date()));
   const [events, setEvents] = useState([]);
+  const [tooltipOpen, setTooltipOpen] = useState(null); // State to manage tooltip visibility
 
-  // Generate days of the month using date-fns-jalali
+  // Generate days of the month
   const generateDaysOfMonth = () => {
-    const daysInMonth = [];
-    const totalDays = getDaysInMonth(currentDate); // Total days in the Jalali month
-
-    // Add days of the month
-    for (let day = 1; day <= totalDays; day++) {
-      daysInMonth.push(day);
-    }
-
-    return daysInMonth;
+    const totalDays = getDaysInMonth(currentDate);
+    return Array.from({ length: totalDays }, (_, i) => i + 1);
   };
 
-  // Process events from the dashboard data
+  // Process events to normalize dates
   const processEvents = (profitData) => {
     return profitData
       .filter((item) => item && item.date)
       .map((item) => {
         const [year, month, day] = item.date.split('-').map(Number);
-
+        const normalizedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(
+          2,
+          '0'
+        )}`;
         return {
           title: `${item.amount.toLocaleString()} ریال`,
-          date: `${year}-${month}-${day}`,
+          date: normalizedDate,
           details: item,
           type: item.type,
         };
@@ -43,26 +41,24 @@ const PersianCalendar = () => {
   useEffect(() => {
     if (data && data.profit) {
       const processedEvents = processEvents(data.profit);
-      console.log('Processed Events:', processedEvents); // Debugging log
       setEvents(processedEvents);
     }
   }, [data]);
 
-  // Handle navigation between months
+  // Navigation handlers
   const goToNextMonth = () => setCurrentDate(startOfMonth(addMonths(currentDate, 1)));
   const goToPreviousMonth = () => setCurrentDate(startOfMonth(subMonths(currentDate, 1)));
 
-  // Check if a day has an event
+  // Get events for a specific day
   const getEventsForDay = (day) => {
     if (!day) return [];
-    const jalaliDate = `${format(currentDate, 'yyyy')}-${format(currentDate, 'MM')}-${day}`;
-    console.log('Checking Events for Date:', jalaliDate); // Debugging log
-    console.log('All Events:', events); // Debugging log
-    const dayEvents = events.filter((event) => event.date === jalaliDate);
-    console.log('Events for Day:', dayEvents); // Debugging log
-    return dayEvents;
+    const jalaliDate = `${format(currentDate, 'yyyy')}-${format(currentDate, 'MM')}-${String(
+      day
+    ).padStart(2, '0')}`;
+    return events.filter((event) => event.date === jalaliDate);
   };
 
+  // Loading state
   if (isLoading) {
     return (
       <motion.div
@@ -71,11 +67,12 @@ const PersianCalendar = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <div className="text-xl font-semibold">در حال بارگذاری...</div>
+        <p className="text-xl font-semibold text-gray-800">در حال بارگذاری...</p>
       </motion.div>
     );
   }
 
+  // Error state
   if (error) {
     return (
       <motion.div
@@ -84,14 +81,14 @@ const PersianCalendar = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <div className="text-xl font-semibold text-red-500">خطا در دریافت داده‌ها</div>
+        <p className="text-xl font-semibold text-red-500">خطا در دریافت داده‌ها</p>
       </motion.div>
     );
   }
 
   return (
     <motion.div
-      className="h-[900px] rtl text-right p-4 bg-gray-50 rounded-lg shadow-lg"
+      className="h-full p-4 bg-gray-50 rounded-lg shadow-lg sm:h-[900px]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -100,77 +97,119 @@ const PersianCalendar = () => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex flex-col">
           <h3 className="text-4xl font-bold text-gray-800">تقویم سود</h3>
-          <p className="text-lg font-medium text-gray-800">{format(currentDate, 'MMMM yyyy')}</p>
+          <p className="text-lg font-medium text-gray-800">نمایش رویدادهای ماه جاری</p>
         </div>
-        <div className="flex gap-4">
-          <button
-            type="button"
-            onClick={goToPreviousMonth}
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-          >
-            قبلی
-          </button>
-          <button
-            type="button"
-            onClick={goToNextMonth}
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-          >
-            بعدی
-          </button>
-        </div>
+      </div>
+      <div className="flex justify-between items-center mb-8">
+        <button
+          type="button"
+          onClick={goToPreviousMonth}
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+        >
+          قبلی
+        </button>
+        <span className="text-xl font-bold">{format(currentDate, 'MMMM yyyy')}</span>
+        <button
+          type="button"
+          onClick={goToNextMonth}
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+        >
+          بعدی
+        </button>
       </div>
 
       {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-2 mt-2">
+      <div className="grid grid-cols-5 gap-2 mt-2 sm:grid-cols-7">
         {generateDaysOfMonth().map((day, index) => {
           const dayEvents = getEventsForDay(day);
-          return (
-            <div key={index} className={`relative h-20 p-2 border rounded-lg bg-white`}>
-              {/* Day Number */}
-              <span className="block text-sm font-bold">{day}</span>
 
-              {/* Events for the Day */}
+          return (
+            <div
+              key={index}
+              className="relative h-24 p-2 overflow-hidden border rounded-lg bg-white sm:h-32"
+            >
+              {/* Day Number */}
+              <span className="block text-sm font-bold text-gray-800">{day}</span>
+
+              {/* Events */}
               {dayEvents.length > 0 ? (
-                <div className="mt-1 space-y-1">
-                  {dayEvents.map((event, idx) => (
-                    <Tooltip
-                      key={idx}
-                      title={
-                        <div>
-                          <Typography variant="body1" fontWeight="bold">
-                            {event.details.plan_name}
-                          </Typography>
-                          <Typography variant="body2">
-                            مبلغ: {event.details.amount.toLocaleString()} تومان
-                          </Typography>
-                          {event.type === '2' ? (
-                            <Typography variant="body2">
-                              سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.
-                            </Typography>
-                          ) : (
-                            <Typography variant="body2">
-                              اصل پول مربوطه از مشارکت شما در طرح {event.details.plan_name}.
-                            </Typography>
-                          )}
-                        </div>
-                      }
-                      placement="top"
-                      arrow
-                    >
-                      <motion.div
-                        className={`rounded-lg px-2 py-1 text-xs ${
-                          event.type === '1' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
-                        }`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {event.title}
-                      </motion.div>
-                    </Tooltip>
-                  ))}
-                </div>
+                <>
+                  {/* Desktop View */}
+                  <div className="hidden sm:block">
+                    <div className="mt-1 space-y-1">
+                      {dayEvents.map((event, idx) => (
+                        <Tooltip
+                          key={idx}
+                          title={
+                            <div className="p-2 text-sm text-gray-800 bg-white rounded shadow">
+                              <p className="font-bold">{event.details.plan_name}</p>
+                              <p>مبلغ: {event.details.amount.toLocaleString()} تومان</p>
+                              {event.type === '2' ? (
+                                <p>سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.</p>
+                              ) : (
+                                <p>
+                                  اصل پول مربوطه از مشارکت شما در طرح {event.details.plan_name}.
+                                </p>
+                              )}
+                            </div>
+                          }
+                          placement="top"
+                          arrow
+                        >
+                          <motion.div
+                            className={`w-full px-2 py-1 text-xs font-bold rounded ${
+                              event.type === '1'
+                                ? 'bg-green-500 text-white'
+                                : 'bg-blue-500 text-white'
+                            }`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            {event.title}
+                          </motion.div>
+                        </Tooltip>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Mobile View */}
+                  <div className="sm:hidden">
+                    <div className="flex gap-1">
+                      {dayEvents.map((event, idx) => (
+                        <Tooltip
+                          key={idx}
+                          title={
+                            <div className="p-2 text-sm text-gray-800 bg-white rounded shadow">
+                              <p className="font-bold">{event.details.plan_name}</p>
+                              <p>مبلغ: {event.details.amount.toLocaleString()} تومان</p>
+                              {event.type === '2' ? (
+                                <p>سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.</p>
+                              ) : (
+                                <p>
+                                  اصل پول مربوطه از مشارکت شما در طرح {event.details.plan_name}.
+                                </p>
+                              )}
+                            </div>
+                          }
+                          placement="top"
+                          arrow
+                          open={tooltipOpen === `${day}-${idx}`}
+                          onClose={() => setTooltipOpen(null)}
+                          onOpen={() => setTooltipOpen(`${day}-${idx}`)}
+                        >
+                          <div
+                            className={`w-3 h-3 rounded-full cursor-pointer ${
+                              event.type === '1' ? 'bg-green-500' : 'bg-blue-500'
+                            }`}
+                            onClick={() => setTooltipOpen(`${day}-${idx}`)}
+                          />
+                        </Tooltip>
+                      ))}
+                    </div>
+                  </div>
+                </>
               ) : (
-                <div className="text-gray-400 text-xs">بدون رویداد</div>
+                <p className="text-xs text-gray-400" />
               )}
             </div>
           );
