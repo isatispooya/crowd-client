@@ -143,7 +143,7 @@ const PersianCalendar = () => {
                           title={
                             <div className="p-2 text-sm text-gray-800 bg-white rounded shadow">
                               <p className="font-bold">{event.details.plan_name}</p>
-                              <p>مبلغ: {event.details.amount.toLocaleString()} تومان</p>
+                              <p>مبلغ: {event.details.amount.toLocaleString()} ریال</p>
                               {event.type === '2' ? (
                                 <p>سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.</p>
                               ) : (
