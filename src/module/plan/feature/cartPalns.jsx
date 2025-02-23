@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import FilterPlans from 'src/components/filtring';
+import Loader from 'src/components/loader';
 import useGetPlans from '../service/use-plans';
 import PlanCart from './paln.cart';
 
@@ -10,6 +11,7 @@ const CartPlans = () => {
   const access = getCookie('access');
   const navigate = useNavigate();
   const [filterStatusSecond, setFilterStatusSecond] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!access) {
@@ -17,8 +19,18 @@ const CartPlans = () => {
     }
   }, [access, navigate]);
 
+  useEffect(() => {
+    if (data) {
+      setIsLoading(false);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   if (!data || data.length === 0) {
-    return <p>هیچ درخواستی یافت نشد.</p>;
+    return <p>هیچ  یافت نشد.</p>;
   }
 
   const filteredPlans =
