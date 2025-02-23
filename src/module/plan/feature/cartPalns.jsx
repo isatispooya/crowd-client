@@ -44,7 +44,7 @@ const CartPlans = () => {
             reversedPlans.map((item) => {
               if (item?.information_complete?.status_show === true) {
                 return (
-                  <div key={item.plan.id} className="flex">
+                  <div key={item.plan.id} className="flex gap-6 p-4">
                     <PlanCart
                       plan={item}
                       handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}

@@ -57,49 +57,40 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
       transition={{
         duration: 1,
       }}
-      className="flex flex-col items-center bg-white shadow-md rounded-lg w-[390px]  mb-8 min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
+      className="flex flex-col items-center bg-white shadow-md rounded-lg w-[400px] min-h-[400px] relative overflow-hidden hover:shadow-2xl cursor-pointer transition-shadow duration-300"
       onClick={handleDetailsClick}
     >
-      <div className="w-full h-[240px] ">
+      <div className="w-full h-[240px] overflow-hidden">
         {plan.information_complete.viedo ? (
-          <React.Suspense
-            fallback={
-              <div className="w-full h-52 flex items-center justify-center">
-                در حال بارگذاری ویدیو...
-              </div>
-            }
-          >
-            <video
-              src={`${OnRun}/${plan.information_complete.viedo}`}
-              alt="مشکل در بارگزاری ویدیو"
-              width={400}
-              height={200}
-              className="w-full object-cover rounded-t-lg"
-              autoPlay
-              muted
-              loop
-            />
-          </React.Suspense>
+          <video
+            src={`${OnRun}/${plan.information_complete.viedo}`}
+            alt="مشکل در بارگزاری ویدیو"
+            width={400}
+            height={240}
+            className="w-full h-[240px] object-cover rounded-t-lg"
+            autoPlay
+            muted
+            loop
+          />
         ) : (
           <img
             src={`${OnRun}/${plan.picture_plan.picture}`}
             alt="مشکل در بارگزاری عکس"
-            width={400}
-            height={200}
-            className="w-full object-cover rounded-t-lg"
+            className="w-full h-[240px] object-cover rounded-t-lg"
           />
         )}
       </div>
+
       <motion.div
         initial={{ opacity: 0.8 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
-        className={`absolute  top-0 p-1 left-[-50%] w-full mt-[30px] ml-[40px] ${status_color} flex justify-center items-center transform rotate-[-45deg] transform-origin-top-left`}
+        className={`absolute top-0 p-1 left-[-50%] w-full mt-[30px] ml-[40px] ${status_color} flex justify-center items-center transform rotate-[-45deg] transform-origin-top-left`}
       >
         <h1 className="text-white text-sm font-bold">{status_label}</h1>
       </motion.div>
 
-      <motion.div className="flex flex-row items-center justify-around w-2/3 mt-[-20px] p-2 bg-white rounded-lg">
+      <motion.div className="flex flex-row items-center justify-around w-2/3 mt-[-10px] p-2 bg-white rounded-lg">
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -126,22 +117,38 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
         </motion.div>
       </motion.div>
 
+      <div className="flex flex-row justify-around w-full">
+        <p className="text-gray-600 text-[12px]">نهادمالی سبدگردانی ایساتیس پویا</p>
+        <button
+          type="button"
+          className=" text-gray-600 text-[10px] bg-gray-100 hover:bg-gray-200 px-2 py-1  rounded-md transition-colors duration-200"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <a href="https://cf.ifb.ir/Home/ViewProject" rel="noopener noreferrer">
+            {plan.plan.persian_suggested_symbol}
+          </a>
+        </button>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-[350px] max-w-none mx-auto bg-white shadow-sm rounded-xl border border-gray-100 mt-4 mb-4 "
+        className="relative w-[350px] max-w-none mx-auto bg-white shadow-sm rounded-xl border border-gray-100 mt-2 mb-4"
       >
-        <div className="p-4 text-center ">
+        <div className="p-4 text-center">
           <h2 className="text-lg font-bold text-gray-700">{plan.plan.persian_name}</h2>
-          <div className="flex justify-center flex justify-around">
+          <div className="flex justify-between items-center mt-2">
             <p className="text-gray-600 text-[10px]">{plan.plan.industry_group_description}</p>
-            <p className="text-gray-600 text-[10px]">{plan.plan.persian_suggested_symbol}</p>
+
+            <p className="text-gray-600 text-[12px]">{plan.company[0]?.name || 'نامشخص'}</p>
           </div>
         </div>
       </motion.div>
 
-      <motion.div className="flex flex-row items-center justify-around w-[350px] mt-4 mb-4">
+      <motion.div className="flex flex-row items-center justify-around w-[350px] mt-2 mb-2">
         <div className="flex flex-col items-center justify-center w-1/5">
           <div className="flex flex-row items-center w-full justify-around">
             <RiFundsFill className="text-gray-500 text-lg" />
@@ -212,12 +219,12 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
         </div>
       </motion.div>
 
-      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-4 h-10 overflow-hidden">
+      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-2 h-8 overflow-hidden">
         <p className="text-green-600 text-sm">{plan.appendices[0]?.title}</p>
       </div>
-      <p className="text-gray-300 text-left text-xs">(بدون تضمین سود)</p>
+      <p className="text-gray-500 text-left text-xs">(بدون تضمین سود)</p>
 
-      <div className="flex flex-col items-center justify-around w-[350px] mt-4 mb-8">
+      <div className="flex flex-col items-center justify-around w-[350px] mt-2 mb-4">
         <motion.div className="flex flex-row items-center justify-around w-full mt-4 mb-8">
           <div className="flex flex-col items-center justify-center w-1/2">
             <div className="flex flex-row items-center w-full justify-around">
@@ -225,7 +232,7 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
                 {plan.plan.total_price.toLocaleString() ?? 0}
               </h1>
             </div>
-            <h1 className="text-gray-500 text-[12px] ">مبلغ مورد نیاز</h1>
+            <h1 className="text-gray-500 text-[12px]">مبلغ مورد نیاز</h1>
           </div>
           <Divider orientation="vertical" flexItem />
           <div className="flex flex-col items-center justify-center w-1/2">
@@ -257,7 +264,6 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
                 {
                   limit: 50,
                   showTick: true,
-
                   color: '#8EE0B3',
                 },
                 {
@@ -279,7 +285,8 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
               strokeWidth: 6,
             }}
             value={Math.round(
-              ((plan?.information_complete?.amount_collected_now ?? 0) / plan.plan.total_price) *
+              ((plan?.information_complete?.amount_collected_now || 0) /
+                (plan.plan.total_price || 1)) *
                 100
             )}
             min={0}
