@@ -54,7 +54,7 @@ const Dashboard = () => {
     },
     {
       title: 'نرخ پیش بینی سود',
-      value: ` % ${totalRateOfReturn.toFixed(2)} `,
+      value: ` % ${(totalRateOfReturn || 0).toFixed(2)} `,
       icon: CallMadeIcon,
       color: '#f39c12',
     },
