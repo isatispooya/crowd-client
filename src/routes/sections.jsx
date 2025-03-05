@@ -20,6 +20,8 @@ export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
+export const CreatePlan = lazy(() => import('src/module/createPlan/pages/mainPage'));
+export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -37,11 +39,11 @@ export default function Router() {
         { path: 'plan/:traceCode', element: <Plan /> },
         { path: 'ProfilePage', element: <ProfilePage /> },
         { path: 'calender', element: <DashTabs /> },
-
-        { path: 'card', element: <Sterpercrowd /> },
+        { path: 'createPlan', element: <CreatePlan /> },
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'training', element: <TrainingPage /> },
+        { path: 'cardsDetail', element: <CardsDetail /> },
       ],
     },
     {

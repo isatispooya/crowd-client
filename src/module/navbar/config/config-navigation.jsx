@@ -22,7 +22,7 @@ const navConfig = [
   },
   {
     title: 'ایجاد و پیگیری طرح',
-    path: '/card',
+    path: '/createPlan',
     icon: icon('ic_analytics'),
   },
   {
