@@ -1,6 +1,16 @@
 import { useState } from 'react';
-import { TextField, Typography, Grid, Paper, Button, IconButton, Box } from '@mui/material';
+import {
+  TextField,
+  Typography,
+  Grid,
+  Paper,
+  Button,
+  IconButton,
+  Box,
+  Tooltip,
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const InformationRecording = () => {
   const [files, setFiles] = useState({
@@ -126,6 +136,11 @@ const InformationRecording = () => {
             }}
           >
             لوگو شرکت
+            <Tooltip title="فایل لوگو باید به فرمت PNG یا JPEG باشد." arrow>
+              <IconButton sx={{ ml: 1 }}>
+                <HelpOutlineIcon />
+              </IconButton>
+            </Tooltip>
           </Typography>
           {!files.logo ? (
             <TextField
@@ -205,6 +220,11 @@ const InformationRecording = () => {
             }}
           >
             صورت مالی
+            <Tooltip title="فرمت فایل باید PDF باشد." arrow>
+              <IconButton sx={{ ml: 1 }}>
+                <HelpOutlineIcon />
+              </IconButton>
+            </Tooltip>
           </Typography>
           {!files.financial ? (
             <TextField
@@ -278,6 +298,11 @@ const InformationRecording = () => {
             }}
           >
             گزارش اعتبارسنجی
+            <Tooltip title="فایل باید فرمت Excel باشد." arrow>
+              <IconButton sx={{ ml: 1 }}>
+                <HelpOutlineIcon />
+              </IconButton>
+            </Tooltip>
           </Typography>
           {!files.credit ? (
             <TextField
