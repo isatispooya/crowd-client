@@ -26,7 +26,7 @@ const InformationRecording = () => {
   const pastelBlue = {
     light: '#E6F4FF',
     main: '#B3E0FF',
-    dark: '#7FBFFF',
+    dark: '#6B9ACD',
     contrastText: '#1A365D',
   };
 
@@ -44,7 +44,7 @@ const InformationRecording = () => {
         borderRadius: '20px',
         padding: '2.5rem',
         background: '#FFFFFF',
-        border: `1px solid ${pastelBlue.main}`,
+        border: `1px solid ${pastelBlue.dark}`,
         position: 'relative',
         overflow: 'hidden',
         '&:hover': {
@@ -81,8 +81,8 @@ const InformationRecording = () => {
         fullWidth
         variant="outlined"
         sx={{
-          mb: 3,
           '& .MuiOutlinedInput-root': {
+            background: '#FFFFFF',
             borderRadius: '10px',
             transition: 'transform 0.2s',
             '&:hover': {
@@ -93,17 +93,11 @@ const InformationRecording = () => {
               borderWidth: '1.5px',
             },
             '&:hover fieldset': {
-              borderColor: pastelBlue.contrastText,
+              borderColor: pastelBlue.dark,
             },
             '&.Mui-focused fieldset': {
               borderColor: pastelBlue.dark,
               borderWidth: '2px',
-            },
-          },
-          '& .MuiInputLabel-root': {
-            color: pastelBlue.contrastText,
-            '&.Mui-focused': {
-              color: pastelBlue.contrastText,
             },
           },
         }}
@@ -343,9 +337,6 @@ const InformationRecording = () => {
             sx={{
               mt: 3,
               backgroundColor: pastelBlue.contrastText,
-              '&:hover': {
-                backgroundColor: pastelBlue.dark,
-              },
             }}
           >
             ارسال اطلاعات
