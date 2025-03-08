@@ -2,9 +2,9 @@ import { getCookie } from 'src/api/cookie';
 import api from 'src/api/apiClient';
 import { useQuery } from '@tanstack/react-query';
 
-export const getCer = async (traceCode) => {
+export const getCerByTraceCode = async (traceCode) => {
   const access = await getCookie('access');
-  const response = await api.get(`/api/participant/user/`, {
+  const response = await api.get(`/api/participant/user/pdf/${traceCode}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'application/json',
@@ -13,10 +13,10 @@ export const getCer = async (traceCode) => {
   return response.data;
 };
 
-const useCer = () => {
+const useCerByTraceCode = (traceCode) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['cer'],
-    queryFn: () => getCer(),
+    queryKey: ['cerByTraceCode', traceCode],
+    queryFn: () => getCerByTraceCode(traceCode),
   });
 
   return {
@@ -26,4 +26,4 @@ const useCer = () => {
   };
 };
 
-export default useCer;
+export default useCerByTraceCode;

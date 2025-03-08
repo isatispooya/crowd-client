@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { formatNumber } from '../../../utils/formatNumbers';
 
-const InformationRecording = () => {
+const BoardOfDirectorsRegistration = () => {
   const [files, setFiles] = useState({
     logo: null,
     financial: null,
@@ -99,7 +99,7 @@ const InformationRecording = () => {
           },
         }}
       >
-        اطلاعات شرکت خود را بارگزاری کنید
+        اطلاعات هیئت مدیره خود را بارگزاری کنید
       </Typography>
 
       <TextField
@@ -462,4 +462,4 @@ const InformationRecording = () => {
   );
 };
 
-export default InformationRecording;
+export default BoardOfDirectorsRegistration;

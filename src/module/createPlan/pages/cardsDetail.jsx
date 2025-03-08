@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
 import InformationRecording from '../feature/InformationRecording';
+import { BoardOfDirectorsRegistration } from '../feature';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
 
@@ -114,7 +115,8 @@ const CardsDetail = () => {
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
         {activeStep === 0 && <InformationRecording />}
-        {activeStep > 0 && (
+        {activeStep === 1 && <BoardOfDirectorsRegistration />}
+        {activeStep > 1 && (
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>
             محتوای مرحله {steps[activeStep]}
           </Typography>
