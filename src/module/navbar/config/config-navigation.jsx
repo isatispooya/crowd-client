@@ -20,11 +20,11 @@ const navConfig = [
     path: '/ProfilePage',
     icon: icon('ic_blog'),
   },
-  {
-    title: 'ایجاد و پیگیری طرح',
-    path: '/createPlan',
-    icon: icon('ic_analytics'),
-  },
+  // {
+  //   title: 'ایجاد و پیگیری طرح',
+  //   path: '/createPlan',
+  //   icon: icon('ic_analytics'),
+  // },
   {
     title: 'مشاهده طرح ها',
     path: '/plans',
