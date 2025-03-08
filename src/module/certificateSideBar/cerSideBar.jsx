@@ -33,10 +33,10 @@ const CertificateSideBar = () => {
   return (
     <div className="w-full p-4 sm:p-6 bg-white shadow-2xl rounded-lg">
       <div className="bg-gray-200 w-full text-white rounded-t-md p-2 text-center mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-700">گواهینامه‌های من</h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-700">گواهینامه‌های من</h1>
       </div>
 
-      <div className="grid grid-cols-3  gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {data.map((item, index) => (
           <motion.div
             key={index}
