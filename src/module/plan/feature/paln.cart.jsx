@@ -219,7 +219,7 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
         </div>
       </motion.div>
 
-      <div className="w-3/4 flex mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-2 h-10 overflow-hidden">
+      <div className="w-3/4 flex flex-col mb-1 justify-center items-center bg-gradient-to-b from-[#d7ffe8] to-[#c9f2da] border border-green-100 rounded-lg rounded-tr-none text-center mt-2 h-10 overflow-hidden">
         {plan.appendices[0]?.logo && (
           <img
             className="text-green-600 text-sm"
@@ -227,9 +227,11 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
             alt={plan.appendices[0]?.title || ''}
           />
         )}
-        <p className="text-green-600 text-sm">{plan.appendices[0]?.title}</p>
+        <p className="text-green-600 text-sm ">
+          {plan.appendices[0]?.title}
+        </p>
+        <p className="text-gray-500 text-xs mt-1">(بدون تضمین سود)</p>
       </div>
-      <p className="text-gray-500 text-left text-xs">(بدون تضمین سود)</p>
 
       <div className="flex flex-col items-center justify-around w-[350px] mt-2 mb-4">
         <motion.div className="flex flex-row items-center justify-around w-full mt-4 mb-8">
