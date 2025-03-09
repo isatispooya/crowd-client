@@ -4,6 +4,7 @@ import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 
 const useFetchCompanyId = () => {
+
   const fetchData = async (data) => {
     const access = getCookie('access');
     const response = await api.post(`${OnRun}/api/register/company/rasmio/`, data, {
@@ -11,7 +12,6 @@ const useFetchCompanyId = () => {
         Authorization: `Bearer ${access}`,
       },
     });
-
     return response.data;
   };
 

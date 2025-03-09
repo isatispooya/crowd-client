@@ -10,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
-import InformationRecording from '../feature/InformationRecording';
+import InformationRecording from '../feature/registerCompany/companyRegister.feat.jsx';
 import { BoardOfDirectorsRegistration } from '../feature';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
