@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useLocation } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
-import CompanyRegister from '../feature/registerCompany/companyRegister.feat';
+import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import { BoardOfDirectorsRegistration } from '../feature';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
@@ -22,7 +22,9 @@ const CardsDetail = () => {
 
   const location = useLocation();
 
-  console.log(location.state.generetedId);
+  const generetedId = location.state?.generetedId;
+
+  console.log(generetedId || 'No generated ID available');
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
@@ -119,7 +121,7 @@ const CardsDetail = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && <CompanyRegister generetedId={location.state.generetedId} />}
+        {activeStep === 0 && <CompanyRegister generetedId={generetedId || ''} />}
         {activeStep === 1 && <BoardOfDirectorsRegistration />}
         {activeStep > 1 && (
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>

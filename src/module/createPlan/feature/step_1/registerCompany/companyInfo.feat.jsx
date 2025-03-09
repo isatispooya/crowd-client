@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
-import FormField from '../../components/FormField';
-import AccordionCom from '../../components/accordian';
-import useCompanyRegistrationStore from '../../store/companyRegistrationStore';
+import FormField from '../../../components/FormField';
+import AccordionCom from '../../../components/accordian';
+import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyInfo = ({ pastelBlue }) => {
   const { logo, validation_report, financial_statement, setFile, removeFile } =
     useCompanyRegistrationStore();
 
   const handleFileChange = (event, type) => {
-
     if (event.target && event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       console.log('File from event.target.files[0]:', file);
@@ -21,17 +20,14 @@ const CompanyInfo = ({ pastelBlue }) => {
         lastModified: file.lastModified,
       });
 
-    
       setFile(type, file);
 
-      
       setTimeout(() => {
         const storedFile = useCompanyRegistrationStore.getState()[type];
         console.log(`Stored file in "${type}":`, storedFile);
         console.log('Is File instance?', storedFile instanceof File);
       }, 100);
     } else if (event.target && event.target.value && event.target.value instanceof File) {
-  
       const file = event.target.value;
       console.log('File from event.target.value:', file);
       console.log('File properties:', {
@@ -41,10 +37,8 @@ const CompanyInfo = ({ pastelBlue }) => {
         lastModified: file.lastModified,
       });
 
-    
       setFile(type, file);
 
-   
       setTimeout(() => {
         const storedFile = useCompanyRegistrationStore.getState()[type];
         console.log(`Stored file in "${type}":`, storedFile);

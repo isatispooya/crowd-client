@@ -2,9 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper } from '@mui/material';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
-import { UseCompanyInfo } from '../../hooks';
-import useCompanyRegistrationStore from '../../store/companyRegistrationStore';
-import Button from '../../components/button';
+import { UseCompanyInfo } from '../../../hooks';
+import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
+import Button from '../../../components/button';
 
 const CompanyRegister = ({ generetedId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +23,12 @@ const CompanyRegister = ({ generetedId }) => {
     setIsSubmitting(true);
 
     try {
+      if (!generetedId) {
+        console.error('Company ID is undefined or empty');
+        setIsSubmitting(false);
+        return;
+      }
+
       const data = getAllData();
       console.log('All data from store:', data);
 
@@ -70,7 +76,7 @@ const CompanyRegister = ({ generetedId }) => {
       formData.append('bank', data.bank || '');
       formData.append('bank_branch', data.bank_branch || '');
       formData.append('bank_branch_code', data.bank_branch_code || '');
-      formData.append('company_id', generetedId || '');
+      formData.append('company_id', generetedId);
       formData.append('suggestion_plan_name', data.suggestion_plan_name || '');
 
       if (data.amount_of_investment) {

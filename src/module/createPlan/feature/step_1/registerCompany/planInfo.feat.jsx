@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, LinearProgress } from '@mui/material';
-import { formatNumber } from '../../../../utils/formatNumbers';
-import FormField from '../../components/FormField';
-import AccordionCom from '../../components/accordian';
-import useCompanyRegistrationStore from '../../store/companyRegistrationStore';
+import { formatNumber } from '../../../../../utils/formatNumbers';
+import FormField from '../../../components/FormField';
+import AccordionCom from '../../../components/accordian';
+import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const PlanInfo = ({ pastelBlue }) => {
   const { suggestion_plan_name, amount_of_investment, updateField } = useCompanyRegistrationStore();

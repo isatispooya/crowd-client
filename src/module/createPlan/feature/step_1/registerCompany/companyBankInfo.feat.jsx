@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, MenuItem } from '@mui/material';
-import FormField from '../../components/FormField';
-import AccordionCom from '../../components/accordian';
-import useCompanyRegistrationStore from '../../store/companyRegistrationStore';
+import FormField from '../../../components/FormField';
+import AccordionCom from '../../../components/accordian';
+import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyBankInfo = ({ pastelBlue }) => {
   const { bank, bank_branch, bank_branch_code, company_id, updateField } =
