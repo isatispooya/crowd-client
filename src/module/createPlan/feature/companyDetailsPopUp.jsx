@@ -108,13 +108,6 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
     onClose(false);
   };
 
-  const pastelBlue = {
-    light: '#E6F4FF',
-    main: '#B3E0FF',
-    dark: '#6B9ACD',
-    contrastText: '#1A365D',
-  };
-
   return (
     <StyledDialog
       open={isOpen}
