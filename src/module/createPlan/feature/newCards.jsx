@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { FiPlus, FiSearch, FiArrowLeft, FiLoader } from 'react-icons/fi';
+import useFetchCompanyId from '../hooks/companyId';
+import CompanyDetailsPopUp from './companyDetailsPopUp';
 
 const NewCards = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [companyId, setCompanyId] = useState('');
+  const { submitCompanyData, data: responseData } = useFetchCompanyId();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  console.log(responseData);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -12,9 +18,23 @@ const NewCards = () => {
   const handleSearch = () => {
     setIsSearching(true);
 
-    setTimeout(() => {
-      setIsSearching(false);
-    }, 2000);
+    submitCompanyData(
+      { national_id: companyId },
+      {
+        onSuccess: () => {
+          setIsSearching(false);
+          setIsPopupOpen(true);
+        },
+      }
+    );
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    setCompanyId(e.target.value);
   };
 
   const cardStyle = {
@@ -47,7 +67,6 @@ const NewCards = () => {
   return (
     <div className="h-full w-full" style={cardStyle}>
       <div className="w-full h-full" style={cardInnerStyle}>
-        {/* سمت جلوی کارت */}
         <div
           className="bg-white shadow-lg rounded-lg p-4 sm:p-6 border border-blue-100 flex items-center justify-center h-full"
           style={cardFrontStyle}
@@ -66,7 +85,6 @@ const NewCards = () => {
           </div>
         </div>
 
-        {/* سمت پشت کارت */}
         <div
           className="bg-white shadow-lg rounded-lg p-4 sm:p-6 border border-blue-100 flex flex-col justify-center h-full"
           style={cardBackStyle}
@@ -81,6 +99,8 @@ const NewCards = () => {
                 type="text"
                 placeholder="شناسه شرکت"
                 className="w-full bg-white px-3 py-2 sm:px-4 sm:py-3 mb-4 sm:mb-6 border border-[#e9ecef] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#93c5fd] pr-10"
+                value={companyId}
+                onChange={handleInputChange}
               />
             </div>
             <div className="flex justify-between mt-2 sm:mt-3">
@@ -108,6 +128,12 @@ const NewCards = () => {
           </div>
         </div>
       </div>
+      
+      <CompanyDetailsPopUp 
+        isOpen={isPopupOpen} 
+        onClose={handleClosePopup} 
+        data={responseData}
+      />
     </div>
   );
 };
