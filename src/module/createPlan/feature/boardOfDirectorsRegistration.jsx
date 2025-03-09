@@ -102,119 +102,11 @@ const BoardOfDirectorsRegistration = () => {
         اطلاعات هیئت مدیره خود را بارگزاری کنید
       </Typography>
 
-      <TextField
-        label="نام پیشنهادی طرح"
-        fullWidth
-        variant="outlined"
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            background: '#FFFFFF',
-            borderRadius: '10px',
-            transition: 'transform 0.2s',
-            '&:hover': {
-              transform: 'translateY(-2px)',
-            },
-            '& fieldset': {
-              borderColor: pastelBlue.main,
-              borderWidth: '1.5px',
-            },
-            '&:hover fieldset': {
-              borderColor: pastelBlue.dark,
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: pastelBlue.dark,
-              borderWidth: '2px',
-            },
-          },
-        }}
-      />
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Typography
-            variant="subtitle1"
-            component="p"
-            sx={{
-              mb: 1,
-              color: pastelBlue.contrastText,
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              '&::before': {
-                content: '""',
-                display: 'inline-block',
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: pastelBlue.dark,
-                marginRight: '15px',
-              },
-            }}
-          >
-            لوگو شرکت
-            <Tooltip title="فایل لوگو باید به فرمت PNG یا JPEG باشد." arrow>
-              <IconButton sx={{ ml: 1 }}>
-                <HelpOutlineIcon />
-              </IconButton>
-            </Tooltip>
-          </Typography>
-          {!files.logo ? (
-            <TextField
-              type="file"
-              fullWidth
-              variant="outlined"
-              onChange={(e) => handleFileChange(e, 'logo')}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  background: '#FFFFFF',
-                  borderRadius: '10px',
-                  transition: 'transform 0.2s',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                  },
-                  '& fieldset': {
-                    borderColor: pastelBlue.main,
-                    borderWidth: '1.5px',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: pastelBlue.dark,
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: pastelBlue.dark,
-                    borderWidth: '2px',
-                  },
-                },
-              }}
-            />
-          ) : (
-            <div>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  backgroundColor: '#FFFFFF',
-                  padding: '10px',
-                  borderRadius: '10px',
-                }}
-              >
-                <a
-                  href={URL.createObjectURL(files.logo)}
-                  download={files.logo.name}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <Typography variant="body1">{files.logo.name}</Typography>
-                </a>
-                <IconButton onClick={() => handleFileRemove('logo')}>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            </div>
-          )}
-        </Grid>
+        
 
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <Typography
             variant="subtitle1"
             component="p"
@@ -368,9 +260,9 @@ const BoardOfDirectorsRegistration = () => {
               </Box>
             </div>
           )}
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <Typography
             variant="subtitle1"
             component="p"
@@ -442,7 +334,7 @@ const BoardOfDirectorsRegistration = () => {
               },
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12}>
           <Button
