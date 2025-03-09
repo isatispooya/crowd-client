@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { useLocation } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
-import InformationRecording from '../feature/registerCompany/companyRegister.feat.jsx';
+import CompanyRegister from '../feature/registerCompany/companyRegister.feat';
 import { BoardOfDirectorsRegistration } from '../feature';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
@@ -18,6 +19,10 @@ const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد 
 const CardsDetail = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const isMobile = useMediaQuery('(max-width: 600px)');
+
+  const location = useLocation();
+
+  console.log(location.state.generetedId);
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
@@ -114,7 +119,7 @@ const CardsDetail = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && <InformationRecording />}
+        {activeStep === 0 && <CompanyRegister generetedId={location.state.generetedId} />}
         {activeStep === 1 && <BoardOfDirectorsRegistration />}
         {activeStep > 1 && (
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>

@@ -10,10 +10,7 @@ const CompanyInfo = ({ pastelBlue }) => {
     useCompanyRegistrationStore();
 
   const handleFileChange = (event, type) => {
-    console.log('CompanyInfo handleFileChange:', { type });
-    console.log('File change event object:', event);
 
-    // Check if we have files from the event object
     if (event.target && event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       console.log('File from event.target.files[0]:', file);
@@ -24,17 +21,17 @@ const CompanyInfo = ({ pastelBlue }) => {
         lastModified: file.lastModified,
       });
 
-      // Store the file directly
+    
       setFile(type, file);
 
-      // Verify the file was stored correctly
+      
       setTimeout(() => {
         const storedFile = useCompanyRegistrationStore.getState()[type];
         console.log(`Stored file in "${type}":`, storedFile);
         console.log('Is File instance?', storedFile instanceof File);
       }, 100);
     } else if (event.target && event.target.value && event.target.value instanceof File) {
-      // Or check if we have a file in the value property
+  
       const file = event.target.value;
       console.log('File from event.target.value:', file);
       console.log('File properties:', {
@@ -44,10 +41,10 @@ const CompanyInfo = ({ pastelBlue }) => {
         lastModified: file.lastModified,
       });
 
-      // Store the file directly
+    
       setFile(type, file);
 
-      // Verify the file was stored correctly
+   
       setTimeout(() => {
         const storedFile = useCompanyRegistrationStore.getState()[type];
         console.log(`Stored file in "${type}":`, storedFile);

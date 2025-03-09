@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Typography, Grid, Paper } from '@mui/material';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
 import { UseCompanyInfo } from '../../hooks';
 import useCompanyRegistrationStore from '../../store/companyRegistrationStore';
 import Button from '../../components/button';
 
-const InformationRecording = () => {
+const CompanyRegister = ({ generetedId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { getAllData, resetStore } = useCompanyRegistrationStore();
 
@@ -69,7 +70,7 @@ const InformationRecording = () => {
       formData.append('bank', data.bank || '');
       formData.append('bank_branch', data.bank_branch || '');
       formData.append('bank_branch_code', data.bank_branch_code || '');
-      formData.append('company_id', data.company_id || '');
+      formData.append('company_id', generetedId || '');
       formData.append('suggestion_plan_name', data.suggestion_plan_name || '');
 
       if (data.amount_of_investment) {
@@ -136,4 +137,8 @@ const InformationRecording = () => {
   );
 };
 
-export default InformationRecording;
+CompanyRegister.propTypes = {
+  generetedId: PropTypes.string.isRequired,
+};
+
+export default CompanyRegister;

@@ -9,7 +9,6 @@ const NewCards = () => {
   const [companyId, setCompanyId] = useState('');
   const { submitCompanyData, data: responseData } = useFetchCompanyId();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  console.log(responseData);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -19,7 +18,7 @@ const NewCards = () => {
     setIsSearching(true);
 
     submitCompanyData(
-      { national_id: companyId },
+      { national_id: Number(companyId) },
       {
         onSuccess: () => {
           setIsSearching(false);
@@ -128,12 +127,8 @@ const NewCards = () => {
           </div>
         </div>
       </div>
-      
-      <CompanyDetailsPopUp 
-        isOpen={isPopupOpen} 
-        onClose={handleClosePopup} 
-        data={responseData}
-      />
+
+      <CompanyDetailsPopUp isOpen={isPopupOpen} onClose={handleClosePopup} data={responseData} />
     </div>
   );
 };

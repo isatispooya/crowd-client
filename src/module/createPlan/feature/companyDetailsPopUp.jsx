@@ -57,7 +57,11 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
   };
 
   const handleConfirm = () => {
-    navigate('/cardsDetail');
+    navigate('/cardsDetail', {
+      state: {
+        generetedId: data?.company?.id,
+      },
+    });
     onClose(false);
   };
 
