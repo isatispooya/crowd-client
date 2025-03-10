@@ -77,7 +77,7 @@ const CompanyRegister = ({ generetedId }) => {
         formData.append('amount_of_investment', data.amount_of_investment.toString());
       }
 
-      // Log form data entries for debugging
+    
       console.log('Sending FormData with files:');
       Array.from(formData.entries()).forEach(([key, value]) => {
         if (value instanceof File) {
@@ -93,13 +93,13 @@ const CompanyRegister = ({ generetedId }) => {
           console.log('Registration successful:', response);
           setIsSubmitting(false);
           resetStore();
-          // You can add navigation or success message here
+       
         },
         onError: (error) => {
           console.error('Error submitting registration:', error);
           console.error('Error details:', error.response?.data || error.message);
           setIsSubmitting(false);
-          // You can add error handling here
+      
         },
       });
     } catch (error) {
