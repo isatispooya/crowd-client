@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
 import { UseCompanyInfo } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
-import Button from '../../../components/button';
+import Button from '../../../components/step_1/button';
 
 const CompanyRegister = ({ generetedId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -135,7 +135,6 @@ const CompanyRegister = ({ generetedId }) => {
         formData.append('amount_of_investment', data.amount_of_investment.toString());
       }
 
-    
       console.log('Sending FormData with files:');
       Array.from(formData.entries()).forEach(([key, value]) => {
         if (value instanceof File) {
@@ -150,14 +149,12 @@ const CompanyRegister = ({ generetedId }) => {
         onSuccess: (response) => {
           setIsSubmitting(false);
           resetStore();
-       
         },
         onError: (error) => {
           toast.error(`خطا در ثبت اطلاعات: ${error.response?.data || error.message}`);
           console.error('Error submitting registration:', error);
           console.error('Error details:', error.response?.data || error.message);
           setIsSubmitting(false);
-      
         },
       });
     } catch (error) {

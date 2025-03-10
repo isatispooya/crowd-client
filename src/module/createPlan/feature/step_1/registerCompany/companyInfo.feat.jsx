@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
-import FormField from '../../../components/FormField';
-import AccordionCom from '../../../components/accordian';
+import FormField from '../../../components/step_1/FormField';
+import AccordionCom from '../../../components/step_1/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyInfo = ({ pastelBlue }) => {

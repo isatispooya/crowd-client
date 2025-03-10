@@ -4,7 +4,7 @@ import MembersInfo from '../services/membersInfo.services';
 const useMembers = () => {
   return useMutation({
     mutationKey: ['membersInfo'],
-    mutationFn: MembersInfo,
+    mutationFn: ({ data, memberId }) => MembersInfo(data, memberId),
   });
 };
 
