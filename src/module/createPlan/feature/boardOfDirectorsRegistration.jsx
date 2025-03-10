@@ -102,10 +102,7 @@ const BoardOfDirectorsRegistration = () => {
         اطلاعات هیئت مدیره خود را بارگزاری کنید
       </Typography>
 
-
       <Grid container spacing={3}>
-        
-
         {/* <Grid item xs={12} md={6}>
           <Typography
             variant="subtitle1"

@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useLocation } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import { BoardOfDirectorsRegistration } from '../feature';
 
@@ -20,11 +21,12 @@ const CardsDetail = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const isMobile = useMediaQuery('(max-width: 600px)');
 
-  const location = useLocation();
+  const companyId = useParams();
 
-  const generetedId = location.state?.generetedId;
-
-  console.log(generetedId || 'No generated ID available');
+  const generetedId = companyId.id;
+  useEffect(() => {
+    console.log(generetedId);
+  }, [generetedId]);
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
