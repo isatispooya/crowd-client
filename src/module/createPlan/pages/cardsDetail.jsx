@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import { BoardOfDirectorsRegistration } from '../feature';
+import MembersInfo from '../feature/step_2/membersInfo';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
 
@@ -122,7 +123,7 @@ const CardsDetail = () => {
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
         {activeStep === 0 && <CompanyRegister generetedId={generetedId || ''} />}
-        {activeStep === 1 && <BoardOfDirectorsRegistration />}
+        {activeStep === 1 && <MembersInfo generetedId={generetedId || ''} />}
         {activeStep > 1 && (
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>
             محتوای مرحله {steps[activeStep]}

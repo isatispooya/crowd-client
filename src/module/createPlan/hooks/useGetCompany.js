@@ -4,7 +4,7 @@ import { getCompanyDetails } from '../services';
 const useGetCompany = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['company'],
-    queryFn: () => getCompanyDetails(),
+    queryFn: (id) => getCompanyDetails(id),
   });
 
   return { data, isLoading, error };
