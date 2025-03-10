@@ -34,21 +34,6 @@ const CompanyBankInfo = ({ pastelBlue }) => {
     }
   };
 
-  const getFieldValue = (fieldName) => {
-    switch (fieldName) {
-      case 'bank':
-        return bank;
-      case 'bank_branch':
-        return bank_branch;
-      case 'bank_branch_code':
-        return bank_branch_code;
-      case 'company_id':
-        return company_id;
-      default:
-        return '';
-    }
-  };
-
   const bankFields = [
     {
       name: 'bank',
@@ -96,7 +81,7 @@ const CompanyBankInfo = ({ pastelBlue }) => {
               key={field.name}
               label={field.label}
               name={field.name}
-              value={getFieldValue(field.name)}
+              value={field.name}
               onChange={handleBankChange}
               type={field.type}
               hint={field.hint}
