@@ -13,8 +13,8 @@ import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
-import { BoardOfDirectorsRegistration } from '../feature';
 import MembersInfo from '../feature/step_2/membersInfo';
+import { Contract } from '../feature/step_3';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
 
@@ -126,11 +126,8 @@ const CardsDetail = () => {
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
         {activeStep === 0 && <CompanyRegister generetedId={generetedId || ''} />}
         {activeStep === 1 && <MembersInfo generetedId={generetedId || ''} />}
-        {activeStep > 1 && (
-          <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>
-            محتوای مرحله {steps[activeStep]}
-          </Typography>
-        )}
+        {activeStep === 2 && <Contract />}
+
       </Box>
     </Box>
   );
