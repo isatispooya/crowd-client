@@ -43,7 +43,7 @@ export default function Router() {
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'training', element: <TrainingPage /> },
-        { path: 'cardsDetail', element: <CardsDetail /> },
+        { path: 'cardsDetail/:id', element: <CardsDetail /> },
       ],
     },
     {

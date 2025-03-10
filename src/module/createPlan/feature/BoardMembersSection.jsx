@@ -9,7 +9,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { OnRun } from 'src/api/OnRun';
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   boxShadow: 'none',
@@ -104,7 +103,7 @@ const BoardMembersSection = ({ members }) => {
             {members?.map((member, index) => (
               <SmallMemberCard key={index}>
                 <Avatar
-                  src={`${OnRun}/${member.picture_url}`}
+                  src={member.picture_url}
                   alt={member.person_title}
                   sx={{ width: 45, height: 45, mb: 1 }}
                 />
@@ -152,7 +151,14 @@ const BoardMembersSection = ({ members }) => {
 };
 
 BoardMembersSection.propTypes = {
-  members: PropTypes.array.isRequired,
+  members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      person_title: PropTypes.string,
+      position_title: PropTypes.string,
+      picture_url: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default BoardMembersSection;

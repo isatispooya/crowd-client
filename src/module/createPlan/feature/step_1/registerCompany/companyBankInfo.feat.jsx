@@ -6,23 +6,37 @@ import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyBankInfo = ({ pastelBlue }) => {
-  const { bank, bank_branch, bank_branch_code, company_id, updateField } =
-    useCompanyRegistrationStore();
+  const { bank, bank_branch, bank_branch_code, updateField } = useCompanyRegistrationStore();
 
   const banks = [
     { id: 1, name: 'بانک ملی ایران' },
-    { id: 2, name: 'بانک صادرات ایران' },
-    { id: 3, name: 'بانک ملت' },
-    { id: 4, name: 'بانک تجارت' },
-    { id: 5, name: 'بانک سپه' },
-  ];
-
-  const branches = [
-    { id: 1, name: 'شعبه مرکزی', bankId: 1 },
-    { id: 2, name: 'شعبه ولیعصر', bankId: 1 },
-    { id: 3, name: 'شعبه میرداماد', bankId: 2 },
-    { id: 4, name: 'شعبه پاسداران', bankId: 3 },
-    { id: 5, name: 'شعبه صادقیه', bankId: 4 },
+    { id: 2, name: 'بانک سپه' },
+    { id: 3, name: 'بانک صنعت و معدن' },
+    { id: 4, name: 'بانک کشاورزی' },
+    { id: 5, name: 'بانک مسکن' },
+    { id: 6, name: 'بانک توسعه صادرات ایران' },
+    { id: 7, name: 'بانک توسعه تعاون' },
+    { id: 8, name: 'پست بانک ایران' },
+    { id: 9, name: 'بانک اقتصاد نوین' },
+    { id: 10, name: 'بانک پارسیان' },
+    { id: 11, name: 'بانک کارآفرین' },
+    { id: 12, name: 'بانک سامان' },
+    { id: 13, name: 'بانک سینا' },
+    { id: 14, name: 'بانک خاورمیانه' },
+    { id: 15, name: 'بانک شهر' },
+    { id: 16, name: 'بانک دی' },
+    { id: 17, name: 'بانک صادرات ایران' },
+    { id: 18, name: 'بانک ملت' },
+    { id: 19, name: 'بانک تجارت' },
+    { id: 20, name: 'بانک رفاه کارگران' },
+    { id: 21, name: 'بانک حکمت ایرانیان' },
+    { id: 22, name: 'بانک گردشگری' },
+    { id: 23, name: 'بانک ایران زمین' },
+    { id: 24, name: 'بانک قوامین' },
+    { id: 25, name: 'بانک انصار' },
+    { id: 26, name: 'بانک سرمایه' },
+    { id: 27, name: 'بانک پاسارگاد' },
+    { id: 28, name: 'بانک مشترک ایران-ونزوئلا' },
   ];
 
   const handleBankChange = (event) => {
@@ -44,18 +58,14 @@ const CompanyBankInfo = ({ pastelBlue }) => {
         value: bankk.id,
         label: bankk.name,
       })),
+      value: bank,
     },
     {
       name: 'bank_branch',
       label: 'شعبه',
-      type: 'select',
+      type: 'text',
       hint: 'شعبه بانک را انتخاب کنید',
-      options: branches
-        .filter((branch) => !bank || branch.bankId === parseInt(bank, 10))
-        .map((branch) => ({
-          value: branch.id,
-          label: branch.name,
-        })),
+      value: bank_branch,
       disabled: !bank,
     },
     {
@@ -63,12 +73,8 @@ const CompanyBankInfo = ({ pastelBlue }) => {
       label: 'کد شعبه',
       type: 'text',
       hint: 'کد شعبه بانک را وارد کنید',
-    },
-    {
-      name: 'company_id',
-      label: 'شناسه شرکت',
-      type: 'text',
-      hint: 'شناسه شرکت را وارد کنید',
+      value: bank_branch_code,
+      disabled: !bank,
     },
   ];
 
@@ -81,7 +87,7 @@ const CompanyBankInfo = ({ pastelBlue }) => {
               key={field.name}
               label={field.label}
               name={field.name}
-              value={field.name}
+              value={field.value}
               onChange={handleBankChange}
               type={field.type}
               hint={field.hint}

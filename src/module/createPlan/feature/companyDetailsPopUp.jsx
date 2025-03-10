@@ -58,12 +58,9 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
   };
 
   const handleConfirm = () => {
-    navigate('/cardsDetail', {
-      state: {
-        generetedId: data?.company?.id,
-      },
-    });
+    navigate(`/cardsDetail/${data?.company?.id}`);
     onClose(false);
+    console.log(data?.company?.id);
   };
 
   return (
@@ -77,7 +74,7 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
     >
       <DialogTitle id="company-dialog-title">
         <Typography variant="h6" fontWeight={500}>
-          {data?.title || 'اطلاعات شرکت'}
+          {data?.company?.title || 'اطلاعات شرکت'}
         </Typography>
       </DialogTitle>
       <DialogContent>
@@ -87,55 +84,55 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>شناسه ملی</InfoLabel>
-                <InfoValue>{data?.national_id}</InfoValue>
+                <InfoValue>{data?.company?.national_id}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>شماره ثبت</InfoLabel>
-                <InfoValue>{data?.registration_number}</InfoValue>
+                <InfoValue>{data?.company?.registration_number}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>تاریخ ثبت</InfoLabel>
-                <InfoValue>{data?.persian_registration_date}</InfoValue>
+                <InfoValue>{data?.company?.persian_registration_date}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>سرمایه</InfoLabel>
-                <InfoValue>{data?.capital?.toLocaleString()} ریال</InfoValue>
+                <InfoValue>{data?.company?.capital?.toLocaleString()} ریال</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>کد اقتصادی</InfoLabel>
-                <InfoValue>{data?.economic_code}</InfoValue>
+                <InfoValue>{data?.company?.economic_code}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>کد پستی</InfoLabel>
-                <InfoValue>{data?.postal_code}</InfoValue>
+                <InfoValue>{data?.company?.postal_code}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>وضعیت</InfoLabel>
-                <InfoValue>{data?.status}</InfoValue>
+                <InfoValue>{data?.company?.status}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12} md={6}>
               <InfoItem>
                 <InfoLabel>واحد ثبت</InfoLabel>
-                <InfoValue>{data?.registration_unit}</InfoValue>
+                <InfoValue>{data?.company?.registration_unit}</InfoValue>
               </InfoItem>
             </Grid>
             <Grid item xs={12}>
               <InfoItem>
                 <InfoLabel>آدرس</InfoLabel>
-                <InfoValue>{data?.address}</InfoValue>
+                <InfoValue>{data?.company?.address}</InfoValue>
               </InfoItem>
             </Grid>
           </Grid>
