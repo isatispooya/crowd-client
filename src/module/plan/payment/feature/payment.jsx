@@ -71,6 +71,23 @@ const Payment = () => {
       },
       {
         onSuccess: () => toast.success('پرداخت با موفقیت ثبت شد!'),
+
+        onError: (err) => {
+          console.log('Error object:', err);
+
+          if (
+            err === 'payment_id already exists' ||
+            err?.error === 'payment_id already exists' ||
+            err?.response?.data?.error === 'payment_id already exists' ||
+            err?.message === 'payment_id already exists' ||
+            err?.data === 'payment_id already exists' ||
+            JSON.stringify(err).includes('payment_id already exists')
+          ) {
+            toast.error('شناسه پرداخت از قبل موجود هست');
+          } else {
+            toast.error('تعداد گواهی مجاز نیست');
+          }
+        },
       }
     );
   };
@@ -93,10 +110,6 @@ const Payment = () => {
       }
     );
   };
-
-  if (errorpost || errorFish) {
-    toast.error('تعداد گواهی مجاز نیست');
-  }
 
   const handleAgreementAccept = () => setIsPopupOpen(false);
 

@@ -135,6 +135,8 @@ const CompanyRegister = ({ generetedId }) => {
         formData.append('amount_of_investment', data.amount_of_investment.toString());
       }
 
+    
+      console.log('Sending FormData with files:');
       Array.from(formData.entries()).forEach(([key, value]) => {
         if (value instanceof File) {
           console.log(`${key}: File - ${value.name} (${value.type}, ${value.size} bytes)`);
@@ -148,12 +150,14 @@ const CompanyRegister = ({ generetedId }) => {
         onSuccess: (response) => {
           setIsSubmitting(false);
           resetStore();
+       
         },
         onError: (error) => {
           toast.error(`خطا در ثبت اطلاعات: ${error.response?.data || error.message}`);
           console.error('Error submitting registration:', error);
           console.error('Error details:', error.response?.data || error.message);
           setIsSubmitting(false);
+      
         },
       });
     } catch (error) {
