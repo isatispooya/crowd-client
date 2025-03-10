@@ -30,16 +30,10 @@ const CompanyRegister = ({ generetedId }) => {
       }
 
       const data = getAllData();
-      console.log('All data from store:', data);
 
-      // Check if files exist and are valid
-      console.log('Logo file:', data.logo);
-      console.log('Validation report file:', data.validation_report);
-      console.log('Financial statement file:', data.financial_statement);
 
       const formData = new FormData();
 
-      // Add file fields if they exist
       if (data.logo && data.logo instanceof File) {
         console.log(
           'Adding logo file to FormData:',
