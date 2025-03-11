@@ -61,7 +61,7 @@ const ExtraInfo = () => {
     },
   };
 
-  const handleFileChange = (id, fileType, file) => {
+  const handleFileChange = (fileType, file) => {
     setFiles((prev) => ({
       ...prev,
       [id]: file,
