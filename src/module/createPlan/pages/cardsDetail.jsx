@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import MembersInfo from '../feature/step_2/membersInfo';
 import { Contract } from '../feature/step_3';
+import { ExtraInfo } from '../feature/step_4';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی'];
 
@@ -127,7 +128,7 @@ const CardsDetail = () => {
         {activeStep === 0 && <CompanyRegister generetedId={generetedId || ''} />}
         {activeStep === 1 && <MembersInfo generetedId={generetedId || ''} />}
         {activeStep === 2 && <Contract />}
-
+        {activeStep === 3 && <ExtraInfo />}
       </Box>
     </Box>
   );
