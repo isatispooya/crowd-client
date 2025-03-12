@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { UploadExtraInfo } from '../../components/step_4';
+import { UploadInput } from '../../components';
 import { useUploadExtraInfo } from '../../hooks/step_4';
 
 const ExtraInfo = () => {
@@ -125,7 +125,7 @@ const ExtraInfo = () => {
                     <span className="text-green-600 text-sm">✓ فایل انتخاب شد</span>
                   )}
                 </div>
-                <UploadExtraInfo
+                <UploadInput
                   id={item.id}
                   label=""
                   fileType="file"
@@ -138,7 +138,6 @@ const ExtraInfo = () => {
           </motion.div>
         </div>
 
-        {/* Submit Button */}
         <div className="mt-8 text-center">
           <motion.button
             onClick={handleSubmit}

@@ -16,19 +16,23 @@ import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.f
 import MembersInfo from '../feature/step_2/membersInfo';
 import { Contract } from '../feature/step_3';
 import { ExtraInfo } from '../feature/step_4';
+import { useGetCompany } from '../hooks';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی'];
 
 const CardsDetail = () => {
   const [activeStep, setActiveStep] = React.useState(0);
+  const { id } = useParams();
   const isMobile = useMediaQuery('(max-width: 600px)');
 
-  const companyId = useParams();
+  const { data: companyData } = useGetCompany(id);
 
-  const generetedId = companyId.id;
-  useEffect(() => {
-    console.log(generetedId);
-  }, [generetedId]);
+  console.log(companyData);
+  
+
+ 
+
+
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
@@ -125,8 +129,8 @@ const CardsDetail = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && <CompanyRegister generetedId={generetedId || ''} />}
-        {activeStep === 1 && <MembersInfo generetedId={generetedId || ''} />}
+        {activeStep === 0 && <CompanyRegister companyId={id} />}
+        {activeStep === 1 && <MembersInfo />}
         {activeStep === 2 && <Contract />}
         {activeStep === 3 && <ExtraInfo />}
       </Box>

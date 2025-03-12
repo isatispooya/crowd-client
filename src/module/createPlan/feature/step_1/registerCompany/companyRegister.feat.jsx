@@ -8,7 +8,7 @@ import { UseCompanyInfo } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import Button from '../../../components/button';
 
-const CompanyRegister = ({ generetedId }) => {
+const CompanyRegister = ({ companyId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const { getAllData, resetStore } = useCompanyRegistrationStore();
@@ -63,7 +63,7 @@ const CompanyRegister = ({ generetedId }) => {
     setIsSubmitting(true);
 
     try {
-      if (!generetedId) {
+      if (!companyId) {
         toast.error('شناسه شرکت تعریف نشده یا خالی است');
         setIsSubmitting(false);
         return;
@@ -128,7 +128,7 @@ const CompanyRegister = ({ generetedId }) => {
       formData.append('bank', data.bank || '');
       formData.append('bank_branch', data.bank_branch || '');
       formData.append('bank_branch_code', data.bank_branch_code || '');
-      formData.append('company_id', generetedId);
+      formData.append('company_id', companyId);
       formData.append('suggestion_plan_name', data.suggestion_plan_name || '');
 
       if (data.amount_of_investment) {
@@ -193,7 +193,7 @@ const CompanyRegister = ({ generetedId }) => {
 };
 
 CompanyRegister.propTypes = {
-  generetedId: PropTypes.string.isRequired,
+  companyId: PropTypes.string.isRequired,
 };
 
 export default CompanyRegister;
