@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
 import { UseCompanyInfo } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
-import Button from '../../../components/step_1/button';
+import Button from '../../../components/button';
 
 const CompanyRegister = ({ generetedId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

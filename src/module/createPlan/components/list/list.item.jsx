@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper, Button } from '@mui/material';
-import FileUploadInput from './input.upload';
+import { UploadInput } from '..';
 
-const MemberListItem = ({ 
-  member, 
-  onFileChange, 
+const ListItem = ({
+  member,
+  onFileChange,
   onSubmit,
-  uploadStatus, 
-  uploadFields, 
+  uploadStatus,
+  uploadFields,
   isSubmitting,
-  theme 
+  theme,
 }) => {
-  // Check if this specific member is submitting
   const isMemberSubmitting = isSubmitting[member.id] || false;
-  // Check if any files are uploaded for this member
-  // const hasFiles = uploadStatus[member.id]?.files > 0;
-
   return (
     <Paper
       elevation={1}
@@ -46,7 +42,7 @@ const MemberListItem = ({
           <Typography variant="caption" display="block">
             شناسه ملی: {member.uniqueIdentifier}
           </Typography>
-          
+
           {/* Submit button for this member */}
           <Button
             variant="contained"
@@ -66,7 +62,7 @@ const MemberListItem = ({
           <Grid container spacing={2}>
             {uploadFields.map((field) => (
               <Grid item xs={12} sm={6} key={field.type}>
-                <FileUploadInput
+                <UploadInput
                   label={field.label}
                   onChange={onFileChange}
                   fileType={field.type}
@@ -80,9 +76,7 @@ const MemberListItem = ({
           {uploadStatus[member.id]?.status && (
             <Typography
               variant="body2"
-              color={
-                uploadStatus[member.id].status === 'success' ? 'success.main' : 'error.main'
-              }
+              color={uploadStatus[member.id].status === 'success' ? 'success.main' : 'error.main'}
               sx={{ mt: 1, textAlign: 'center' }}
             >
               {uploadStatus[member.id].message}
@@ -94,7 +88,7 @@ const MemberListItem = ({
   );
 };
 
-MemberListItem.propTypes = {
+ListItem.propTypes = {
   member: PropTypes.object.isRequired,
   onFileChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -102,11 +96,11 @@ MemberListItem.propTypes = {
   uploadFields: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired
+      type: PropTypes.string.isRequired,
     })
   ).isRequired,
   isSubmitting: PropTypes.object,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
-export default MemberListItem;
+export default ListItem;

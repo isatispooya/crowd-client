@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
-import FormField from '../../../components/step_1/FormField';
-import AccordionCom from '../../../components/step_1/accordian';
+import FormField from '../../../components/FormField';
+import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyInfo = ({ pastelBlue }) => {
-  const {  setFile, removeFile } =
-    useCompanyRegistrationStore();
+  const { setFile, removeFile } = useCompanyRegistrationStore();
 
   const handleFileChange = (event, type) => {
     if (event.target && event.target.files && event.target.files[0]) {

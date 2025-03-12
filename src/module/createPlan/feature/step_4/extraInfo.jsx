@@ -34,10 +34,6 @@ const ExtraInfo = () => {
       label: 'سه فاکتور خرید و فروش اخیر',
       icon: '🧾',
     },
-    { id: 'company_articles_of_association', label: 'اساسنامه شرکت', icon: '📜' },
-    { id: 'announcement_of_establishment', label: 'آگهی تاسیس', icon: '📢' },
-    { id: 'announcement_of_the_latest_managers', label: 'آگهی آخرین مدیران', icon: '👔' },
-    { id: 'announcement_of_the_latest_changes', label: 'آگهی آخرین تغییرات', icon: '📝' },
   ];
 
   const containerVariants = {

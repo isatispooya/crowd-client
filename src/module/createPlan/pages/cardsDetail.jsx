@@ -17,7 +17,7 @@ import MembersInfo from '../feature/step_2/membersInfo';
 import { Contract } from '../feature/step_3';
 import { ExtraInfo } from '../feature/step_4';
 
-const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی', 'قرارداد اجرایی' , "قدم 6"];
+const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی'];
 
 const CardsDetail = () => {
   const [activeStep, setActiveStep] = React.useState(0);

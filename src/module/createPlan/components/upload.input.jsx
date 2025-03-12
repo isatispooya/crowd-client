@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Button } from '@mui/material';
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-const FileUploadInput = ({
+const UploadInput = ({
   label,
   onChange,
   fileType,
@@ -11,6 +12,16 @@ const FileUploadInput = ({
   size = 'small',
   variant = 'outlined',
 }) => {
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFileName(file.name);
+      onChange(id, fileType, file);
+    }
+  };
+
   return (
     <>
       <Typography variant="body2" mb={1}>
@@ -23,20 +34,16 @@ const FileUploadInput = ({
         size={size}
         sx={{ mb: 2 }}
         disabled={disabled}
+        startIcon={<CloudUploadIcon />}
       >
-        بارگذاری فایل
-        <input
-          type="file"
-          hidden
-          onChange={(e) => onChange(id, fileType, e.target.files[0])}
-          disabled={disabled}
-        />
+        {fileName || 'بارگذاری فایل'}
+        <input type="file" hidden onChange={handleFileChange} disabled={disabled} />
       </Button>
     </>
   );
 };
 
-FileUploadInput.propTypes = {
+UploadInput.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   fileType: PropTypes.string.isRequired,
@@ -46,4 +53,4 @@ FileUploadInput.propTypes = {
   variant: PropTypes.string,
 };
 
-export default FileUploadInput;
+export default UploadInput;

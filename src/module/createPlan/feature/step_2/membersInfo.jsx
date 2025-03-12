@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Typography, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useGetCompany, useMembers } from '../../hooks';
-import MembersList from '../../components/step_2/memebrs.list';
+import MembersList from '../../components/list/list';
 
 const MembersInfo = () => {
   const { id } = useParams();
@@ -60,7 +60,6 @@ const MembersInfo = () => {
         }
       });
 
-     
       await mutateMembersInfo({ data: formData, memberId });
 
       setUploadStatus((prev) => ({
