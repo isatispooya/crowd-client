@@ -1,6 +1,6 @@
-import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { useEffect, useState } from 'react';
+import { Box, Grid, Typography } from '@mui/material';
+
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Loader from 'src/components/loader';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ import useAuth from '../service/useAuth';
 const Profile = () => {
   const { mutate, userData, isLoadingUser, isError, logout } = useAuth();
   const navigateToProfile = useNavigate();
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const access = getCookie('access');
@@ -30,13 +29,13 @@ const Profile = () => {
     navigateToProfile('/ProfilePage');
   };
 
-  const handleCopyCode = () => {
-    const baseUrl = "https://app.isatiscrowd.ir/login?rf=";
-    const referralLink = `${baseUrl}${userData?.acc?.uniqueIdentifier}`;
-    navigator.clipboard.writeText(referralLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  // const handleCopyCode = () => {
+  //   const baseUrl = "https://app.isatiscrowd.ir/login?rf=";
+  //   const referralLink = `${baseUrl}${userData?.acc?.uniqueIdentifier}`;
+  //   navigator.clipboard.writeText(referralLink);
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 2000);
+  // };
 
   return (
     <motion.div
@@ -44,13 +43,15 @@ const Profile = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Box sx={{ 
-        p: 4, 
-        textAlign: 'center', 
-        marginBottom: 5,
-        maxWidth: '600px',
-        mx: 'auto'
-      }}>
+      <Box
+        sx={{
+          p: 4,
+          textAlign: 'center',
+          marginBottom: 5,
+          maxWidth: '600px',
+          mx: 'auto',
+        }}
+      >
         <a href="https://isatiscrowd.ir" style={{ textDecoration: 'none' }}>
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -74,13 +75,13 @@ const Profile = () => {
                 },
               }}
             />
-            <Typography 
-              variant="h4" 
-              sx={{ 
-                fontWeight: 'bold', 
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 'bold',
                 color: '#524175',
                 mb: 3,
-                fontSize: { xs: '1.5rem', sm: '2rem' }
+                fontSize: { xs: '1.5rem', sm: '2rem' },
               }}
             >
               ایساتیس کراد
@@ -88,11 +89,7 @@ const Profile = () => {
           </motion.div>
         </a>
 
-        <motion.div 
-          initial={{ scale: 0.9 }} 
-          animate={{ scale: 1 }} 
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ duration: 0.5 }}>
           <Box
             sx={{
               bgcolor: '#ffffff',
@@ -109,8 +106,8 @@ const Profile = () => {
           >
             <Grid item xs={12}>
               {!isLoadingUser ? (
-                <motion.div 
-                  whileHover={{ scale: 1.02 }} 
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{ position: 'relative' }}
                 >
@@ -126,7 +123,8 @@ const Profile = () => {
                       {userData?.acc?.private_person[0]?.firstName}{' '}
                       {userData?.acc?.private_person[0]?.lastName}
                     </div>
-                    <div className="absolute left-0 right-0 bottom-0 
+                    <div
+                      className="absolute left-0 right-0 bottom-0 
                                   text-gray-600 text-sm opacity-0 
                                   group-hover:opacity-100 
                                   transition-opacity duration-300 "
@@ -136,21 +134,20 @@ const Profile = () => {
                   </button>
                 </motion.div>
               ) : (
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
+                <Typography
+                  variant="h6"
+                  sx={{
                     color: '#666',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: 1
+                    gap: 1,
                   }}
                 >
                   در حال بارگذاری...
                 </Typography>
               )}
             </Grid>
-   
           </Box>
         </motion.div>
       </Box>

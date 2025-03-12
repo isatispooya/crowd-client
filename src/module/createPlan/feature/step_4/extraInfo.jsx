@@ -61,10 +61,10 @@ const ExtraInfo = () => {
     },
   };
 
-  const handleFileChange = (id, fileType, file) => {
+  const handleFileChange = (ids, fileType, file) => {
     setFiles((prev) => ({
       ...prev,
-      [id]: file,
+      [ids]: file,
     }));
   };
 

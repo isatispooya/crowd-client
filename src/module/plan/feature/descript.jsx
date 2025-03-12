@@ -17,7 +17,6 @@ import {
 } from 'react-icons/fi';
 import { FaRegMoneyBill1 } from 'react-icons/fa6';
 import { Divider } from '@mui/material';
-import CountdownTimer from 'src/components/countDown';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
 import ChartLimitInvest from './chartLimitInvest';

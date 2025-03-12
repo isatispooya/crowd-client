@@ -10,7 +10,7 @@ const CartPlans = () => {
   const { data } = useGetPlans();
   const access = getCookie('access');
   const navigate = useNavigate();
-  const [filterStatusSecond, setFilterStatusSecond] = useState([]);
+  const [ setFilterStatusSecond] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
 

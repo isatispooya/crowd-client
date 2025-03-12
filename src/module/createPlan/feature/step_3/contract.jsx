@@ -59,7 +59,6 @@ const Contract = () => {
   const handleSubmit = () => {
     const formData = new FormData();
 
-    // Append each file to formData if it exists
     Object.entries(files).forEach(([key, file]) => {
       if (file) {
         formData.append(key, file);
@@ -86,7 +85,6 @@ const Contract = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Contract Types Section */}
           <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
             <h3 className="text-xl font-semibold mb-5 text-gray-700 border-b pb-3 flex items-center">
               <span className="bg-blue-100 text-blue-600 p-2 rounded-full mr-2">
@@ -141,7 +139,6 @@ const Contract = () => {
             </motion.ul>
           </div>
 
-          {/* Upload Documents Section */}
           <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
             <h3 className="text-xl font-semibold mb-5 text-gray-700 border-b pb-3 flex items-center">
               <span className="bg-indigo-100 text-indigo-600 p-2 rounded-full mr-2">
@@ -199,7 +196,6 @@ const Contract = () => {
           </div>
         </div>
 
-        {/* Submit Button */}
         <div className="mt-8 text-center">
           <motion.button
             onClick={handleSubmit}

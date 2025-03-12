@@ -6,7 +6,7 @@ import AccordionCom from '../../../components/step_1/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 
 const CompanyInfo = ({ pastelBlue }) => {
-  const { logo, validation_report, financial_statement, setFile, removeFile } =
+  const {  setFile, removeFile } =
     useCompanyRegistrationStore();
 
   const handleFileChange = (event, type) => {

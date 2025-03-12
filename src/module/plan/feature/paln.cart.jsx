@@ -18,9 +18,8 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
     { id: '5', label: 'تکمیل شده', color: 'bg-blue-500' },
     { id: '4', label: 'ناموفق', color: 'bg-red-500' },
   ];
-  const rate_of_return = plan.information_complete.rate_of_return;
-  const base_rate_of_return = rate_of_return.split('.')[0];
-  const percentage_rate_of_return = rate_of_return.split('.')[1];
+  const { rate_of_return } = plan.information_complete;
+  const [base_rate_of_return, percentage_rate_of_return] = rate_of_return.split('.');
   const status_label = planStatusOptions.find(
     (option) => option.id === plan.information_complete.status_second
   )?.label;

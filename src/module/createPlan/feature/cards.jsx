@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useGetCompany } from '../hooks';
 
 
 const Cards = ({ data = {} }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { data: companyData } = useGetCompany();
 
   console.log(companyData);
 
 
-  const handleClick = () => {
-    navigate('/cardsDetail');
-  };
+  // const handleClick = () => {
+  //   navigate('/cardsDetail');
+  // };
 
   return (
     // <div

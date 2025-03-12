@@ -15,7 +15,7 @@ const MemberListItem = ({
   // Check if this specific member is submitting
   const isMemberSubmitting = isSubmitting[member.id] || false;
   // Check if any files are uploaded for this member
-  const hasFiles = uploadStatus[member.id]?.files > 0;
+  // const hasFiles = uploadStatus[member.id]?.files > 0;
 
   return (
     <Paper
