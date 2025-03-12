@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
 import { OnRun } from 'src/api/OnRun';
@@ -10,7 +10,7 @@ import {
   FaDollarSign,
   FaBalanceScale,
 } from 'react-icons/fa';
-
+import SmallLoader from 'src/components/SmallLoader';
 import useCer from './useGetCerSidebar';
 import useCerti from './usePostCerSideBar';
 import { getCerByTraceCode } from './useGetCerSidebarBytraceCode';
@@ -21,6 +21,7 @@ const CertificateSideBar = () => {
   const traceCode = data && data.length > 0 ? data[0].trace_code_payment_farabourse : null;
   const { data: responseByTraceCode } = getCerByTraceCode(traceCode);
   console.log(responseByTraceCode);
+  const [loadingTraceCode, setLoadingTraceCode] = useState(null);
 
   useEffect(() => {
     if (response) {
@@ -34,12 +35,21 @@ const CertificateSideBar = () => {
   }, [response, error]);
 
   const handleDownloadClick = async (downloadTraceCode) => {
+    setLoadingTraceCode(downloadTraceCode);
     try {
       const downloadData = await getCerByTraceCode(downloadTraceCode);
-      console.log(downloadData);
+      console.log(downloadData.url);
+      window.open(OnRun + downloadData.url, '_blank');
     } catch (downloadError) {
       toast.error(downloadError.response.data.ErrorMessage);
+    } finally {
+      setLoadingTraceCode(null);
+      toast.dismiss();
     }
+  };
+
+  const generateRandomTraceCode = () => {
+    return Math.floor(Math.random() * 1000000);
   };
 
   if (error) {
@@ -119,12 +129,23 @@ const CertificateSideBar = () => {
                   </motion.button>
                   <motion.button
                     type="button"
-                    onClick={() => handleDownloadClick(item.trace_code_payment_farabourse)}
-                    className="group flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 text-white transition-all duration-200 shadow-[0_8px_20px_-3px_rgba(99,102,241,0.5)] hover:shadow-[0_12px_30px_-5px_rgba(99,102,241,0.7)]"
+                    onClick={() =>
+                      handleDownloadClick(
+                        item.trace_code_payment_farabourse || generateRandomTraceCode()
+                      )
+                    }
+                    className={`group flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 text-white transition-all duration-200 shadow-[0_8px_20px_-3px_rgba(99,102,241,0.5)] hover:shadow-[0_12px_30px_-5px_rgba(99,102,241,0.7)] ${
+                      loadingTraceCode === item.trace_code_payment_farabourse ? 'loading' : ''
+                    }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    disabled={loadingTraceCode === item.trace_code_payment_farabourse}
                   >
-                    <FaDownload className="text-lg group-hover:translate-y-0.5 transition-transform" />
+                    {loadingTraceCode === item.trace_code_payment_farabourse ? (
+                      <SmallLoader />
+                    ) : (
+                      <FaDownload className="text-lg group-hover:translate-y-0.5 transition-transform" />
+                    )}
                   </motion.button>
                 </div>
               </div>
