@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Grid, Paper } from '@mui/material';
+import { Typography, Grid, Paper, Box, Chip, Tooltip } from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
@@ -8,7 +11,52 @@ import { UseCompanyInfo } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import Button from '../../../components/button';
 
-const CompanyRegister = ({ companyId }) => {
+const StatusBanner = ({ readOnly, status }) => {
+  if (!readOnly) return null;
+
+  let icon;
+  let color;
+  let message;
+
+  if (status === 'approved') {
+    icon = <CheckCircleIcon />;
+    color = '#4caf50';
+    message = 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد';
+  } else if (status === 'rejected') {
+    icon = <CancelIcon />;
+    color = '#f44336';
+    message = 'این مرحله رد شده است و نیاز به بررسی مجدد دارد';
+  } else {
+    return null;
+  }
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        p: 2,
+        mb: 3,
+        borderRadius: 2,
+        backgroundColor: `${color}15`,
+        border: `1px solid ${color}40`,
+        color,
+      }}
+    >
+      {icon}
+      <Typography variant="body2" sx={{ ml: 1 }}>
+        {message}
+      </Typography>
+    </Box>
+  );
+};
+
+StatusBanner.propTypes = {
+  readOnly: PropTypes.bool,
+  status: PropTypes.string,
+};
+
+const CompanyRegister = ({ companyId, readOnly, status }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const { getAllData, resetStore } = useCompanyRegistrationStore();
@@ -164,16 +212,83 @@ const CompanyRegister = ({ companyId }) => {
   };
 
   return (
-    <div>
+    <Paper
+      elevation={0}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 3,
+        width: '90%',
+        maxWidth: '1000px',
+        margin: '2rem auto',
+        boxShadow: '0 10px 30px rgba(149, 157, 165, 0.15)',
+        borderRadius: '20px',
+        padding: '2.5rem',
+        background: '#FFFFFF',
+        border: `1px solid ${pastelBlue.dark}`,
+        position: 'relative',
+        overflow: 'hidden',
+        opacity: readOnly ? 0.9 : 1,
+        '&:hover': {
+          boxShadow: '0 15px 35px rgba(149, 157, 165, 0.2)',
+        },
+      }}
+    >
       <ToastContainer position="top-center" />
-      <Typography variant="h4" gutterBottom>
-        ثبت اطلاعات شرکت
-      </Typography>
-      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-        <Grid container spacing={4}>
-          <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} />
-          <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} />
-          <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} />
+      {readOnly && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 20,
+            right: 20,
+            zIndex: 2,
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            p: 0.5,
+            borderRadius: 1,
+            border: '1px solid #ddd',
+          }}
+        >
+          <LockIcon fontSize="small" sx={{ color: 'text.secondary', mr: 0.5 }} />
+          <Typography variant="caption" color="text.secondary">
+            فقط نمایش
+          </Typography>
+        </Box>
+      )}
+
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography
+          variant="h5"
+          component="h1"
+          sx={{
+            color: pastelBlue.contrastText,
+            fontWeight: 700,
+            position: 'relative',
+          }}
+        >
+          ثبت اطلاعات شرکت
+        </Typography>
+        {readOnly && (
+          <Tooltip title={status === 'approved' ? 'تایید شده' : 'رد شده'}>
+            <Chip
+              icon={status === 'approved' ? <CheckCircleIcon /> : <CancelIcon />}
+              label={status === 'approved' ? 'تایید شده' : 'رد شده'}
+              color={status === 'approved' ? 'success' : 'error'}
+              variant="outlined"
+              sx={{ fontWeight: 'bold' }}
+            />
+          </Tooltip>
+        )}
+      </Box>
+
+      <StatusBanner readOnly={readOnly} status={status} />
+
+      <Grid container spacing={4}>
+        <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        {!readOnly && (
           <Grid item xs={12} sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
             <Button
               onClick={handleSubmit}
@@ -186,14 +301,16 @@ const CompanyRegister = ({ companyId }) => {
               ثبت اطلاعات
             </Button>
           </Grid>
-        </Grid>
-      </Paper>
-    </div>
+        )}
+      </Grid>
+    </Paper>
   );
 };
 
 CompanyRegister.propTypes = {
   companyId: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  status: PropTypes.string,
 };
 
 export default CompanyRegister;

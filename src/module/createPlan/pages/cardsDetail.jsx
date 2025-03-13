@@ -10,7 +10,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import MembersInfo from '../feature/step_2/membersInfo';
@@ -27,12 +26,22 @@ const CardsDetail = () => {
 
   const { data: companyData } = useGetCompany(id);
 
-  console.log(companyData);
-  
+  // Function to check if step is editable
+  const isStepEditable = (stepNumber) => {
+    const stepStatus = companyData?.[`step_${stepNumber + 1}`];
+    return stepStatus === 'changed';
+  };
 
- 
-
-
+  // Modified click handler to prevent step change if not editable
+  const handleStepClick = (index) => {
+    if (
+      isStepEditable(index) ||
+      companyData?.[`step_${index + 1}`] === 'rejected' ||
+      companyData?.[`step_${index + 1}`] === 'approved'
+    ) {
+      setActiveStep(index);
+    }
+  };
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
@@ -42,8 +51,37 @@ const CardsDetail = () => {
     if (activeStep > 0) setActiveStep(activeStep - 1);
   };
 
-  const handleStepClick = (index) => {
-    setActiveStep(index);
+  // Helper function to get step status
+  const getStepStatus = (index) => {
+    return companyData?.[`step_${index + 1}`] || 'changed';
+  };
+
+  // Get status badges for steps
+  const getStatusBadge = (status) => {
+    if (status === 'approved') {
+      return {
+        label: 'تایید شده',
+        color: 'success.main',
+        bgColor: 'success.light',
+        icon: '✓',
+      };
+    }
+
+    if (status === 'rejected') {
+      return {
+        label: 'رد شده',
+        color: 'error.main',
+        bgColor: 'error.light',
+        icon: '✗',
+      };
+    }
+
+    return {
+      label: 'در حال بررسی',
+      color: 'primary.main',
+      bgColor: 'primary.light',
+      icon: '⟳',
+    };
   };
 
   return (
@@ -52,11 +90,54 @@ const CardsDetail = () => {
     >
       {!isMobile && (
         <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%', mb: 3 }}>
-          {steps.map((label, index) => (
-            <Step key={label} onClick={() => handleStepClick(index)}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
+          {steps.map((label, index) => {
+            const status = getStepStatus(index);
+            const badge = getStatusBadge(status);
+
+            return (
+              <Step
+                key={label}
+                onClick={() => handleStepClick(index)}
+                sx={{
+                  cursor: 'pointer',
+                  '& .MuiStepLabel-root': {
+                    color: badge.color,
+                  },
+                }}
+              >
+                <StepLabel
+                  StepIconProps={{
+                    sx: {
+                      color: badge.color,
+                      '&.Mui-active': { color: badge.color },
+                      '&.Mui-completed': { color: badge.color },
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {label}
+                    <Box
+                      sx={{
+                        mt: 0.5,
+                        px: 1,
+                        py: 0.25,
+                        borderRadius: 1,
+                        fontSize: '0.7rem',
+                        backgroundColor: badge.bgColor,
+                        color: badge.color,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                      }}
+                    >
+                      <span>{badge.icon}</span>
+                      <span>{badge.label}</span>
+                    </Box>
+                  </Box>
+                </StepLabel>
+              </Step>
+            );
+          })}
         </Stepper>
       )}
 
@@ -129,10 +210,14 @@ const CardsDetail = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && <CompanyRegister companyId={id} />}
-        {activeStep === 1 && <MembersInfo />}
-        {activeStep === 2 && <Contract />}
-        {activeStep === 3 && <ExtraInfo />}
+        {activeStep === 0 && (
+          <CompanyRegister companyId={id} readOnly={!isStepEditable(0)} status={getStepStatus(0)} />
+        )}
+        {activeStep === 1 && (
+          <MembersInfo readOnly={!isStepEditable(1)} status={getStepStatus(1)} />
+        )}
+        {activeStep === 2 && <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />}
+        {activeStep === 3 && <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />}
       </Box>
     </Box>
   );

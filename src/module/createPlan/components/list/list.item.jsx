@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Grid, Paper, Button } from '@mui/material';
-import { UploadInput } from '..';
+import { Typography, Grid, Paper, Button, Box } from '@mui/material';
+import UploadInput from '../upload.input';
 
 const ListItem = ({
   member,
@@ -63,7 +63,12 @@ const ListItem = ({
             {uploadFields.map((field) => (
               <Grid item xs={12} sm={6} key={field.type}>
                 <UploadInput
-                  label={field.label}
+                  label={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <span style={{ fontSize: '1.2rem' }}>{field.icon}</span>
+                      <span>{field.label}</span>
+                    </Box>
+                  }
                   onChange={onFileChange}
                   fileType={field.type}
                   id={member.id}

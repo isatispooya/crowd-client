@@ -1,10 +1,61 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Typography, Paper, Box, Chip, Tooltip, Grid } from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { UploadInput } from '../../components';
 import { useUploadExtraInfo } from '../../hooks/step_4';
 
-const ExtraInfo = () => {
+const StatusBanner = ({ readOnly, status }) => {
+  if (!readOnly) return null;
+
+  let icon;
+  let color;
+  let message;
+
+  if (status === 'approved') {
+    icon = <CheckCircleIcon />;
+    color = '#4caf50';
+    message = 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد';
+  } else if (status === 'rejected') {
+    icon = <CancelIcon />;
+    color = '#f44336';
+    message = 'این مرحله رد شده است و نیاز به بررسی مجدد دارد';
+  } else {
+    return null;
+  }
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        p: 2,
+        mb: 3,
+        borderRadius: 2,
+        backgroundColor: `${color}15`,
+        border: `1px solid ${color}40`,
+        color,
+      }}
+    >
+      {icon}
+      <Typography variant="body2" sx={{ ml: 1 }}>
+        {message}
+      </Typography>
+    </Box>
+  );
+};
+
+StatusBanner.propTypes = {
+  readOnly: PropTypes.bool,
+  status: PropTypes.string,
+};
+
+const ExtraInfo = ({ readOnly, status }) => {
   const { id } = useParams();
   const [files, setFiles] = useState({
     tax_return: null,
@@ -21,6 +72,13 @@ const ExtraInfo = () => {
   });
 
   const { mutate: uploadExtraInfo, isPending } = useUploadExtraInfo(id);
+
+  const pastelBlue = {
+    light: '#E6F4FF',
+    main: '#B3E0FF',
+    dark: '#6B9ACD',
+    contrastText: '#1A365D',
+  };
 
   const uploadLabels = [
     { id: 'tax_return', label: 'اظهارنامه مالیاتی', icon: '📊' },
@@ -58,6 +116,8 @@ const ExtraInfo = () => {
   };
 
   const handleFileChange = (ids, fileType, file) => {
+    if (readOnly) return;
+
     setFiles((prev) => ({
       ...prev,
       [ids]: file,
@@ -65,6 +125,8 @@ const ExtraInfo = () => {
   };
 
   const handleSubmit = () => {
+    if (readOnly) return;
+
     const formData = new FormData();
     Object.entries(files).forEach(([key, file]) => {
       if (file) {
@@ -75,100 +137,199 @@ const ExtraInfo = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8" dir="rtl">
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-blue-100">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-            اطلاعات تکمیلی
-          </span>
-        </h2>
+    <Paper
+      elevation={0}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 3,
+        width: '90%',
+        maxWidth: '1000px',
+        margin: '2rem auto',
+        boxShadow: '0 10px 30px rgba(149, 157, 165, 0.15)',
+        borderRadius: '20px',
+        padding: '2.5rem',
+        background: '#FFFFFF',
+        border: `1px solid ${pastelBlue.dark}`,
+        position: 'relative',
+        overflow: 'hidden',
+        opacity: readOnly ? 0.9 : 1,
+        '&:hover': {
+          boxShadow: '0 15px 35px rgba(149, 157, 165, 0.2)',
+        },
+      }}
+    >
+      {readOnly && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 20,
+            right: 20,
+            zIndex: 2,
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            p: 0.5,
+            borderRadius: 1,
+            border: '1px solid #ddd',
+          }}
+        >
+          <LockIcon fontSize="small" sx={{ color: 'text.secondary', mr: 0.5 }} />
+          <Typography variant="caption" color="text.secondary">
+            فقط نمایش
+          </Typography>
+        </Box>
+      )}
 
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-          <h3 className="text-xl font-semibold mb-5 text-gray-700 border-b pb-3 flex items-center">
-            <span className="bg-indigo-100 text-indigo-600 p-2 rounded-full ml-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-            بارگذاری مدارک مورد نیاز
-          </h3>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography
+          variant="h5"
+          component="h1"
+          sx={{
+            color: pastelBlue.contrastText,
+            fontWeight: 700,
+            position: 'relative',
+          }}
+        >
+          اطلاعات تکمیلی
+        </Typography>
+        {readOnly && (
+          <Tooltip title={status === 'approved' ? 'تایید شده' : 'رد شده'}>
+            <Chip
+              icon={status === 'approved' ? <CheckCircleIcon /> : <CancelIcon />}
+              label={status === 'approved' ? 'تایید شده' : 'رد شده'}
+              color={status === 'approved' ? 'success' : 'error'}
+              variant="outlined"
+              sx={{ fontWeight: 'bold' }}
+            />
+          </Tooltip>
+        )}
+      </Box>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+      <StatusBanner readOnly={readOnly} status={status} />
+
+      <Box
+        sx={{
+          bgcolor: 'white',
+          p: 3,
+          borderRadius: 2,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+          border: '1px solid #e0e0e0',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            mb: 2.5,
+            pb: 1.5,
+            borderBottom: '1px solid #eee',
+          }}
+        >
+          <Box
+            sx={{
+              bgcolor: pastelBlue.light,
+              color: pastelBlue.dark,
+              p: 1,
+              borderRadius: '50%',
+              mr: 1,
+            }}
           >
-            {uploadLabels.map((item, index) => (
-              <motion.div
-                key={item.id}
-                className={`bg-gray-50 p-4 rounded-lg border ${
-                  files[item.id] ? 'border-green-200 bg-green-50' : 'border-gray-100'
-                } hover:border-indigo-200 transition-all duration-200`}
-                variants={itemVariants}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center">
-                    <span className="text-xl ml-2">{item.icon}</span>
-                    <p className="text-sm font-medium text-gray-700">{item.label}</p>
-                  </div>
-                  {files[item.id] && (
-                    <span className="text-green-600 text-sm">✓ فایل انتخاب شد</span>
-                  )}
-                </div>
-                <UploadInput
-                  id={item.id}
-                  label=""
-                  fileType="file"
-                  onChange={handleFileChange}
-                  variant="outlined"
-                  size="small"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+            <CloudUploadIcon />
+          </Box>
+          <Typography variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
+            بارگذاری مدارک مورد نیاز
+          </Typography>
+        </Box>
 
-        <div className="mt-8 text-center">
+        <motion.div variants={containerVariants} initial="hidden" animate="visible">
+          <Grid container spacing={3}>
+            {uploadLabels.map((item) => (
+              <Grid item xs={12} md={6} key={item.id}>
+                <motion.div
+                  variants={itemVariants}
+                  style={{
+                    padding: '16px',
+                    backgroundColor: files[item.id] ? '#f0f9f0' : '#f9f9f9',
+                    borderRadius: '8px',
+                    border: files[item.id] ? '1px solid #c8e6c9' : '1px solid #e0e0e0',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mb: 1,
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography sx={{ fontSize: '1.25rem', mr: 1 }}>{item.icon}</Typography>
+                      <Typography
+                        sx={{ fontWeight: 500, color: 'text.primary', fontSize: '0.9rem' }}
+                      >
+                        {item.label}
+                      </Typography>
+                    </Box>
+                    {files[item.id] && (
+                      <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
+                        ✓ فایل انتخاب شد
+                      </Typography>
+                    )}
+                  </Box>
+                  <UploadInput
+                    id={item.id}
+                    label=""
+                    fileType="file"
+                    onChange={handleFileChange}
+                    variant="outlined"
+                    size="small"
+                    disabled={readOnly}
+                  />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
+      </Box>
+
+      {!readOnly && (
+        <Box sx={{ mt: 4, textAlign: 'center' }}>
           <motion.button
             onClick={handleSubmit}
             disabled={isPending}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`
-              bg-gradient-to-r from-blue-600 to-indigo-600 
-              text-white px-8 py-3 rounded-lg font-medium 
-              shadow-lg hover:shadow-xl transition-all duration-200
-              ${isPending ? 'opacity-70 cursor-not-allowed' : ''}
-            `}
+            style={{
+              background: `linear-gradient(to right, ${pastelBlue.dark}, #4a6da7)`,
+              color: 'white',
+              padding: '12px 32px',
+              borderRadius: '8px',
+              fontWeight: 500,
+              border: 'none',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              cursor: isPending ? 'not-allowed' : 'pointer',
+              opacity: isPending ? 0.7 : 1,
+              transition: 'all 0.2s',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
             {isPending ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin h-5 w-5 ml-2" viewBox="0 0 24 24">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    fill="none"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div
+                  style={{
+                    animation: 'spin 1s linear infinite',
+                    height: '20px',
+                    width: '20px',
+                    marginLeft: '8px',
+                    border: '2px solid white',
+                    borderTop: '2px solid transparent',
+                    borderRadius: '50%',
+                  }}
+                />
                 در حال ارسال...
               </span>
             ) : (
@@ -176,7 +337,7 @@ const ExtraInfo = () => {
                 ثبت و ادامه
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 inline mr-2"
+                  style={{ height: '20px', width: '20px', marginRight: '8px' }}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -189,10 +350,15 @@ const ExtraInfo = () => {
               </>
             )}
           </motion.button>
-        </div>
-      </div>
-    </div>
+        </Box>
+      )}
+    </Paper>
   );
+};
+
+ExtraInfo.propTypes = {
+  readOnly: PropTypes.bool,
+  status: PropTypes.string,
 };
 
 export default ExtraInfo;

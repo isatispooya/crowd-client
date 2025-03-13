@@ -1,5 +1,6 @@
-export { default as UploadInput } from './upload.input';
-export { default as Accordion } from './accordian';
-export * from './list';
 export { default as Button } from './button';
+export { default as List } from './list/list';
+export { default as Accordion } from './accordian';
 export { default as FormField } from './FormField';
+export { default as ListItem } from './list/list.item';
+export { default as UploadInput } from './upload.input';

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from '.';
+import ListItem from './list.item';
 
 const List = ({ members, onFileChange, onSubmit, uploadStatus, isSubmitting, theme }) => {
-  
   const uploadFields = [
-    { label: 'کارت ملی', type: 'national_cart' },
-    { label: 'شناسنامه', type: 'birth_certificate' },
-    { label: 'سوء پیشینه', type: 'previous_article' },
-    { label: 'اعتبار سنجی', type: 'validation_report' },
+    { label: 'کارت ملی', type: 'national_cart', icon: '🪪' },
+    { label: 'شناسنامه', type: 'birth_certificate', icon: '📄' },
+    { label: 'سوء پیشینه', type: 'previous_article', icon: '📋' },
+    { label: 'اعتبار سنجی', type: 'validation_report', icon: '✅' },
   ];
 
   return (
