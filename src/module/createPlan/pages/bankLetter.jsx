@@ -32,7 +32,7 @@ const BankLetter = () => {
 
   useEffect(() => {
     if (finalUuid && finalUuid !== 'undefined' && bankLetter) {
-      setQrValue(`${bankLetter?.qr_file_path || `https://example.com/verify/${finalUuid}`}`);
+      setQrValue('https://app.isatiscrowd.ir/bankLetter');
     }
   }, [finalUuid, bankLetter]);
 
