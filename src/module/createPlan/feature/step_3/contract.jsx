@@ -9,6 +9,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { UploadInput } from '../../components';
 import { useUploadContract } from '../../hooks/step_3';
+import { useGetCompany } from '../../hooks';
 
 const StatusBanner = ({ readOnly, status }) => {
   if (!readOnly) return null;
@@ -57,6 +58,7 @@ StatusBanner.propTypes = {
 
 const Contract = ({ readOnly, status }) => {
   const { id } = useParams();
+  const { data: companyData } = useGetCompany(id);
   const [files, setFiles] = useState({
     account_number_letter: null,
     financial_exel: null,
@@ -65,6 +67,9 @@ const Contract = ({ readOnly, status }) => {
   });
 
   const { mutate: uploadContract, isPending } = useUploadContract(id);
+
+  const uuid = companyData?.uuid;
+  console.log(uuid);
 
   const pastelBlue = {
     light: '#E6F4FF',
@@ -76,7 +81,7 @@ const Contract = ({ readOnly, status }) => {
   const links = [
     { id: 1, title: 'قرارداد عاملیت', path: '/contracts/basic', icon: '📄' },
     { id: 2, title: 'نامه حسابرسی', path: '/contracts/premium', icon: '📋' },
-    { id: 3, title: 'نامه بانکی', path: '/contracts/enterprise', icon: '📑' },
+    { id: 3, title: 'نامه بانکی', path: `/bankLetter/?uuid=${uuid}`, icon: '📑' },
   ];
 
   const containerVariants = {

@@ -60,6 +60,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const { getAllData, resetStore } = useCompanyRegistrationStore();
+
   const pastelBlue = {
     light: '#E6F4FF',
     main: '#B3E0FF',

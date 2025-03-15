@@ -22,6 +22,7 @@ export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
 export const CreatePlan = lazy(() => import('src/module/createPlan/pages/mainPage'));
 export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail'));
+export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -44,6 +45,7 @@ export default function Router() {
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'training', element: <TrainingPage /> },
         { path: 'cardsDetail/:id', element: <CardsDetail /> },
+        { path: 'bankLetter', element: <BankLetter /> },
       ],
     },
     {
