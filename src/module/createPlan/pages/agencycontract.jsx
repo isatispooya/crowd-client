@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
-import { formatNumber } from 'src/utils/formatNumbers';
-import PrintableLayout from 'src/layouts/printableLayout';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
 import { useAgencyContract } from '../hooks';
 import { Page1, Page2, PAGES, TOTAL_PAGES } from '../feature/agancyContract';
 
-// Add this CSS for printing all pages
+
 const printStyles = `
   @media print {
     .page-break-before {
@@ -171,7 +169,6 @@ const AgencyContract = () => {
     return <Loader />;
   }
 
-  // Render the current page component
   const renderCurrentPage = () => {
     const CurrentPageComponent = PAGES[currentPage - 1];
     return <CurrentPageComponent agencyContract={agencyContract} qrValue={qrValue} />;
