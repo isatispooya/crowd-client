@@ -79,7 +79,7 @@ const Contract = ({ readOnly, status }) => {
   };
 
   const links = [
-    { id: 1, title: 'قرارداد عاملیت', path: '/contracts/basic', icon: '📄' },
+    { id: 1, title: 'قرارداد عاملیت', path: `/agencyContract/?uuid=${uuid}`, icon: '📄' },
     { id: 2, title: 'نامه حسابرسی', path: '/contracts/premium', icon: '📋' },
     { id: 3, title: 'نامه بانکی', path: `/bankLetter/?uuid=${uuid}`, icon: '📑' },
   ];

@@ -44,7 +44,6 @@ export default function Router() {
         { path: 'createPlan', element: <CreatePlan /> },
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
-      
         { path: 'cardsDetail/:id', element: <CardsDetail /> },
         { path: 'bankLetter', element: <BankLetter /> },
       ],

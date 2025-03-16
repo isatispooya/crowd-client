@@ -6,8 +6,8 @@ import { formatNumber } from 'src/utils/formatNumbers';
 import PrintableLayout from 'src/layouts/printableLayout';
 import Loader from 'src/components/loader';
 import moment from 'moment';
-import { useBankLetter } from '../hooks';
-import Sign from '../signContract.png';
+import PrintableContractLayout from 'src/layouts/printableLayourtContract';
+import { useAgencyContract } from '../hooks';
 
 const AgencyContract = () => {
   const [searchParams] = useSearchParams();
@@ -22,16 +22,16 @@ const AgencyContract = () => {
   }, [urlUuid]);
 
   const {
-    data: bankLetter,
+    data: agencyContract,
     isLoading,
     refetch,
-  } = useBankLetter(finalUuid !== 'undefined' ? finalUuid : null);
+  } = useAgencyContract(finalUuid !== 'undefined' ? finalUuid : null);
 
   useEffect(() => {
-    if (finalUuid && finalUuid !== 'undefined' && bankLetter) {
-      setQrValue('https://app.isatiscrowd.ir/bankLetter');
+    if (finalUuid && finalUuid !== 'undefined' && agencyContract) {
+      setQrValue('https://app.isatiscrowd.ir/agencyContract');
     }
-  }, [finalUuid, bankLetter]);
+  }, [finalUuid, agencyContract]);
 
   useEffect(() => {
     if (finalUuid && finalUuid !== 'undefined') {
@@ -39,61 +39,126 @@ const AgencyContract = () => {
     }
   }, [finalUuid, refetch]);
 
-  const agencyAgreementDate = bankLetter?.agency_agreement_date
-    ? ` ${moment(bankLetter.agency_agreement_date).format('YYYY/MM/DD')} `
-    : ' ';
+  // Create header component with company info
+  const renderHeaderContent = () => {
+    if (!agencyContract) return null;
+
+    return (
+      <div className="flex flex-col gap-1 text-left">
+        {agencyContract.investor_request?.logo && (
+          <div className="mb-1">
+            <img
+              src={agencyContract.investor_request.logo}
+              alt="Investor Logo"
+              className="h-10 object-contain"
+            />
+          </div>
+        )}
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold text-gray-700">شماره قرارداد:</span>
+          <span className="text-xs text-gray-700">
+            {agencyContract.contract_number || 'تعیین نشده'}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold text-gray-700">تاریخ قرارداد:</span>
+          <span className="text-xs text-gray-700">
+            {agencyContract.agency_agreement_date
+              ? moment(agencyContract.agency_agreement_date).format('jYYYY/jMM/jDD')
+              : 'تعیین نشده'}
+          </span>
+        </div>
+        {agencyContract.company && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-gray-700">شرکت:</span>
+            <span className="text-xs text-gray-700">{agencyContract.company.title}</span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // Create footer component with signature boxes
+  const renderFooterSignatures = () => {
+    if (!agencyContract || !agencyContract.company_members) return null;
+
+    // Filter members who have signature authority
+    const signatoryMembers = agencyContract.company_members.filter(
+      (member) => member.signature === true
+    );
+
+    // Static users to always include
+    const staticUsers = [
+      { person_title: 'سیدعلیمحمد خبیری', position_title: 'مدیر عامل' },
+      { person_title: 'محسن زارعیان', position_title: 'رئیس هیئت مدیره' },
+    ];
+
+    // Combine static and dynamic users
+    const allSignatories = [...staticUsers];
+
+    // Add dynamic signatories if they exist and aren't duplicates of static users
+    if (signatoryMembers.length > 0) {
+      signatoryMembers.forEach((member) => {
+        // Check if this member is already in static users (by name)
+        const isDuplicate = staticUsers.some((user) => user.person_title === member.person_title);
+
+        if (!isDuplicate) {
+          allSignatories.push({
+            person_title: member.person_title,
+            position_title: member.position_title,
+          });
+        }
+      });
+    }
+
+    return (
+      <div className="mt-4">
+        <h3 className="text-xs font-bold mb-2 text-center border-b pb-1">
+          امضاء صاحبان امضای مجاز
+        </h3>
+
+        {/* All signature boxes in one line */}
+        <div className="flex justify-between gap-1">
+          {allSignatories.map((user, index) => (
+            <div key={`signatory-${index}`} className="flex-1">
+              <div className="border border-gray-300 rounded p-1 w-full">
+                <div className="text-center">
+                  <p className="font-bold text-[10px]">{user.person_title}</p>
+                  <p className="text-[8px] text-gray-600">{user.position_title}</p>
+                </div>
+                <div className="h-10 border-dashed border border-gray-300 rounded flex items-center justify-center mt-1">
+                  <p className="text-gray-400 text-[8px]">محل امضاء</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-2 text-[8px] text-gray-500 text-center">
+          <div className="flex justify-between">
+            <span>شماره قرارداد: {agencyContract.contract_number || 'تعیین نشده'}</span>
+            <span>
+              تاریخ قرارداد:{' '}
+              {agencyContract.agency_agreement_date
+                ? moment(agencyContract.agency_agreement_date).format('jYYYY/jMM/jDD')
+                : 'تعیین نشده'}
+            </span>
+            <span>مبلغ چک تضمین: {formatNumber(agencyContract.warranty_check)} ریال</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   if (isLoading) {
     return <Loader />;
   }
 
-  const headerInfo = [
-    {
-      label: 'تاریخ',
-      value: agencyAgreementDate,
-    },
-    { label: 'شماره', value: bankLetter?.contract_number },
-    { label: 'پیوست', value: 'ندارد' },
-  ];
-
-  const title = `ریاست محترم ${bankLetter?.bank} ایران شعبه مرکزی ${bankLetter?.bank_branch} (کد شعبه ${bankLetter?.bank_branch_code})`;
-  const subtitle = `موضوع: اخذ مجوز صدور ضمانت نامه تعهد پرداخت برای شرکت ${bankLetter?.company_name}`;
-
-  const qrCodeComponent = (
-    <motion.div
-      whileHover={{ rotate: 5, scale: 1.05 }}
-      className="w-32 h-32 border border-gray-300 flex justify-center items-center rounded-lg bg-white shadow-sm p-2"
-    >
-      <div className="text-center">
-        <div className="mx-auto bg-white rounded-md flex items-center justify-center">
-          <QRCode value={qrValue} size={90} level="H" fgColor="#4B0082" bgColor="#FFFFFF" />
-        </div>
-      </div>
-    </motion.div>
-  );
-
-  const footerText = (
-    <>
-      <p>
-        {bankLetter?.footer_text ||
-          'این نامه بدون مهر برجسته بانک و امضای مسئولین ذیربط فاقد اعتبار می‌باشد.'}
-      </p>
-      <p className="mt-1">
-        {bankLetter?.verification_text || 'برای تایید اصالت این نامه، QR کد را اسکن نمایید.'}
-      </p>
-      {finalUuid && <p className="mt-1 text-xs text-gray-400">شناسه یکتا: {finalUuid}</p>}
-    </>
-  );
-
   return (
-    <PrintableLayout
-      title={title}
-      subtitle={subtitle}
-      headerInfo={headerInfo}
+    <PrintableContractLayout
       printButtonText="دانلود و پرینت نامه بانکی"
-      footerText={footerText}
-      signatureImage={bankLetter?.signature_image || Sign}
-      qrCodeComponent={qrCodeComponent}
+      headerChildren={renderHeaderContent()}
+      footerChildren={renderFooterSignatures()}
     >
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -101,27 +166,9 @@ const AgencyContract = () => {
         transition={{ delay: 0.5 }}
         className="bg-gray-50 p-5 rounded-lg shadow-sm text-sm border border-gray-100"
       >
-        <p className="text-gray-800 leading-relaxed">
-          با سلام و مراتب احترام، به استحضار میرساند با توجه به درخواست شرکت{' '}
-          {bankLetter?.company_name}
-          ایساتیس (سهامی خاص) به شناسه ملی {bankLetter?.company_national_id} مبنی بر تأمین مالی آن
-          شرکت محترم به مبلغ {formatNumber(bankLetter?.amount_of_investment)} از طریق انتشار و فروش
-          گواهی های شراکت تأمین مالی جمعی، مطابق قرارداد عاملیت به شماره 137022464511/11/03 مورخ
-          {agencyAgreementDate} و قرارداد به شماره {bankLetter?.contract_number} آن شرکت متعهد به
-          ارائه و قرارداد اقدامات اجرایی به شماره {bankLetter?.contract_number} آن شرکت متعهد به
-          ارائه یک فقره ضمانتنامه تعهد پرداخت بانکی برابر اصل مبلغ تامین مالی به مبلغ{' '}
-          {formatNumber(bankLetter?.amount_of_investment)}
-          با اعتبار 12 ماهه و با قابلیت تمدید به درخواست ذینفع و با قابلیت دریافت مبلغ ضمانت نامه به
-          صورت عندالمطالبه (به محض تقاضای ذینفع) و به دفعات میباشد. موضوع ضمانت نامه بابت تضمین
-          پرداخت دیونی که ضمانت خواه به موجب قرارداد مذکور بر عهده می گیرد، می باشد، لذا خواهشمند
-          است مراتب مورد بررسی قرار گرفته و جهت صدور ضمانت نامه تعهد پرداخت به ذینفعی شرکت سبدگردان
-          ایساتیس پویا کیش به شماره ثبت 13702 شناسه ملی 14007805556 و کد اقتصادی 411615733645 و به
-          نشانی یزد - بلوار جمهوری اسلامی، کوچه شرق، ساختمان بورس، نیم طبقه و کد پستی 8917957914
-          اقدام فرمایید.( شماره شبای متعلق به شرکتسبد گردان ایساتیس پویا کیش نزد بانک پاسارگاد شعبه
-          بلوار جمهوری یزد 470570300211515884588001IR)
-        </p>
+        v
       </motion.div>
-    </PrintableLayout>
+    </PrintableContractLayout>
   );
 };
 
