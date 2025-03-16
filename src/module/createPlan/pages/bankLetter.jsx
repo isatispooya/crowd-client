@@ -5,9 +5,9 @@ import { useSearchParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
 import PrintableLayout from 'src/layouts/printableLayout';
 import Loader from 'src/components/loader';
+import moment from 'moment';
 import { useBankLetter } from '../hooks';
 import Sign from '../signContract.png';
-import moment from 'moment';
 
 const BankLetter = () => {
   const [searchParams] = useSearchParams();
