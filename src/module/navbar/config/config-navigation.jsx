@@ -35,11 +35,6 @@ const navConfig = [
     path: '/certificate',
     icon: <PiCertificateFill className="text-2xl" />,
   },
-  {
-    title: 'آموزش',
-    path: '/training',
-    icon: <MdModelTraining className="text-2xl" />,
-  },
 ];
 
 export default navConfig;
