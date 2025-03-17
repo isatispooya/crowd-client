@@ -68,8 +68,8 @@ const Contract = ({ readOnly, status }) => {
 
   const { mutate: uploadContract, isPending } = useUploadContract(id);
 
-  const uuid = companyData?.uuid;
-  console.log(uuid);
+  const uuid = companyData?.investor_request?.uuid;
+
 
   const pastelBlue = {
     light: '#E6F4FF',
@@ -165,27 +165,7 @@ const Contract = ({ readOnly, status }) => {
         },
       }}
     >
-      {readOnly && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            zIndex: 2,
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            p: 0.5,
-            borderRadius: 1,
-            border: '1px solid #ddd',
-          }}
-        >
-          <LockIcon fontSize="small" sx={{ color: 'text.secondary', mr: 0.5 }} />
-          <Typography variant="caption" color="text.secondary">
-            فقط نمایش
-          </Typography>
-        </Box>
-      )}
+
 
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography

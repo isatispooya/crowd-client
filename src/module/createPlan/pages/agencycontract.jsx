@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
-import { formatNumber } from 'src/utils/formatNumbers';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
 import { useAgencyContract } from '../hooks';
-import { Page1,  PAGES, TOTAL_PAGES } from '../feature/agancyContract';
-
+import { Page1, PAGES, TOTAL_PAGES } from '../feature/agancyContract';
 
 const printStyles = `
   @media print {
@@ -150,10 +148,9 @@ const AgencyContract = () => {
 
   const handlePrint = () => {
     setPrintMode(true);
-    // Use setTimeout to ensure the print view is rendered before printing
     setTimeout(() => {
       window.print();
-      // Reset to normal view after printing
+
       setTimeout(() => {
         setPrintMode(false);
       }, 500);
@@ -177,10 +174,8 @@ const AgencyContract = () => {
 
   return (
     <div className="contract-container">
-      {/* Add print styles */}
       <style>{printStyles}</style>
 
-      {/* Navigation controls - hidden when printing */}
       <div className="print:hidden mb-4 flex justify-between items-center">
         <div className="flex space-x-2">
           <button

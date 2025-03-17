@@ -28,16 +28,15 @@ const CardsDetail = () => {
 
   // Function to check if step is editable
   const isStepEditable = (stepNumber) => {
-    const stepStatus = companyData?.[`step_${stepNumber + 1}`];
+    const stepStatus = companyData?.investor_request?.[`step_${stepNumber + 1}`];
     return stepStatus === 'changed';
   };
 
-  // Modified click handler to prevent step change if not editable
   const handleStepClick = (index) => {
     if (
       isStepEditable(index) ||
-      companyData?.[`step_${index + 1}`] === 'rejected' ||
-      companyData?.[`step_${index + 1}`] === 'approved'
+      companyData?.investor_request?.[`step_${index + 1}`] === 'rejected' ||
+      companyData?.investor_request?.[`step_${index + 1}`] === 'approved'
     ) {
       setActiveStep(index);
     }
@@ -51,9 +50,8 @@ const CardsDetail = () => {
     if (activeStep > 0) setActiveStep(activeStep - 1);
   };
 
-  // Helper function to get step status
   const getStepStatus = (index) => {
-    return companyData?.[`step_${index + 1}`] || 'changed';
+    return companyData?.investor_request?.[`step_${index + 1}`] || 'changed';
   };
 
   // Get status badges for steps
@@ -83,6 +81,9 @@ const CardsDetail = () => {
       icon: '⟳',
     };
   };
+
+  console.log('Contract Step Status:', getStepStatus(2));
+  console.log('Is Contract Step Editable:', isStepEditable(2));
 
   return (
     <Box

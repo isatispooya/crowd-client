@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper, Box, Chip, Tooltip } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
-import { UseCompanyInfo } from '../../../hooks';
+import { UseCompanyInfo, useGetCompany } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import Button from '../../../components/button';
+import { useParams } from 'react-router-dom';
 
 const StatusBanner = ({ readOnly, status }) => {
   if (!readOnly) return null;
@@ -58,7 +59,11 @@ StatusBanner.propTypes = {
 
 const CompanyRegister = ({ companyId, readOnly, status }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { id } = useParams();
   const [validationErrors, setValidationErrors] = useState({});
+  const { data: companyData } = useGetCompany(id);
+
+  console.log(companyData);
   const { getAllData, resetStore } = useCompanyRegistrationStore();
 
   const pastelBlue = {
@@ -236,27 +241,6 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       }}
     >
       <ToastContainer position="top-center" />
-      {readOnly && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            zIndex: 2,
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            p: 0.5,
-            borderRadius: 1,
-            border: '1px solid #ddd',
-          }}
-        >
-          <LockIcon fontSize="small" sx={{ color: 'text.secondary', mr: 0.5 }} />
-          <Typography variant="caption" color="text.secondary">
-            فقط نمایش
-          </Typography>
-        </Box>
-      )}
 
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography

@@ -11,15 +11,24 @@ const UploadInput = ({
   disabled = false,
   size = 'small',
   variant = 'outlined',
+  value = null,
 }) => {
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState(value ? value.name : '');
+  const [fileUrl, setFileUrl] = useState(value ? value.url : '');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
+      setFileUrl(URL.createObjectURL(file));
       onChange(id, fileType, file);
     }
+  };
+
+  const handleFileDelete = () => {
+    setFileName('');
+    setFileUrl('');
+    onChange(id, fileType, null);
   };
 
   return (
@@ -27,18 +36,35 @@ const UploadInput = ({
       <Typography variant="body2" mb={1}>
         {label}
       </Typography>
-      <Button
-        variant={variant}
-        component="label"
-        fullWidth
-        size={size}
-        sx={{ mb: 2 }}
-        disabled={disabled}
-        startIcon={<CloudUploadIcon />}
-      >
-        {fileName || 'بارگذاری فایل'}
-        <input type="file" hidden onChange={handleFileChange} disabled={disabled} />
-      </Button>
+      {fileUrl ? (
+        <>
+          <Button
+            variant="text"
+            component="a"
+            href={fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            مشاهده فایل
+          </Button>
+          <Button variant="text" onClick={handleFileDelete} disabled={disabled}>
+            حذف فایل
+          </Button>
+        </>
+      ) : (
+        <Button
+          variant={variant}
+          component="label"
+          fullWidth
+          size={size}
+          sx={{ mb: 2 }}
+          disabled={disabled}
+          startIcon={<CloudUploadIcon />}
+        >
+          {fileName || 'بارگذاری فایل'}
+          <input type="file" hidden onChange={handleFileChange} disabled={disabled} />
+        </Button>
+      )}
     </>
   );
 };
@@ -51,6 +77,10 @@ UploadInput.propTypes = {
   disabled: PropTypes.bool,
   size: PropTypes.string,
   variant: PropTypes.string,
+  value: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+  }),
 };
 
 export default UploadInput;

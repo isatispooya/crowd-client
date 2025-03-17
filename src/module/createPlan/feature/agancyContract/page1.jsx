@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'react-qr-code';
-import moment from 'moment';
 import { formatNumber } from 'src/utils/formatNumbers';
+import { PropTypes } from 'prop-types';
 
 const Page1 = ({ agencyContract, qrValue }) => {
   if (!agencyContract) return null;
@@ -61,6 +61,18 @@ const Page1 = ({ agencyContract, qrValue }) => {
       </div>
     </div>
   );
+};
+
+Page1.propTypes = {
+  agencyContract: PropTypes.object.isRequired,
+  qrValue: PropTypes.string.isRequired,
+  company: PropTypes.object.isRequired,
+  registration_type_title: PropTypes.string.isRequired,
+  national_id: PropTypes.string.isRequired,
+  economic_code: PropTypes.string.isRequired,
+  registration_number: PropTypes.string.isRequired,
+  registration_unit: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
 };
 
 export default Page1;

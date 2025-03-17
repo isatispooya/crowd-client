@@ -60,7 +60,7 @@ const MembersInfo = ({ readOnly, status }) => {
   const [uploadStatus, setUploadStatus] = useState({});
 
   const { data: companyData } = useGetCompany(id);
-  const company_members = companyData?.company_members || [];
+  const company_members = companyData?.investor_request?.company_members || [];
   const { mutate: mutateMembersInfo } = useMembers();
 
   const pastelBlue = {
@@ -160,27 +160,7 @@ const MembersInfo = ({ readOnly, status }) => {
         },
       }}
     >
-      {readOnly && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            zIndex: 2,
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            p: 0.5,
-            borderRadius: 1,
-            border: '1px solid #ddd',
-          }}
-        >
-          <LockIcon fontSize="small" sx={{ color: 'text.secondary', mr: 0.5 }} />
-          <Typography variant="caption" color="text.secondary">
-            فقط نمایش
-          </Typography>
-        </Box>
-      )}
+
 
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography
