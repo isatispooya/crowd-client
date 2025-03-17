@@ -5,7 +5,7 @@ import Loader from 'src/components/loader';
 import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
 import { useAgencyContract } from '../hooks';
-import { Page1, Page2, PAGES, TOTAL_PAGES } from '../feature/agancyContract';
+import { Page1,  PAGES, TOTAL_PAGES } from '../feature/agancyContract';
 
 
 const printStyles = `
