@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper, Box, Chip, Tooltip } from '@mui/material';
-
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
 import { UseCompanyInfo, useGetCompany } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import Button from '../../../components/button';
-import { useParams } from 'react-router-dom';
 
 const StatusBanner = ({ readOnly, status }) => {
   if (!readOnly) return null;
@@ -64,7 +63,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
   const { data: companyData } = useGetCompany(id);
 
   console.log(companyData);
-  const { getAllData, resetStore } = useCompanyRegistrationStore();
+  const { getAllData, resetStore, updateField } = useCompanyRegistrationStore();
 
   const pastelBlue = {
     light: '#E6F4FF',
@@ -74,6 +73,18 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
   };
 
   const { mutate, isLoading } = UseCompanyInfo.useCompanyInfo();
+
+  useEffect(() => {
+    if (companyData) {
+      console.log('Pre-loading form fields with companyData:', companyData);
+      updateField('bank', companyData.investor_request.bank || '');
+      updateField('bank_branch', companyData.investor_request.bank_branch || '');
+      updateField('bank_branch_code', companyData.investor_request.bank_branch_code || '');
+      updateField('suggestion_plan_name', companyData.investor_request.suggestion_plan_name || '');
+      updateField('amount_of_investment', companyData.investor_request.amount_of_investment || '');
+      // Add more fields as necessary
+    }
+  }, [companyData, updateField]);
 
   const validateForm = (data) => {
     const errors = {};

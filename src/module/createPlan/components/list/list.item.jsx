@@ -13,6 +13,7 @@ const ListItem = ({
   isSubmitting,
   theme,
   readOnly,
+  preloadedFiles = {},
 }) => {
   const isMemberSubmitting = isSubmitting[member.id] || false;
 
@@ -102,6 +103,7 @@ const ListItem = ({
                   fileType={field.type}
                   id={member.id}
                   disabled={isMemberSubmitting || readOnly}
+                  value={preloadedFiles[member.id]?.[field.type] || null}
                 />
               </Grid>
             ))}
@@ -136,6 +138,7 @@ ListItem.propTypes = {
   isSubmitting: PropTypes.object,
   theme: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
+  preloadedFiles: PropTypes.object,
 };
 
 export default ListItem;

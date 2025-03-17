@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import BoardMembersSection from './BoardMembersSection';
+import { useInvestor } from '../hooks';
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -52,12 +53,17 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
 
 const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
   console.log(data);
+  const { mutate: mutateInvestor } = useInvestor();
+
   const navigate = useNavigate();
   const handleClose = () => {
     onClose(false);
   };
 
   const handleConfirm = () => {
+    mutateInvestor({
+      company_id: data?.company?.id,
+    });
     navigate(`/cardsDetail/${data?.company?.id}`);
     onClose(false);
     console.log(data?.company?.id);

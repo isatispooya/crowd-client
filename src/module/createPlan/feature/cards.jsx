@@ -10,10 +10,6 @@ const Cards = () => {
   const navigate = useNavigate();
   console.log(allCompany);
 
-  const handleClick = (e) => {
-    navigate(`/create-plan/${allCompany?.investor_requests[e.target.id]?.id}`);
-  };
-
   return (
     <div>
       {allCompany?.investor_requests?.map((request, index) => (
@@ -22,9 +18,10 @@ const Cards = () => {
           className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto border border-blue-100 transition-all duration-300 hover:shadow-xl hover:border-blue-300 cursor-pointer"
           role="button"
           tabIndex={0}
+          onClick={() => navigate(`/cardsDetail/${request.id}`)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              if (handleClick) handleClick(e);
+              navigate(`/cardsDetail/${request.id}`);
             }
           }}
         >

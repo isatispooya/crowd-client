@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LockIcon from '@mui/icons-material/Lock';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useGetCompany, useMembers } from '../../hooks';

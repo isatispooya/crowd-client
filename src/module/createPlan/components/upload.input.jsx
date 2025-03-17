@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography, Button } from '@mui/material';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { OnRun } from 'src/api/OnRun';
 
 const UploadInput = ({
   label,
@@ -41,7 +42,7 @@ const UploadInput = ({
           <Button
             variant="text"
             component="a"
-            href={fileUrl}
+            href={OnRun + fileUrl}
             target="_blank"
             rel="noopener noreferrer"
           >

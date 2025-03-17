@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiPlus, FiSearch, FiArrowLeft, FiLoader } from 'react-icons/fi';
 import useFetchCompanyId from '../hooks/companyId';
 import CompanyDetailsPopUp from './companyDetailsPopUp';
+import { useInvestor } from '../hooks';
 
 const NewCards = () => {
   const [isFlipped, setIsFlipped] = useState(false);

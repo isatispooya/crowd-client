@@ -1,4 +1,5 @@
 export { default as getBankLetter } from './bankLetter';
+export { default as postInvestor } from './postInvestor';
 export { default as getAllCompany } from './getAllCompany';
 export { default as CompanyInfo } from './companyInfo.services';
 export { default as getAgencyContract } from './agencyContract';
