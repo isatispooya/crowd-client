@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
 import Loader from 'src/components/loader';
 import PropTypes from 'prop-types';
@@ -17,6 +17,8 @@ import {
 } from 'react-icons/fi';
 import { FaRegMoneyBill1 } from 'react-icons/fa6';
 import { Divider } from '@mui/material';
+import { motion } from 'framer-motion';
+import { Image } from '@mui/icons-material';
 import useGetPlan from '../service/use-plan';
 import usePicure from '../service/use-picture';
 import ChartLimitInvest from './chartLimitInvest';
@@ -40,6 +42,43 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
+  console.log(data?.information_complete?.viedo);
+  
+
+  const router = useNavigate();
+
+  const getStatusColor = (statusId) => {
+    switch (statusId) {
+      case '1':
+        return 'bg-green-500';
+      case '2':
+        return 'bg-gray-500';
+      case '3':
+        return 'bg-yellow-500';
+      case '5':
+        return 'bg-blue-500';
+      case '4':
+        return 'bg-red-500';
+      default:
+        return 'bg-gray-500';
+    }
+  };
+  const getStatusLabel = (statusId) => {
+    switch (statusId) {
+      case '1':
+        return 'شروع شده';
+      case '2':
+        return 'شروع نشده';
+      case '3':
+        return 'تمدید شده';
+      case '5':
+        return 'تکمیل شده';
+      case '4':
+        return 'ناموفق';
+      default:
+        return 'نامشخص';
+    }
+  };
 
   if (isPending || loadingpicture || !data) {
     return <Loader />;
@@ -49,16 +88,23 @@ const Descript = () => {
     return <div className="text-red-500 text-center py-4">خطایی رخ داده است: {error.message}</div>;
   }
 
+  if (!data.information_complete) {
+    return <div className="text-red-500 text-center py-4">اطلاعات تکمیلی موجود نیست</div>;
+  }
+
   const payback_period_get = (id) => {
     const payback_period_array = [
-      { id: "1", label: "سه ماه" },
-      { id: "2", label: "در پایان دوره" },
+      { id: '1', label: 'سه ماه' },
+      { id: '2', label: 'در پایان دوره' },
     ];
     const payback_period = payback_period_array.find((option) => option.id === id);
-    return payback_period || { id: "1", label: "سه ماه" };
+    return payback_period || { id: '1', label: 'سه ماه' };
   };
 
-  const payback_period = payback_period_get(data.information_complete?.payback_period) || { id: "1", label: "سه ماه" };
+  const payback_period = payback_period_get(data.information_complete?.payback_period) || {
+    id: '1',
+    label: 'سه ماه',
+  };
   const period_length = data.information_complete?.period_length || 12;
 
   const generalFields = [
@@ -130,17 +176,53 @@ const Descript = () => {
   ];
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto mt-4">
-      <div className="text-center font-bold mb-4 text-xl">
-        <h1>{data.plan.persian_name}</h1>
-      </div>
-      <div className="bg-gray-100 w-full mb-8 p-4 items-center justify-center flex rounded-lg shadow-md">
-        {picture && picture.picture ? (
-          <img
-            src={`${OnRun}/${picture.picture}`}
-            alt="تصویر پروژه"
-            className="w-full max-w-[700px] h-auto sm:h-80 lg:h-auto rounded-lg mb-4 object-cover"
-          />
+    <div className="p-6 bg-white rounded-lg shadow-lg max-w-6xl mx-auto mt-4">
+      <div >
+        {data? (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden mb-8 "
+          >
+            <div className="  relative h-64 md:h-96 ">
+              {data.information_complete.viedo ? (
+                <video
+                  src={`${OnRun}/${data.information_complete.viedo}`}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                />
+              ) : (
+                <Image
+                  src={`${OnRun}/${picture.picture}`}
+                  alt={data.plan.persian_name}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                <div className="flex items-center mb-2">
+                  <span
+                    className={`${getStatusColor(
+                      data.information_complete.status_second
+                    )} text-white text-xs font-bold px-3 py-1 rounded-full`}
+                  >
+                    {getStatusLabel(data.information_complete.status_second)}
+                  </span>
+                  <span className="text-white text-xs font-medium mr-2 bg-gray-700/50 px-3 py-1 rounded-full">
+                    {data.plan.industry_group_description}
+                  </span>
+                </div>
+                <h1 className="text-white text-2xl md:text-3xl font-bold">
+                  {data.plan.persian_name}
+                </h1>
+                <p className="text-gray-200 mt-1">{data.company[0]?.name || 'نامشخص'}</p>
+              </div>
+
+            </div>
+          </motion.div>
         ) : (
           <img
             src="/public/img/nopic.jpg"
@@ -181,14 +263,8 @@ const Descript = () => {
             icon={field.icon}
           />
         ))}
-        <Field
-         label='دوره پرداخت سود پیش بینی شده '
-         value={payback_period.label}
-        hasBackground />
-        <Field
-         label='طول دوره طرح '
-         value={`${period_length} ماه`} 
-        hasBackground />
+        <Field label="دوره پرداخت سود پیش بینی شده " value={payback_period.label} hasBackground />
+        <Field label="طول دوره طرح " value={`${period_length} ماه`} hasBackground />
       </div>
       <div className="mt-6 px-4 mb-8">
         <ProgressLineChart

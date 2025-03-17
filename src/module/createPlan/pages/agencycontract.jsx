@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
+import { formatNumber } from 'src/utils/formatNumbers';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
