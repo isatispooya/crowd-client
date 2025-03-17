@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import QRCode from 'react-qr-code';
 import { useSearchParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
-import PrintableLayout from 'src/layouts/printableLayout';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
@@ -78,28 +76,22 @@ const AgencyContract = () => {
     );
   };
 
-  // Create footer component with signature boxes
   const renderFooterSignatures = () => {
     if (!agencyContract || !agencyContract.company_members) return null;
 
-    // Filter members who have signature authority
     const signatoryMembers = agencyContract.company_members.filter(
       (member) => member.signature === true
     );
 
-    // Static users to always include
     const staticUsers = [
       { person_title: 'سیدعلیمحمد خبیری', position_title: 'مدیر عامل' },
       { person_title: 'محسن زارعیان', position_title: 'رئیس هیئت مدیره' },
     ];
 
-    // Combine static and dynamic users
     const allSignatories = [...staticUsers];
 
-    // Add dynamic signatories if they exist and aren't duplicates of static users
     if (signatoryMembers.length > 0) {
       signatoryMembers.forEach((member) => {
-        // Check if this member is already in static users (by name)
         const isDuplicate = staticUsers.some((user) => user.person_title === member.person_title);
 
         if (!isDuplicate) {
