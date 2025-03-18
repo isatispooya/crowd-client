@@ -1,6 +1,4 @@
 import React from 'react';
-import QRCode from 'react-qr-code';
-import { formatNumber } from 'src/utils/formatNumbers';
 import { PropTypes } from 'prop-types';
 
 const Page1 = ({ agencyContract, qrValue }) => {
@@ -8,7 +6,10 @@ const Page1 = ({ agencyContract, qrValue }) => {
 
   return (
     <div className="contract-page page-1">
-      <h2 className="text-lg font-bold text-center mb-4">قرارداد نمایندگی</h2>
+      <div className="text-center mb-4">
+        <p className="text-base font-bold text-gray-800">بسمه تعالی</p>
+      </div>
+      <h2 className="text-lg font-bold text-center mb-4">قرارداد عاملیت</h2>
       <div className="text-justify leading-relaxed text-sm">
         <h3 className="font-bold mb-2">ماده 1) مشخصات طرفین قرارداد</h3>
         <p className="mb-2">1-1. این قرارداد میان:</p>
@@ -19,8 +20,8 @@ const Page1 = ({ agencyContract, qrValue }) => {
           {agencyContract.company?.registration_type_title || 'تعیین نشده'}) به شمارۀ شناسۀ ملی{' '}
           {agencyContract.company?.national_id || 'تعیین نشده'}، کد اقتصادی{' '}
           {agencyContract.company?.economic_code || 'تعیین نشده'}، و شماره ثبت{' '}
-          {agencyContract.company?.registration_number || 'تعیین نشده'}
-          نزد {agencyContract.company?.registration_unit || 'تعیین نشده'}، به نشانی{' '}
+          {agencyContract.company?.registration_number || 'تعیین نشده'} نزد{' '}
+          {agencyContract.company?.registration_unit || 'تعیین نشده'}، به نشانی{' '}
           {agencyContract.company?.address || 'تعیین نشده'}، کدپستی 1476785514، شماره تماس
           02144611693، و با نمایندگی آقای شهرام صالحی نوع پرور به شماره ملی 0050104861 به سمت رئیس
           هیئت‌مدیره و مدیرعامل بر اساس روزنامه رسمی شماره 23115 مورخ 15/05/1403 که در این قرارداد،
@@ -39,25 +40,46 @@ const Page1 = ({ agencyContract, qrValue }) => {
           1008438/5/03 مورخ 15/05/1403 از طرف ديگر،
         </p>
 
-        <p className="mb-5 text-center font-semibold">به شرح مواد زير منعقد گرديد</p>
+        <p className="mb-5 text-satrt font-semibold">به شرح مواد زير منعقد گرديد</p>
 
-        <p className="mb-3">
-          ماده 2: مدت قرارداد از تاریخ امضا به مدت یک سال شمسی می‌باشد و در صورت رضایت طرفین قابل
-          تمدید است.
+        <h3 className="font-bold mb-2">ماده 2) تعاریف</h3>
+
+        <p className="mb-3 pr-4">
+          <span className="font-bold">1) طرح:</span>
+          فعالیتی‌ است‌ که‌ متقاضی‌ براي انجام آن در خواست‌ تأمین‌ مالی‌ نموده است‌.
         </p>
 
-        <p className="mb-3">
-          ماده 3: تعهدات نماینده شامل رعایت استانداردهای شرکت، حفظ اسرار تجاری، عدم همکاری با رقبا و
-          تلاش در جهت افزایش فروش می‌باشد.
+        <p className="mb-3 pr-4">
+          <span className="font-bold">2) گواهی شراکت:</span>
+          ورقه‌ بهادار الکترونیکی‌ است‌ که‌ از ثبت‌ نزد سازمان بورس معاف است‌.
         </p>
 
-        <p className="mb-3">
-          ماده 4: نماینده موظف است مبلغ {formatNumber(agencyContract.warranty_check)} ریال به عنوان
-          چک تضمین به شرکت ارائه نماید.
+        {/* <p className="mb-3 pr-4">
+          <span className="font-bold">3)فراخوان جمع آوری وجه:</span>
+          منظور فرایندي است‌ که‌ ”عامل‌“ نسبت‌ به‌ تأمین‌ مالی‌ طرح در یک‌ بازه زمانی‌ مشخص‌ اقدام
+          می‌نماید. مدت زمان مذکور با صلاحدید عامل‌ می‌تواند تمدید گردد.
+        </p> */}
+
+        {/* <p className="mb-3 pr-4">
+          <span className="font-bold">4) موقعیت کمپین:</span>
+          منظور تأمین‌ مالی‌ طرح به‌ میزان حداقل‌ مبلغ‌ تأمین‌ مالی‌ قابل‌ پذیرش که‌ در فراخوان
+          جمع‌آوري وجوه اعلام شده است‌.
         </p>
-      </div>
-      <div className="mt-4 flex justify-center">
-        <QRCode value={qrValue} size={80} />
+        <p className="mb-3 pr-4">
+          <span className="font-bold">5) دارندگان گواهی‌هاي شراکت‌:</span>
+          شخص‌ حقیقی‌ یا حقوقی‌ تأمین‌کننده منابع‌ مالی‌ متقاضی‌ براي اجراي طرح است‌، که‌ نسبت‌ به‌
+          خرید گواهی‌هاي شراکت‌ اقدام نموده است.{' '}
+        </p> */}
+
+        {/* <p className="mb-3 pr-4">
+          <span className="font-bold">5) روز کاري: </span>
+          تمام روزهاي هفته‌ به‌ غیر از پنج‌شنبه‌، جمعه‌، تعطیلات رسمی‌ و روزهایی‌ که‌ به‌ هر دلیلی‌ بانک‌ها تعطیل‌ می‌باشند، روز کاري محسوب می‌گردد.
+        </p>
+
+        <p className="mb-3 pr-4">
+          <span className="font-bold">5) روز کاري: </span>
+          تمام روزهاي هفته‌ به‌ غیر از پنج‌شنبه‌، جمعه‌، تعطیلات رسمی‌ و روزهایی‌ که‌ به‌ هر دلیلی‌ بانک‌ها تعطیل‌ می‌باشند، روز کاري محسوب می‌گردد.
+        </p> */}
       </div>
     </div>
   );

@@ -107,9 +107,7 @@ const PrintableContractLayout = ({
           </div>
         </div>
 
-        <div className="text-center mb-4">
-          <p className="text-base font-bold text-gray-800">بسمه تعالی</p>
-        </div>
+
 
         {(title || subtitle) && (
           <div className="mb-6">

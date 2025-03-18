@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
-import moment from 'moment';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
+import { OnRun } from 'src/api/OnRun';
 import { useAgencyContract } from '../hooks';
-import { Page1, PAGES, TOTAL_PAGES } from '../feature/agancyContract';
+import {  PAGES, TOTAL_PAGES } from '../feature/agancyContract';
 
 const printStyles = `
   @media print {
@@ -45,11 +45,6 @@ const AgencyContract = () => {
     refetch,
   } = useAgencyContract(finalUuid !== 'undefined' ? finalUuid : null);
 
-  useEffect(() => {
-    if (finalUuid && finalUuid !== 'undefined' && agencyContract) {
-      setQrValue('https://app.isatiscrowd.ir/agencyContract');
-    }
-  }, [finalUuid, agencyContract]);
 
   useEffect(() => {
     if (finalUuid && finalUuid !== 'undefined') {
@@ -64,33 +59,14 @@ const AgencyContract = () => {
       <div className="flex flex-col gap-1 text-left">
         {agencyContract.investor_request?.logo && (
           <div className="mb-1">
-            <img
-              src={agencyContract.investor_request.logo}
+             <img
+              src={OnRun + agencyContract.investor_request.logo}
               alt="Investor Logo"
-              className="h-10 object-contain"
+              className="h-20 object-contain"
             />
           </div>
         )}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-gray-700">شماره قرارداد:</span>
-          <span className="text-xs text-gray-700">
-            {agencyContract.contract_number || 'تعیین نشده'}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-gray-700">تاریخ قرارداد:</span>
-          <span className="text-xs text-gray-700">
-            {agencyContract.agency_agreement_date
-              ? moment(agencyContract.agency_agreement_date).format('jYYYY/jMM/jDD')
-              : 'تعیین نشده'}
-          </span>
-        </div>
-        {agencyContract.company && (
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-700">شرکت:</span>
-            <span className="text-xs text-gray-700">{agencyContract.company.title}</span>
-          </div>
-        )}
+        
       </div>
     );
   };
@@ -123,10 +99,6 @@ const AgencyContract = () => {
     }
     return (
       <div className="mt-4">
-        <h3 className="text-xs font-bold mb-2 text-center border-b pb-1">
-          امضاء صاحبان امضای مجاز
-        </h3>
-
         <div className="flex justify-between gap-1">
           {allSignatories.map((user, index) => (
             <div key={`signatory-${index}`} className="flex-1">
@@ -169,7 +141,7 @@ const AgencyContract = () => {
 
   const renderCurrentPage = () => {
     const CurrentPageComponent = PAGES[currentPage - 1];
-    return <CurrentPageComponent agencyContract={agencyContract} qrValue={qrValue} />;
+    return <CurrentPageComponent agencyContract={agencyContract}/>;
   };
 
   return (
