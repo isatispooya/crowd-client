@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, LinearProgress } from '@mui/material';
 import { formatNumber } from '../../../../../utils/formatNumbers';
 import FormField from '../../../components/FormField';
 import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
+import { useGetCompany } from '../../../hooks';
 
 const PlanInfo = ({ pastelBlue }) => {
   const { suggestion_plan_name, amount_of_investment, updateField } = useCompanyRegistrationStore();
+  const { data: companyData } = useGetCompany();
+
+  useEffect(() => {
+    if (companyData?.investor_request) {
+      const { suggestion_plan_name: planName, amount_of_investment: investmentAmount } =
+        companyData.investor_request;
+      if (planName) updateField('suggestion_plan_name', planName);
+      if (investmentAmount) updateField('amount_of_investment', investmentAmount);
+    }
+  }, [companyData, updateField]);
 
   const minAmount = 50000000000;
   const maxAmount = 250000000000;

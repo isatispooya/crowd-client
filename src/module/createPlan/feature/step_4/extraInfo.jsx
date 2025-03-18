@@ -1,33 +1,35 @@
+/* eslint-disable no-shadow */
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Typography, Paper, Box, Chip, Tooltip, Grid } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { OnRun } from 'src/api/OnRun';
 import { UploadInput } from '../../components';
 import { useUploadExtraInfo } from '../../hooks/step_4';
+import { useGetCompany } from '../../hooks';
 
 const StatusBanner = ({ readOnly, status }) => {
   if (!readOnly) return null;
 
-  let icon;
-  let color;
-  let message;
+  const statusConfig = {
+    approved: {
+      icon: <CheckCircleIcon />,
+      color: '#4caf50',
+      message: 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد',
+    },
+    rejected: {
+      icon: <CancelIcon />,
+      color: '#f44336',
+      message: 'این مرحله رد شده است و نیاز به بررسی مجدد دارد',
+    },
+  };
 
-  if (status === 'approved') {
-    icon = <CheckCircleIcon />;
-    color = '#4caf50';
-    message = 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد';
-  } else if (status === 'rejected') {
-    icon = <CancelIcon />;
-    color = '#f44336';
-    message = 'این مرحله رد شده است و نیاز به بررسی مجدد دارد';
-  } else {
-    return null;
-  }
+  const { icon, color, message } = statusConfig[status] || {};
+  if (!icon) return null;
 
   return (
     <Box
@@ -57,6 +59,7 @@ StatusBanner.propTypes = {
 
 const ExtraInfo = ({ readOnly, status }) => {
   const { id } = useParams();
+  const { companyData } = useGetCompany(id);
   const [files, setFiles] = useState({
     tax_return: null,
     salary_list_for_the_last_3_months: null,
@@ -98,9 +101,7 @@ const ExtraInfo = ({ readOnly, status }) => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -109,19 +110,17 @@ const ExtraInfo = ({ readOnly, status }) => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.3 },
     },
   };
 
-  const handleFileChange = (ids, fileType, file) => {
+  const handleFileChange = (key, file) => {
+    console.log('key1', key);
+    console.log('file1', file);
     if (readOnly) return;
+    if (!file) return;
 
-    setFiles((prev) => ({
-      ...prev,
-      [ids]: file,
-    }));
+    setFiles((prev) => ({ ...prev, [key]: file }));
   };
 
   const handleSubmit = () => {
@@ -129,10 +128,11 @@ const ExtraInfo = ({ readOnly, status }) => {
 
     const formData = new FormData();
     Object.entries(files).forEach(([key, file]) => {
-      if (file) {
-        formData.append(key, file);
-      }
+      console.log('key', key);
+      console.log('file', file);
+      if (file) formData.append(key, file);
     });
+
     uploadExtraInfo(formData);
   };
 
@@ -222,52 +222,58 @@ const ExtraInfo = ({ readOnly, status }) => {
 
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           <Grid container spacing={3}>
-            {uploadLabels.map((item) => (
-              <Grid item xs={12} md={6} key={item.id}>
-                <motion.div
-                  variants={itemVariants}
-                  style={{
-                    padding: '16px',
-                    backgroundColor: files[item.id] ? '#f0f9f0' : '#f9f9f9',
-                    borderRadius: '8px',
-                    border: files[item.id] ? '1px solid #c8e6c9' : '1px solid #e0e0e0',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      mb: 1,
+            {uploadLabels.map((item) => {
+              const preloadedFile = companyData?.investor_request?.[item.id];
+              const fileUrl = preloadedFile ? OnRun + preloadedFile : null;
+
+              return (
+                <Grid item xs={12} md={6} key={item.id}>
+                  <motion.div
+                    variants={itemVariants}
+                    style={{
+                      padding: '16px',
+                      backgroundColor: files[item.id] ? '#f0f9f0' : '#f9f9f9',
+                      borderRadius: '8px',
+                      border: files[item.id] ? '1px solid #c8e6c9' : '1px solid #e0e0e0',
+                      transition: 'all 0.2s',
                     }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <Typography sx={{ fontSize: '1.25rem', mr: 1 }}>{item.icon}</Typography>
-                      <Typography
-                        sx={{ fontWeight: 500, color: 'text.primary', fontSize: '0.9rem' }}
-                      >
-                        {item.label}
-                      </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        mb: 1,
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography sx={{ fontSize: '1.25rem', mr: 1 }}>{item.icon}</Typography>
+                        <Typography
+                          sx={{ fontWeight: 500, color: 'text.primary', fontSize: '0.9rem' }}
+                        >
+                          {item.label}
+                        </Typography>
+                      </Box>
+                      {files[item.id] && (
+                        <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
+                          ✓ فایل انتخاب شد
+                        </Typography>
+                      )}
                     </Box>
-                    {files[item.id] && (
-                      <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
-                        ✓ فایل انتخاب شد
-                      </Typography>
-                    )}
-                  </Box>
-                  <UploadInput
-                    id={item.id}
-                    label=""
-                    fileType="file"
-                    onChange={handleFileChange}
-                    variant="outlined"
-                    size="small"
-                    disabled={readOnly}
-                  />
-                </motion.div>
-              </Grid>
-            ))}
+                    <UploadInput
+                      id={item.id}
+                      label=""
+                      fileType="file"
+                      onChange={(id, file) => handleFileChange(id, file)}
+                      variant="outlined"
+                      size="small"
+                      disabled={readOnly}
+                      value={fileUrl ? { name: item.label, url: fileUrl } : null}
+                    />
+                  </motion.div>
+                </Grid>
+              );
+            })}
           </Grid>
         </motion.div>
       </Box>

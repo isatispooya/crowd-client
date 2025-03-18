@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, MenuItem } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import FormField from '../../../components/FormField';
 import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
@@ -8,17 +9,21 @@ import { useGetCompany } from '../../../hooks';
 
 const CompanyBankInfo = ({ pastelBlue }) => {
   const { bank, bank_branch, bank_branch_code, updateField } = useCompanyRegistrationStore();
-  const { data: companyData } = useGetCompany();
+  const { id } = useParams();
+  const { data: companyData } = useGetCompany(id);
 
-  // Preload bank data from investor_request
   useEffect(() => {
     if (companyData?.investor_request) {
-      const { bank, bank_branch, bank_branch_code } = companyData.investor_request;
-      if (bank) updateField('bank', bank);
-      if (bank_branch) updateField('bank_branch', bank_branch);
-      if (bank_branch_code) updateField('bank_branch_code', bank_branch_code);
+      const {
+        bank: fetchedBank,
+        bank_branch: fetchedBankBranch,
+        bank_branch_code: fetchedBankBranchCode,
+      } = companyData.investor_request;
+      if (fetchedBank) updateField('bank', fetchedBank);
+      if (fetchedBankBranch) updateField('bank_branch', fetchedBankBranch);
+      if (fetchedBankBranchCode) updateField('bank_branch_code', fetchedBankBranchCode);
     }
-  }, [companyData]);
+  }, [companyData, updateField]);
 
   const banks = [
     { id: 1, name: 'بانک ملی ایران' },

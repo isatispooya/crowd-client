@@ -157,11 +157,7 @@ const FormField = ({
                 backgroundColor: '#f8f9fa',
               }}
             >
-              {hasFile
-                ? value instanceof File
-                  ? value.name
-                  : value.name
-                : 'فایل را انتخاب کنید...'}
+              {hasFile ? 'مشاهده فایل' : 'فایل را انتخاب کنید...'}
             </Button>
           )}
           {hasFile && value.url && (

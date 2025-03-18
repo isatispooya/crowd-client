@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Button } from '@mui/material';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
@@ -14,15 +14,29 @@ const UploadInput = ({
   variant = 'outlined',
   value = null,
 }) => {
-  const [fileName, setFileName] = useState(value ? value.name : '');
-  const [fileUrl, setFileUrl] = useState(value ? value.url : '');
+  const [fileName, setFileName] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
+
+  useEffect(() => {
+    console.log(`UploadInput for ${fileType} (id: ${id}):`, { value, OnRun });
+    if (value) {
+      setFileName(value.name || '');
+      setFileUrl(value.url || '');
+      console.log(`Setting fileName: ${value.name}, fileUrl: ${value.url}`);
+    }
+  }, [value, fileType, id]);
+
+  useEffect(() => {
+    console.log(`Current state for ${fileType} (id: ${id}):`, { fileName, fileUrl });
+  }, [fileName, fileUrl, fileType, id]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
       setFileUrl(URL.createObjectURL(file));
-      onChange(id, fileType, file);
+      console.log(`File selected in UploadInput for ${id}:`, file);
+      onChange(id, file);
     }
   };
 
@@ -42,7 +56,7 @@ const UploadInput = ({
           <Button
             variant="text"
             component="a"
-            href={OnRun + fileUrl}
+            href={fileUrl.startsWith('blob:') ? fileUrl : fileUrl}
             target="_blank"
             rel="noopener noreferrer"
           >

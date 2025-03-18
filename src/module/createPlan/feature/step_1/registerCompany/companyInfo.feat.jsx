@@ -1,39 +1,49 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
+import { OnRun } from 'src/api/OnRun';
+import { useParams } from 'react-router-dom';
 import FormField from '../../../components/FormField';
 import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import { useGetCompany } from '../../../hooks';
-import { OnRun } from 'src/api/OnRun';
 
 const CompanyInfo = ({ pastelBlue }) => {
-  const { setFile, removeFile } = useCompanyRegistrationStore();
-  const { data: companyData } = useGetCompany();
+  const { setFile, removeFile, resetStore } = useCompanyRegistrationStore();
+  const { id } = useParams();
+  const { data: companyData } = useGetCompany(id);
 
-  // Preload files from investor_request data
   useEffect(() => {
     if (companyData?.investor_request) {
       const { logo, validation_report, financial_statement } = companyData.investor_request;
 
-      // Create file objects with full URLs
       if (logo) {
         const fileUrl = `${OnRun}${logo}`;
         setFile('logo', { name: logo.split('/').pop(), url: fileUrl });
+      } else {
+        removeFile('logo');
       }
+
       if (validation_report) {
         const fileUrl = `${OnRun}${validation_report}`;
         setFile('validation_report', { name: validation_report.split('/').pop(), url: fileUrl });
+      } else {
+        removeFile('validation_report');
       }
+
       if (financial_statement) {
         const fileUrl = `${OnRun}${financial_statement}`;
         setFile('financial_statement', {
           name: financial_statement.split('/').pop(),
           url: fileUrl,
         });
+      } else {
+        removeFile('financial_statement');
       }
+    } else {
+      resetStore(); 
     }
-  }, [companyData]);
+  }, [companyData, removeFile, resetStore, setFile]);
 
   const handleFileChange = (event, type) => {
     if (event.target && event.target.files && event.target.files[0]) {
@@ -77,18 +87,14 @@ const CompanyInfo = ({ pastelBlue }) => {
     const storeKey = fileFieldMapping[fieldName];
     const file = useCompanyRegistrationStore.getState()[storeKey];
 
-    // If it's a File object, return as is
     if (file instanceof File) return file;
-
-    // If it's our custom object with url, return that
     if (file?.url) return { name: file.name, url: file.url };
 
     return null;
   };
 
-  // Show loading state while data is being fetched
   if (!companyData) {
-    return null; // Or a loading spinner
+    return null;
   }
 
   return (

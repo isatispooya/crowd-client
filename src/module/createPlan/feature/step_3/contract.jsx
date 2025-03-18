@@ -1,11 +1,12 @@
+/* eslint-disable no-shadow */
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { HiDocument, HiArrowUpTray, HiChevronLeft, HiArrowRight } from 'react-icons/hi2';
 import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { OnRun } from 'src/api/OnRun';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { UploadInput } from '../../components';
 import { useUploadContract } from '../../hooks/step_3';
@@ -70,7 +71,6 @@ const Contract = ({ readOnly, status }) => {
 
   const uuid = companyData?.investor_request?.uuid;
 
-
   const pastelBlue = {
     light: '#E6F4FF',
     main: '#B3E0FF',
@@ -112,13 +112,24 @@ const Contract = ({ readOnly, status }) => {
     },
   };
 
-  const handleFileChange = (name, file) => {
+  const handleFileChange = (id, file) => {
     if (readOnly) return;
 
-    setFiles((prev) => ({
-      ...prev,
-      [name]: file,
-    }));
+    console.log(`File selected for ${id}:`, file);
+
+    if (!file) {
+      console.error(`No file selected for ${id}`);
+      return;
+    }
+
+    setFiles((prev) => {
+      const updatedFiles = {
+        ...prev,
+        [id]: file,
+      };
+      console.log('Updated files state:', updatedFiles);
+      return updatedFiles;
+    });
   };
 
   const handleSubmit = () => {
@@ -126,11 +137,17 @@ const Contract = ({ readOnly, status }) => {
 
     const formData = new FormData();
 
+    console.log('Current files state before submission:', files);
+
     Object.entries(files).forEach(([key, file]) => {
       if (file) {
         formData.append(key, file);
+      } else {
+        console.warn(`No file for ${key}, skipping...`);
       }
     });
+
+
 
     uploadContract(formData);
   };
@@ -165,8 +182,6 @@ const Contract = ({ readOnly, status }) => {
         },
       }}
     >
-
-
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography
           variant="h5"
@@ -313,51 +328,58 @@ const Contract = ({ readOnly, status }) => {
           </Box>
 
           <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            {uploadLabels.map((item, index) => (
-              <motion.div
-                key={item.id}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: index * 0.1 }}
-                style={{
-                  marginBottom: '20px',
-                  padding: '16px',
-                  backgroundColor: files[item.id] ? '#f0f9f0' : '#f9f9f9',
-                  borderRadius: '8px',
-                  border: files[item.id] ? '1px solid #c8e6c9' : '1px solid #e0e0e0',
-                  transition: 'all 0.2s',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    mb: 1,
+            {uploadLabels.map((item, index) => {
+              const preloadedFile = companyData?.investor_request?.[item.id];
+              const fileUrl = preloadedFile ? OnRun + preloadedFile : null;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: index * 0.1 }}
+                  style={{
+                    marginBottom: '20px',
+                    padding: '16px',
+                    backgroundColor: files[item.id] ? '#f0f9f0' : '#f9f9f9',
+                    borderRadius: '8px',
+                    border: files[item.id] ? '1px solid #c8e6c9' : '1px solid #e0e0e0',
+                    transition: 'all 0.2s',
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography sx={{ fontSize: '1.25rem', mr: 1 }}>{item.icon}</Typography>
-                    <Typography sx={{ fontWeight: 500, color: 'text.primary', fontSize: '0.9rem' }}>
-                      {item.label}
-                    </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mb: 1,
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography sx={{ fontSize: '1.25rem', mr: 1 }}>{item.icon}</Typography>
+                      <Typography
+                        sx={{ fontWeight: 500, color: 'text.primary', fontSize: '0.9rem' }}
+                      >
+                        {item.label}
+                      </Typography>
+                    </Box>
+                    {files[item.id] && (
+                      <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
+                        ✓ فایل انتخاب شد
+                      </Typography>
+                    )}
                   </Box>
-                  {files[item.id] && (
-                    <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
-                      ✓ فایل انتخاب شد
-                    </Typography>
-                  )}
-                </Box>
-                <UploadInput
-                  name={item.id}
-                  accept=".png,.jpg,.jpeg,.pdf,.xlsx,.xls"
-                  style={{ width: '100%' }}
-                  onChange={(file) => handleFileChange(item.id, file)}
-                  disabled={readOnly}
-                />
-              </motion.div>
-            ))}
+                  <UploadInput
+                    id={item.id}
+                    fileType={item.label}
+                    onChange={(id, file) => handleFileChange(id, file)}
+                    disabled={readOnly}
+                    value={fileUrl ? { name: item.label, url: fileUrl } : null}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>
         </Box>
       </Box>

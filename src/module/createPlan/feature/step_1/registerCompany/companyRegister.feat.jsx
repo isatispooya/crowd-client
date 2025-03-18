@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper, Box, Chip, Tooltip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -61,9 +61,8 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
 
   const { id } = useParams();
   const [validationErrors, setValidationErrors] = useState({});
-  const { data: companyData } = useGetCompany(id);
 
-  const { getAllData, resetStore, updateField } = useCompanyRegistrationStore();
+  const { getAllData, resetStore } = useCompanyRegistrationStore();
 
   const pastelBlue = {
     light: '#E6F4FF',

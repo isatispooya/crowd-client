@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { OnRun } from 'src/api/OnRun';
 import { useGetCompany, useMembers } from '../../hooks';
 import MembersList from '../../components/list/list';
 
@@ -59,8 +60,48 @@ const MembersInfo = ({ readOnly, status }) => {
   const [uploadStatus, setUploadStatus] = useState({});
 
   const { data: companyData } = useGetCompany(id);
-  const company_members = companyData?.investor_request?.company_members || [];
+  const company_members = useMemo(
+    () => companyData?.investor_request?.company_members || [],
+    [companyData]
+  );
   const { mutate: mutateMembersInfo } = useMembers();
+
+  useEffect(() => {
+    if (company_members.length > 0) {
+      const preloadedFiles = {};
+      company_members.forEach((member) => {
+        preloadedFiles[member.id] = {
+          national_cart: member.national_cart
+            ? {
+                name: member.national_cart.split('/').pop(),
+                url: `${OnRun}${member.national_cart}`,
+              }
+            : null,
+          birth_certificate: member.birth_certificate
+            ? {
+                name: member.birth_certificate.split('/').pop(),
+                url: `${OnRun}${member.birth_certificate}`,
+              }
+            : null,
+          previous_article: member.previous_article
+            ? {
+                name: member.previous_article.split('/').pop(),
+                url: `${OnRun}${member.previous_article}`,
+              }
+            : null,
+          validation_report: member.validation_report
+            ? {
+                name: member.validation_report.split('/').pop(),
+                url: `${OnRun}${member.validation_report}`,
+              }
+            : null,
+        };
+      });
+      console.log('Company Members:', company_members);
+      console.log('Preloaded Files:', preloadedFiles);
+      setMembersFiles(preloadedFiles);
+    }
+  }, [company_members]);
 
   const pastelBlue = {
     light: '#E6F4FF',
@@ -159,8 +200,6 @@ const MembersInfo = ({ readOnly, status }) => {
         },
       }}
     >
-
-
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography
           variant="h5"
@@ -197,6 +236,7 @@ const MembersInfo = ({ readOnly, status }) => {
         isSubmitting={isSubmitting}
         theme={pastelBlue}
         readOnly={readOnly}
+        preloadedFiles={membersFiles}
       />
     </Paper>
   );

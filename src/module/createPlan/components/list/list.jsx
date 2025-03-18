@@ -2,7 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from './list.item';
 
-const List = ({ members, onFileChange, onSubmit, uploadStatus, isSubmitting, theme, readOnly }) => {
+const List = ({
+  members,
+  onFileChange,
+  onSubmit,
+  uploadStatus,
+  isSubmitting,
+  theme,
+  readOnly,
+  preloadedFiles,
+}) => {
   const uploadFields = [
     { label: 'کارت ملی', type: 'national_cart', icon: '🪪' },
     { label: 'شناسنامه', type: 'birth_certificate', icon: '📄' },
@@ -23,6 +32,7 @@ const List = ({ members, onFileChange, onSubmit, uploadStatus, isSubmitting, the
           isSubmitting={isSubmitting}
           theme={theme}
           readOnly={readOnly}
+          preloadedFiles={preloadedFiles}
         />
       ))}
     </>
@@ -37,6 +47,7 @@ List.propTypes = {
   isSubmitting: PropTypes.object,
   theme: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
+  preloadedFiles: PropTypes.object,
 };
 
 export default List;
