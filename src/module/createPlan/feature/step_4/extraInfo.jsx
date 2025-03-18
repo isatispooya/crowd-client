@@ -59,7 +59,7 @@ StatusBanner.propTypes = {
 
 const ExtraInfo = ({ readOnly, status }) => {
   const { id } = useParams();
-  const { companyData } = useGetCompany(id);
+  const { companyData, isLoading } = useGetCompany(id);
   const [files, setFiles] = useState({
     tax_return: null,
     salary_list_for_the_last_3_months: null,
@@ -115,8 +115,6 @@ const ExtraInfo = ({ readOnly, status }) => {
   };
 
   const handleFileChange = (key, file) => {
-    console.log('key1', key);
-    console.log('file1', file);
     if (readOnly) return;
     if (!file) return;
 
@@ -128,13 +126,17 @@ const ExtraInfo = ({ readOnly, status }) => {
 
     const formData = new FormData();
     Object.entries(files).forEach(([key, file]) => {
-      console.log('key', key);
-      console.log('file', file);
       if (file) formData.append(key, file);
     });
 
     uploadExtraInfo(formData);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log('companyData', companyData);
 
   return (
     <Paper
@@ -225,6 +227,8 @@ const ExtraInfo = ({ readOnly, status }) => {
             {uploadLabels.map((item) => {
               const preloadedFile = companyData?.investor_request?.[item.id];
               const fileUrl = preloadedFile ? OnRun + preloadedFile : null;
+              console.log('fileUrl', fileUrl);
+              console.log('preloadedFile', preloadedFile);
 
               return (
                 <Grid item xs={12} md={6} key={item.id}>
