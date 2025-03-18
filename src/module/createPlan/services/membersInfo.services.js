@@ -9,6 +9,7 @@ const MembersInfo = async (data, memberId) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+  console.log(access);
   return response.data;
 };
 

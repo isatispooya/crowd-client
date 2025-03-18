@@ -4,7 +4,7 @@ import { getCookie } from 'src/api/cookie';
 import { OnRun } from 'src/api/OnRun';
 
 const CompanyInfoServices = {
-  postInfo: async (data) => {
+  patchInfo: async (data, id) => {
     const isFormData = data instanceof FormData;
     try {
       const headers = {
@@ -12,26 +12,18 @@ const CompanyInfoServices = {
       };
 
       if (isFormData) {
-        if (isFormData) {
-          Array.from(data.entries()).forEach(([key, value]) => {
-            if (value instanceof File) {
-              console.log(`${key}: File - ${value.name} (${value.size} bytes)`);
-            } else {
-              console.log(`${key}: ${value}`);
-            }
-          });
-        }
+        console.log('Sending FormData to:', `${OnRun}/api/cart/step1/${id}`);
       } else {
         headers['Content-Type'] = 'application/json';
       }
 
-      const response = await axios.post(`${OnRun}/api/cart/step1/`, data, {
+      const response = await axios.patch(`${OnRun}/api/cart/step1/${id}/`, data, {
         headers,
       });
 
       return response.data;
     } catch (error) {
-      toast.error('API error:', error.message);
+      console.error('API error:', error);
       throw error;
     }
   },

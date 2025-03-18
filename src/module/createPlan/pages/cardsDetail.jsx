@@ -23,10 +23,8 @@ const CardsDetail = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const { id } = useParams();
   const isMobile = useMediaQuery('(max-width: 600px)');
-
   const { data: companyData } = useGetCompany(id);
 
-  // Function to check if step is editable
   const isStepEditable = (stepNumber) => {
     const stepStatus = companyData?.investor_request?.[`step_${stepNumber + 1}`];
     return stepStatus === 'changed';
@@ -54,7 +52,6 @@ const CardsDetail = () => {
     return companyData?.investor_request?.[`step_${index + 1}`] || 'changed';
   };
 
-  // Get status badges for steps
   const getStatusBadge = (status) => {
     if (status === 'approved') {
       return {
@@ -81,9 +78,6 @@ const CardsDetail = () => {
       icon: '⟳',
     };
   };
-
-  console.log('Contract Step Status:', getStepStatus(2));
-  console.log('Is Contract Step Editable:', isStepEditable(2));
 
   return (
     <Box

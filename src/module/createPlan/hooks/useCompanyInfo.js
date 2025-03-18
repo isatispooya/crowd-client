@@ -2,14 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { CompanyInfo } from '../services';
 
 const UseCompanyInfo = {
-  
-  useCompanyInfo: () => {
-    const { mutate, isLoading } = useMutation({
-      mutationKey: ['companyInfo'],
-      mutationFn: CompanyInfo.postInfo,
+  useCompanyInfo: (id) => {
+    return useMutation({
+      mutationKey: ['companyInfo', id],
+      mutationFn: (data) => CompanyInfo.patchInfo(data, id),
     });
-
-    return { mutate, isLoading };
   },
 };
 

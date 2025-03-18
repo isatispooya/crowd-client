@@ -58,11 +58,11 @@ StatusBanner.propTypes = {
 
 const CompanyRegister = ({ companyId, readOnly, status }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { id } = useParams();
   const [validationErrors, setValidationErrors] = useState({});
   const { data: companyData } = useGetCompany(id);
 
-  console.log(companyData);
   const { getAllData, resetStore, updateField } = useCompanyRegistrationStore();
 
   const pastelBlue = {
@@ -72,36 +72,38 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
     contrastText: '#1A365D',
   };
 
-  const { mutate, isLoading } = UseCompanyInfo.useCompanyInfo();
-
-  useEffect(() => {
-    if (companyData) {
-      console.log('Pre-loading form fields with companyData:', companyData);
-      updateField('bank', companyData.investor_request.bank || '');
-      updateField('bank_branch', companyData.investor_request.bank_branch || '');
-      updateField('bank_branch_code', companyData.investor_request.bank_branch_code || '');
-      updateField('suggestion_plan_name', companyData.investor_request.suggestion_plan_name || '');
-      updateField('amount_of_investment', companyData.investor_request.amount_of_investment || '');
-      // Add more fields as necessary
-    }
-  }, [companyData, updateField]);
+  const { mutate, isLoading } = UseCompanyInfo.useCompanyInfo(id);
 
   const validateForm = (data) => {
     const errors = {};
 
-    if (!data.bank || data.bank.trim() === '') {
+    console.log('Validating form data:', data);
+
+    if (!data.bank && data.bank !== 0) {
       errors.bank = 'لطفاً نام بانک را وارد کنید';
     }
 
-    if (!data.bank_branch || data.bank_branch.trim() === '') {
+    if (
+      !data.bank_branch ||
+      typeof data.bank_branch !== 'string' ||
+      data.bank_branch.trim() === ''
+    ) {
       errors.bank_branch = 'لطفاً نام شعبه بانک را وارد کنید';
     }
 
-    if (!data.bank_branch_code || data.bank_branch_code.trim() === '') {
+    if (
+      !data.bank_branch_code ||
+      typeof data.bank_branch_code !== 'string' ||
+      data.bank_branch_code.trim() === ''
+    ) {
       errors.bank_branch_code = 'لطفاً کد شعبه بانک را وارد کنید';
     }
 
-    if (!data.suggestion_plan_name || data.suggestion_plan_name.trim() === '') {
+    if (
+      !data.suggestion_plan_name ||
+      typeof data.suggestion_plan_name !== 'string' ||
+      data.suggestion_plan_name.trim() === ''
+    ) {
       errors.suggestion_plan_name = 'لطفاً نام طرح پیشنهادی را وارد کنید';
     }
 
@@ -121,10 +123,13 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       errors.financial_statement = 'لطفاً صورت‌های مالی را آپلود کنید';
     }
 
+    console.log('Validation errors:', errors);
+
     return errors;
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
@@ -135,26 +140,14 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       }
 
       const data = getAllData();
-
       const errors = validateForm(data);
 
       if (Object.keys(errors).length > 0) {
         setValidationErrors(errors);
-
-        toast.error('لطفاً تمامی فیلدهای اجباری را تکمیل کنید', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-
+        toast.error('لطفاً تمامی فیلدهای اجباری را تکمیل کنید');
         setIsSubmitting(false);
         return;
       }
-
-      setValidationErrors({});
 
       const formData = new FormData();
 
@@ -190,7 +183,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
         );
       }
 
-      formData.append('bank', data.bank || '');
+      formData.append('bank', data.bank?.toString() || '');
       formData.append('bank_branch', data.bank_branch || '');
       formData.append('bank_branch_code', data.bank_branch_code || '');
       formData.append('company_id', companyId);
@@ -212,13 +205,17 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       console.log('Submitting form data...');
       mutate(formData, {
         onSuccess: (response) => {
-          setIsSubmitting(false);
+          toast.success('اطلاعات با موفقیت ثبت شد');
           resetStore();
+          setIsSubmitting(false);
         },
         onError: (error) => {
-          toast.error(`خطا در ثبت اطلاعات: ${error.response?.data || error.message}`);
-          console.error('Error submitting registration:', error);
-          console.error('Error details:', error.response?.data || error.message);
+          const errorMessage =
+            error.response?.data?.message || error.message || 'خطا در ثبت اطلاعات';
+          toast.error(errorMessage);
+          setIsSubmitting(false);
+        },
+        onSettled: () => {
           setIsSubmitting(false);
         },
       });

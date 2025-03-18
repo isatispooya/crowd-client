@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, MenuItem } from '@mui/material';
 import FormField from '../../../components/FormField';
 import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
+import { useGetCompany } from '../../../hooks';
 
 const CompanyBankInfo = ({ pastelBlue }) => {
   const { bank, bank_branch, bank_branch_code, updateField } = useCompanyRegistrationStore();
+  const { data: companyData } = useGetCompany();
+
+  // Preload bank data from investor_request
+  useEffect(() => {
+    if (companyData?.investor_request) {
+      const { bank, bank_branch, bank_branch_code } = companyData.investor_request;
+      if (bank) updateField('bank', bank);
+      if (bank_branch) updateField('bank_branch', bank_branch);
+      if (bank_branch_code) updateField('bank_branch_code', bank_branch_code);
+    }
+  }, [companyData]);
 
   const banks = [
     { id: 1, name: 'بانک ملی ایران' },
@@ -41,10 +53,11 @@ const CompanyBankInfo = ({ pastelBlue }) => {
 
   const handleBankChange = (event) => {
     const { name, value } = event.target;
-    updateField(name, value);
+    updateField(name, name === 'bank' ? Number(value) : value);
 
     if (name === 'bank') {
       updateField('bank_branch', '');
+      updateField('bank_branch_code', '');
     }
   };
 

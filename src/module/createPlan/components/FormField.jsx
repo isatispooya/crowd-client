@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, TextField, Tooltip, Box } from '@mui/material';
+import { Grid, Typography, TextField, IconButton, Tooltip, Box, Button } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import UploadInput from './upload.input';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import ClearIcon from '@mui/icons-material/Clear';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const FormField = ({
   label,
@@ -26,6 +28,46 @@ const FormField = ({
 }) => {
   const isFileInput = type === 'file';
   const isSelectInput = type === 'select';
+  const hasFile = isFileInput && value && (value instanceof File || value.url);
+
+  const handleChange = (event) => {
+    console.log('FormField handleChange called', { type, name });
+    console.log('Event object:', event);
+
+    if (isFileInput) {
+      const file = event.target.files[0];
+      console.log('File input change detected, file:', file);
+
+      if (file) {
+        // Create a direct reference to the file to prevent any serialization issues
+        const fileObj = new File([file], file.name, {
+          type: file.type,
+          lastModified: file.lastModified,
+        });
+
+        console.log('Created file object:', fileObj);
+
+        // Pass both the file in value and in the files array
+        const customEvent = {
+          target: {
+            name,
+            value: fileObj,
+            files: [fileObj],
+          },
+        };
+
+        onChange(customEvent);
+      }
+    } else {
+      onChange(event);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    if (onFileRemove) {
+      onFileRemove(name);
+    }
+  };
 
   return (
     <Grid item xs={xs} md={md}>
@@ -53,20 +95,115 @@ const FormField = ({
         {required && <span style={{ color: 'red', marginLeft: '4px' }}>*</span>}
         {hint && (
           <Tooltip title={hint} arrow>
-            <HelpOutlineIcon sx={{ ml: 1 }} />
+            <IconButton sx={{ ml: 1 }}>
+              <HelpOutlineIcon />
+            </IconButton>
           </Tooltip>
         )}
       </Typography>
 
       {isFileInput ? (
-        <UploadInput
-          label={label}
-          onChange={onChange}
-          fileType={accept}
-          id={name}
-          disabled={disabled}
-          value={value}
-        />
+        <Box sx={{ position: 'relative', mt: 1 }}>
+          <input
+            accept={accept}
+            type="file"
+            id={disabled ? undefined : `file-input-${name}`}
+            style={{ display: 'none' }}
+            onChange={handleChange}
+            disabled={disabled}
+          />
+          {!disabled && (
+            <label htmlFor={`file-input-${name}`}>
+              <Button
+                variant="outlined"
+                component="span"
+                fullWidth
+                startIcon={<UploadFileIcon />}
+                disabled={disabled}
+                sx={{
+                  borderColor: pastelBlue.main,
+                  color: pastelBlue.contrastText,
+                  height: '56px',
+                  textAlign: 'left',
+                  justifyContent: 'flex-start',
+                  padding: '0 14px',
+                  cursor: disabled ? 'not-allowed' : 'pointer',
+                  backgroundColor: '#f8f9fa',
+                  '&:hover': {
+                    backgroundColor: '#f1f3f5',
+                    borderColor: pastelBlue.dark,
+                  },
+                }}
+              >
+                {hasFile ? 'مشاهده فایل' : 'فایل را انتخاب کنید...'}
+              </Button>
+            </label>
+          )}
+          {disabled && (
+            <Button
+              variant="outlined"
+              component="span"
+              fullWidth
+              startIcon={<UploadFileIcon />}
+              disabled
+              sx={{
+                borderColor: pastelBlue.main,
+                color: pastelBlue.contrastText,
+                height: '56px',
+                textAlign: 'left',
+                justifyContent: 'flex-start',
+                padding: '0 14px',
+                cursor: 'not-allowed',
+                backgroundColor: '#f8f9fa',
+              }}
+            >
+              {hasFile
+                ? value instanceof File
+                  ? value.name
+                  : value.name
+                : 'فایل را انتخاب کنید...'}
+            </Button>
+          )}
+          {hasFile && value.url && (
+            <Tooltip title="مشاهده فایل">
+              <IconButton
+                onClick={() => window.open(value.url, '_blank')}
+                sx={{
+                  position: 'absolute',
+                  right: 40,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: pastelBlue.dark,
+                }}
+              >
+                <VisibilityIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {hasFile && (
+            <IconButton
+              onClick={handleRemoveFile}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'error.main',
+              }}
+            >
+              <ClearIcon />
+            </IconButton>
+          )}
+          {helperText && (
+            <Typography
+              variant="caption"
+              color={error ? 'error' : 'text.secondary'}
+              sx={{ mt: 0.5, display: 'block' }}
+            >
+              {helperText}
+            </Typography>
+          )}
+        </Box>
       ) : (
         <TextField
           name={name}

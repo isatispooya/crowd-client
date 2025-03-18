@@ -52,21 +52,26 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
-  console.log(data);
   const { mutate: mutateInvestor } = useInvestor();
 
   const navigate = useNavigate();
+
   const handleClose = () => {
     onClose(false);
   };
 
   const handleConfirm = () => {
-    mutateInvestor({
-      company_id: data?.company?.id,
-    });
-    navigate(`/cardsDetail/${data?.company?.id}`);
-    onClose(false);
-    console.log(data?.company?.id);
+    mutateInvestor(
+      {
+        company_id: data?.company?.id,
+      },
+      {
+        onSuccess: (response) => {
+          navigate(`/cardsDetail/${response?.id}`);
+          onClose(false);
+        },
+      }
+    );
   };
 
   return (

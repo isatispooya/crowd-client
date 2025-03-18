@@ -8,7 +8,7 @@ import { useAllCompany } from '../hooks';
 const Cards = () => {
   const { data: allCompany } = useAllCompany();
   const navigate = useNavigate();
-  console.log(allCompany);
+
 
   return (
     <div>
