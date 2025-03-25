@@ -1,5 +1,6 @@
 export { default as Button } from './button';
 export { default as List } from './list/list';
+export { default as InfoItem } from './infoItem';
 export { default as Accordion } from './accordian';
 export { default as FormField } from './FormField';
 export { default as ListItem } from './list/list.item';

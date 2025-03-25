@@ -7,9 +7,9 @@ import PrintableLayout from 'src/layouts/printableLayout';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import { useBankLetter } from '../hooks';
-import Sign from '../signContract.png';
+import { Sign } from '../assets';
 
-const BankLetter = () => {
+const BankLetterPage = () => {
   const [searchParams] = useSearchParams();
   const urlUuid = searchParams.get('uuid');
   const [finalUuid, setFinalUuid] = useState(null);
@@ -125,4 +125,4 @@ const BankLetter = () => {
   );
 };
 
-export default BankLetter;
+export default BankLetterPage;

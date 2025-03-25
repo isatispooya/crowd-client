@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import LogoSabad from '../module/createPlan/Artboard 1 copy 3.png';
-import TypeLogo from '../module/createPlan/typography.png';
+import { LogoSabad, TypeLogo } from '../module/createPlan/assets';
 
 const PrintableLayout = ({
   children,

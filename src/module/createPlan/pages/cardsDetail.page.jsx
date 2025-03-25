@@ -19,7 +19,7 @@ import { useGetCompany } from '../hooks';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی'];
 
-const CardsDetail = () => {
+const CardsDetailPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const { id } = useParams();
   const isMobile = useMediaQuery('(max-width: 600px)');
@@ -218,4 +218,4 @@ const CardsDetail = () => {
   );
 };
 
-export default CardsDetail;
+export default CardsDetailPage;

@@ -1,70 +1,21 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import BoardMembersSection from './BoardMembersSection';
 import { useInvestor } from '../hooks';
-
-const StyledDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: 8,
-  },
-  '& .MuiDialogTitle-root': {
-    padding: theme.spacing(2.5, 3),
-    borderBottom: '1px solid #f0f0f0',
-  },
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(3),
-  },
-}));
-
-const InfoItem = styled(Box)(({ theme }) => ({
-  marginBottom: theme.spacing(1.5),
-  display: 'flex',
-  alignItems: 'flex-start',
-}));
-
-const InfoLabel = styled(Typography)({
-  fontWeight: 500,
-  minWidth: '100px',
-  color: '#666',
-  fontSize: '0.9rem',
-});
-
-const InfoValue = styled(Typography)({
-  color: '#333',
-});
-
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(2.5),
-  fontWeight: 500,
-  color: theme.palette.primary.main,
-  fontSize: '1.1rem',
-}));
+import { backdroppVariants, dialogVariants } from '../animations';
+import BoardMembersSection from './BoardMembersSection';
+import { InfoItem } from '../components';
 
 const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
   const { mutate: mutateInvestor } = useInvestor();
-
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    onClose(false);
-  };
+  const handleClose = () => onClose(false);
 
   const handleConfirm = () => {
     mutateInvestor(
-      {
-        company_id: data?.company?.id,
-      },
+      { company_id: data?.company?.id },
       {
         onSuccess: (response) => {
           navigate(`/cardsDetail/${response?.id}`);
@@ -74,113 +25,86 @@ const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
     );
   };
 
+  const fields = [
+    { label: 'شناسه ملی', value: data?.company?.national_id },
+    { label: 'شماره ثبت', value: data?.company?.registration_number },
+    { label: 'تاریخ ثبت', value: data?.company?.persian_registration_date },
+    { label: 'سرمایه', value: data?.company?.capital?.toLocaleString() || 'نامشخص' },
+    { label: 'کد اقتصادی', value: data?.company?.economic_code },
+    { label: 'کد پستی', value: data?.company?.postal_code },
+    { label: 'وضعیت', value: data?.company?.status },
+    { label: 'واحد ثبت', value: data?.company?.registration_unit },
+    { label: 'آدرس', value: data?.company?.address },
+  ];
+
   return (
-    <StyledDialog
-      open={isOpen}
-      onClose={handleClose}
-      aria-labelledby="company-dialog-title"
-      aria-describedby="company-dialog-description"
-      maxWidth="md"
-      fullWidth
-    >
-      <DialogTitle id="company-dialog-title">
-        <Typography variant="h6" fontWeight={500}>
-          {data?.company?.title || 'اطلاعات شرکت'}
-        </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <Box mb={4} mt={2}>
-          <SectionTitle sx={{ color: '#6B9ACD' }}>اطلاعات اصلی شرکت</SectionTitle>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>شناسه ملی</InfoLabel>
-                <InfoValue>{data?.company?.national_id}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>شماره ثبت</InfoLabel>
-                <InfoValue>{data?.company?.registration_number}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>تاریخ ثبت</InfoLabel>
-                <InfoValue>{data?.company?.persian_registration_date}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>سرمایه</InfoLabel>
-                <InfoValue>{data?.company?.capital?.toLocaleString()} ریال</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>کد اقتصادی</InfoLabel>
-                <InfoValue>{data?.company?.economic_code}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>کد پستی</InfoLabel>
-                <InfoValue>{data?.company?.postal_code}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>وضعیت</InfoLabel>
-                <InfoValue>{data?.company?.status}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <InfoItem>
-                <InfoLabel>واحد ثبت</InfoLabel>
-                <InfoValue>{data?.company?.registration_unit}</InfoValue>
-              </InfoItem>
-            </Grid>
-            <Grid item xs={12}>
-              <InfoItem>
-                <InfoLabel>آدرس</InfoLabel>
-                <InfoValue>{data?.company?.address}</InfoValue>
-              </InfoItem>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Divider sx={{ my: 3, opacity: 0.6 }} />
-
-        <BoardMembersSection members={data?.members} />
-      </DialogContent>
-      <DialogActions sx={{ padding: '12px 24px', borderTop: '1px solid #f0f0f0' }}>
-        <Button
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          variants={backdroppVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           onClick={handleClose}
-          color="error"
-          variant="outlined"
-          sx={{
-            textTransform: 'none',
-            fontWeight: 400,
-            minWidth: '80px',
-            ml: 1,
-          }}
         >
-          رد
-        </Button>
-        <Button
-          onClick={handleConfirm}
-          color="primary"
-          variant="contained"
-          sx={{
-            textTransform: 'none',
-            fontWeight: 400,
-            minWidth: '80px',
-          }}
-        >
-          تایید
-        </Button>
-      </DialogActions>
-    </StyledDialog>
+          <motion.div
+            variants={dialogVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="w-full max-w-2xl mx-4 bg-white rounded-lg shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="flex items-center justify-between p-4 text-white bg-gradient-to-r from-indigo-600 to-purple-600">
+              <h2 className="text-xl font-semibold">{data?.company?.title || 'اطلاعات شرکت'}</h2>
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleClose}
+                className="text-white transition-colors duration-200 hover:text-gray-200"
+              >
+                ✕
+              </motion.button>
+            </header>
+
+            <main className="p-6 space-y-6">
+              <section>
+                <h3 className="mb-4 text-lg font-medium text-indigo-700">اطلاعات اصلی شرکت</h3>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  {fields.map((field) => (
+                    <InfoItem key={field.label} {...field} />
+                  ))}
+                </div>
+              </section>
+
+              <div className="my-4 border-t border-gray-200" />
+
+              <BoardMembersSection members={data?.members} />
+            </main>
+
+            <footer className="flex justify-end gap-3 p-4 bg-gray-50 border-t border-gray-200">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleClose}
+                className="px-4 py-2 font-medium text-red-600 transition-colors duration-200 bg-red-100 rounded-lg hover:bg-red-200"
+              >
+                رد
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleConfirm}
+                className="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-600 rounded-lg hover:bg-indigo-700"
+              >
+                تایید
+              </motion.button>
+            </footer>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -20,10 +20,10 @@ export const TrainingPage = lazy(() => import('src/module/train/training'));
 export const admin = lazy(() => import('src/module/anonymous/admin'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
-export const CreatePlan = lazy(() => import('src/module/createPlan/pages/mainPage'));
-export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail'));
-export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter'));
-export const AgencyContract = lazy(() => import('src/module/createPlan/pages/agencycontract'));
+export const CreatePlan = lazy(() => import('src/module/createPlan/pages/cards.page'));
+export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail.page'));
+export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter.page'));
+export const AgencyContract = lazy(() => import('src/module/createPlan/pages/agencycontract.page'));
 
 export default function Router() {
   const routes = useRoutes([

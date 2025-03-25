@@ -1,4 +1,4 @@
-export { default as MainPage } from './mainPage';
-export { default as BankLetter } from './bankLetter';
-export { default as CardsDetail } from './cardsDetail';
-export { default as AgencyContract } from './agencycontract';
+export { default as CardsPage } from './cards.page';
+export { default as BankLetterPage } from './bankLetter.page';
+export { default as CardsDetailPage } from './cardsDetail.page';
+export { default as AgencyContractPage } from './agencycontract.page';

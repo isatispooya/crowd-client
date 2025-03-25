@@ -3,7 +3,7 @@ import SvgColor from 'src/services/svg-color';
 
 import { GoProjectRoadmap } from 'react-icons/go';
 import { PiCertificateFill } from 'react-icons/pi';
-import { MdModelTraining, MdDashboard } from 'react-icons/md';
+import { MdDashboard } from 'react-icons/md';
 
 const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />

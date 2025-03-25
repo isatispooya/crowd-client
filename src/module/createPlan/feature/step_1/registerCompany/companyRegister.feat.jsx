@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import { CompanyInfo, CompanyBankInfo, PlanInfo } from './index';
-import { UseCompanyInfo, useGetCompany } from '../../../hooks';
+import { UseCompanyInfo } from '../../../hooks';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import Button from '../../../components/button';
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
 import Loader from 'src/components/loader';
 import PropTypes from 'prop-types';
@@ -45,7 +45,7 @@ const Descript = () => {
   console.log(data?.information_complete?.viedo);
   
 
-  const router = useNavigate();
+ 
 
   const getStatusColor = (statusId) => {
     switch (statusId) {
