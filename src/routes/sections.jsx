@@ -30,7 +30,7 @@ export default function Router() {
     {
       element: (
         <DashboardLayout>
-          <Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
             <Outlet />
           </Suspense>
         </DashboardLayout>
@@ -45,24 +45,22 @@ export default function Router() {
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'cardsDetail/:id', element: <CardsDetail /> },
-        { path: 'bankLetter', element: <BankLetter /> },
       ],
     },
     {
       path: 'paymentresult',
       element: <PaymentResualt />,
     },
+    { path: 'bankLetter', element: <BankLetter /> },
+
     {
       path: 'login',
       element: <LoginPage />,
     },
+    { path: 'agencyContract', element: <AgencyContract /> },
     {
       path: '404',
       element: <Page404 />,
-    },
-    {
-      path: 'agencyContract',
-      element: <AgencyContract />,
     },
     {
       path: 'onetimelogin/:uuid',

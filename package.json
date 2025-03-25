@@ -50,6 +50,7 @@
     "framer-motion": "^11.18.2",
     "history": "^5.3.0",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
     "jalaali-js": "^1.2.7",
     "jalali-moment": "^3.3.11",
     "jspdf": "^3.0.1",

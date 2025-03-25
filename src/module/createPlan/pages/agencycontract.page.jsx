@@ -5,7 +5,9 @@ import Loader from 'src/components/loader';
 import PrintableContractLayout from 'src/layouts/printableLayourtContract';
 import { OnRun } from 'src/api/OnRun';
 import { useAgencyContract } from '../hooks';
-import {  PAGES, TOTAL_PAGES } from '../feature/agancyContract';
+import { PAGES, TOTAL_PAGES } from '../feature/agancyContract';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const printStyles = `
   @media print {
@@ -13,23 +15,26 @@ const printStyles = `
       page-break-before: always;
     }
     
+
     @page {
       size: A4;
       margin: 0.5cm;
     }
     
+
     body {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+      
   }
 `;
 
-const AgencyContract = () => {
+const AgencyContractPage = () => {
   const [searchParams] = useSearchParams();
   const urlUuid = searchParams.get('uuid');
   const [finalUuid, setFinalUuid] = useState(null);
-  const [qrValue, setQrValue] = useState('');
+  const [qrValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [printMode, setPrintMode] = useState(false);
 
@@ -45,7 +50,6 @@ const AgencyContract = () => {
     refetch,
   } = useAgencyContract(finalUuid !== 'undefined' ? finalUuid : null);
 
-
   useEffect(() => {
     if (finalUuid && finalUuid !== 'undefined') {
       refetch();
@@ -59,14 +63,13 @@ const AgencyContract = () => {
       <div className="flex flex-col gap-1 text-left">
         {agencyContract.investor_request?.logo && (
           <div className="mb-1">
-             <img
+            <img
               src={OnRun + agencyContract.investor_request.logo}
               alt="Investor Logo"
               className="h-20 object-contain"
             />
           </div>
         )}
-        
       </div>
     );
   };
@@ -118,14 +121,61 @@ const AgencyContract = () => {
     );
   };
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     setPrintMode(true);
-    setTimeout(() => {
-      window.print();
 
-      setTimeout(() => {
-        setPrintMode(false);
-      }, 500);
+    setTimeout(async () => {
+      try {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const elements = document.querySelectorAll(
+          '.page-break-before, .contract-container > div:first-child'
+        );
+
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements[i];
+
+          // Convert colors to RGB before capturing
+          const allElements = element.getElementsByTagName('*');
+          Array.from(allElements).forEach((el) => {
+            const style = window.getComputedStyle(el);
+            el.style.color = style.color;
+            el.style.backgroundColor = style.backgroundColor;
+            el.style.borderColor = style.borderColor;
+          });
+
+          const canvas = await html2canvas(element, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#FFFFFF',
+            logging: false,
+          });
+
+          // Convert canvas to image
+          const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+          // Calculate dimensions to fit A4
+          const pageWidth = pdf.internal.pageSize.getWidth();
+          const pageHeight = pdf.internal.pageSize.getHeight();
+          const imgWidth = canvas.width;
+          const imgHeight = canvas.height;
+          const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+          const imgX = (pageWidth - imgWidth * ratio) / 2;
+          const imgY = 0;
+
+          // Add new page if not first page
+          if (i > 0) {
+            pdf.addPage();
+          }
+
+          pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        }
+
+        pdf.save('contract.pdf');
+      } catch (error) {
+        console.error('PDF generation failed:', error);
+      }
+
+      setPrintMode(false);
     }, 100);
   };
 
@@ -140,8 +190,8 @@ const AgencyContract = () => {
   }
 
   const renderCurrentPage = () => {
-    const CurrentPageComponent = PAGES[currentPage - 1];
-    return <CurrentPageComponent agencyContract={agencyContract}/>;
+    if (!PAGES[currentPage - 1]) return null;
+    return React.createElement(PAGES[currentPage - 1], { agencyContract });
   };
 
   return (
@@ -175,7 +225,7 @@ const AgencyContract = () => {
           onClick={handlePrint}
           className="px-4 py-2 bg-blue-500 text-white rounded"
         >
-          چاپ تمام صفحات قرارداد
+          دانلود PDF قرارداد
         </button>
       </div>
 
@@ -188,7 +238,7 @@ const AgencyContract = () => {
                 footerChildren={renderFooterSignatures()}
               >
                 <div className="bg-white p-5 rounded-lg shadow-sm text-sm border border-gray-100 min-h-[60vh]">
-                  <PageComponent agencyContract={agencyContract} qrValue={qrValue} />
+                  {React.createElement(PageComponent, { agencyContract })}
                 </div>
               </PrintableContractLayout>
             </div>
@@ -213,4 +263,4 @@ const AgencyContract = () => {
   );
 };
 
-export default AgencyContract;
+export default AgencyContractPage;

@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import LogoSabad from '../module/createPlan/Artboard 1 copy 3.png';
-import TypeLogo from '../module/createPlan/typography.png';
+
+import { TypeLogo, LogoSabad } from '../module/createPlan/assets';
 
 const PrintableContractLayout = ({
   children,
@@ -106,8 +106,6 @@ const PrintableContractLayout = ({
             </div>
           </div>
         </div>
-
-
 
         {(title || subtitle) && (
           <div className="mb-6">
