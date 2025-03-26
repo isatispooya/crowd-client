@@ -3,5 +3,7 @@ export { default as List } from './list/list';
 export { default as InfoItem } from './infoItem';
 export { default as Accordion } from './accordian';
 export { default as FormField } from './FormField';
+export { default as SubmitBtn } from './submit.btn';
 export { default as ListItem } from './list/list.item';
 export { default as UploadInput } from './upload.input';
+export { default as StatusBanner } from './statusBanner';

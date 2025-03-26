@@ -30,11 +30,13 @@ const CardsDetailPage = () => {
     return stepStatus === 'changed';
   };
 
+  const planName = companyData?.investor_request?.suggestion_plan_name;
+
   const handleStepClick = (index) => {
+    const status = getStepStatus(index);
     if (
-      isStepEditable(index) ||
-      companyData?.investor_request?.[`step_${index + 1}`] === 'rejected' ||
-      companyData?.investor_request?.[`step_${index + 1}`] === 'approved'
+      status !== 'pending' &&
+      (isStepEditable(index) || status === 'rejected' || status === 'approved')
     ) {
       setActiveStep(index);
     }
@@ -71,6 +73,15 @@ const CardsDetailPage = () => {
       };
     }
 
+    if (status === 'pending') {
+      return {
+        label: 'ایجاد نشده',
+        color: 'primary.main',
+        bgColor: 'primary.light',
+        icon: '⟳',
+      };
+    }
+
     return {
       label: 'در حال بررسی',
       color: 'primary.main',
@@ -83,58 +94,68 @@ const CardsDetailPage = () => {
     <Box
       sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      {!isMobile && (
-        <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%', mb: 3 }}>
-          {steps.map((label, index) => {
-            const status = getStepStatus(index);
-            const badge = getStatusBadge(status);
+      <div className="w-full flex flex-col items-center rounded-md transition-shadow hover:shadow-lg">
+        <h5 className="mb-2 font-bold text-black">{planName}</h5>
+      </div>
+      <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%', mb: 3 }}>
+        {steps.map((label, index) => {
+          const status = getStepStatus(index);
+          const badge = getStatusBadge(status);
+          const isPending = status === 'pending';
 
-            return (
-              <Step
-                key={label}
-                onClick={() => handleStepClick(index)}
-                sx={{
-                  cursor: 'pointer',
-                  '& .MuiStepLabel-root': {
+          return (
+            <Step
+              key={label}
+              onClick={() => !isPending && handleStepClick(index)}
+              sx={{
+                cursor: isPending ? 'not-allowed' : 'pointer',
+                opacity: isPending ? 0.5 : 1,
+                '& .MuiStepLabel-root': {
+                  color: badge.color,
+                },
+              }}
+            >
+              <StepLabel
+                StepIconProps={{
+                  sx: {
                     color: badge.color,
+                    '&.Mui-active': { color: badge.color },
+                    '&.Mui-completed': { color: badge.color },
                   },
                 }}
               >
-                <StepLabel
-                  StepIconProps={{
-                    sx: {
-                      color: badge.color,
-                      '&.Mui-active': { color: badge.color },
-                      '&.Mui-completed': { color: badge.color },
-                    },
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    filter: isPending ? 'grayscale(1)' : 'none',
                   }}
                 >
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    {label}
-                    <Box
-                      sx={{
-                        mt: 0.5,
-                        px: 1,
-                        py: 0.25,
-                        borderRadius: 1,
-                        fontSize: '0.7rem',
-                        backgroundColor: badge.bgColor,
-                        color: badge.color,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 0.5,
-                      }}
-                    >
-                      <span>{badge.icon}</span>
-                      <span>{badge.label}</span>
-                    </Box>
+                  {label}
+                  <Box
+                    sx={{
+                      mt: 0.5,
+                      px: 1,
+                      py: 0.25,
+                      borderRadius: 1,
+                      fontSize: '0.7rem',
+                      backgroundColor: badge.bgColor,
+                      color: badge.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                    }}
+                  >
+                    <span>{badge.icon}</span>
+                    <span>{badge.label}</span>
                   </Box>
-                </StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-      )}
+                </Box>
+              </StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
 
       {isMobile && (
         <Paper
@@ -167,11 +188,24 @@ const CardsDetailPage = () => {
               mb: 1,
             }}
           >
-            {steps.map((label, index) => (
-              <MenuItem key={index} value={index}>
-                {label}
-              </MenuItem>
-            ))}
+            {steps.map((label, index) => {
+              const status = getStepStatus(index);
+              const isPending = status === 'pending';
+
+              return (
+                <MenuItem
+                  key={index}
+                  value={index}
+                  disabled={isPending}
+                  sx={{
+                    opacity: isPending ? 0.5 : 1,
+                    cursor: isPending ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {label}
+                </MenuItem>
+              );
+            })}
           </Select>
 
           <MobileStepper
@@ -205,14 +239,18 @@ const CardsDetailPage = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && (
+        {activeStep === 0 && getStepStatus(0) !== 'pending' && (
           <CompanyRegister companyId={id} readOnly={!isStepEditable(0)} status={getStepStatus(0)} />
         )}
-        {activeStep === 1 && (
+        {activeStep === 1 && getStepStatus(1) !== 'pending' && (
           <MembersInfo readOnly={!isStepEditable(1)} status={getStepStatus(1)} />
         )}
-        {activeStep === 2 && <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />}
-        {activeStep === 3 && <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />}
+        {activeStep === 2 && getStepStatus(2) !== 'pending' && (
+          <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />
+        )}
+        {activeStep === 3 && getStepStatus(3) !== 'pending' && (
+          <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
+        )}
       </Box>
     </Box>
   );

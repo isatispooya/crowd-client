@@ -98,7 +98,7 @@ const CompanyBankInfo = ({ pastelBlue }) => {
 
   return (
     <Grid item xs={12}>
-      <AccordionCom title="اطلاعات بانکی" id="bank-info" pastelBlue={pastelBlue}>
+      <AccordionCom title="اطلاعات بانکی برای ضمانت نامه" id="bank-info" pastelBlue={pastelBlue}>
         <Grid container spacing={3}>
           {bankFields.map((field) => (
             <FormField

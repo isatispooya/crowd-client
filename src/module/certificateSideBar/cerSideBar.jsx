@@ -18,9 +18,9 @@ import { getCerByTraceCode } from './useGetCerSidebarBytraceCode';
 const CertificateSideBar = () => {
   const { data } = useCer();
   const { data: response, error } = useCerti();
-  const traceCode = data && data.length > 0 ? data[0].trace_code_payment_farabourse : null;
-  const { data: responseByTraceCode } = getCerByTraceCode(traceCode);
-  console.log(responseByTraceCode);
+  // const traceCode = data && data.length > 0 ? data[0].trace_code_payment_farabourse : null;
+  // const { data: responseByTraceCode } = getCerByTraceCode(traceCode);
+
   const [loadingTraceCode, setLoadingTraceCode] = useState(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const CertificateSideBar = () => {
     setLoadingTraceCode(downloadTraceCode);
     try {
       const downloadData = await getCerByTraceCode(downloadTraceCode);
-      console.log(downloadData.url);
+  
       window.open(OnRun + downloadData.url, '_blank');
     } catch (downloadError) {
       toast.error(downloadError.response.data.ErrorMessage);

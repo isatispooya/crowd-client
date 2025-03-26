@@ -3,7 +3,7 @@ import { FiSearch, FiLoader, FiArrowLeft } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import useFetchCompanyId from '../hooks/companyId';
+import useFetchCompanyId from '../../hooks/companyId';
 import CompanyDetailsPopUp from './companyDetailsPopUp';
 
 const CreateCard = ({ setIsOpen }) => {

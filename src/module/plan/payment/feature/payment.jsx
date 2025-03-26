@@ -73,7 +73,7 @@ const Payment = () => {
         onSuccess: () => toast.success('پرداخت با موفقیت ثبت شد!'),
 
         onError: (err) => {
-          console.log('Error object:', err);
+      
 
           if (
             err === 'payment_id already exists' ||

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiPlus } from 'react-icons/fi';
-import NewCards from '../feature/createCard';
+import NewCards from '../feature/cards/createCard';
 import { Cards } from '../feature';
 import { containerVariants, headerVariants, backdropVariants, popupVariants } from '../animations';
 

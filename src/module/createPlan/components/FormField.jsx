@@ -31,23 +31,18 @@ const FormField = ({
   const hasFile = isFileInput && value && (value instanceof File || value.url);
 
   const handleChange = (event) => {
-    console.log('FormField handleChange called', { type, name });
-    console.log('Event object:', event);
+
 
     if (isFileInput) {
       const file = event.target.files[0];
-      console.log('File input change detected, file:', file);
+
 
       if (file) {
-        // Create a direct reference to the file to prevent any serialization issues
         const fileObj = new File([file], file.name, {
           type: file.type,
           lastModified: file.lastModified,
         });
 
-        console.log('Created file object:', fileObj);
-
-        // Pass both the file in value and in the files array
         const customEvent = {
           target: {
             name,

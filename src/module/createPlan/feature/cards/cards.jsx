@@ -10,9 +10,9 @@ import {
   textVariants,
   badgeVariants,
   stepVariants,
-} from '../animations';
-import { useAllCompany } from '../hooks';
-import { Nonlogo } from '../assets';
+} from '../../animations';
+import { useAllCompany } from '../../hooks';
+import { Nonlogo } from '../../assets';
 
 const Cards = () => {
   const { data: allCompany } = useAllCompany();

@@ -18,16 +18,16 @@ const UploadInput = ({
   const [fileUrl, setFileUrl] = useState('');
 
   useEffect(() => {
-    console.log(`UploadInput for ${fileType} (id: ${id}):`, { value, OnRun });
+  
     if (value) {
       setFileName(value.name || '');
       setFileUrl(value.url || '');
-      console.log(`Setting fileName: ${value.name}, fileUrl: ${value.url}`);
+    
     }
   }, [value, fileType, id]);
 
   useEffect(() => {
-    console.log(`Current state for ${fileType} (id: ${id}):`, { fileName, fileUrl });
+
   }, [fileName, fileUrl, fileType, id]);
 
   const handleFileChange = (e) => {
@@ -35,7 +35,7 @@ const UploadInput = ({
     if (file) {
       setFileName(file.name);
       setFileUrl(URL.createObjectURL(file));
-      console.log(`File selected in UploadInput for ${id}:`, file);
+
       onChange(id, file);
     }
   };

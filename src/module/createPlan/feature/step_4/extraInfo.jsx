@@ -8,54 +8,10 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { OnRun } from 'src/api/OnRun';
-import { UploadInput } from '../../components';
+import Loader from 'src/components/loader';
+import { UploadInput, StatusBanner, SubmitBtn } from '../../components';
 import { useUploadExtraInfo } from '../../hooks/step_4';
 import { useGetCompany } from '../../hooks';
-
-const StatusBanner = ({ readOnly, status }) => {
-  if (!readOnly) return null;
-
-  const statusConfig = {
-    approved: {
-      icon: <CheckCircleIcon />,
-      color: '#4caf50',
-      message: 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد',
-    },
-    rejected: {
-      icon: <CancelIcon />,
-      color: '#f44336',
-      message: 'این مرحله رد شده است و نیاز به بررسی مجدد دارد',
-    },
-  };
-
-  const { icon, color, message } = statusConfig[status] || {};
-  if (!icon) return null;
-
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        p: 2,
-        mb: 3,
-        borderRadius: 2,
-        backgroundColor: `${color}15`,
-        border: `1px solid ${color}40`,
-        color,
-      }}
-    >
-      {icon}
-      <Typography variant="body2" sx={{ ml: 1 }}>
-        {message}
-      </Typography>
-    </Box>
-  );
-};
-
-StatusBanner.propTypes = {
-  readOnly: PropTypes.bool,
-  status: PropTypes.string,
-};
 
 const ExtraInfo = ({ readOnly, status }) => {
   const { id } = useParams();
@@ -87,13 +43,27 @@ const ExtraInfo = ({ readOnly, status }) => {
     { id: 'tax_return', label: 'اظهارنامه مالیاتی', icon: '📊' },
     { id: 'salary_list_for_the_last_3_months', label: 'لیست حقوق 3 ماه اخیر', icon: '📑' },
     { id: 'trial_balance_current_year', label: 'تراز آزمایشی سال جاری', icon: '📈' },
-    { id: 'balance_sheet', label: 'ترازنامه', icon: '📋' },
-    { id: 'account_turnover', label: 'گردش حساب', icon: '💰' },
+    { id: 'balance_sheet', label: 'مجوز', icon: '📋' },
+    { id: 'account_turnover', label: 'گردش حساب(حساب اصلی)', icon: '💰' },
     { id: 'shareholder_list', label: 'لیست سهامداران', icon: '👥' },
     {
       id: 'three_recent_buying_and_selling_factors',
       label: 'سه فاکتور خرید و فروش اخیر',
       icon: '🧾',
+    },
+    {
+      id: 'company_articles_of_association',
+      label: 'سوابق اجرایی',
+      icon: '📄',
+    },
+  ];
+
+  const downloadTemplates = [
+    {
+      id: 'company_articles_of_association',
+      label: 'دانلود نمونه سوابق اجرایی',
+      file: '/resume.xlsx',
+      icon: '📄',
     },
   ];
 
@@ -132,11 +102,14 @@ const ExtraInfo = ({ readOnly, status }) => {
     uploadExtraInfo(formData);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleDownload = (fileUrl, fileName) => {
+    // Implement the download logic here
+    console.log(`Downloading file: ${fileUrl}`);
+  };
 
-  console.log('companyData', companyData);
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Paper
@@ -227,8 +200,9 @@ const ExtraInfo = ({ readOnly, status }) => {
             {uploadLabels.map((item) => {
               const preloadedFile = companyData?.investor_request?.[item.id];
               const fileUrl = preloadedFile ? OnRun + preloadedFile : null;
-              console.log('fileUrl', fileUrl);
-              console.log('preloadedFile', preloadedFile);
+              const downloadTemplate = downloadTemplates.find(
+                (template) => template.id === item.id
+              );
 
               return (
                 <Grid item xs={12} md={6} key={item.id}>
@@ -258,10 +232,25 @@ const ExtraInfo = ({ readOnly, status }) => {
                           {item.label}
                         </Typography>
                       </Box>
-                      {files[item.id] && (
-                        <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
-                          ✓ فایل انتخاب شد
-                        </Typography>
+                      {downloadTemplate && (
+                        <Box
+                          onClick={() =>
+                            handleDownload(downloadTemplate.file, `template_${downloadTemplate.id}`)
+                          }
+                          sx={{
+                            cursor: 'pointer',
+                            color: pastelBlue.dark,
+                            fontSize: '0.85rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 0.5,
+                            '&:hover': {
+                              textDecoration: 'underline',
+                            },
+                          }}
+                        >
+                          دانلود نمونه 📥
+                        </Box>
                       )}
                     </Box>
                     <UploadInput
@@ -283,62 +272,7 @@ const ExtraInfo = ({ readOnly, status }) => {
       </Box>
 
       {!readOnly && (
-        <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <motion.button
-            onClick={handleSubmit}
-            disabled={isPending}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              background: `linear-gradient(to right, ${pastelBlue.dark}, #4a6da7)`,
-              color: 'white',
-              padding: '12px 32px',
-              borderRadius: '8px',
-              fontWeight: 500,
-              border: 'none',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              cursor: isPending ? 'not-allowed' : 'pointer',
-              opacity: isPending ? 0.7 : 1,
-              transition: 'all 0.2s',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {isPending ? (
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div
-                  style={{
-                    animation: 'spin 1s linear infinite',
-                    height: '20px',
-                    width: '20px',
-                    marginLeft: '8px',
-                    border: '2px solid white',
-                    borderTop: '2px solid transparent',
-                    borderRadius: '50%',
-                  }}
-                />
-                در حال ارسال...
-              </span>
-            ) : (
-              <>
-                ثبت و ادامه
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ height: '20px', width: '20px', marginRight: '8px' }}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </>
-            )}
-          </motion.button>
-        </Box>
+        <SubmitBtn handleSubmit={handleSubmit} isPending={isPending} pastelBlue={pastelBlue} />
       )}
     </Paper>
   );

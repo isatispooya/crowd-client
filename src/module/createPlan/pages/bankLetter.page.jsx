@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import QRCode from 'react-qr-code';
 import { useSearchParams } from 'react-router-dom';
 import { formatNumber } from 'src/utils/formatNumbers';
-import PrintableLayout from 'src/layouts/printableLayout';
+import PrintableLayout from 'src/module/createPlan/layouts/printableLayout';
 import Loader from 'src/components/loader';
 import moment from 'moment';
 import { useBankLetter } from '../hooks';
@@ -56,7 +56,7 @@ const BankLetterPage = () => {
     { label: 'پیوست', value: 'ندارد' },
   ];
 
-  const title = `ریاست محترم ${bankLetter?.bank} ایران شعبه مرکزی ${bankLetter?.bank_branch} (کد شعبه ${bankLetter?.bank_branch_code})`;
+  const title = `ریاست محترم ${bankLetter?.bank} ایران شعبه  ${bankLetter?.bank_branch} (کد شعبه ${bankLetter?.bank_branch_code})`;
   const subtitle = `موضوع: اخذ مجوز صدور ضمانت نامه تعهد پرداخت برای شرکت ${bankLetter?.company_name}`;
 
   const qrCodeComponent = (
@@ -102,23 +102,22 @@ const BankLetterPage = () => {
         className="bg-gray-50 p-5 rounded-lg shadow-sm text-sm border border-gray-100"
       >
         <p className="text-gray-800 leading-relaxed">
-          با سلام و مراتب احترام، به استحضار میرساند با توجه به درخواست شرکت{' '}
-          {bankLetter?.company_name}
-          ایساتیس (سهامی خاص) به شناسه ملی {bankLetter?.company_national_id} مبنی بر تأمین مالی آن
-          شرکت محترم به مبلغ {formatNumber(bankLetter?.amount_of_investment)} از طریق انتشار و فروش
-          گواهی های شراکت تأمین مالی جمعی، مطابق قرارداد عاملیت به شماره 137022464511/11/03 مورخ
-          {agencyAgreementDate} و قرارداد به شماره {bankLetter?.contract_number} آن شرکت متعهد به
-          ارائه و قرارداد اقدامات اجرایی به شماره {bankLetter?.contract_number} آن شرکت متعهد به
-          ارائه یک فقره ضمانتنامه تعهد پرداخت بانکی برابر اصل مبلغ تامین مالی به مبلغ{' '}
-          {formatNumber(bankLetter?.amount_of_investment)}
-          با اعتبار 12 ماهه و با قابلیت تمدید به درخواست ذینفع و با قابلیت دریافت مبلغ ضمانت نامه به
-          صورت عندالمطالبه (به محض تقاضای ذینفع) و به دفعات میباشد. موضوع ضمانت نامه بابت تضمین
-          پرداخت دیونی که ضمانت خواه به موجب قرارداد مذکور بر عهده می گیرد، می باشد، لذا خواهشمند
-          است مراتب مورد بررسی قرار گرفته و جهت صدور ضمانت نامه تعهد پرداخت به ذینفعی شرکت سبدگردان
-          ایساتیس پویا کیش به شماره ثبت 13702 شناسه ملی 14007805556 و کد اقتصادی 411615733645 و به
-          نشانی یزد - بلوار جمهوری اسلامی، کوچه شرق، ساختمان بورس، نیم طبقه و کد پستی 8917957914
-          اقدام فرمایید.( شماره شبای متعلق به شرکتسبد گردان ایساتیس پویا کیش نزد بانک پاسارگاد شعبه
-          بلوار جمهوری یزد 470570300211515884588001IR)
+          با سلام و مراتب احترام، به استحضار می‌رساند با توجه به درخواست شرکت{' '}
+          {bankLetter?.company_name} (سهامی خاص) به شناسه ملی {bankLetter?.company_national_id} مبنی
+          بر تأمین مالی آن شرکت محترم به مبلغ {formatNumber(bankLetter?.amount_of_investment)}{' '}
+          میلیون ریال از طریق انتشار و فروش گواهی‌های شراکت تأمین مالی جمعی، مطابق قرارداد عاملیت به
+          شماره ۱۳۷۰۲۲۴۶۴۵۱۱/۱۱/۰۳ مورخ {agencyAgreementDate} و قرارداد به شماره{' '}
+          {bankLetter?.contract_number}، آن شرکت متعهد به ارائه اقدامات اجرایی و یک فقره ضمانت‌نامه
+          تعهد پرداخت بانکی برابر اصل مبلغ تأمین مالی به مبلغ{' '}
+          {formatNumber(bankLetter?.amount_of_investment)} میلیون ریال با اعتبار ۱۲ ماهه و با قابلیت
+          تمدید به درخواست ذی‌نفع و با قابلیت دریافت مبلغ ضمانت‌نامه به صورت عندالمطالبه (به محض
+          تقاضای ذی‌نفع) و به دفعات می‌باشد. موضوع ضمانت‌نامه بابت تضمین پرداخت دیونی که ضمانت‌خواه
+          به موجب قرارداد مذکور بر عهده می‌گیرد، می‌باشد. لذا خواهشمند است مراتب مورد بررسی قرار
+          گرفته و جهت صدور ضمانت‌نامه تعهد پرداخت به ذی‌نفعی شرکت سبدگردان ایساتیس پویا کیش به شماره
+          ثبت ۱۳۷۰۲، شناسه ملی ۱۴۰۰۷۸۰۵۵۵۶ و کد اقتصادی ۴۱۱۶۱۵۷۳۳۶۴۵ و به نشانی یزد - بلوار جمهوری
+          اسلامی، کوچه شرق، ساختمان بورس، نیم طبقه و کد پستی ۸۹۱۷۹۵۷۹۱۴ اقدام فرمایید. (شماره شبای
+          متعلق به شرکت سبدگردان ایساتیس پویا کیش نزد بانک پاسارگاد شعبه بلوار جمهوری یزد
+          IR470570300211515884588001)
         </p>
       </motion.div>
     </PrintableLayout>

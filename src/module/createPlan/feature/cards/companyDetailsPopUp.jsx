@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useInvestor } from '../hooks';
-import { backdroppVariants, dialogVariants } from '../animations';
+import { useInvestor } from '../../hooks';
+import { backdroppVariants, dialogVariants } from '../../animations';
 import BoardMembersSection from './BoardMembersSection';
-import { InfoItem } from '../components';
+import { InfoItem } from '../../components';
 
 const CompanyDetailsPopUp = ({ isOpen, onClose, data }) => {
   const { mutate: mutateInvestor } = useInvestor();

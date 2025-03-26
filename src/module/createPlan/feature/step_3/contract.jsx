@@ -3,59 +3,14 @@ import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { HiDocument, HiArrowUpTray, HiChevronLeft, HiArrowRight } from 'react-icons/hi2';
+import { HiDocument, HiArrowUpTray, HiChevronLeft } from 'react-icons/hi2';
 import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { OnRun } from 'src/api/OnRun';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { UploadInput } from '../../components';
+import { OnRun } from 'src/api/OnRun';
+import { SubmitBtn, UploadInput, StatusBanner } from '../../components';
 import { useUploadContract } from '../../hooks/step_3';
 import { useGetCompany } from '../../hooks';
-
-const StatusBanner = ({ readOnly, status }) => {
-  if (!readOnly) return null;
-
-  let icon;
-  let color;
-  let message;
-
-  if (status === 'approved') {
-    icon = <CheckCircleIcon />;
-    color = '#4caf50';
-    message = 'این مرحله تایید شده است و قابل ویرایش نمی‌باشد';
-  } else if (status === 'rejected') {
-    icon = <CancelIcon />;
-    color = '#f44336';
-    message = 'این مرحله رد شده است و نیاز به بررسی مجدد دارد';
-  } else {
-    return null;
-  }
-
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        p: 2,
-        mb: 3,
-        borderRadius: 2,
-        backgroundColor: `${color}15`,
-        border: `1px solid ${color}40`,
-        color,
-      }}
-    >
-      {icon}
-      <Typography variant="body2" sx={{ ml: 1 }}>
-        {message}
-      </Typography>
-    </Box>
-  );
-};
-
-StatusBanner.propTypes = {
-  readOnly: PropTypes.bool,
-  status: PropTypes.string,
-};
 
 const Contract = ({ readOnly, status }) => {
   const { id } = useParams();
@@ -80,7 +35,6 @@ const Contract = ({ readOnly, status }) => {
 
   const links = [
     { id: 1, title: 'قرارداد عاملیت', path: `/agencyContract/?uuid=${uuid}`, icon: '📄' },
-    { id: 2, title: 'نامه حسابرسی', path: '/contracts/premium', icon: '📋' },
     { id: 3, title: 'نامه بانکی', path: `/bankLetter/?uuid=${uuid}`, icon: '📑' },
   ];
 
@@ -115,8 +69,6 @@ const Contract = ({ readOnly, status }) => {
   const handleFileChange = (id, file) => {
     if (readOnly) return;
 
-    console.log(`File selected for ${id}:`, file);
-
     if (!file) {
       console.error(`No file selected for ${id}`);
       return;
@@ -127,7 +79,7 @@ const Contract = ({ readOnly, status }) => {
         ...prev,
         [id]: file,
       };
-      console.log('Updated files state:', updatedFiles);
+
       return updatedFiles;
     });
   };
@@ -137,8 +89,6 @@ const Contract = ({ readOnly, status }) => {
 
     const formData = new FormData();
 
-    console.log('Current files state before submission:', files);
-
     Object.entries(files).forEach(([key, file]) => {
       if (file) {
         formData.append(key, file);
@@ -146,8 +96,6 @@ const Contract = ({ readOnly, status }) => {
         console.warn(`No file for ${key}, skipping...`);
       }
     });
-
-
 
     uploadContract(formData);
   };
@@ -158,6 +106,38 @@ const Contract = ({ readOnly, status }) => {
     { id: 'auditor_response', label: 'پاسخ حسابرس', icon: '📈' },
     { id: 'warranty', label: 'ضمانت نامه', icon: '🔒' },
   ];
+
+  const downloadTemplates = [
+    {
+      id: 'account_number_letter',
+      label: 'دانلود نمونه نامه شماره حساب',
+      file: '/account.docx',
+      icon: '📝',
+    },
+    {
+      id: 'financial_exel',
+      label: 'دانلود نمونه اکسل مالی',
+      file: '/finnancial.xlsx',
+      icon: '📊',
+    },
+  ];
+
+  const handleDownload = async (fileUrl, filename) => {
+    try {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+
+      setTimeout(() => {
+        document.body.removeChild(link);
+      }, 100);
+    } catch (error) {
+      console.error('خطای دانلود:', error);
+      alert(`خطا در دانلود فایل: ${error.message}`);
+    }
+  };
 
   return (
     <Paper
@@ -331,6 +311,9 @@ const Contract = ({ readOnly, status }) => {
             {uploadLabels.map((item, index) => {
               const preloadedFile = companyData?.investor_request?.[item.id];
               const fileUrl = preloadedFile ? OnRun + preloadedFile : null;
+              const downloadTemplate = downloadTemplates.find(
+                (template) => template.id === item.id
+              );
 
               return (
                 <motion.div
@@ -364,10 +347,25 @@ const Contract = ({ readOnly, status }) => {
                         {item.label}
                       </Typography>
                     </Box>
-                    {files[item.id] && (
-                      <Typography sx={{ color: 'success.main', fontSize: '0.85rem' }}>
-                        ✓ فایل انتخاب شد
-                      </Typography>
+                    {downloadTemplate && (
+                      <Box
+                        onClick={() =>
+                          handleDownload(downloadTemplate.file, `template_${downloadTemplate.id}`)
+                        }
+                        sx={{
+                          cursor: 'pointer',
+                          color: pastelBlue.dark,
+                          fontSize: '0.85rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 0.5,
+                          '&:hover': {
+                            textDecoration: 'underline',
+                          },
+                        }}
+                      >
+                        دانلود نمونه 📥
+                      </Box>
                     )}
                   </Box>
                   <UploadInput
@@ -385,51 +383,7 @@ const Contract = ({ readOnly, status }) => {
       </Box>
 
       {!readOnly && (
-        <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <motion.button
-            onClick={handleSubmit}
-            disabled={isPending}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              background: `linear-gradient(to right, ${pastelBlue.dark}, #4a6da7)`,
-              color: 'white',
-              padding: '12px 32px',
-              borderRadius: '8px',
-              fontWeight: 500,
-              border: 'none',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              cursor: isPending ? 'not-allowed' : 'pointer',
-              opacity: isPending ? 0.7 : 1,
-              transition: 'all 0.2s',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {isPending ? (
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div
-                  style={{
-                    animation: 'spin 1s linear infinite',
-                    height: '20px',
-                    width: '20px',
-                    marginLeft: '8px',
-                    border: '2px solid white',
-                    borderTop: '2px solid transparent',
-                    borderRadius: '50%',
-                  }}
-                />
-                در حال ارسال...
-              </span>
-            ) : (
-              <>
-                ثبت و ادامه
-                <HiArrowRight style={{ height: '20px', width: '20px', marginRight: '8px' }} />
-              </>
-            )}
-          </motion.button>
-        </Box>
+        <SubmitBtn handleSubmit={handleSubmit} isPending={isPending} pastelBlue={pastelBlue} />
       )}
     </Paper>
   );

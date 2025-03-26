@@ -42,7 +42,7 @@ const Descript = () => {
   const { data, isPending, error } = useGetPlan(traceCode);
   const { data: picture, isLoading: loadingpicture } = usePicure(traceCode);
 
-  console.log(data?.information_complete?.viedo);
+
   
 
  

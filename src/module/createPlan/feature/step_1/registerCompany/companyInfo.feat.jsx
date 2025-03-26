@@ -41,7 +41,7 @@ const CompanyInfo = ({ pastelBlue }) => {
         removeFile('financial_statement');
       }
     } else {
-      resetStore(); 
+      resetStore();
     }
   }, [companyData, removeFile, resetStore, setFile]);
 
@@ -67,7 +67,7 @@ const CompanyInfo = ({ pastelBlue }) => {
       name: 'logo',
       label: 'لوگو شرکت',
       hint: 'فایل لوگو باید به فرمت PNG یا JPEG باشد.',
-      accept: '.pdf,image/*',
+      accept: '.png, .jpg, .jpeg, image/*',
     },
     {
       name: 'credit',

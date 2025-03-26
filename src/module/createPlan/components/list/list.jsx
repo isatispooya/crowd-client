@@ -15,7 +15,7 @@ const List = ({
   const uploadFields = [
     { label: 'کارت ملی', type: 'national_cart', icon: '🪪' },
     { label: 'شناسنامه', type: 'birth_certificate', icon: '📄' },
-    { label: 'سوء پیشینه', type: 'previous_article', icon: '📋' },
+    { label: 'سوء پیشینه (یک ماه اعتبار)', type: 'previous_article', icon: '📋' },
     { label: 'اعتبار سنجی', type: 'validation_report', icon: '✅' },
   ];
 

@@ -76,7 +76,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
   const validateForm = (data) => {
     const errors = {};
 
-    console.log('Validating form data:', data);
+
 
     if (!data.bank && data.bank !== 0) {
       errors.bank = 'لطفاً نام بانک را وارد کنید';
@@ -121,9 +121,6 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
     if (!data.financial_statement || !(data.financial_statement instanceof File)) {
       errors.financial_statement = 'لطفاً صورت‌های مالی را آپلود کنید';
     }
-
-    console.log('Validation errors:', errors);
-
     return errors;
   };
 
@@ -151,19 +148,14 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       const formData = new FormData();
 
       if (data.logo && data.logo instanceof File) {
-        console.log(
-          'Adding logo file to FormData:',
-          data.logo.name,
-          data.logo.type,
-          data.logo.size
-        );
+
         formData.append('logo', data.logo);
       } else if (data.logo) {
         console.warn('Logo exists but is not a File object:', typeof data.logo);
       }
 
       if (data.validation_report && data.validation_report instanceof File) {
-        console.log('Adding validation report to FormData:', data.validation_report.name);
+    
         formData.append('validation_report', data.validation_report);
       } else if (data.validation_report) {
         console.warn(
@@ -173,7 +165,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       }
 
       if (data.financial_statement && data.financial_statement instanceof File) {
-        console.log('Adding financial statement to FormData:', data.financial_statement.name);
+
         formData.append('financial_statement', data.financial_statement);
       } else if (data.financial_statement) {
         console.warn(
@@ -192,16 +184,11 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
         formData.append('amount_of_investment', data.amount_of_investment.toString());
       }
 
-      console.log('Sending FormData with files:');
+   
       Array.from(formData.entries()).forEach(([key, value]) => {
-        if (value instanceof File) {
-          console.log(`${key}: File - ${value.name} (${value.type}, ${value.size} bytes)`);
-        } else {
-          console.log(`${key}: ${value}`);
-        }
+
       });
 
-      console.log('Submitting form data...');
       mutate(formData, {
         onSuccess: (response) => {
           toast.success('اطلاعات با موفقیت ثبت شد');

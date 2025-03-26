@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { LogoSabad, TypeLogo } from '../module/createPlan/assets';
+import { LogoSabad, TypeLogo } from '../assets';
 
 const PrintableLayout = ({
   children,
@@ -133,8 +133,11 @@ const PrintableLayout = ({
               <div className="w-6/12">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm"
+                  className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm relative"
                 >
+                  <p className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-xs font-bold text-gray-700 p-1 rounded shadow-md">
+                    مدیر عامل سبدگردانی محسن زارعیان
+                  </p>
                   <img
                     src={signatureImage}
                     alt="امضای بانک"

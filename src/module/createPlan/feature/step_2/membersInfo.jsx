@@ -7,51 +7,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { OnRun } from 'src/api/OnRun';
 import { useGetCompany, useMembers } from '../../hooks';
 import MembersList from '../../components/list/list';
-
-const StatusBanner = ({ readOnly, status }) => {
-  if (!readOnly) return null;
-
-  let icon;
-  let color;
-  let message;
-
-  if (status === 'approved') {
-    icon = <CheckCircleIcon />;
-    color = '#4caf50';
-    message = 'اطلاعات هیئت مدیره تایید شده است';
-  } else if (status === 'rejected') {
-    icon = <CancelIcon />;
-    color = '#f44336';
-    message = 'اطلاعات هیئت مدیره رد شده است و نیاز به بررسی مجدد دارد';
-  } else {
-    return null;
-  }
-
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        p: 2,
-        mb: 3,
-        borderRadius: 2,
-        backgroundColor: `${color}15`,
-        border: `1px solid ${color}40`,
-        color,
-      }}
-    >
-      {icon}
-      <Typography variant="body2" sx={{ ml: 1 }}>
-        {message}
-      </Typography>
-    </Box>
-  );
-};
-
-StatusBanner.propTypes = {
-  readOnly: PropTypes.bool,
-  status: PropTypes.string,
-};
+import { StatusBanner } from '../../components';
 
 const MembersInfo = ({ readOnly, status }) => {
   const { id } = useParams();
@@ -97,8 +53,7 @@ const MembersInfo = ({ readOnly, status }) => {
             : null,
         };
       });
-      console.log('Company Members:', company_members);
-      console.log('Preloaded Files:', preloadedFiles);
+
       setMembersFiles(preloadedFiles);
     }
   }, [company_members]);
