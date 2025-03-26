@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 
 const Page1 = ({ agencyContract, qrValue }) => {
   if (!agencyContract) return null;
+  console.log(agencyContract);
 
   return (
     <div className="contract-page page-1">
@@ -22,10 +23,24 @@ const Page1 = ({ agencyContract, qrValue }) => {
           {agencyContract.company?.economic_code || 'تعیین نشده'}، و شماره ثبت{' '}
           {agencyContract.company?.registration_number || 'تعیین نشده'} نزد{' '}
           {agencyContract.company?.registration_unit || 'تعیین نشده'}، به نشانی{' '}
-          {agencyContract.company?.address || 'تعیین نشده'}، کدپستی 1476785514، شماره تماس
-          02144611693، و با نمایندگی آقای شهرام صالحی نوع پرور به شماره ملی 0050104861 به سمت رئیس
-          هیئت‌مدیره و مدیرعامل بر اساس روزنامه رسمی شماره 23115 مورخ 15/05/1403 که در این قرارداد،
-          «متقاضی» نامیده می شود، از یک طرف،
+          {agencyContract.company?.address || 'تعیین نشده'}، کدپستی{' '}
+          {agencyContract.company?.postal_code || 'تعیین نشده'}، شماره تماس{' '}
+          {agencyContract.company?.tel || 'تعیین نشده'}، و با نمایندگی{' '}
+          {agencyContract.company_members
+            ?.filter(member => member.signature === true)
+            .map((member, index, filteredArray) => (
+              <React.Fragment key={member.id}>
+                {member.gender === 'True' ? 'آقای' : 'خانم'} {member.person_title} به شماره ملی{' '}
+                {member.uniqueIdentifier}
+                {member.signature_document && ` و شماره سند امضا ${member.signature_document}`} به سمت{' '}
+                {member.first_role}
+                {member.second_role && ` و ${member.second_role}`}
+                {index < filteredArray.length - 1 ? ' و ' : ''}
+              </React.Fragment>
+            ))}{' '}
+          بر اساس روزنامه رسمی شماره {agencyContract.company_members[0]?.by_news_id} مورخ{' '}
+          {new Date(agencyContract.company_members[0]?.start_date).toLocaleDateString('fa-IR')} که
+          در این قرارداد، «متقاضی» نامیده می شود، از یک طرف،
         </p>
 
         <p className="mb-3 pr-4">
@@ -34,7 +49,7 @@ const Page1 = ({ agencyContract, qrValue }) => {
           و موسسات تجاری استان هرمزگان، به نشانی کیش، میدان امیرکبیر، برج مالی آنا، طبقه 4 واحد 44
           شماره تلفن 076-44480555 و کدپستی 7941757334 و با نمایندگی آقای سید علی محمد خبیری به شماره
           ملی 4431535474 به سمت عضو هیئت مدیره و آقای محسن زارعیان به شماره ملی 4431855416 به سمت
-          مدیرعامل، صاحبان امضای مجاز بر اساس روزنامه رسمی شماره22670، مورخ 24/10/1401 که از این پس
+          مدیرعامل، صاحبان امضای مجاز بر اساس روزنامه رسمی شماره22670، مورخ 1401/10/24 که از این پس
           و در این قرارداد، «عامل» نامیده می شود. به وكالت از طرف دارندگان گواهي هاي شراكت جهت تأمين
           منابع مالي مورد نياز متقاضي، براسـاس مجوز صـادره توسـط شـركت فرابورس به نامه شـمارة
           1008438/5/03 مورخ 15/05/1403 از طرف ديگر،
@@ -56,7 +71,7 @@ const Page1 = ({ agencyContract, qrValue }) => {
 
         {/* <p className="mb-3 pr-4">
           <span className="font-bold">3)فراخوان جمع آوری وجه:</span>
-          منظور فرایندي است‌ که‌ ”عامل‌“ نسبت‌ به‌ تأمین‌ مالی‌ طرح در یک‌ بازه زمانی‌ مشخص‌ اقدام
+          منظور فرایندي است‌ که‌ "عامل" نسبت‌ به‌ تأمین‌ مالی‌ طرح در یک‌ بازه زمانی‌ مشخص‌ اقدام
           می‌نماید. مدت زمان مذکور با صلاحدید عامل‌ می‌تواند تمدید گردد.
         </p> */}
 
