@@ -6,21 +6,21 @@ const Page6 = ({ agencyContract }) => {
 
   return (
     <div className="contract-page page-1">
-      <div className="text-justify leading-relaxed text-sm">
-        <table className="table-auto w-full text-center border-collapse border border-gray-300">
+      <div className="text-justify leading-relaxed text-[10px]">
+        <table className="table-auto w-full text-center border-collapse border border-gray-300 text-[10px]">
           <thead>
             <tr>
-              <th className="border border-gray-300">ردیف</th>
-              <th className="border border-gray-300">شرایط</th>
-              <th className="border border-gray-300">توضیحات</th>
+              <th className="border border-gray-300 text-[10px]">ردیف</th>
+              <th className="border border-gray-300 text-[10px]">شرایط</th>
+              <th className="border border-gray-300 text-[10px]">توضیحات</th>
             </tr>
           </thead>
 
           <tbody className="border border-gray-300">
             <tr>
-              <td className="border border-gray-300">11</td>
-              <td className="border border-gray-300">مدت فراخوان جمع‌آوری وجوه</td>
-              <td className="border border-gray-300">
+              <td className="border border-gray-300 text-[10px]">11</td>
+              <td className="border border-gray-300 text-[10px]">مدت فراخوان جمع‌آوری وجوه</td>
+              <td className="border border-gray-300 text-[10px]">
                 مدت فراخوان جمع آوري وجوه به تشخيص عامل تعيين ميگردد اين دوره با نظر عامل براي يك
                 مرتبه قابل تمديد است. لازم به ذكر است تاريخ شروع جمع آوري وجوه از طريق نامه كتبي به
                 استحضار متقاضي خواهد رسيد.
@@ -29,9 +29,11 @@ const Page6 = ({ agencyContract }) => {
           </tbody>
           <tbody className="border border-gray-300">
             <tr>
-              <td className="border border-gray-300">12</td>
-              <td className="border border-gray-300">شرط پرداخت وجوه تامین مالی به حساب متقاضی</td>
-              <td className="border border-gray-300">
+              <td className="border border-gray-300 text-[10px]">12</td>
+              <td className="border border-gray-300 text-[10px]">
+                شرط پرداخت وجوه تامین مالی به حساب متقاضی
+              </td>
+              <td className="border border-gray-300 text-[10px]">
                 عامل پس از اخذ استعلام هاي لازم از تضامين مندرج در رديف 9 اين جدول و چك هاي پرداخت
                 اقساط مندرج در رديف 5 اين جدول و كسب اطمينان از صحت اسناد ياد شده، وجوه جمع آوري شده
                 را حداكثر طي دو روز كاري به حساب اعلام شده از سوي متقاضي واريز مي نمايد لذا متقاضي
@@ -54,9 +56,9 @@ const Page6 = ({ agencyContract }) => {
 
           <tbody className="border border-gray-300">
             <tr>
-              <td className="border border-gray-300">13</td>
-              <td className="border border-gray-300">ارائه گزارشات</td>
-              <td className="border border-gray-300">
+              <td className="border border-gray-300 text-[10px]">13</td>
+              <td className="border border-gray-300 text-[10px]">ارائه گزارشات</td>
+              <td className="border border-gray-300 text-[10px]">
                 متقاضي متعهد است نسبت به ارائة گزارش عملكرد از پيشرفت فيزيكي-ريالي اجراي طرح به صورت
                 سه ماهه و ارائه صورتهاي مالي طرح (حسابرسي نشده) به صورت شش ماهه و ارائة صورتهاي مالي
                 طرح (حسابرسي شده توسط حسابرس) در انتهاي دوره اقدام نمايد.
@@ -66,16 +68,16 @@ const Page6 = ({ agencyContract }) => {
         </table>
         <br />
 
-        <h3 className="font-bold mb-2">ماده 6) مدت قرارداد </h3>
-        <p className="mb-2">
+        <h3 className="font-bold mb-2 text-[10px]">ماده 6) مدت قرارداد </h3>
+        <p className="mb-2 text-[10px]">
           اين قرارداد از زمان امضاي قرارداد، تا 15 روز كاري پس از اتمام مدت فراخوان جمع آوري وجوه از
           اعتبار قانوني برخوردار است. زمان قرارداد به صلاحديد عامل به طور خودكار و طي ارسال نامه
           كتبي به متقاضي قابل تمديد است.{' '}
         </p>
 
-        <h3 className="font-bold mb-2">ماده 7)تعهدات و تأییدات متقاضی </h3>
-        <p className="mb-3 pr-4">
-          <span className="font-bold">1)</span>
+        <h3 className="font-bold mb-2 text-[10px]">ماده 7)تعهدات و تأییدات متقاضی </h3>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">1)</span>
           متقاضي تعهد مي نمايد نسبت به معرفي نماينده يا نمايندگاني به عامل به منظور انجام اقدامات
           لازم از سوي متقاضي، حداكثر سه روز پس از شروع قرارداد، اقدام نمايد.
         </p>

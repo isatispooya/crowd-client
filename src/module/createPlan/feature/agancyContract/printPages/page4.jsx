@@ -22,12 +22,14 @@ const Page4 = ({ agencyContract }) => {
               متقاضی متعهد است پیش از اقدام عامل برای اخذ مجوز انتشار گواهی های شراکت از شرکت
               فرابورس ایران،{' '}
               {(
-                Number(agencyContract.investor_request.amount_of_investment || 0) * 0.1
-              ).toLocaleString()}
+                (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
+                0.1
+              ).toLocaleString()}{"میلیون ریال"}
               معادل 10 درصد مبلغ کل تامین مالی (ردیف 1) را به شماره حساب 3002115158845881 و شماره
               شبا 4705703002115158845881 IR نزد بانک پاسارگاد شعبه جمهوری یزد به نام شرکت سبدگردان
-              ایساتیس پویا کیش واریز نماید. تبصره2: در صورت عدم واریز آورده متقاضی حداکثر طی 5 روز
-              کاری از زمان درخواست عامل، عامل مخیر به فسخ قرارداد است و متقاضی متعهد به اجرای بند
+              ایساتیس پویا کیش واریز نماید.
+              <br /> تبصره2: در صورت عدم واریز آورده متقاضی حداکثر طی 5 روز کاری از زمان درخواست
+              عامل، عامل مخیر به فسخ قرارداد است و متقاضی متعهد به اجرای بند 2-1 ماده 9 این قرارداد
               2-1 ماده 9 این قرارداد می باشد.
             </td>
           </tr>
@@ -39,8 +41,9 @@ const Page4 = ({ agencyContract }) => {
             <td className="border border-gray-300">خالص مبلغ تامین مالی </td>
             <td className="border border-gray-300">
               {(
-                Number(agencyContract.investor_request.amount_of_investment || 0) * 0.9
-              ).toLocaleString()}
+                (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
+                0.9
+              ).toLocaleString()}{"میلیون ریال"}
               میلیون ریال، معادل 90 درصد مبلغ کل تامین مالی
             </td>
           </tr>
@@ -51,7 +54,7 @@ const Page4 = ({ agencyContract }) => {
             <td className="border border-gray-300">4</td>
             <td className="border border-gray-300"> دوره بازپرداخت اقساط</td>
             <td className="border border-gray-300">
-              {Number(agencyContract.investor_request.duration_of_plan || 0).toLocaleString()}
+              {Number(agencyContract.investor_request.duration_of_plan  || 0).toLocaleString()}
               ماه
             </td>
           </tr>

@@ -6,15 +6,15 @@ const Page3 = ({ agencyContract }) => {
 
   return (
     <div className="contract-page page-1">
-      <div className="text-justify leading-relaxed text-sm">
-        <p className="mb-3 pr-4">
-          <span className="font-bold">4)</span>
+      <div className="text-justify leading-relaxed text-[10px]">
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">ماده 4(کارمزد موضوع قرارداد))</span>
           ارائۀ خدمات بازارسازی به متقاضی از طریق طراحی و برنامه‌ریزی کمپین‌های تبلیغاتی به منظور
           فروش گواهی‌های شراکت به اشخاص حقیقی و حقوقی
         </p>
 
         <p className="mb-2">
-          كارمزد ارائة خدمات موضوع مادة ٣ ( موضوعات 1،2 و3) اين قرارداد توسط عامل، جمعا{' '}
+          كارمزد ارائة خدمات موضوع ماده ٣ ( موضوعات 1و2و3) اين قرارداد توسط عامل، جمعا{' '}
           {(
             Number(agencyContract.investor_request.marketing_wage || 0) +
             Number(agencyContract.investor_request.company_certificate_wage || 0) +
@@ -32,12 +32,10 @@ const Page3 = ({ agencyContract }) => {
           كارمزد طراحي شيوه تأمين مالي و تهيه گزارش توجيهي، جهت انتشار و فروش گواهي شراكت،{' '}
           {Number(agencyContract.investor_request.design_wage || 0).toLocaleString()}كه متقاضي متعهد
           است همزمان با امضاي قرارداد، در قالب نقدي در وجه عامل به حساب شماره 3002.115.15884588.1 و
-          شماره شبا4705703002115158845881IR بانك پاسارگاد شعبه بلوار جمهوری یزد به نام شركت سبدگردان
-          ایساتیس پویا کیش واريز نمايد.
+          شماره شبا 4705703002115158845881 به نام شركت سبدگردان ایساتیس پویا کیش واريز نمايد IR.
         </p>
-
         <p className="mb-3 pr-4">
-          <span className="font-bold">تبصره1</span>
+          <span className="font-bold">:تبصره1</span>
           در صورت عدم واريز كارمزد بند 4-1 اين ماده حداكثر طي 10 روز كاري از تاريخ اين قرارداد، عامل
           تعهدي نسبت به انجام موضوع قرارداد نداشته و مخير به فسخ قرارداد ميباشد و متقاضي متعهد به
           اجراي بند ١-١ مادة ٩ اين قرارداد ميباشد.
@@ -56,25 +54,25 @@ const Page3 = ({ agencyContract }) => {
           پس از موفقت در جمع آوری وجوه به حساب عامل به صورت نقدی پرداخت می نماید.
         </p>
 
-        <h3 className="font-bold mb-2">ماده5 ) شرایط انتشار گواهی شراکت</h3>
+        <h3 className="font-bold mb-2 text-[10px]">ماده5 ) شرایط انتشار گواهی شراکت</h3>
         <p className="mb-2">
           متقاضي تمامي شرايط انتشار گواهي شراكت موضوع قرارداد را به شرح جدول اين ماده تأييد مي نمايد
           و متعهد به ايفاي تمامي تعهدات مندرج در جدول ذیل ميباشد:{' '}
         </p>
       </div>
-      <table className="table-auto w-full text-center border-collapse border border-gray-300">
+      <table className="table-auto w-full text-center border-collapse border border-gray-300 text-[10px]">
         <thead>
           <tr>
-            <th className="border border-gray-300">ردیف</th>
-            <th className="border border-gray-300">شرایط</th>
-            <th className="border border-gray-300">توضیحات</th>
+            <th className="border border-gray-300 text-[10px]">ردیف</th>
+            <th className="border border-gray-300 text-[10px]">شرایط</th>
+            <th className="border border-gray-300 text-[10px]">توضیحات</th>
           </tr>
         </thead>
         <tbody className="border border-gray-300">
           <tr>
-            <td className="border border-gray-300">1</td>
-            <td className="border border-gray-300">مبلغ کل تامین مالی</td>
-            <td className="border border-gray-300">
+            <td className="border border-gray-300 text-[10px]">1</td>
+            <td className="border border-gray-300 text-[10px]">مبلغ کل تامین مالی</td>
+            <td className="border border-gray-300 text-[10px]">
               {Number(agencyContract.investor_request.amount_of_investment || 0).toLocaleString()}
             </td>
           </tr>

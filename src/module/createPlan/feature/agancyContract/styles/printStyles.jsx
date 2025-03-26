@@ -22,4 +22,4 @@ const PrintStyles = () => {
   return <style>{printStyles}</style>;
 };
 
-export default PrintStyles; 
+export default PrintStyles;

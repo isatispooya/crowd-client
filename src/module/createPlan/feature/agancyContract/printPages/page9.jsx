@@ -6,50 +6,50 @@ const Page9 = ({ agencyContract }) => {
 
   return (
     <div className="contract-page page-1">
-      <div className="text-justify leading-relaxed text-sm">
-        <p className="mb-3 pr-4">
-          <span className="font-bold">تبصره 16</span>
+      <div className="text-justify leading-relaxed text-[10px]">
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">تبصره 16</span>
           فروش گواهي هاي شراكت منوط به تأييد طرح توسط شركت فرابورس ايران است. در صورت عدم تأييد طرح،
           عامل تعهدي نسبت به فروش گواهي هاي شراكت نخواهد داشت و كارمزد بند 4-3 مادة ٤ اين قرارداد به
           متقاضي عودت داده مي شود و قرارداد خاتمه مييابد.
         </p>
 
-        <p className="mb-3 pr-4">
-          <span className="font-bold">2)</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">2)</span>
           عامل هيچگونه مسئوليت و تعهدي در خصوص موفقيت كمپين ندارد.
         </p>
 
-        <p className="mb-3 pr-4">
-          <span className="font-bold">تبصره 17</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">تبصره 17</span>
           در صورت عدم موفقيت كمپين، مبلغ آورده متقاضي كه نزد عامل ميباشد (موضوع سطر ٢ جدول ماده ٥)
           به همراه كارمزد بند 4-3 ماده ٤ اين قرارداد، عودت داده ميشود و قرارداد خاتمه مييابد.
         </p>
 
-        <p className="mb-3 pr-4">
-          <span className="font-bold">3)</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">3)</span>
           عامل پس از موفقيت كمپين، كليه وجوه حاصل از فروش گواهي هاي شراكت را به حسابي كه متقاضي طي
           نامه اي به عامل اعلام مي دارد، واريز مي نمايد و واريز وجه از سوي عامل، به منزله رسيد
           واريزي به حساب متقاضي ميباشد.{' '}
         </p>
 
-        <p className="mb-3 pr-4">
-          <span className="font-bold">تبصره 18</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">تبصره 18</span>
           پرداخت وجوه جمع آوري شــده حاصــل از موفقيت كمپين به متقاضـي، ناظر به اجراي همه تعهدات
           مندرج در مفاد اين قرارداد توسط متقاضي ميباشد.
         </p>
 
-        <h3 className="font-bold mb-2">ماده 9) شرایط اتمام قرارداد </h3>
-        <p className="mb-3 pr-4">
+        <h3 className="font-bold mb-2 text-[10px]">ماده 9) شرایط اتمام قرارداد </h3>
+        <p className="mb-3 pr-4 text-[10px]">
           در صورت عدم ايفاي تعهدات توسط متقاضي در مواعد مقرر شده در هر يك از بازه هاي زماني زير،
           عامل مخير به فسخ قرارداد ميباشد و متقاضي متعهد به:
         </p>
-        <p className="mb-3 pr-4">
-          <span className="font-bold">1)</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">1)</span>
           از تاريخ شروع قرارداد تا 10 روز كاري پس از تاريخ قرارداد: پرداخت كارمزدي نمي باشد.
         </p>
 
-        <p className="mb-3 pr-4">
-          <span className="font-bold">2)</span>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">2)</span>
           از زمان اقدام عامل براي تهيه گزارش تا پيش از جمع آوري وجوه: پرداخت كارمزد بند 4-١ مادة ٤
           اين قرارداد ميباشد.{' '}
         </p>
