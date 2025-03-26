@@ -60,13 +60,13 @@ const AgencyContract = () => {
     return <Loader />;
   }
 
-  // Render the contract header
+ 
   const headerContent = <ContractHeader agencyContract={agencyContract} />;
 
-  // Render the contract footer with signatures
+
   const footerContent = <ContractFooter agencyContract={agencyContract} />;
 
-  // Only show header on first page
+
   const getHeaderForPage = (pageNumber) => {
     return pageNumber === 1 ? headerContent : null;
   };
@@ -74,7 +74,6 @@ const AgencyContract = () => {
   return (
     <div className="contract-container">
       <PrintStyles />
-
       <PageNavigation
         currentPage={currentPage}
         totalPages={TOTAL_PAGES}

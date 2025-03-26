@@ -1,125 +1,148 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-const Page4 = ({ agencyContract }) => {
+const Page5 = ({ agencyContract }) => {
   if (!agencyContract) return null;
 
   return (
     <div className="contract-page page-1">
-      <table className="table-auto w-full text-center border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border border-gray-300">ردیف</th>
-            <th className="border border-gray-300">شرایط</th>
-            <th className="border border-gray-300">توضیحات</th>
-          </tr>
-        </thead>
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">2</td>
-            <td className="border border-gray-300">آورده متقاضی</td>
-            <td className="border border-gray-300">
-              متقاضی متعهد است پیش از اقدام عامل برای اخذ مجوز انتشار گواهی های شراکت از شرکت
-              فرابورس ایران،{' '}
-              {(
-                (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                0.1
-              ).toLocaleString()}{"میلیون ریال"}
-              معادل 10 درصد مبلغ کل تامین مالی (ردیف 1) را به شماره حساب 3002115158845881 و شماره
-              شبا 4705703002115158845881 IR نزد بانک پاسارگاد شعبه جمهوری یزد به نام شرکت سبدگردان
-              ایساتیس پویا کیش واریز نماید.
-              <br /> تبصره2: در صورت عدم واریز آورده متقاضی حداکثر طی 5 روز کاری از زمان درخواست
-              عامل، عامل مخیر به فسخ قرارداد است و متقاضی متعهد به اجرای بند 2-1 ماده 9 این قرارداد
-              2-1 ماده 9 این قرارداد می باشد.
-            </td>
-          </tr>
-        </tbody>
+      <div className="text-justify leading-relaxed text-[10px]">
+        <table className="table-auto w-full text-center border-collapse border border-gray-300 text-[10px]">
+          <thead>
+            <tr>
+              <th className="border border-gray-300 text-[10px]">ردیف</th>
+              <th className="border border-gray-300 text-[10px]">شرایط</th>
+              <th className="border border-gray-300 text-[10px]">توضیحات</th>
+            </tr>
+          </thead>
+          <tbody className="border border-gray-300">
+            <tr>
+              <td className="border border-gray-300 text-[10px]">10</td>
+              <td className="border border-gray-300 text-[10px]">ارائه گزارشات</td>
+              <td className="border border-gray-300 text-[10px]">
+                متقاضي متعهد است نسبت به ارائة گزارش عملكرد از پيشرفت فيزيكي-ريالي اجراي طرح به صورت
+                سه ماهه و ارائه صورتهاي مالي طرح (حسابرسي نشده) به صورت شش ماهه و ارائة صورتهاي مالي
+                طرح (حسابرسي شده توسط حسابرس) در انتهاي دوره اقدام نمايد.
+              </td>
+            </tr>
+          </tbody>
+          <tbody className="border border-gray-300">
+            <tr>
+              <td className="border border-gray-300 text-[10px]">11</td>
+              <td className="border border-gray-300 text-[10px]">مدت فراخوان جمع‌آوری وجوه</td>
+              <td className="border border-gray-300 text-[10px]">
+                مدت فراخوان جمع آوري وجوه به تشخيص عامل تعيين ميگردد اين دوره با نظر عامل براي يك
+                مرتبه قابل تمديد است. لازم به ذكر است تاريخ شروع جمع آوري وجوه از طريق نامه كتبي به
+                استحضار متقاضي خواهد رسيد.
+              </td>
+            </tr>
+          </tbody>
 
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">3</td>
-            <td className="border border-gray-300">خالص مبلغ تامین مالی </td>
-            <td className="border border-gray-300">
-              {(
-                (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                0.9
-              ).toLocaleString()}{"میلیون ریال"}
-              میلیون ریال، معادل 90 درصد مبلغ کل تامین مالی
-            </td>
-          </tr>
-        </tbody>
+          <tbody className="border border-gray-300">
+            <tr>
+              <td className="border border-gray-300">12</td>
+              <td className="border border-gray-300"> نرخ سود مشارکت اسمی </td>
+              <td className="border border-gray-300">
+                {agencyContract.investor_request.annualized_profit_forecast * 100} درصد ساليانه.
+                <br /> تبصره 7: متقاضي متعهد است در سررسيد گواهي شراكت مطابق با شرايط مندرج در
+                قرارداد اقدامات اجرايي به محاسبة سود قطعي گواهي هاي شراكت اقدام نمايد و سود قطعي
+                محاسبه شده را به تأييد حسابرس برساند.
+              </td>
+            </tr>
+          </tbody>
+          <tbody className="border border-gray-300">
+            <tr>
+              <td className="border border-gray-300 text-[10px]">13</td>
+              <td className="border border-gray-300 text-[10px]">ضامن </td>
+              <td className="border border-gray-300 text-[10px]">
+                ضامن معرفی شده توسط متقاضی که در قرارداد اقدامات اجرایی تعیین می شود.{' '}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
 
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">4</td>
-            <td className="border border-gray-300"> دوره بازپرداخت اقساط</td>
-            <td className="border border-gray-300">
-              {Number(agencyContract.investor_request.duration_of_plan  || 0).toLocaleString()}
-              ماه
-            </td>
-          </tr>
-        </tbody>
+        <h3 className="font-bold mb-2 text-[10px]">ماده 6) مدت قرارداد </h3>
+        <p className="mb-2 text-[10px]">
+          اين قرارداد از زمان امضاي قرارداد، تا 15 روز كاري پس از اتمام مدت فراخوان جمع آوري وجوه از
+          اعتبار قانوني برخوردار است. زمان قرارداد به صلاحديد عامل به طور خودكار و طي ارسال نامه
+          كتبي به متقاضي قابل تمديد است.{' '}
+        </p>
 
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">5</td>
-            <td className="border border-gray-300">شیوه بازپرداخت اصل و متفرعات مبلغ تامین مالی</td>
-            <td className="border border-gray-300">
-              متفرعات (سود) به صورت هر {agencyContract.investor_request.refund_of_plan} يكبار و با
-              ارائه چك صيادي طرح جديد در مواعد مقرر توسط متقاضي (٤ فقره چك صيادي) حداكثر يك روز كاري
-              پس از موفقيت كمپين و جمع آوري وجوه. اصل در انتهاي دوره با ارائه چك صيادي طرح كمپين و
-              جمع آوري وجوه. اصل در انتهاي دوره با ارائه چك صيادي طرح جديد توسط متقاضي (١ فقره چك
-              صيادي) حداكثر يك روز كاري پس از موفقيت كمپين و جمع آوري وجوه. تبصره 3: در صورت عدم
-              تحويل چك هاي پرداخت اقساط (بابت اصل و متفرعات) در مواعد مقرر شده يا در صورت عدم ثبت چك
-              هاي پرداخت اقساط (بابت اصل و سود) در سامانه چك صيادي، عامل مخير به فسخ قرارداد است و
-              متقاضي متعهد به اجراي بند ٣-١ مادة ٩ اين قرارداد ميباشد. تبصره 4: متقاضي متعهد است شرح
-              چك هاي پرداخت اقساط بابت اصل و سود در سامانة چك صيادي را با درج عبارت «تأديه ديون» ثبت
-              و به عامل تحويل نمايد، در غير اينصورت عامل مخير به فسخ قرارداد است و متقاضي متعهد به
-              اجراي بند ٣-١ مادة ٩ اين قرارداد ميباشد.
-            </td>
-          </tr>
-        </tbody>
+        <h3 className="font-bold mb-2 text-[10px]">ماده 7)تعهدات و تأییدات متقاضی </h3>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">1)</span>
+          متقاضي تعهد مي نمايد نسبت به معرفي نماينده يا نمايندگاني به عامل به منظور انجام اقدامات
+          لازم از سوي متقاضي، حداكثر سه روز پس از شروع قرارداد، اقدام نمايد.
+        </p>
 
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">6</td>
-            <td className="border border-gray-300"> نوع تامین مالی </td>
-            <td className="border border-gray-300">
-              تأمين مالي شناور: {agencyContract.investor_request.buoyancy_plan}درصد از مبلغ كل تأمين
-              مالي معادل{' '}
-              {(
-                Number(agencyContract.investor_request.buoyancy_plan || 0) *
-                Number(agencyContract.investor_request.amount_of_investment || 0)
-              ).toLocaleString()}
-              ميليون ريال. تبصره 5: مجموع كارمزد عامل معادل چهار درصد مبلغ كل گواهي هاي شراكت
-              ميباشد، لذا در صورت تأمين مالي به صورت شناور، كارمزد ياد شدة عامل به چهار درصد از مبلغ
-              كل تأمين مالي انجام شده (شامل آورده متقاضي و وجوه جمع آوري شده از دارندگان گواهي
-              شراكت) تعديل ميشود. تبصره 6: در صورت موفقيت كمپين به صورت شناور با حداقل سرمايه قابل
-              پذيرش، مبالغ چك هاي اقساط و تضامين متناسب با ميزان وجوه جمع آوري شده تعديل ميگردد و
-              جزئيات آن متعاقباً در قرارداد اقدامات اجرايي اعلام ميگردد.
-            </td>
-          </tr>
-        </tbody>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">2)</span>
+          متقاضي متعهد است در زمان امضاي قرارداد كليه مدارك لازم جهت تهيه گزارشات لازم كه توسط عامل
+          تعيين ميشود، ظرف <strong>سه روز</strong> از تاريخ اعلامي تحويل عامل دهد.
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">3)</span>
+          اخذ مجوز انتشار گواهي هاي شراكت از شركت فرابورس ايران منوط به ارائه كد بورسي و احراز هويت
+          سجامي متقاضي مي باشد. در صورت عدم ارايه موارد فوق توسط متقاضي به عامل، عامل مخير به فسخ
+          قرارداد است و متقاضي متعهد به اجراي بند ٢-١ مادة ٩ اين قرارداد ميباشد.
+        </p>
 
-        <tbody className="border border-gray-300">
-          <tr>
-            <td className="border border-gray-300">7</td>
-            <td className="border border-gray-300"> نرخ سود مشارکت اسمی </td>
-            <td className="border border-gray-300">
-              {agencyContract.investor_request.annualized_profit_forecast * 100} درصد ساليانه.
-              <br /> تبصره 7: متقاضي متعهد است در سررسيد گواهي شراكت مطابق با شرايط مندرج در قرارداد
-              اقدامات اجرايي به محاسبة سود قطعي گواهي هاي شراكت اقدام نمايد و سود قطعي محاسبه شده را
-              به تأييد حسابرس برساند.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">4)</span>
+          متقاضي متعهد است هرگونه تغيير در اطلاعات و مفروضات ارائه شده را حداكثر طي{' '}
+          <strong>٣ روز</strong> به عامل ارائه دهد.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">5)</span>
+          متقاضي متعهد است گزارشهاي ارائه شده توسط عامل را مطالعه و بررسي نموده و نسبت به تأييد و
+          امضاي گزارش حداكثر طي <strong>3 روز</strong> از زمان ارائه گزارش ها، اقدام نمايد.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">6)</span>
+          متقاضي متعهد است همكاري لازم با عامل را در راستاي تسريع امور مربوط به موضوع قرارداد، به
+          عمل آورد.
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">7)</span>
+          متقاضي متعهد است اقدامات لازم را جهت بازديد كارشناس يا كارشناسان معرفي شده توسط عامل از
+          محل متقاضي يا مكان اجراي عمليات وي و يا برگزاري جلسات ضروري با مديران متقاضي به عمل آورد.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">8)</span>
+          متقاضي متعهد به عدم استفاده از گزارش هاي ارائه شده توسط عامل در مواردي غير از موضوع اين
+          قرارداد است.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">9)</span>
+          متقاضي اقرار مينمايد تمام ديون حال و موجل خود را اعلام نموده است و تكاليف مالياتي و بيمه
+          تامين اجتماعي خود را رعايت نموده است تعهد مي نمايد كه رعايت نمايد.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">10)</span>
+          متقاضي تأييد و اقرار مي نمايد تمامي مجوزهاي لازم را جهت اجراي طرحي كه بابت آن به عامل
+          درخواست تأمين مالي ارائه شده است، اخذ نموده است.
+        </p>
+
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">11)</span>
+          متقاضي تضمين مي نمايد كه مسئوليت كليه ضررها، خسارات و هزينه هاي متحمل شده در نتيجه يا در
+          رابطه با عدم صحت اظهارات و ضمانت هاي مقرر در اين قرارداد را، جبران نمايد.
+        </p>
+
+
+      </div>
     </div>
   );
 };
 
-Page4.propTypes = {
+Page5.propTypes = {
   agencyContract: PropTypes.object.isRequired,
 };
 
-export default Page4;
+export default Page5;

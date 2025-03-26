@@ -10,12 +10,12 @@ const CardsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed top-0  z-50 flex justify-center p-6">
+    <div className=" absolute top-6 left-36 z-50 flex p-6">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="  rounded-3xl p-8 sm:p-12 max-w-7xl w-full shadow-2xl relative overflow-hidden max-h-[85vh] flex flex-col"
+        className="rounded-3xl p-8 sm:p-12 max-w-7xl w-full shadow-2xl relative overflow-hidden max-h-[85vh] flex flex-col"
       >
         <div className="absolute inset-0 bg-gradient-to-tr from-purple-300/10 to-indigo-300/10 pointer-events-none rounded-3xl" />
 

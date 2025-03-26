@@ -7,21 +7,16 @@ const Page1 = ({ agencyContract, qrValue }) => {
 
   return (
     <div className="contract-page page-1">
-      <div className="text-center mb-4">
-        <p className="text-[10px] font-bold text-gray-800">بسمه تعالی</p>
-      </div>
-      <h2 className="text-[10px] font-bold text-center mb-4">قرارداد عاملیت</h2>
       <div className="text-justify leading-relaxed text-[10px]">
         <h3 className="font-bold mb-2 text-[10px]">ماده 1) مشخصات طرفین قرارداد</h3>
         <p className="mb-2 text-[10px]">1-1. این قرارداد میان:</p>
-
         <p className="mb-3 pr-4 text-[10px]">
           <span className="font-bold text-[10px]">1) طرف اول:</span> شرکت{' '}
           {agencyContract.company?.title || 'تعیین نشده'}(
           {agencyContract.company?.registration_type_title || 'تعیین نشده'}) به شمارۀ شناسۀ ملی{' '}
-          {agencyContract.company?.national_id || 'تعیین نشده'}، کد اقتصادی{' '}
-          {agencyContract.company?.economic_code || 'تعیین نشده'}، و شماره ثبت{' '}
-          {agencyContract.company?.registration_number || 'تعیین نشده'} نزد{' '}
+          <strong>{agencyContract.company?.national_id || 'تعیین نشده'}</strong>، کد اقتصادی{' '}
+          <strong>{agencyContract.company?.economic_code || 'تعیین نشده'}</strong>، و شماره ثبت{' '}
+          <strong>{agencyContract.company?.registration_number || 'تعیین نشده'}</strong> نزد{' '}
           {agencyContract.company?.registration_unit || 'تعیین نشده'}، به نشانی{' '}
           {agencyContract.company?.address || 'تعیین نشده'}، کدپستی{' '}
           {agencyContract.company?.postal_code || 'تعیین نشده'}، شماره تماس{' '}
@@ -42,7 +37,6 @@ const Page1 = ({ agencyContract, qrValue }) => {
           {new Date(agencyContract.company_members[0]?.start_date).toLocaleDateString('fa-IR')} که
           در این قرارداد، «متقاضی» نامیده می شود، از یک طرف،
         </p>
-
         <p className="mb-3 pr-4 text-[10px]">
           <span className="font-bold text-[10px]">2) طرف دوم:</span> شرکت سبدگردان ایساتیس پویا کیش
           (سهامی خاص) به شناسه ملی 14007805556، کد اقتصادی 411615733645، و شماره ثبت 13702، در اداره
@@ -54,19 +48,35 @@ const Page1 = ({ agencyContract, qrValue }) => {
           گواهي هاي شراكت جهت تأمين منابع مالي مورد نياز متقاضي، براسـاس مجوز صـادره توسـط شـركت
           فرابورس به نامه شـمارة 03/5/1008438 مورخ 15/05/1403 از طرف ديگر،
         </p>
-
         <p className="mb-5 text-satrt font-semibold text-[10px]">به شرح مواد زير منعقد گرديد</p>
-
         <h3 className="font-bold mb-2 text-[10px]">ماده 2) تعاریف</h3>
-
         <p className="mb-3 pr-4 text-[10px]">
           <span className="font-bold text-[10px]">1) طرح:</span>
           فعالیتی‌ است‌ که‌ متقاضی‌ براي انجام آن در خواست‌ تأمین‌ مالی‌ نموده است‌.
         </p>
-
         <p className="mb-3 pr-4 text-[10px]">
           <span className="font-bold text-[10px]">2) گواهی شراکت:</span>
           ورقه‌ بهادار الکترونیکی‌ است‌ که‌ از ثبت‌ نزد سازمان بورس معاف است‌.
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">3)فراخوان جمع آوری وجوه:</span>
+          منظور فرایندي است‌ که‌ &apos;عامل&apos; نسبت‌ به‌ تأمین‌ مالی‌ طرح در یک‌ بازه زمانی‌
+          مشخص‌ اقدام می‌نماید. مدت زمان مذکور با صلاحدید عامل‌ می‌تواند تمدید گردد.
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">4) موقعیت کمپین:</span>
+          منظور تأمین‌ مالی‌ طرح به‌ میزان حداقل‌ مبلغ‌ تأمین‌ مالی‌ قابل‌ پذیرش که‌ در فراخوان
+          جمع‌آوري وجوه اعلام شده است‌.
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">5) دارندگان گواهی‌هاي شراکت‌:</span>
+          شخص‌ حقیقی‌ یا حقوقی‌ تأمین‌کننده منابع‌ مالی‌ متقاضی‌ براي اجراي طرح است‌، که‌ نسبت‌ به‌
+          خرید گواهی‌هاي شراکت‌ اقدام نموده است.{' '}
+        </p>
+        <p className="mb-3 pr-4 text-[10px]">
+          <span className="font-bold text-[10px]">6) روز کاري: </span>
+          تمام روزهاي هفته‌ به‌ غیر از پنج‌شنبه‌، جمعه‌، تعطیلات رسمی‌ و روزهایی‌ که‌ به‌ هر دلیلی‌
+          بانک‌ها تعطیل‌ می‌باشند، روز کاري محسوب می‌گردد.
         </p>
       </div>
     </div>
