@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Button } from '@mui/material';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import { OnRun } from 'src/api/OnRun';
 
 const UploadInput = ({
   label,
@@ -18,17 +17,13 @@ const UploadInput = ({
   const [fileUrl, setFileUrl] = useState('');
 
   useEffect(() => {
-  
     if (value) {
       setFileName(value.name || '');
       setFileUrl(value.url || '');
-    
     }
   }, [value, fileType, id]);
 
-  useEffect(() => {
-
-  }, [fileName, fileUrl, fileType, id]);
+  useEffect(() => {}, [fileName, fileUrl, fileType, id]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

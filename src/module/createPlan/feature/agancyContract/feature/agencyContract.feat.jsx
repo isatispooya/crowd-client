@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import Loader from 'src/components/loader';
 import PrintableContractLayout from 'src/module/createPlan/layouts/printableLayourtContract';
 import { useAgencyContract } from 'src/module/createPlan/hooks';
-import { PAGES, TOTAL_PAGES } from 'src/module/createPlan/feature/agancyContract/printPages';
+
 import {
   ContractHeader,
   ContractFooter,
@@ -13,6 +13,7 @@ import {
   PrintModeContent,
 } from '../components';
 import { PrintStyles } from '../styles';
+import { PAGES, TOTAL_PAGES } from '../printPages';
 
 const AgencyContract = () => {
   const [searchParams] = useSearchParams();
@@ -60,12 +61,9 @@ const AgencyContract = () => {
     return <Loader />;
   }
 
- 
   const headerContent = <ContractHeader agencyContract={agencyContract} />;
 
-
   const footerContent = <ContractFooter agencyContract={agencyContract} />;
-
 
   const getHeaderForPage = (pageNumber) => {
     return pageNumber === 1 ? headerContent : null;
