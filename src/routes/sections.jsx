@@ -14,7 +14,6 @@ export const Plans = lazy(() => import('src/module/plan/page/plans'));
 export const Plan = lazy(() => import('src/module/plan/page/plan'));
 export const CertificateSideBar = lazy(() => import('src/module/certificateSideBar/cerSideBar')); //
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
-
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
 export const CreatePlan = lazy(() => import('src/module/createPlan/pages/cards.page'));
@@ -44,6 +43,7 @@ export default function Router() {
         { path: 'certificate', element: <CertificateSideBar /> },
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'cardsDetail/:id', element: <CardsDetail /> },
+        { path: 'agencyContract', element: <AgencyContract /> },
       ],
     },
     {
@@ -56,7 +56,7 @@ export default function Router() {
       path: 'login',
       element: <LoginPage />,
     },
-    { path: 'agencyContract', element: <AgencyContract /> },
+
     {
       path: '404',
       element: <Page404 />,

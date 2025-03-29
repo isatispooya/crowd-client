@@ -1,113 +1,99 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
-import Loader from 'src/components/loader';
-import PrintableContractLayout from 'src/module/createPlan/layouts/printableLayourtContract';
+import {  useSearchParams } from 'react-router-dom';
+import { PrintableContractLayout } from 'src/module/createPlan/layouts';
 import { useAgencyContract } from 'src/module/createPlan/hooks';
-
-import {
-  ContractHeader,
-  ContractFooter,
-  PageNavigation,
-  CurrentPageContent,
-  PrintModeContent,
-} from '../components';
-import { PrintStyles } from '../styles';
-import { PAGES, TOTAL_PAGES } from '../printPages';
+import { PAGES } from '../printPages';
 
 const AgencyContract = () => {
   const [searchParams] = useSearchParams();
-  const urlUuid = searchParams.get('uuid');
-  const [finalUuid, setFinalUuid] = useState(null);
-  const [qrValue] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [printMode, setPrintMode] = useState(false);
+  const [finalUuid, setFinalUuid] = useState('');
+  const targetRef = useRef();
 
   useEffect(() => {
-    if (urlUuid && urlUuid !== 'undefined') {
+    const urlUuid = searchParams.get('uuid');
+    if (urlUuid) {
       setFinalUuid(urlUuid);
     }
-  }, [urlUuid]);
+  }, [searchParams]);
 
-  const {
-    data: agencyContract,
-    isLoading,
-    refetch,
-  } = useAgencyContract(finalUuid !== 'undefined' ? finalUuid : null);
+  const { data: agencyContract } = useAgencyContract(finalUuid);
 
-  useEffect(() => {
-    if (finalUuid && finalUuid !== 'undefined') {
-      refetch();
+  const renderFooterSignatures = () => {
+    if (!agencyContract || !agencyContract.company_members) return null;
+
+    const signatoryMembers = agencyContract.company_members.filter(
+      (member) => member.signature === true
+    );
+
+    const staticUsers = [
+      { person_title: 'سیدعلیمحمد خبیری', position_title: 'مدیر عامل' },
+      { person_title: 'محسن زارعیان', position_title: 'رئیس هیئت مدیره' },
+    ];
+
+    const allSignatories = [...staticUsers];
+
+    if (signatoryMembers.length > 0) {
+      signatoryMembers.forEach((member) => {
+        const isDuplicate = staticUsers.some((user) => user.person_title === member.person_title);
+
+        if (!isDuplicate) {
+          allSignatories.push({
+            person_title: member.person_title,
+            position_title: member.position_title,
+          });
+        }
+      });
     }
-  }, [finalUuid, refetch]);
 
-  const handlePrint = useCallback(() => {
-    setPrintMode(true);
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => {
-        setPrintMode(false);
-      }, 500);
-    }, 100);
-  }, []);
-
-  const handlePageChange = useCallback((pageNumber) => {
-    if (pageNumber >= 1 && pageNumber <= TOTAL_PAGES) {
-      setCurrentPage(pageNumber);
-    }
-  }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  const headerContent = <ContractHeader agencyContract={agencyContract} />;
-
-  const footerContent = <ContractFooter agencyContract={agencyContract} />;
-
-  const getHeaderForPage = (pageNumber) => {
-    return pageNumber === 1 ? headerContent : null;
+    return (
+      <div className="w-full">
+        <div className="flex justify-between gap-1 mt-auto">
+          {allSignatories.map((user, index) => (
+            <div key={`signatory-${index}`} className="flex-1">
+              <div style={{ borderColor: '#d1d5db' }} className="border rounded p-1 w-full">
+                <div className="text-center flex flex-col h-[80px] justify-center">
+                  <p className="font-bold text-[14px] leading-tight" style={{ color: '#000000' }}>
+                    {user.person_title}
+                  </p>
+                  <p className="text-[12px] leading-tight" style={{ color: '#4b5563' }}>
+                    {user.position_title}
+                  </p>
+                </div>
+                <div
+                  style={{ borderColor: '#d1d5db' }}
+                  className="h-[50px] border-dashed border rounded flex items-center justify-center mt-1"
+                >
+                  <p style={{ color: '#9ca3af' }} className="text-[12px]">
+                    محل امضاء
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
-    <div className="contract-container">
-      <PrintStyles />
-      <PageNavigation
-        currentPage={currentPage}
-        totalPages={TOTAL_PAGES}
-        handlePageChange={handlePageChange}
-        handlePrint={handlePrint}
-      />
-
-      {printMode ? (
-        <PrintModeContent
-          pages={PAGES}
-          agencyContract={agencyContract}
-          qrValue={qrValue}
-          headerContent={headerContent}
-          footerContent={footerContent}
-          getHeaderForPage={getHeaderForPage}
-        />
-      ) : (
-        <PrintableContractLayout
-          headerChildren={currentPage === 1 ? headerContent : null}
-          footerChildren={footerContent}
-        >
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white p-5 rounded-lg shadow-sm text-[10px] border border-gray-100 min-h-[60vh]"
-          >
-            <CurrentPageContent
-              currentPage={currentPage}
-              pages={PAGES}
-              agencyContract={agencyContract}
-              qrValue={qrValue}
-            />
-          </motion.div>
-        </PrintableContractLayout>
-      )}
+    <div>
+      <div className="contract-container" ref={targetRef}>
+        {PAGES.map((PageComponent, index) => (
+          <div key={`page-${index}`} className="mb-8">
+            <PrintableContractLayout footerChildren={renderFooterSignatures()}>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 * index }}
+                className="bg-white rounded-lg shadow-sm text-sm border border-gray-100"
+              >
+                <PageComponent agencyContract={agencyContract} />
+              </motion.div>
+            </PrintableContractLayout>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
