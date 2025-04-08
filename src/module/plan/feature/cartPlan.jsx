@@ -55,14 +55,31 @@ const CartPlan = ({
       const nationalId = profileData?.acc?.uniqueIdentifier;
       const shareUrl = `${window.location.origin}/plan/${trace_code}?rf=${nationalId}`;
       
+      const entry_url = localStorage.getItem('entry_url') || '';
+      const tag = localStorage.getItem('tag') || '';
+      const utm_medium = localStorage.getItem('utm_medium') || '';
+      const utm_term = localStorage.getItem('utm_term') || '';
+      const utm_campaign = localStorage.getItem('utm_campaign') || '';
+      const utm_content = localStorage.getItem('utm_content') || '';
+      const utm_source = localStorage.getItem('utm_source') || '';
+      
+      const url = new URL(shareUrl);
+      if (entry_url) url.searchParams.append('entry_url', entry_url);
+      if (tag) url.searchParams.append('tag', tag);
+      if (utm_medium) url.searchParams.append('utm_medium', utm_medium);
+      if (utm_term) url.searchParams.append('utm_term', utm_term);
+      if (utm_campaign) url.searchParams.append('utm_campaign', utm_campaign);
+      if (utm_content) url.searchParams.append('utm_content', utm_content);
+      if (utm_source) url.searchParams.append('utm_source', utm_source);
+      
       if (navigator.share) {
         await navigator.share({
           title: persianName,
           text: `طرح سرمایه‌گذاری ${persianName} را مشاهده کنید`,
-          url: shareUrl
+          url: url.toString()
         });
       } else {
-        await navigator.clipboard.writeText(shareUrl);
+        await navigator.clipboard.writeText(url.toString());
         toast.success('لینک با موفقیت کپی شد');
       }
     } catch (error) {

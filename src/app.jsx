@@ -28,6 +28,22 @@ export default function App() {
     if (rfParam) {
       localStorage.setItem('rf', rfParam);
     }
+    
+    const entry_url = queryParams.get('entry_url');
+    const tag = queryParams.get('tag');
+    const utm_medium = queryParams.get('utm_medium');
+    const utm_term = queryParams.get('utm_term');
+    const utm_campaign = queryParams.get('utm_campaign');
+    const utm_content = queryParams.get('utm_content');
+    const utm_source = queryParams.get('utm_source');
+    
+    if (entry_url) localStorage.setItem('entry_url', entry_url);
+    if (tag) localStorage.setItem('tag', tag);
+    if (utm_medium) localStorage.setItem('utm_medium', utm_medium);
+    if (utm_term) localStorage.setItem('utm_term', utm_term);
+    if (utm_campaign) localStorage.setItem('utm_campaign', utm_campaign);
+    if (utm_content) localStorage.setItem('utm_content', utm_content);
+    if (utm_source) localStorage.setItem('utm_source', utm_source);
   }, []);
 
   useEffect(() => {

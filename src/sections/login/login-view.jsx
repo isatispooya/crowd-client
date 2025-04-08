@@ -35,6 +35,13 @@ export default function LoginView() {
 
   const searchParams = new URLSearchParams(window.location.search);
   const referal = searchParams.get('rf');
+  const entry_url = searchParams.get('entry_url');
+  const tag = searchParams.get('tag');
+  const utm_medium = searchParams.get('utm_medium');
+  const utm_term = searchParams.get('utm_term');
+  const utm_campaign = searchParams.get('utm_campaign');
+  const utm_content = searchParams.get('utm_content');
+  const utm_source = searchParams.get('utm_source');
 
   const handleApplyNationalCode = () => {
     refreshCaptcha();
@@ -73,6 +80,13 @@ export default function LoginView() {
       nationalCode,
       otp,
       referal,
+      entry_url,
+      tag,
+      utm_medium,
+      utm_term,
+      utm_campaign,
+      utm_content,
+      utm_source,
     });
     refreshCaptcha();
   };

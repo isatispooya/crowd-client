@@ -10,12 +10,19 @@ const useSubmitOtp = () => {
 
   return useMutation({
     mutationKey: ['submitOtp'],
-    mutationFn: async ({ nationalCode, otp, referal }) => {
+    mutationFn: async ({ nationalCode, otp, referal , entry_url, tag, utm_medium, utm_term, utm_campaign, utm_content, utm_source }) => {
       const url_ = `${OnRun}/api/login/`;
       const response = await api.post(url_, {
         uniqueIdentifier: nationalCode,
         otp,
         referal,
+        entry_url,
+        tag,
+        utm_medium,
+        utm_term,
+        utm_campaign,
+        utm_content,  
+        utm_source,
       });
       return response.data;
     },
