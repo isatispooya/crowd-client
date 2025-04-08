@@ -6,33 +6,75 @@ const Page4 = ({ agencyContract }) => {
 
   return (
     <div className="contract-page page-1">
-      <table
-        style={{ borderColor: '#374151' }}
-        className="table-auto w-full text-center border-collapse text-[22px]"
-      >
+      <table className="table-auto w-full text-center border-collapse border border-gray-300 text-[22px]">
         <thead>
           <tr>
-            <th style={{ color: '#374151' }} className=" text-[22px]">
-              ردیف
-            </th>
-            <th style={{ color: '#374151' }} className=" text-[22px]">
-              شرایط
-            </th>
-            <th style={{ color: '#374151' }} className=" text-[22px]">
-              توضیحات
-            </th>
+            <th className="border border-gray-300 text-[22px] text-right pr-2">ردیف</th>
+            <th className="border border-gray-300 text-[22px] text-right pr-2">شرایط</th>
+            <th className="border border-gray-300 text-[22px] text-right pr-2">توضیحات</th>
           </tr>
         </thead>
-        <tbody className="border border-gray-300  leading-relaxed ">
+        <tbody className="border border-gray-300 leading-relaxed">
           <tr>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              9
+            <td className="border border-gray-300 text-[22px] text-right pr-2">10</td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
+              مواعد چک هاي پرداخت اقساط
             </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              {' '}
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
+              متقاضي متعهد است چك هاي پرداخت اقساط بابت اصل و متفرعات (سود علي الحساب) را جمعاً به
+              مبلغ{' '}
+              <strong>
+                {Math.floor(
+                  Number(
+                    (agencyContract.investor_request.amount_of_investment * 0.9) *
+                      (agencyContract.investor_request.interest_rate_plan / 100) +
+                      agencyContract.investor_request.amount_of_investment  || 0
+                  ) / 1000000
+                ).toLocaleString()}{' '}
+                میلیون ریال{' '}
+              </strong>
+              ،{' '}
+              <strong>
+                {Math.floor(
+                  agencyContract.investor_request.amount_of_investment / 1000000
+                ).toLocaleString()}{' '}
+                میلیون ریال{' '}
+              </strong>
+              بابت اصل مبلغ تأمين مالي{' '}
+              <strong>
+                {Math.floor(
+                  (agencyContract.investor_request.amount_of_investment *
+                    0.9 *
+                    (agencyContract.investor_request.interest_rate_plan / 100)) /
+                    1000000
+                ).toLocaleString()}{' '}
+                میلیون ریال{' '}
+              </strong>
+              بابت متفرعات مبلغ تأمین مالی)، حداكثر يك روز كاري پس از موفقيت كمپين، طي 5 فقره چك، با
+              تاريخ هاي پرداخت حداقل 5 روز كاري زودتر از مواعد سررسيد (زمان پرداخت سود مشاركت به
+              دارندگان گواهي شراكت) كه پس از موفقيت كمپين توسط عامل به متقاضي اعلام ميگردد، به عامل
+              تحويل نمايد.
+            </td>
+          </tr>
+
+          <tr>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">11</td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
+              مدت فراخوان جمع‌آوری وجوه
+            </td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
+              مدت فراخوان جمع آوري وجوه به تشخيص عامل تعيين ميگردد اين دوره با نظر عامل براي يك
+              مرتبه قابل تمديد است. لازم به ذكر است تاريخ شروع جمع آوري وجوه از طريق نامه كتبي به
+              استحضار متقاضي خواهد رسيد.
+            </td>
+          </tr>
+
+          <tr>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">12</td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
               شرط پرداخت وجوه تامین مالی به حساب متقاضی
             </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
               عامل پس از اخذ استعلام هاي لازم از تضامين مندرج در رديف 9 اين جدول و چك هاي پرداخت
               اقساط مندرج در رديف 5 اين جدول و كسب اطمينان از صحت اسناد ياد شده، وجوه جمع آوري شده
               را حداكثر طي دو روز كاري به حساب اعلام شده از سوي متقاضي واريز مي نمايد لذا متقاضي تا
@@ -52,70 +94,12 @@ const Page4 = ({ agencyContract }) => {
           </tr>
 
           <tr>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              10
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              ارائه گزارشات
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
+            <td className="border border-gray-300 text-[22px] text-right pr-2">13</td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">ارائه گزارشات</td>
+            <td className="border border-gray-300 text-[22px] text-right pr-2">
               متقاضي متعهد است نسبت به ارائة گزارش عملكرد از پيشرفت فيزيكي-ريالي اجراي طرح به صورت
               سه ماهه و ارائه صورتهاي مالي طرح (حسابرسي نشده) به صورت شش ماهه و ارائة صورتهاي مالي
               طرح (حسابرسي شده توسط حسابرس) در انتهاي دوره اقدام نمايد.
-              <strong>
-                {(
-                  (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                  0.1
-                ).toLocaleString()}{' '}
-                میلیون ریال{' '}
-              </strong>
-              معادل 10 درصد مبلغ کل تامین مالی (ردیف 1) را به شماره حساب 3002115158845881 و شماره
-              شبا 4705703002115158845881 IR نزد بانک پاسارگاد شعبه جمهوری یزد به نام شرکت سبدگردان
-              ایساتیس پویا کیش واریز نماید.
-              <br /> تبصره2: در صورت عدم واریز آورده متقاضی حداکثر طی 5 روز کاری از زمان درخواست
-              عامل، عامل مخیر به فسخ قرارداد است و متقاضی متعهد به اجرای بند 2-1 ماده 9 این قرارداد
-              2-1 ماده 9 این قرارداد می باشد.
-            </td>
-          </tr>
-
-          <tr>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              11
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              مدت فراخوان جمع‌آوری وجوه
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              مدت فراخوان جمع آوري وجوه به تشخيص عامل تعيين ميگردد اين دوره با نظر عامل براي يك
-              مرتبه قابل تمديد است. لازم به ذكر است تاريخ شروع جمع آوري وجوه از طريق نامه كتبي به
-              استحضار متقاضي خواهد رسيد.
-            </td>
-          </tr>
-
-          <tr>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              12
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              نرخ سود مشارکت اسمی{' '}
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              {agencyContract.investor_request.annualized_profit_forecast * 100} درصد ساليانه.
-              <br /> تبصره 7: متقاضي متعهد است در سررسيد گواهي شراكت مطابق با شرايط مندرج در قرارداد
-              اقدامات اجرايي به محاسبة سود قطعي گواهي هاي شراكت اقدام نمايد و سود قطعي محاسبه شده را
-              به تأييد حسابرس برساند.
-            </td>
-          </tr>
-
-          <tr>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              13
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              ضامن
-            </td>
-            <td style={{ color: '#374151' }} className=" text-[22px]">
-              ضامن معرفی شده توسط متقاضی که در قرارداد اقدامات اجرایی تعیین می شود.{' '}
             </td>
           </tr>
         </tbody>
@@ -202,6 +186,15 @@ const Page4 = ({ agencyContract }) => {
           واقعيات مربوط به انتشار جهت تأمين مالي طرح را به دست ميدهد. هرگونه اهمال در اين خصوص كه
           باعث به خطا رفتن پروژه يا وارد آمدن خسارت به عامل به نمايندگي از دارندگان گواهي شراكت
           گردد، بر عهده متقاضي بوده و وي مسئول تمامي خسارتهاي ناشي از اين موضوع است.{' '}
+        </p>
+
+        <p className="mb-3 pr-4 text-[23px]">
+          <span className="font-bold">13)</span>
+          متقاضي اقرار و تعهد مي كند كه دعاوي مؤثر با اهميت حقوقي يا كيفري عليه شركت، اعضاي هيات
+          مديره يا مديرعامل وي كه موجب اخلال در اجراي موضوع قرارداد مي باشد وجود ندارد. در صورت كشف
+          هرگونه دعاوي مؤثر حين اجراي قرارداد، عامل مخير به فسخ قرارداد است و متقاضي متعهد به اجراي
+          بند ٣-١ مادة ٩ اين قرارداد ميباشد. متقاضي به موجب اين بند حق هرگونه ادعايي در اين خصوص را
+          از خود سلب و اسقاط نمود.
         </p>
       </div>
     </div>
