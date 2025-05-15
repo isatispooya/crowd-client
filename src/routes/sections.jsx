@@ -1,4 +1,3 @@
-
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/dashboard';
@@ -14,14 +13,13 @@ export const Plans = lazy(() => import('src/module/plan/page/plans'));
 export const Plan = lazy(() => import('src/module/plan/page/plan'));
 export const CertificateSideBar = lazy(() => import('src/module/certificateSideBar/cerSideBar')); //
 export const PaymentResualt = lazy(() => import('src/pages/resultpayment/paymentResualt'));
+export const PaymentCallBack = lazy(() => import('src/pages/pyment/paymentCallBack'));
 export const OnetimeLogin = lazy(() => import('src/pages/onetimeLogin'));
 export const DashTabs = lazy(() => import('src/module/calender/features/dashtabs'));
 export const CreatePlan = lazy(() => import('src/module/createPlan/pages/cards.page'));
 export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail.page'));
 export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter.page'));
 export const AgencyContract = lazy(() => import('src/module/createPlan/pages/agencycontract.page'));
-
-
 
 export default function Router() {
   const routes = useRoutes([
@@ -49,6 +47,10 @@ export default function Router() {
     {
       path: 'paymentresult',
       element: <PaymentResualt />,
+    },
+    {
+      path: 'paymentCallBack',
+      element: <PaymentCallBack />,
     },
     { path: 'bankLetter', element: <BankLetter /> },
 
