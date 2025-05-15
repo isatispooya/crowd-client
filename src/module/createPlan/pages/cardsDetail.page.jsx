@@ -24,8 +24,9 @@ const steps = [
   'ثبت هیئت مدیره',
   'قرارداد عاملیت',
   'اطلاعات تکمیلی',
+  'قرارداد ',
   'درگاه پرداخت',
-  'قرارداد',
+
 ];
 
 const CardsDetailPage = () => {
@@ -308,7 +309,7 @@ const CardsDetailPage = () => {
           (isStepLocked(4) ? (
             <LockedStepMessage />
           ) : (
-            <div>درگاه پرداخت - این بخش در حال توسعه است</div>
+            <AgancyContract readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
           ))}
         {activeStep === 5 &&
           getStepStatus(5) !== 'pending' &&
@@ -316,14 +317,6 @@ const CardsDetailPage = () => {
             <LockedStepMessage />
           ) : (
             <Payment readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
-          ))}
-
-        {activeStep === 6 &&
-          getStepStatus(6) !== 'pending' &&
-          (isStepLocked(6) ? (
-            <LockedStepMessage />
-          ) : (
-            <AgancyContract readOnly={!isStepEditable(6)} status={getStepStatus(6)} />
           ))}
       </Box>
     </Box>

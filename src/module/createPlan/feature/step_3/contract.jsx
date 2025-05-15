@@ -33,10 +33,7 @@ const Contract = ({ readOnly, status }) => {
     contrastText: '#1A365D',
   };
 
-  const links = [
-    { id: 1, title: 'قرارداد عاملیت', path: `/agencyContract/?uuid=${uuid}`, icon: '📄' },
-    { id: 3, title: 'نامه بانکی', path: `/bankLetter/?uuid=${uuid}`, icon: '📑' },
-  ];
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -190,87 +187,7 @@ const Contract = ({ readOnly, status }) => {
       <StatusBanner readOnly={readOnly} status={status} />
 
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-        <Box
-          sx={{
-            flex: 1,
-            bgcolor: 'white',
-            p: 3,
-            borderRadius: 2,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-            border: '1px solid #e0e0e0',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              mb: 2.5,
-              pb: 1.5,
-              borderBottom: '1px solid #eee',
-            }}
-          >
-            <Box
-              sx={{
-                bgcolor: pastelBlue.light,
-                color: pastelBlue.dark,
-                p: 1,
-                borderRadius: '50%',
-                mr: 1,
-              }}
-            >
-              <HiDocument style={{ width: 20, height: 20 }} />
-            </Box>
-            <Typography variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
-              انواع قرارداد
-            </Typography>
-          </Box>
-
-          <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            {links.map((link) => (
-              <motion.div key={link.id} variants={itemVariants} whileHover="hover">
-                <Link
-                  to={readOnly ? '#' : link.path}
-                  onClick={(e) => readOnly && e.preventDefault()}
-                  style={{
-                    display: 'block',
-                    padding: '16px',
-                    marginBottom: '16px',
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    border: '1px solid #e0e0e0',
-                    transition: 'all 0.2s',
-                    opacity: readOnly ? 0.8 : 1,
-                    cursor: readOnly ? 'default' : 'pointer',
-                    textDecoration: 'none',
-                  }}
-                >
-                  <Box
-                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <Typography sx={{ fontSize: '1.5rem', mr: 1.5 }}>{link.icon}</Typography>
-                      <Typography sx={{ fontWeight: 500, color: 'text.primary' }}>
-                        {link.title}
-                      </Typography>
-                    </Box>
-                    {!readOnly && (
-                      <Box
-                        sx={{
-                          bgcolor: pastelBlue.light,
-                          color: pastelBlue.dark,
-                          p: 0.5,
-                          borderRadius: '50%',
-                        }}
-                      >
-                        <HiChevronLeft style={{ width: 20, height: 20 }} />
-                      </Box>
-                    )}
-                  </Box>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </Box>
+      
 
         <Box
           sx={{
