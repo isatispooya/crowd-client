@@ -1,1 +1,1 @@
-export { default as AgencyContract } from './agencyContract.feat';
+export { default as AgencyContract } from './agancyContract/agencyContract.feat';
