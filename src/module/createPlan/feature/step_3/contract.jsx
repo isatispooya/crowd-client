@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { motion } from 'framer-motion';
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { HiArrowUpTray } from 'react-icons/hi2';
@@ -30,8 +30,6 @@ const Contract = ({ readOnly, status }) => {
     dark: '#6B9ACD',
     contrastText: '#1A365D',
   };
-
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -99,7 +97,6 @@ const Contract = ({ readOnly, status }) => {
     { id: 'account_number_letter', label: 'نامه شماره حساب', icon: '📝' },
     { id: 'financial_exel', label: 'اکسل مالی', icon: '📊' },
     { id: 'auditor_response', label: 'پاسخ حسابرس', icon: '📈' },
-    { id: 'warranty', label: 'ضمانت نامه', icon: '🔒' },
   ];
 
   const downloadTemplates = [
@@ -185,8 +182,6 @@ const Contract = ({ readOnly, status }) => {
       <StatusBanner readOnly={readOnly} status={status} />
 
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-      
-
         <Box
           sx={{
             flex: 1,

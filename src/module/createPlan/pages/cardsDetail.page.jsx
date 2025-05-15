@@ -20,10 +20,10 @@ import { Payment } from '../feature/step_5';
 import { AgancyContract } from '../feature/step_6';
 
 const steps = [
-  'ثبت شرکت',
+  ' اطلاعات اولیه ',
   'ثبت هیئت مدیره',
-  'قرارداد عاملیت',
   'اطلاعات تکمیلی',
+  'اطلاعات قرارداد',
   'درگاه پرداخت',
   'قرارداد ',
 ];
@@ -60,6 +60,7 @@ const CardsDetailPage = () => {
   };
 
   const planName = companyData?.investor_request?.suggestion_plan_name;
+  const comanyName = companyData?.investor_request?.company?.title;
 
   const handleStepClick = (index) => {
     const status = getStepStatus(index);
@@ -126,7 +127,9 @@ const CardsDetailPage = () => {
       sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <div className="w-full flex flex-col items-center rounded-md transition-shadow hover:shadow-lg">
-        <h5 className="mb-2 font-bold text-black">{planName}</h5>
+        <h5 className="mb-2 font-bold text-black">
+          {planName} _ {comanyName}
+        </h5>
       </div>
       <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%', mb: 3 }}>
         {steps.map((label, index) => {
