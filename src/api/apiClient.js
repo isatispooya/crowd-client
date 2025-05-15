@@ -10,7 +10,6 @@ const api = axios.create({
   },
 });
 
-// Create a function to handle navigation
 let navigationFunction = null;
 
 export const setNavigationFunction = (navigate) => {
@@ -21,6 +20,7 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
+
   (error) => {
     if (error.response && error.response.status === 401) {
       setCookie('access', '', 0);
