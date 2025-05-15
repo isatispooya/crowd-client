@@ -6,7 +6,7 @@ import { Formik, Form, Field } from 'formik';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as Yup from 'yup';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import usePostComplaints from '../hooks/usePostComplaints';
 
 const validationSchema = Yup.object().shape({
@@ -24,14 +24,21 @@ const Feedback = () => {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-2xl mx-auto p-6"
     >
+      <ToastContainer />
       <h2 className="text-3xl font-bold text-gray-800 mb-6">با ما درمیان بگذارید</h2>
 
       <Formik
         initialValues={{ title: '', message: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          mutate(values);
-          toast.success('شکایت با موفقیت ثبت شد');
+          mutate(values, {
+            onSuccess: () => {
+              toast.success('شکایت با موفقیت ثبت شد');
+            },
+            onError: () => {
+              toast.error('شکایت ثبت نشد');
+            },
+          });
         }}
       >
         {({ errors, touched }) => (

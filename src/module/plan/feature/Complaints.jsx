@@ -49,7 +49,7 @@ const Complaints = () => {
                         : 'bg-amber-100 text-amber-700'
                     }`}
                   >
-                    {item.send_farabourse ? 'رسیدگی شده' : 'در حال رسیدگی'}
+                    {item.send_farabourse ? 'ارسال شده به فرابورس' : 'در حال رسیدگی'}
                   </span>
                 </motion.div>
               </div>
