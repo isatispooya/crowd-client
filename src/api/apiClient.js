@@ -10,6 +10,7 @@ const api = axios.create({
   },
 });
 
+
 // Create a function to handle navigation
 let navigationFunction = null;
 
