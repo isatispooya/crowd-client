@@ -30,7 +30,6 @@ const Page12 = ({ agencyContract }) => {
           7) متقاضی متعهد است در صورت لزوم و به تشخیص شرکت، اقدامات لازم را جهت بازدید کارشناس یا
           کارشناسان معرفی شده توسط عامل از محل فعالیت خود به عمل آورد.
         </p>
-
         <h3 className="font-bold mb-2 text-[23px] text-right">
           ماده 24) راه ارتباطی طرفین قرارداد
         </h3>
@@ -41,22 +40,18 @@ const Page12 = ({ agencyContract }) => {
         <p className="mb-3 pr-8 text-[23px]">1) شماره تلفن ثابت 03591090088</p>
         <p className="mb-3 pr-8 text-[23px]">2) ایمیل به نشانی info@isatiscrowd.ir</p>
         <p className="mb-3 pr-8 text-[23px]">3) اظهارنامه رسمی</p>
-
         <h3 className="font-bold mb-2 text-[23px] text-right">ماده 25) اعتبار قرارداد</h3>
         <p className="mb-3 pr-8 text-[23px]">
           این قرارداد در 25 ماده و 39 تبصره، در دو نسخه واحد و بدون پیوست، تنظیم گردید که پس از
           امضاء کلیه نسخ آن در حکم واحد بوده و لازم الاجرا می باشند.
         </p>
       </div>
-
-
     </div>
   );
 };
 
 Page12.propTypes = {
   agencyContract: PropTypes.object.isRequired,
-  
 };
 
 export default Page12;
