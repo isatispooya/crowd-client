@@ -16,7 +16,8 @@ import MembersInfo from '../feature/step_2/membersInfo';
 import { ExtraInfo } from '../feature/step_4';
 import { useGetCompany } from '../hooks';
 import { Payment } from '../feature/step_6';
-import { Contract } from '../feature/step_5';
+import { Contract } from '../feature/step_3';
+import { AgancyContract } from '../feature/step_5';
 
 const steps = [
   'ثبت شرکت',
@@ -104,7 +105,6 @@ const CardsDetailPage = () => {
     };
   };
 
-  // Component to display for locked steps
   const LockedStepMessage = () => (
     <Box sx={{ py: 4, textAlign: 'center' }}>
       <Typography
@@ -314,7 +314,15 @@ const CardsDetailPage = () => {
           (isStepLocked(5) ? (
             <LockedStepMessage />
           ) : (
-            <Contract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
+            <Payment readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
+          ))}
+
+        {activeStep === 6 &&
+          getStepStatus(6) !== 'pending' &&
+          (isStepLocked(6) ? (
+            <LockedStepMessage />
+          ) : (
+            <AgancyContract readOnly={!isStepEditable(6)} status={getStepStatus(6)} />
           ))}
       </Box>
     </Box>
