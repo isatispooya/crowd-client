@@ -28,14 +28,14 @@ const PaymentCallBack = () => {
   const [error, setError] = useState(null);
 
   const params = new URLSearchParams(location.search);
-  const invoicePayment = params.get('invoice_payment');
-  const referenceNumber = params.get('reference_number');
-  const codeStatusPayment = params.get('code_status_payment');
-  const trackId = params.get('track_id');
+  const invoicePayment = params.get('invoiceId');
+  const referenceNumber = params.get('referenceNumber');
+  const codeStatusPayment = params.get('status');
+  const trackId = params.get('trackId');
 
   useEffect(() => {
     if (!invoicePayment) {
-      setError('خطا: پارامتر invoice_payment در URL وجود ندارد');
+      setError('خطا: پارامتر invoiceId در URL وجود ندارد');
     }
   }, [invoicePayment]);
 
