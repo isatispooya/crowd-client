@@ -1,9 +1,9 @@
 /* eslint-disable no-shadow */
 import { motion } from 'framer-motion';
-import { Link, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { HiDocument, HiArrowUpTray, HiChevronLeft } from 'react-icons/hi2';
+import { HiArrowUpTray } from 'react-icons/hi2';
 import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -23,8 +23,6 @@ const Contract = ({ readOnly, status }) => {
   });
 
   const { mutate: uploadContract, isPending } = useUploadContract(id);
-
-  const uuid = companyData?.investor_request?.uuid;
 
   const pastelBlue = {
     light: '#E6F4FF',

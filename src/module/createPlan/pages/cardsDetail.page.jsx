@@ -15,18 +15,17 @@ import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.f
 import MembersInfo from '../feature/step_2/membersInfo';
 import { ExtraInfo } from '../feature/step_4';
 import { useGetCompany } from '../hooks';
-import { Payment } from '../feature/step_6';
 import { Contract } from '../feature/step_3';
-import { AgancyContract } from '../feature/step_5';
+import { Payment } from '../feature/step_5';
+import { AgancyContract } from '../feature/step_6';
 
 const steps = [
   'ثبت شرکت',
   'ثبت هیئت مدیره',
   'قرارداد عاملیت',
   'اطلاعات تکمیلی',
-  'قرارداد ',
   'درگاه پرداخت',
-
+  'قرارداد ',
 ];
 
 const CardsDetailPage = () => {
@@ -41,6 +40,9 @@ const CardsDetailPage = () => {
   };
 
   const isStepLocked = (stepNumber) => {
+    if (stepNumber === steps.length - 1) {
+      return false;
+    }
     const stepStatus = companyData?.investor_request?.[`step_${stepNumber + 1}`];
     return stepStatus === 'approved';
   };
@@ -50,9 +52,10 @@ const CardsDetailPage = () => {
   const handleStepClick = (index) => {
     const status = getStepStatus(index);
     if (
-      status !== 'pending' &&
-      status !== 'approved' &&
-      (isStepEditable(index) || status === 'rejected')
+      index === steps.length - 1 ||
+      (status !== 'pending' &&
+        status !== 'approved' &&
+        (isStepEditable(index) || status === 'rejected'))
     ) {
       setActiveStep(index);
     }
@@ -130,8 +133,8 @@ const CardsDetailPage = () => {
           const status = getStepStatus(index);
           const badge = getStatusBadge(status);
           const isPending = status === 'pending';
-          const isLocked = status === 'approved';
-          const isClickable = !isPending && !isLocked;
+          const isLocked = status === 'approved' && index !== steps.length - 1;
+          const isClickable = index === steps.length - 1 || (!isPending && !isLocked);
 
           return (
             <Step
@@ -221,7 +224,7 @@ const CardsDetailPage = () => {
             {steps.map((label, index) => {
               const status = getStepStatus(index);
               const isPending = status === 'pending';
-              const isLocked = status === 'approved';
+              const isLocked = status === 'approved' && index !== steps.length - 1;
               const isDisabled = isPending || isLocked;
 
               return (
@@ -308,14 +311,14 @@ const CardsDetailPage = () => {
           (isStepLocked(4) ? (
             <LockedStepMessage />
           ) : (
-            <AgancyContract readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
+            <Payment readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
           ))}
         {activeStep === 5 &&
           getStepStatus(5) !== 'pending' &&
           (isStepLocked(5) ? (
             <LockedStepMessage />
           ) : (
-            <Payment readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
+            <AgancyContract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
           ))}
       </Box>
     </Box>
