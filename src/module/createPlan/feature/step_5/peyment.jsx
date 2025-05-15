@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Card, Typography, Box, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import usePeyment from '../../hooks/step_5/usePeyment';
 import { useGetCompany } from '../../hooks';
 
@@ -33,6 +34,17 @@ const AmountDisplay = styled(Box)({
   borderRadius: '8px',
   marginBottom: '24px',
   textAlign: 'center',
+});
+
+const SuccessMessage = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '24px',
+  background: '#e8f5e9',
+  borderRadius: '8px',
+  marginTop: '16px',
+  marginBottom: '16px',
 });
 
 const Payment = () => {
@@ -86,38 +98,52 @@ const Payment = () => {
             انتقال به درگاه پرداخت
           </Typography>
 
-          <AmountDisplay>
-            <Typography variant="body1" color="textSecondary" gutterBottom>
-              مبلغ قابل پرداخت
-            </Typography>
-            <Typography variant="h4" color="primary" fontWeight="bold">
-              {data.investor_request.amount_of_payment?.toLocaleString() || '0'} ریال
-            </Typography>
-          </AmountDisplay>
+          {data.investor_request.code_status_payment === 'success' ? (
+            <SuccessMessage>
+              <CheckCircleIcon color="success" sx={{ fontSize: 64, mb: 2 }} />
+              <Typography variant="h6" gutterBottom color="success.main" fontWeight="bold">
+                پرداخت با موفقیت انجام شده است
+              </Typography>
+              <Typography variant="body2" align="center">
+                طرح شما با موفقیت نهایی شده است و اکنون می‌توانید آن را به صورت کامل مشاهده نمایید.
+              </Typography>
+            </SuccessMessage>
+          ) : (
+            <>
+              <AmountDisplay>
+                <Typography variant="body1" color="textSecondary" gutterBottom>
+                  مبلغ قابل پرداخت
+                </Typography>
+                <Typography variant="h4" color="primary" fontWeight="bold">
+                  {data.investor_request.amount_of_payment?.toLocaleString() || '0'} ریال
+                </Typography>
+              </AmountDisplay>
+              <Typography variant="body2" gutterBottom>
+                با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده
+                نمایید.
+              </Typography>
 
-          <Typography variant="body2" gutterBottom>
-            با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده نمایید.
-          </Typography>
+              <PaymentButton
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handlePayment}
+                disabled={loading}
+              >
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  'پرداخت و انتقال به درگاه بانکی'
+                )}
+              </PaymentButton>
 
-          <PaymentButton
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handlePayment}
-            disabled={loading}
-          >
-            {loading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'پرداخت و انتقال به درگاه بانکی'
-            )}
-          </PaymentButton>
-
-          <Box mt={2} textAlign="center">
-            <Typography variant="caption" color="textSecondary">
-              با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
-            </Typography>
-          </Box>
+              <Box mt={2} textAlign="center">
+                <Typography variant="caption" color="textSecondary">
+                  با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
+                </Typography>
+              </Box>
+            </>
+          )}
         </StyledCard>
       ) : (
         <StyledCard>
