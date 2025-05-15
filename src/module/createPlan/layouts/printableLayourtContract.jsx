@@ -19,34 +19,20 @@ const PrintableContractLayout = ({
     <div>
       <motion.div
         ref={printRef}
-        className="print-container font-sans rtl p-3 md:p-6 mx-auto shadow-lg rounded-lg border border-gray-200 min-h-screen w-full md:w-[210mm] lg:w-[297mm] xl:w-[420mm]"
+        className="print-container font-sans rtl p-6 mx-auto bg-white shadow-lg rounded-lg border border-gray-200 h-[594mm] w-[420mm]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        style={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb' }}
         transition={{ duration: 0.5 }}
       >
-        <div className="mb-4 md:mb-6">
-          <div
-            style={{ backgroundColor: '#4f46e5' }}
-            className="h-1 md:h-2 rounded-t-lg -mt-3 md:-mt-6 -mx-3 md:-mx-6 mb-2 md:mb-4"
-          />
-
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0">
-            <div className="flex items-center">
-              {/* <img src={LogoSabad} alt="logo" className="w-16 h-auto" />
-              <img src={TypeLogo} alt="type logo" className="w-20 h-auto ml-2" /> */}
-            </div>
-
-            <div className="flex flex-col gap-1 text-left w-full md:w-auto">
+        <div className="mb-6">
+          <div className="h-2 bg-gradient-to-l from-purple-600 to-indigo-700 rounded-t-lg -mt-6 -mx-6 mb-4" />
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-1 text-left">
               {headerChildren ||
                 headerInfo.map((item, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <span style={{ color: '#374151' }} className="text-xs md:text-sm font-bold">
-                      {item.label}:
-                    </span>
-                    <span style={{ color: '#374151' }} className="text-xs md:text-sm">
-                      {item.value}
-                    </span>
+                    <span className="text-xs font-bold text-gray-700">{item.label}:</span>
+                    <span className="text-xs text-gray-700">{item.value}</span>
                   </div>
                 ))}
             </div>
@@ -54,39 +40,34 @@ const PrintableContractLayout = ({
         </div>
 
         {(title || subtitle) && (
-          <div className="mb-4 md:mb-6">
-            {title && (
-              <p style={{ color: '#374151' }} className="text-xs md:text-sm font-bold mb-1 md:mb-2">
-                {title}
-              </p>
-            )}
-            {subtitle && (
-              <p style={{ color: '#374151' }} className="text-xs md:text-sm font-bold">
-                {subtitle}
-              </p>
-            )}
+          <div className="mb-6">
+            {title && <p className="text-sm font-bold text-gray-800 mb-2">{title}</p>}
+            {subtitle && <p className="text-sm font-bold text-gray-800">{subtitle}</p>}
           </div>
         )}
 
-        <div className="text-xs md:text-sm">{children}</div>
+        <div className="flex flex-col h-full">
+          <div className="flex-grow">{children}</div>
+          {footerChildren && <div className="mt-auto">{footerChildren}</div>}
+        </div>
 
         {(signatureImage || qrCodeComponent) && (
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="mt-4 md:mt-8 flex flex-col md:flex-row-reverse justify-between items-center gap-4 md:gap-0"
+            transition={{ delay: 1 }}
+            className="mt-8 flex flex-row-reverse justify-between items-center"
           >
             {signatureImage && (
-              <div className="w-full md:w-6/12">
+              <div className="w-6/12">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="border border-gray-300 rounded-lg p-2 md:p-3 shadow-sm bg-white"
+                  className="border border-gray-300 rounded-lg bg-white p-3 shadow-sm"
                 >
                   <img
                     src={signatureImage}
                     alt="امضای بانک"
-                    className="w-full h-16 md:h-32 object-contain"
+                    className="w-full max-h-32 object-contain"
                   />
                 </motion.div>
               </div>
@@ -96,27 +77,14 @@ const PrintableContractLayout = ({
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="w-full md:w-5/12 flex justify-center md:justify-start"
+                transition={{ delay: 1.2 }}
+                className="w-5/12 flex justify-start"
               >
                 {qrCodeComponent}
               </motion.div>
             )}
           </motion.div>
         )}
-
-        {footerChildren ||
-          (footerText && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              style={{ color: '#374151' }}
-              className="text-center text-xs md:text-sm pt-2 md:pt-3"
-            >
-              {typeof footerText === 'string' ? <p>{footerText}</p> : footerText}
-            </motion.div>
-          ))}
       </motion.div>
     </div>
   );
