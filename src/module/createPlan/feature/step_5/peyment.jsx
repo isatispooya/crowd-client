@@ -41,62 +41,101 @@ const Payment = () => {
 
   const { mutate: postPeyment } = usePeyment();
   const [loading, setLoading] = useState(false);
-  const amount = 250000000000;
+
+  if (data?.investor_request) {
+    console.log(data.investor_request.status_payment);
+  }
 
   const handlePayment = () => {
     if (data?.investor_request?.id) {
       setLoading(true);
-      postPeyment({ investor_request_id: data.investor_request.id }, {
-        onSuccess: (responseData) => {
-          if (responseData && responseData.url) {
-            window.location.href = responseData.url;
-          }
-        },
-        onSettled: () => setLoading(false)
-      });
+      postPeyment(
+        { investor_request_id: data.investor_request.id },
+        {
+          onSuccess: (responseData) => {
+            if (responseData && responseData.url) {
+              window.location.href = responseData.url;
+            }
+          },
+          onSettled: () => setLoading(false),
+        }
+      );
     }
   };
 
+  if (!data || !data.investor_request) {
+    return (
+      <PaymentContainer>
+        <StyledCard>
+          <Box display="flex" justifyContent="center" alignItems="center" p={4}>
+            <CircularProgress />
+            <Typography variant="body1" sx={{ ml: 2 }}>
+              در حال بارگذاری اطلاعات...
+            </Typography>
+          </Box>
+        </StyledCard>
+      </PaymentContainer>
+    );
+  }
+
   return (
     <PaymentContainer>
-      <StyledCard>
-        <Typography variant="h5" component="h2" gutterBottom align="center" fontWeight="bold">
-          انتقال به درگاه پرداخت
-        </Typography>
-
-        <AmountDisplay>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
-            مبلغ قابل پرداخت
+      {data.investor_request.status_payment === true ? (
+        <StyledCard>
+          <Typography variant="h5" component="h2" gutterBottom align="center" fontWeight="bold">
+            انتقال به درگاه پرداخت
           </Typography>
-          <Typography variant="h4" color="primary" fontWeight="bold">
-            {amount.toLocaleString()} ریال
+
+          <AmountDisplay>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              مبلغ قابل پرداخت
+            </Typography>
+            <Typography variant="h4" color="primary" fontWeight="bold">
+              {data.investor_request.amount_of_payment?.toLocaleString() || '0'} ریال
+            </Typography>
+          </AmountDisplay>
+
+          <Typography variant="body2" gutterBottom>
+            با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده نمایید.
           </Typography>
-        </AmountDisplay>
 
-        <Typography variant="body2" gutterBottom>
-          با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده نمایید.
-        </Typography>
+          <PaymentButton
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handlePayment}
+            disabled={loading}
+          >
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              'پرداخت و انتقال به درگاه بانکی'
+            )}
+          </PaymentButton>
 
-        <PaymentButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handlePayment}
-          disabled={loading}
-        >
-          {loading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            'پرداخت و انتقال به درگاه بانکی'
-          )}
-        </PaymentButton>
-
-        <Box mt={2} textAlign="center">
-          <Typography variant="caption" color="textSecondary">
-            با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
+          <Box mt={2} textAlign="center">
+            <Typography variant="caption" color="textSecondary">
+              با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
+            </Typography>
+          </Box>
+        </StyledCard>
+      ) : (
+        <StyledCard>
+          <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
+            align="center"
+            fontWeight="bold"
+            color="error"
+          >
+            امکان پرداخت برای شما وجود ندارد
           </Typography>
-        </Box>
-      </StyledCard>
+          <Typography variant="body1" align="center" sx={{ mt: 2 }}>
+            متأسفانه در حال حاضر امکان پرداخت برای طرح شما فعال نیست.
+          </Typography>
+        </StyledCard>
+      )}
     </PaymentContainer>
   );
 };
