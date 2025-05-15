@@ -13,9 +13,10 @@ import Paper from '@mui/material/Paper';
 import { useParams } from 'react-router-dom';
 import CompanyRegister from '../feature/step_1/registerCompany/companyRegister.feat';
 import MembersInfo from '../feature/step_2/membersInfo';
-import { Contract } from '../feature/step_3';
 import { ExtraInfo } from '../feature/step_4';
 import { useGetCompany } from '../hooks';
+import { Payment } from '../feature/step_6';
+import { Contract } from '../feature/step_5';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی' , 'درگاه پرداخت' , 'قرارداد'];
 
