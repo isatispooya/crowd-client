@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Button, Card, Typography, Box, CircularProgress } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
+import usePeyment from '../../hooks/step_5/usePeyment';
+import { useGetCompany, useInvestor } from '../../hooks';
+import { getCompanyDetails } from '../../services';
+import { useParams } from 'react-router-dom';
 
 const PaymentContainer = styled(Box)({
   display: 'flex',
@@ -33,15 +37,25 @@ const AmountDisplay = styled(Box)({
 });
 
 const Payment = () => {
+  const { id } = useParams();
+  const { data } = useGetCompany(id);
+
+  const { mutate: postPeyment } = usePeyment();
   const [loading, setLoading] = useState(false);
-  const amount = 1500000;
+  const amount = 250000000000;
 
   const handlePayment = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      alert('در حال انتقال به درگاه پرداخت...');
-    }, 1500);
+    if (data?.investor_request?.id) {
+      setLoading(true);
+      postPeyment({ investor_request_id: data.investor_request.id }, {
+        onSuccess: (responseData) => {
+          if (responseData && responseData.url) {
+            window.location.href = responseData.url;
+          }
+        },
+        onSettled: () => setLoading(false)
+      });
+    }
   };
 
   return (
@@ -56,7 +70,7 @@ const Payment = () => {
             مبلغ قابل پرداخت
           </Typography>
           <Typography variant="h4" color="primary" fontWeight="bold">
-            {amount.toLocaleString()} تومان
+            {amount.toLocaleString()} ریال
           </Typography>
         </AmountDisplay>
 

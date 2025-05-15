@@ -28,6 +28,18 @@ const steps = [
   'قرارداد ',
 ];
 
+const LockedStepMessage = () => (
+  <Box sx={{ py: 4, textAlign: 'center' }}>
+    <Typography
+      variant="h6"
+      color="success.main"
+      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
+    >
+      این مرحله تایید شده است و امکان ویرایش وجود ندارد
+    </Typography>
+  </Box>
+);
+
 const CardsDetailPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const { id } = useParams();
@@ -108,18 +120,6 @@ const CardsDetailPage = () => {
       icon: '⟳',
     };
   };
-
-  const LockedStepMessage = () => (
-    <Box sx={{ py: 4, textAlign: 'center' }}>
-      <Typography
-        variant="h6"
-        color="success.main"
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
-      >
-        این مرحله تایید شده است و امکان ویرایش وجود ندارد
-      </Typography>
-    </Box>
-  );
 
   return (
     <Box
