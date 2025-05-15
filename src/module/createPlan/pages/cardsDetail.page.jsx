@@ -16,7 +16,8 @@ import MembersInfo from '../feature/step_2/membersInfo';
 import { ExtraInfo } from '../feature/step_4';
 import { useGetCompany } from '../hooks';
 import { Payment } from '../feature/step_6';
-import { Contract } from '../feature/step_5';
+import { Contract } from '../feature/step_3';
+import { AgancyContract } from '../feature/step_5';
 
 const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی' , 'درگاه پرداخت' , 'قرارداد'];
 
@@ -256,7 +257,7 @@ const CardsDetailPage = () => {
           <Payment readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
         )}
         {activeStep === 5 && getStepStatus(5) !== 'pending' && (
-          <Contract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
+          <AgancyContract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
         )}
       </Box>
     </Box>
