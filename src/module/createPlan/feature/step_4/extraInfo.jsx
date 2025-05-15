@@ -56,6 +56,11 @@ const ExtraInfo = ({ readOnly, status }) => {
       label: 'سوابق اجرایی',
       icon: '📄',
     },
+    {
+      id: 'certificate_of_signature_of_the_signatories_of_the_contract',
+      label: 'گواهی امضای صاحبان امضا',
+      icon: '📄',
+    },
   ];
 
   const downloadTemplates = [
