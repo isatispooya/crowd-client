@@ -1,1 +1,3 @@
-export { default as AgancyContract } from './agancyContract';
+
+
+export { default as Payment } from './peyment';
