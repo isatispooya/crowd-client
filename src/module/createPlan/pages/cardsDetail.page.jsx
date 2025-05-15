@@ -17,7 +17,7 @@ import { Contract } from '../feature/step_3';
 import { ExtraInfo } from '../feature/step_4';
 import { useGetCompany } from '../hooks';
 
-const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی'];
+const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی' , 'درگاه پرداخت' , 'قرارداد'];
 
 const CardsDetailPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -250,6 +250,12 @@ const CardsDetailPage = () => {
         )}
         {activeStep === 3 && getStepStatus(3) !== 'pending' && (
           <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
+        )}
+        {activeStep === 4 && getStepStatus(4) !== 'pending' && (
+          <Payment readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
+        )}
+        {activeStep === 5 && getStepStatus(5) !== 'pending' && (
+          <Contract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
         )}
       </Box>
     </Box>
