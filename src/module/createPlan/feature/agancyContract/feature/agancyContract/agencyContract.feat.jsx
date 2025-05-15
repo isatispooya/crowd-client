@@ -41,6 +41,7 @@ const AgencyContract = () => {
       { person_title: 'محسن زارعیان', position_title: 'مدیر عامل' },
       { person_title: 'سیدعلیمحمد خبیری', position_title: 'عضو هیئت مدیره' },
     ];
+    
 
     return (
       <div className="w-full px-0 mt-2">
