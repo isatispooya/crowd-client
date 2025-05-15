@@ -1,10 +1,9 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Button, Card, Typography, Box, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import usePeyment from '../../hooks/step_5/usePeyment';
-import { useGetCompany, useInvestor } from '../../hooks';
-import { getCompanyDetails } from '../../services';
-import { useParams } from 'react-router-dom';
+import { useGetCompany } from '../../hooks';
 
 const PaymentContainer = styled(Box)({
   display: 'flex',
