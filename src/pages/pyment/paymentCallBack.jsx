@@ -36,7 +36,6 @@ const PaymentCallBack = () => {
   useEffect(() => {
     if (!invoicePayment) {
       setError('خطا: پارامتر invoice_payment در URL وجود ندارد');
-      return;
     }
   }, [invoicePayment]);
 
@@ -53,7 +52,7 @@ const PaymentCallBack = () => {
 
   useEffect(() => {
     if (apiError) {
-      setError('خطا در پردازش پرداخت: ' + (apiError.message || 'خطای نامشخص'));
+      setError(`خطا در پردازش پرداخت: ${apiError.message || 'خطای نامشخص'}`);
     }
   }, [apiError]);
 
@@ -71,8 +70,8 @@ const PaymentCallBack = () => {
         className="bg-gray-50 border border-gray-200 shadow-sm w-full h-full p-8 text-center overflow-hidden relative rounded-md"
         {...containerAnimation}
       >
-        <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl"></div>
-        <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl"></div>
+        <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl" />
+        <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl" />
         <motion.div {...contentAnimation} className="relative z-10 mt-60 max-w-md mx-auto">
           <motion.div
             {...iconAnimation}
