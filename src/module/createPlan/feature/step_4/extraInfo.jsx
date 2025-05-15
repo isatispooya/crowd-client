@@ -108,7 +108,6 @@ const ExtraInfo = ({ readOnly, status }) => {
   };
 
   const handleDownload = (fileUrl, fileName) => {
-    // Implement the download logic here
     console.log(`Downloading file: ${fileUrl}`);
   };
 
