@@ -19,7 +19,14 @@ import { Payment } from '../feature/step_6';
 import { Contract } from '../feature/step_3';
 import { AgancyContract } from '../feature/step_5';
 
-const steps = ['ثبت شرکت', 'ثبت هیئت مدیره', 'قرارداد عاملیت', 'اطلاعات تکمیلی' , 'درگاه پرداخت' , 'قرارداد'];
+const steps = [
+  'ثبت شرکت',
+  'ثبت هیئت مدیره',
+  'قرارداد عاملیت',
+  'اطلاعات تکمیلی',
+  'درگاه پرداخت',
+  'قرارداد',
+];
 
 const CardsDetailPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -32,13 +39,19 @@ const CardsDetailPage = () => {
     return stepStatus === 'changed';
   };
 
+  const isStepLocked = (stepNumber) => {
+    const stepStatus = companyData?.investor_request?.[`step_${stepNumber + 1}`];
+    return stepStatus === 'approved';
+  };
+
   const planName = companyData?.investor_request?.suggestion_plan_name;
 
   const handleStepClick = (index) => {
     const status = getStepStatus(index);
     if (
       status !== 'pending' &&
-      (isStepEditable(index) || status === 'rejected' || status === 'approved')
+      status !== 'approved' &&
+      (isStepEditable(index) || status === 'rejected')
     ) {
       setActiveStep(index);
     }
@@ -59,10 +72,10 @@ const CardsDetailPage = () => {
   const getStatusBadge = (status) => {
     if (status === 'approved') {
       return {
-        label: 'تایید شده',
+        label: 'تایید شده (قفل)',
         color: 'success.main',
         bgColor: 'success.light',
-        icon: '✓',
+        icon: '🔒',
       };
     }
 
@@ -92,6 +105,19 @@ const CardsDetailPage = () => {
     };
   };
 
+  const LockedStepMessage = () => (
+    <Box sx={{ py: 4, textAlign: 'center' }}>
+      <Typography
+        variant="h6"
+        color="success.main"
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
+      >
+        <span>🔒</span>
+        این مرحله تایید شده است و امکان ویرایش وجود ندارد
+      </Typography>
+    </Box>
+  );
+
   return (
     <Box
       sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
@@ -104,13 +130,15 @@ const CardsDetailPage = () => {
           const status = getStepStatus(index);
           const badge = getStatusBadge(status);
           const isPending = status === 'pending';
+          const isLocked = status === 'approved';
+          const isClickable = !isPending && !isLocked;
 
           return (
             <Step
               key={label}
-              onClick={() => !isPending && handleStepClick(index)}
+              onClick={() => isClickable && handleStepClick(index)}
               sx={{
-                cursor: isPending ? 'not-allowed' : 'pointer',
+                cursor: isClickable ? 'pointer' : 'not-allowed',
                 opacity: isPending ? 0.5 : 1,
                 '& .MuiStepLabel-root': {
                   color: badge.color,
@@ -193,15 +221,17 @@ const CardsDetailPage = () => {
             {steps.map((label, index) => {
               const status = getStepStatus(index);
               const isPending = status === 'pending';
+              const isLocked = status === 'approved';
+              const isDisabled = isPending || isLocked;
 
               return (
                 <MenuItem
                   key={index}
                   value={index}
-                  disabled={isPending}
+                  disabled={isDisabled}
                   sx={{
-                    opacity: isPending ? 0.5 : 1,
-                    cursor: isPending ? 'not-allowed' : 'pointer',
+                    opacity: isDisabled ? 0.5 : 1,
+                    cursor: isDisabled ? 'not-allowed' : 'pointer',
                   }}
                 >
                   {label}
@@ -241,24 +271,60 @@ const CardsDetailPage = () => {
       )}
 
       <Box sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
-        {activeStep === 0 && getStepStatus(0) !== 'pending' && (
-          <CompanyRegister companyId={id} readOnly={!isStepEditable(0)} status={getStepStatus(0)} />
-        )}
-        {activeStep === 1 && getStepStatus(1) !== 'pending' && (
-          <MembersInfo readOnly={!isStepEditable(1)} status={getStepStatus(1)} />
-        )}
-        {activeStep === 2 && getStepStatus(2) !== 'pending' && (
-          <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />
-        )}
-        {activeStep === 3 && getStepStatus(3) !== 'pending' && (
-          <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
-        )}
-        {activeStep === 4 && getStepStatus(4) !== 'pending' && (
-          <Payment readOnly={!isStepEditable(4)} status={getStepStatus(4)} />
-        )}
-        {activeStep === 5 && getStepStatus(5) !== 'pending' && (
-          <AgancyContract readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
-        )}
+        {activeStep === 0 &&
+          getStepStatus(0) !== 'pending' &&
+          (isStepLocked(0) ? (
+            <LockedStepMessage />
+          ) : (
+            <CompanyRegister
+              companyId={id}
+              readOnly={!isStepEditable(0)}
+              status={getStepStatus(0)}
+            />
+          ))}
+        {activeStep === 1 &&
+          getStepStatus(1) !== 'pending' &&
+          (isStepLocked(1) ? (
+            <LockedStepMessage />
+          ) : (
+            <MembersInfo readOnly={!isStepEditable(1)} status={getStepStatus(1)} />
+          ))}
+        {activeStep === 2 &&
+          getStepStatus(2) !== 'pending' &&
+          (isStepLocked(2) ? (
+            <LockedStepMessage />
+          ) : (
+            <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />
+          ))}
+        {activeStep === 3 &&
+          getStepStatus(3) !== 'pending' &&
+          (isStepLocked(3) ? (
+            <LockedStepMessage />
+          ) : (
+            <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
+          ))}
+        {activeStep === 4 &&
+          getStepStatus(4) !== 'pending' &&
+          (isStepLocked(4) ? (
+            <LockedStepMessage />
+          ) : (
+            <div>درگاه پرداخت - این بخش در حال توسعه است</div>
+          ))}
+        {activeStep === 5 &&
+          getStepStatus(5) !== 'pending' &&
+          (isStepLocked(5) ? (
+            <LockedStepMessage />
+          ) : (
+            <Payment readOnly={!isStepEditable(5)} status={getStepStatus(5)} />
+          ))}
+
+        {activeStep === 6 &&
+          getStepStatus(6) !== 'pending' &&
+          (isStepLocked(6) ? (
+            <LockedStepMessage />
+          ) : (
+            <AgancyContract readOnly={!isStepEditable(6)} status={getStepStatus(6)} />
+          ))}
       </Box>
     </Box>
   );
