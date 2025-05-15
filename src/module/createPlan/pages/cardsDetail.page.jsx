@@ -71,10 +71,10 @@ const CardsDetailPage = () => {
   const getStatusBadge = (status) => {
     if (status === 'approved') {
       return {
-        label: 'تایید شده (قفل)',
+        label: 'تایید شده',
         color: 'success.main',
         bgColor: 'success.light',
-        icon: '🔒',
+        icon: '✓',
       };
     }
 
@@ -112,7 +112,6 @@ const CardsDetailPage = () => {
         color="success.main"
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
       >
-        <span>🔒</span>
         این مرحله تایید شده است و امکان ویرایش وجود ندارد
       </Typography>
     </Box>
