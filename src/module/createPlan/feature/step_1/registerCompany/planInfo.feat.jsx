@@ -7,7 +7,7 @@ import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import { useGetCompany } from '../../../hooks';
 
-const PlanInfo = ({ pastelBlue }) => {
+const PlanInfo = ({ pastelBlue, readOnly = false }) => {
   const { suggestion_plan_name, amount_of_investment, updateField } = useCompanyRegistrationStore();
   const { data: companyData } = useGetCompany();
 
@@ -52,6 +52,7 @@ const PlanInfo = ({ pastelBlue }) => {
             pastelBlue={pastelBlue}
             xs={12}
             md={6}
+            disabled={readOnly}
           />
           <Grid item xs={12} md={6}>
             <FormField
@@ -68,6 +69,7 @@ const PlanInfo = ({ pastelBlue }) => {
               error={!!(amount_of_investment && amount_of_investment < minAmount)}
               pastelBlue={pastelBlue}
               xs={12}
+              disabled={readOnly}
             />
             <LinearProgress
               variant="determinate"
@@ -95,6 +97,7 @@ PlanInfo.propTypes = {
     contrastText: PropTypes.string.isRequired,
     dark: PropTypes.string.isRequired,
   }).isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default PlanInfo;

@@ -8,7 +8,7 @@ import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import { useGetCompany } from '../../../hooks';
 
-const CompanyInfo = ({ pastelBlue }) => {
+const CompanyInfo = ({ pastelBlue, readOnly = false }) => {
   const { setFile, removeFile, resetStore } = useCompanyRegistrationStore();
   const { id } = useParams();
   const { data: companyData } = useGetCompany(id);
@@ -119,13 +119,14 @@ const CompanyInfo = ({ pastelBlue }) => {
                 label={field.label}
                 name={field.name}
                 value={getFileValue(field.name)}
-                onChange={(e) => handleFileChange(e, fileFieldMapping[field.name])}
-                onFileRemove={() => handleFileRemove(fileFieldMapping[field.name])}
+                onChange={readOnly ? null : (e) => handleFileChange(e, fileFieldMapping[field.name])}
+                onFileRemove={readOnly ? null : () => handleFileRemove(fileFieldMapping[field.name])}
                 type="file"
                 accept={field.accept}
                 hint={field.hint}
                 pastelBlue={pastelBlue}
                 fullWidth
+                disabled={readOnly}
               />
             </Grid>
           ))}
@@ -142,6 +143,7 @@ CompanyInfo.propTypes = {
     contrastText: PropTypes.string.isRequired,
     dark: PropTypes.string.isRequired,
   }).isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default CompanyInfo;

@@ -7,7 +7,7 @@ import AccordionCom from '../../../components/accordian';
 import useCompanyRegistrationStore from '../../../store/companyRegistrationStore';
 import { useGetCompany } from '../../../hooks';
 
-const CompanyBankInfo = ({ pastelBlue }) => {
+const CompanyBankInfo = ({ pastelBlue, readOnly = false }) => {
   const { bank, bank_branch, bank_branch_code, updateField } = useCompanyRegistrationStore();
   const { id } = useParams();
   const { data: companyData } = useGetCompany(id);
@@ -106,13 +106,13 @@ const CompanyBankInfo = ({ pastelBlue }) => {
               label={field.label}
               name={field.name}
               value={field.value}
-              onChange={handleBankChange}
+              onChange={readOnly ? null : handleBankChange}
               type={field.type}
               hint={field.hint}
               pastelBlue={pastelBlue}
               xs={12}
               md={6}
-              disabled={field.disabled}
+              disabled={readOnly || field.disabled}
               inputProps={
                 field.type === 'select'
                   ? {
@@ -140,6 +140,7 @@ CompanyBankInfo.propTypes = {
     contrastText: PropTypes.string.isRequired,
     dark: PropTypes.string.isRequired,
   }).isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default CompanyBankInfo;
