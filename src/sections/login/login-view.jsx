@@ -31,7 +31,7 @@ export default function LoginView() {
   const { data: captchaData, refetch: refreshCaptcha, isLoading: isCaptchaLoading } = useCaptcha();
   const { mutate: applyNationalCode } = useApplyNationalCode();
   const { mutate: submitOtp, isLoading: loadingOtp } = useSubmitOtp();
-  const { timer, step, setStep, startTimer } = useTimer();
+  const { timer, step, setStep, startTimer, resetTimer } = useTimer();
 
   const searchParams = new URLSearchParams(window.location.search);
   const referal = searchParams.get('rf');
@@ -54,6 +54,7 @@ export default function LoginView() {
       },
       {
         onSuccess: (data) => {
+          resetTimer();
           setStep(2);
           startTimer();
         },
@@ -197,8 +198,10 @@ export default function LoginView() {
                 variant="outlined"
                 color="inherit"
                 onClick={() => {
+                  resetTimer();
                   setStep(1);
-                  refreshCaptcha(); // Refresh captcha when going back to step 1
+                  refreshCaptcha();
+                  startTimer();
                 }}
                 sx={{ mt: 1 }}
               >
