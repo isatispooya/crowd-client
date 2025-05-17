@@ -264,9 +264,15 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       <StatusBanner readOnly={readOnly} status={status} />
 
       <Grid container spacing={4}>
-        <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
-        <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
-        <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        <Grid item xs={12}>
+          <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
+        <Grid item xs={12}>
+          <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
+        <Grid item xs={12}>
+          <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
         {!readOnly && (
           <Grid item xs={12} sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
             <Button
