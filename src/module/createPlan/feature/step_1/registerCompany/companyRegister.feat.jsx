@@ -229,10 +229,8 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
           variant="h5"
           component="h1"
           sx={{
-            color: '#fff',
             fontWeight: 700,
             position: 'relative',
-            bgcolor: pastelBlue.main,
             px: 4,
             py: 1.5,
             borderRadius: '4px',
