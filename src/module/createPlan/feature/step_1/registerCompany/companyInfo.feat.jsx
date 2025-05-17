@@ -99,23 +99,35 @@ const CompanyInfo = ({ pastelBlue }) => {
 
   return (
     <Grid item xs={12}>
-      <AccordionCom title="اطلاعات شرکت" defaultExpanded id="company-info" pastelBlue={pastelBlue}>
-        <Grid container spacing={3}>
+      <AccordionCom
+        title="اطلاعات شرکت"
+        defaultExpanded
+        id="company-info"
+        pastelBlue={pastelBlue}
+        sx={{
+          width: '100%',
+          '& .MuiAccordionSummary-root': {
+            bgcolor: pastelBlue.light,
+            borderRadius: '4px',
+          },
+        }}
+      >
+        <Grid container spacing={2}>
           {fileFields.map((field) => (
-            <FormField
-              key={field.name}
-              label={field.label}
-              name={field.name}
-              value={getFileValue(field.name)}
-              onChange={(e) => handleFileChange(e, fileFieldMapping[field.name])}
-              onFileRemove={() => handleFileRemove(fileFieldMapping[field.name])}
-              type="file"
-              accept={field.accept}
-              hint={field.hint}
-              pastelBlue={pastelBlue}
-              xs={12}
-              md={6}
-            />
+            <Grid item xs={12} key={field.name}>
+              <FormField
+                label={field.label}
+                name={field.name}
+                value={getFileValue(field.name)}
+                onChange={(e) => handleFileChange(e, fileFieldMapping[field.name])}
+                onFileRemove={() => handleFileRemove(fileFieldMapping[field.name])}
+                type="file"
+                accept={field.accept}
+                hint={field.hint}
+                pastelBlue={pastelBlue}
+                fullWidth
+              />
+            </Grid>
           ))}
         </Grid>
       </AccordionCom>

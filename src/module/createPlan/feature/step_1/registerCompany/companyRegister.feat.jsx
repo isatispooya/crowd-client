@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, Paper, Box, Chip, Tooltip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -76,8 +76,6 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
   const validateForm = (data) => {
     const errors = {};
 
-
-
     if (!data.bank && data.bank !== 0) {
       errors.bank = 'لطفاً نام بانک را وارد کنید';
     }
@@ -148,14 +146,12 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       const formData = new FormData();
 
       if (data.logo && data.logo instanceof File) {
-
         formData.append('logo', data.logo);
       } else if (data.logo) {
         console.warn('Logo exists but is not a File object:', typeof data.logo);
       }
 
       if (data.validation_report && data.validation_report instanceof File) {
-    
         formData.append('validation_report', data.validation_report);
       } else if (data.validation_report) {
         console.warn(
@@ -165,7 +161,6 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
       }
 
       if (data.financial_statement && data.financial_statement instanceof File) {
-
         formData.append('financial_statement', data.financial_statement);
       } else if (data.financial_statement) {
         console.warn(
@@ -184,10 +179,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
         formData.append('amount_of_investment', data.amount_of_investment.toString());
       }
 
-   
-      Array.from(formData.entries()).forEach(([key, value]) => {
-
-      });
+      Array.from(formData.entries()).forEach(([key, value]) => {});
 
       mutate(formData, {
         onSuccess: (response) => {
@@ -218,32 +210,34 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
         display: 'flex',
         flexDirection: 'column',
         gap: 3,
-        width: '90%',
-        maxWidth: '1000px',
-        margin: '2rem auto',
+        width: '100%',
+        margin: '0',
         boxShadow: '0 10px 30px rgba(149, 157, 165, 0.15)',
         borderRadius: '20px',
-        padding: '2.5rem',
+        padding: '2rem',
         background: '#FFFFFF',
         border: `1px solid ${pastelBlue.dark}`,
         position: 'relative',
         overflow: 'hidden',
         opacity: readOnly ? 0.9 : 1,
-        '&:hover': {
-          boxShadow: '0 15px 35px rgba(149, 157, 165, 0.2)',
-        },
       }}
     >
       <ToastContainer position="top-center" />
 
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
         <Typography
           variant="h5"
           component="h1"
           sx={{
-            color: pastelBlue.contrastText,
+            color: '#fff',
             fontWeight: 700,
             position: 'relative',
+            bgcolor: pastelBlue.main,
+            px: 4,
+            py: 1.5,
+            borderRadius: '4px',
+            textAlign: 'center',
+            minWidth: '250px',
           }}
         >
           ثبت اطلاعات شرکت
@@ -255,7 +249,7 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
               label={status === 'approved' ? 'تایید شده' : 'رد شده'}
               color={status === 'approved' ? 'success' : 'error'}
               variant="outlined"
-              sx={{ fontWeight: 'bold' }}
+              sx={{ fontWeight: 'bold', position: 'absolute', right: '2rem' }}
             />
           </Tooltip>
         )}
@@ -263,12 +257,18 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
 
       <StatusBanner readOnly={readOnly} status={status} />
 
-      <Grid container spacing={4}>
-        <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
-        <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
-        <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+      <Grid container direction="column" spacing={2}>
+        <Grid item xs={12}>
+          <CompanyInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
+        <Grid item xs={12}>
+          <CompanyBankInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
+        <Grid item xs={12}>
+          <PlanInfo pastelBlue={pastelBlue} errors={validationErrors} readOnly={readOnly} />
+        </Grid>
         {!readOnly && (
-          <Grid item xs={12} sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+          <Grid item xs={12} sx={{ mt: 2 }}>
             <Button
               onClick={handleSubmit}
               variant="contained"
@@ -276,6 +276,11 @@ const CompanyRegister = ({ companyId, readOnly, status }) => {
               disabled={isSubmitting || isLoading}
               loading={isSubmitting || isLoading}
               pastelBlue={pastelBlue}
+              sx={{
+                width: '100%',
+                height: 45,
+                fontWeight: 'bold',
+              }}
             >
               ثبت اطلاعات
             </Button>

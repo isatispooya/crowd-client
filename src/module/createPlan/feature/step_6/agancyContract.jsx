@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { useGetCompany } from '../../hooks';
 
-const AgancyContract = ({ readOnly }) => {
+const AgancyContract = ({ readOnly, paymentApproved }) => {
   const { id } = useParams();
   const { data: companyData } = useGetCompany(id);
   const uuid = companyData?.investor_request?.uuid || '';
@@ -94,8 +94,8 @@ const AgancyContract = ({ readOnly }) => {
           {links.map((link) => (
             <motion.div key={link.id} variants={itemVariants} whileHover="hover">
               <Link
-                to={readOnly || link.path === '#' ? '#' : link.path}
-                onClick={(e) => (readOnly || link.path === '#') && e.preventDefault()}
+                to={!paymentApproved || link.path === '#' ? '#' : link.path}
+                onClick={(e) => (!paymentApproved || link.path === '#') && e.preventDefault()}
                 style={{
                   display: 'block',
                   padding: '16px',
@@ -104,8 +104,8 @@ const AgancyContract = ({ readOnly }) => {
                   borderRadius: '8px',
                   border: '1px solid #e0e0e0',
                   transition: 'all 0.2s',
-                  opacity: readOnly || link.path === '#' ? 0.8 : 1,
-                  cursor: readOnly || link.path === '#' ? 'default' : 'pointer',
+                  opacity: !paymentApproved || link.path === '#' ? 0.6 : 1,
+                  cursor: !paymentApproved || link.path === '#' ? 'not-allowed' : 'pointer',
                   textDecoration: 'none',
                 }}
               >
@@ -118,7 +118,7 @@ const AgancyContract = ({ readOnly }) => {
                       {link.title}
                     </Typography>
                   </Box>
-                  {!readOnly && link.path !== '#' && (
+                  {paymentApproved && link.path !== '#' && (
                     <Box
                       sx={{
                         bgcolor: pastelBlue.light,
@@ -142,10 +142,12 @@ const AgancyContract = ({ readOnly }) => {
 
 AgancyContract.propTypes = {
   readOnly: PropTypes.bool,
+  paymentApproved: PropTypes.bool,
 };
 
 AgancyContract.defaultProps = {
   readOnly: false,
+  paymentApproved: false,
 };
 
 export default AgancyContract;
