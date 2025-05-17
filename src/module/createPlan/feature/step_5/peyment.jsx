@@ -158,7 +158,7 @@ const Payment = () => {
             امکان پرداخت برای شما وجود ندارد
           </Typography>
           <Typography variant="body1" align="center" sx={{ mt: 2 }}>
-            متأسفانه در حال حاضر امکان پرداخت برای طرح شما فعال نیست.
+          امکان پرداخت از طرح مدیری سیستم برای شما غیر فعال است
           </Typography>
         </StyledCard>
       )}
