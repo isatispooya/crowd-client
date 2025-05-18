@@ -66,7 +66,7 @@ const Payment = () => {
         {
           onSuccess: (responseData) => {
             if (responseData && responseData.url) {
-              window.location.href = responseData.url;
+              window.location.href = `https://findev.isatispooya.com/peymentpage?url=${responseData.url}`;
             }
           },
           onSettled: () => setLoading(false),
@@ -158,7 +158,7 @@ const Payment = () => {
             امکان پرداخت برای شما وجود ندارد
           </Typography>
           <Typography variant="body1" align="center" sx={{ mt: 2 }}>
-          امکان پرداخت از طرح مدیری سیستم برای شما غیر فعال است
+            امکان پرداخت از طرح مدیری سیستم برای شما غیر فعال است
           </Typography>
         </StyledCard>
       )}
