@@ -39,11 +39,7 @@ const PaymentCallBack = () => {
     }
   }, [invoicePayment]);
 
-  const {
-    isLoading,
-    isSuccess,
-    error: apiError,
-  } = usePaymentCallBack({
+  const { isLoading, error: apiError } = usePaymentCallBack({
     invoice_payment: invoicePayment,
     reference_number: referenceNumber,
     code_status_payment: codeStatusPayment,
@@ -116,7 +112,7 @@ const PaymentCallBack = () => {
       <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl" />
       <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-blue-300/40 blur-2xl" />
       <motion.div {...contentAnimation} className="relative z-10 mt-60 max-w-md mx-auto">
-        {isSuccess ? (
+        {codeStatusPayment === 'success' ? (
           <>
             <motion.div
               {...iconAnimation}
