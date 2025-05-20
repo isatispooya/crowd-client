@@ -1,13 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-const Page4 = ({ agencyContract }) => {
-  if (!agencyContract) return null;
-
+const Page4 = () => {
   return (
     <div className="contract-page page-1">
       <div className="text-justify leading-relaxed text-[23px]">
-      <p className="mb-3 pr-4 text-[23px]">
+        <p className="mb-3 pr-4 text-[23px]">
           <span className="font-bold text-[23px]">تبصره 6: </span>
           عامل، نماینده تأمین کنندگان و نهاد مالی است. متقاضی و تأمین کنندگان و نهاد مالی ضمن عقد
           خارج لازم به صورت غیرقابل رجوع به عامل به عنوان نماینده اجازه و حق دادند که هرگونه مطالبات
@@ -27,24 +25,10 @@ const Page4 = ({ agencyContract }) => {
 
         <p className="mb-2">
           كارمزد ارائة خدمات موضوع ماده ٣ ( موضوعات 1و2و3) اين قرارداد توسط عامل، جمعا{' '}
-          <strong>
-            {(
-              Number(agencyContract.investor_request.design_wage / 1000000 || 0) +
-              Number(agencyContract.investor_request.company_certificate_wage / 1000000 || 0) +
-              Number(agencyContract.investor_request.execution_wage / 1000000 || 0)
-            ).toLocaleString()}{' '}
-            میلیون ریال{' '}
-          </strong>
-          و علاوه بر آن كارمزد شركت فرابورس{' '}
-          <strong>
-            {Number(agencyContract.investor_request.farabours_wage / 1000000 || 0).toLocaleString()}{' '}
-            میلیون ریال{' '}
-          </strong>
+          <strong>............ میلیون ریال </strong>و علاوه بر آن كارمزد شركت فرابورس{' '}
+          <strong>............ میلیون ریال </strong>
           مي باشد و همچنین کارمزد موضوع 4 ماده 3 این قرارداد{' '}
-          <strong>
-            {Number(agencyContract.investor_request.marketing_wage / 1000000 || 0).toLocaleString()}{' '}
-            میلیون ریال{' '}
-          </strong>
+          <strong>............ میلیون ریال </strong>
           كه به تفكيك زير، توسط متقاضي در وجه عامل و شركت فرابورس ايران ظرف مدت یک روز پرداخت
           ميگردد:
         </p>
@@ -53,10 +37,7 @@ const Page4 = ({ agencyContract }) => {
           <span className="font-bold">1) </span>
           کارمزد طراحی شیوه تامین مالی و تهیه گزارش توجیحی به منظور فراهم نمودن مقدمات اخذ مجوز از
           شرکت فرابورس ایران جهت انتشار و فروش گواهی شراکت به دارندگان گواهی های شراکت
-          <strong>
-            {Number(agencyContract.investor_request.design_wage / 1000000 || 0).toLocaleString()}{' '}
-            میلیون ریال{' '}
-          </strong>
+          <strong>............ میلیون ریال </strong>
           <span className="font-bold">
             كه متقاضي متعهد است همزمان با امضاي قرارداد، در قالب نقدي در وجه عامل به حساب شماره
             3002.115.15884588.1 نزد بانک پاسارگاد بلوار جمهوری و شماره شبا IR4705703002115158845881
@@ -70,18 +51,14 @@ const Page4 = ({ agencyContract }) => {
           اجراي بند ١-١ مادة ٩ اين قرارداد ميباشد.
         </p>
         <p className="mb-3 pr-4 text-right">
-          <span className="font-bold">2)</span> كارمزد ارائه خدمات بازاريابي به متقاضي،{' '}
-          {Number(agencyContract.investor_request.execution_wage / 1000000 || 0).toLocaleString()}{' '}
+          <span className="font-bold">2)</span> كارمزد ارائه خدمات بازاريابي به متقاضي، ............
           ميليون ريال ميباشد كه در صورت موفقيت كمپين، حداكثر طي يك روز كاري پيش از واريز وجوه تأمين
           مالی شده به حساب متقاضي، از متقاضي به صورت نقدي/ چك در وجه حساب معرفي شده در بند 4-١- اين
           ماده دريافت خواهد شد و لازم هست تا رسیدی اخذ گردد که عدم ارائه رسید به منزله عدم ایفای
           تعهد است.
         </p>
         <p className="mb-3 pr-4 text-right">
-          <span className="font-bold">3)</span> كارمزد انتشار و فروش گواهي شراكت، جمعاً{' '}
-          {Number(
-            agencyContract.investor_request.company_certificate_wage / 1000000 || 0
-          ).toLocaleString()}{' '}
+          <span className="font-bold">3)</span> كارمزد انتشار و فروش گواهي شراكت، جمعاً ............
           میلیون ريال ميباشد. متقاضي متعهد است در صورت موفقيت كمپين، حداكثر يك روز كاري پيش از واريز
           وجوه جمع آوري شده به حساب وي، كارمزد جمع آوري شده به حساب وي، كارمزد اين بند را به صورت
           نقدي/ چك به حساب معرفي شده در بند 4-١- اين ماده واريز نمايد
@@ -89,11 +66,7 @@ const Page4 = ({ agencyContract }) => {
 
         <p className="mb-3 pr-4 text-right">
           <span className="font-bold">4)</span>
-          كارمزد شركت فرابورس ايران،{' '}
-          <strong>
-            {Number(agencyContract.investor_request.farabours_wage / 1000000 || 0).toLocaleString()}{' '}
-            میلیون ریال{' '}
-          </strong>
+          كارمزد شركت فرابورس ايران، <strong>............ میلیون ریال </strong>
           ميباشد كه متقاضي متعهد است در صورت تائید فرابورس با طرح، همزمان با واریز 10 درصد
           تعهدی(ردیف 2 جدول ماده 5)، كارمزد اين بند را به حساب شمارة 98785727010103 و شمارة شبا
           IR480150000000310107275878 به نام شركت فرابورس ايران نزد بانك سپه واريز نمايد و اصل فيش
@@ -102,12 +75,8 @@ const Page4 = ({ agencyContract }) => {
 
         <p className="mb-3 pr-4 text-right">
           <span className="font-bold">5)</span>کارمزد ارائه خدمات بازارسازی به متقاضی از طریق طراحی
-          و برنامه‌ریزی کمپین‌های تبلیغاتی جمعا به مبلغ 1 درصد مبلغ تامین مالی(
-          {Number(
-            agencyContract.investor_request.marketing_wage / 1000000 || 0
-          ).toLocaleString()}{' '}
-          میلیون ریال) که متقاضی پس از موفقیت در جمع آوری وجوه به حساب عامل به صورت نقدی پرداخت می
-          نماید.
+          و برنامه‌ریزی کمپین‌های تبلیغاتی جمعا به مبلغ 1 درصد مبلغ تامین مالی( ............ میلیون
+          ریال) که متقاضی پس از موفقیت در جمع آوری وجوه به حساب عامل به صورت نقدی پرداخت می نماید.
         </p>
 
         <p className="mb-3 pr-4 text-[23px]">
@@ -145,43 +114,31 @@ const Page4 = ({ agencyContract }) => {
           و متعهد به ايفاي تمامي تعهدات مندرج در جدول ذیل ميباشد:{' '}
         </p>
 
-        <table className="table-auto w-full border-collapse border  text-[22px]">
+        <table className="table-auto w-full border-collapse border border-gray-300 text-[22px]">
           <thead>
             <tr>
-              <th className="border  text-[22px] text-right pr-2">ردیف</th>
-              <th className="border  text-[22px] text-right pr-2">شرایط</th>
-              <th className="border  text-[22px] text-right pr-2">توضیحات</th>
+              <th className="border border-gray-300 text-[22px] text-right pr-2">ردیف</th>
+              <th className="border border-gray-300 text-[22px] text-right pr-2">شرایط</th>
+              <th className="border border-gray-300 text-[22px] text-right pr-2">توضیحات</th>
             </tr>
           </thead>
-          <tbody className="border ">
+          <tbody className="border border-gray-300">
             <tr>
-              <td className="border  text-[22px] text-right pr-2">1</td>
-              <td className="border  text-[22px] text-right pr-2">
+              <td className="border border-gray-300 text-[22px] text-right pr-2">1</td>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
                 مبلغ کل تامین مالی
               </td>
-              <td className="border  text-[22px] text-right pr-2">
-                <strong>
-                  {Number(
-                    agencyContract.investor_request.amount_of_investment / 1000000 || 0
-                  ).toLocaleString()}{' '}
-                  میلیون ریال
-                </strong>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
+                <strong>............ میلیون ریال</strong>
               </td>
             </tr>
 
             <tr>
-              <td className="border  text-[22px] text-right pr-2">2</td>
-              <td className="border  text-[22px] text-right pr-2">آورده متقاضی</td>
-              <td className="border  text-[22px] text-right pr-2">
+              <td className="border border-gray-300 text-[22px] text-right pr-2">2</td>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">آورده متقاضی</td>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
                 متقاضی متعهد است پیش از اقدام عامل برای اخذ مجوز انتشار گواهی های شراکت از شرکت
-                فرابورس ایران،{' '}
-                <strong>
-                  {(
-                    (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                    0.1
-                  ).toLocaleString()}{' '}
-                  میلیون ریال{' '}
-                </strong>
+                فرابورس ایران، <strong>........... میلیون ریال </strong>
                 معادل 10 درصد مبلغ کل تامین مالی (ردیف 1) را به شماره حساب 3002115158845881 و شماره
                 شبا 4705703002115158845881 IR نزد بانک پاسارگاد شعبه جمهوری یزد به نام شرکت سبدگردان
                 ایساتیس پویا کیش واریز نماید.
@@ -192,42 +149,29 @@ const Page4 = ({ agencyContract }) => {
             </tr>
 
             <tr>
-              <td className="border  text-[22px] text-right pr-2">3</td>
-              <td className="border  text-[22px] text-right pr-2">
+              <td className="border border-gray-300 text-[22px] text-right pr-2">3</td>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
                 خالص مبلغ تامین مالی{' '}
               </td>
-              <td className="border  text-[22px] text-right pr-2">
-                <strong>
-                  {(
-                    (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                    0.9
-                  ).toLocaleString()}{' '}
-                  میلیون ریال
-                </strong>
-                ، معادل 90 درصد مبلغ کل تامین مالی
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
+                <strong>........... میلیون ریال</strong>، معادل 90 درصد مبلغ کل تامین مالی
               </td>
             </tr>
             <tr>
-              <td className="border  text-[22px] text-right pr-2">4</td>
-              <td className="border  text-[22px] text-right pr-2">
+              <td className="border border-gray-300 text-[22px] text-right pr-2">4</td>
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
                 {' '}
                 دوره بازپرداخت اقساط
               </td>
-              <td className="border  text-[22px] text-right pr-2">
-                {Number(agencyContract.investor_request.duration_of_plan || 0).toLocaleString()}
-                ماه
+              <td className="border border-gray-300 text-[22px] text-right pr-2">
+                ........... ماه
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
     </div>
   );
-};
-
-Page4.propTypes = {
-  agencyContract: PropTypes.object.isRequired,
 };
 
 export default Page4;

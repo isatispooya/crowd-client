@@ -20,6 +20,8 @@ export const CreatePlan = lazy(() => import('src/module/createPlan/pages/cards.p
 export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsDetail.page'));
 export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter.page'));
 export const AgencyContract = lazy(() => import('src/module/createPlan/pages/agencycontract.page'));
+export const BankLetterDraft = lazy(() => import('src/module/createPlan/pages/bankLetterdraft'));
+export const AgencyContractDraft = lazy(() => import('src/module/createPlan/feature/agancyContract/feature/agancyContract/agancyContractDraft.feat'));
 
 export default function Router() {
   const routes = useRoutes([
@@ -53,6 +55,8 @@ export default function Router() {
       element: <PaymentCallBack />,
     },
     { path: 'bankLetter', element: <BankLetter /> },
+    { path: 'bankLetterDraft', element: <BankLetterDraft /> },
+    { path: 'agencyContractDraft', element: <AgencyContractDraft /> },
 
     {
       path: 'login',
