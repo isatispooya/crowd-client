@@ -15,6 +15,37 @@ const BankLetter = () => {
   const [finalUuid, setFinalUuid] = useState(null);
   const [qrValue, setQrValue] = useState('');
 
+  const banks = [
+    { id: 1, name: 'بانک ملی ایران' },
+    { id: 2, name: 'بانک سپه' },
+    { id: 3, name: 'بانک صنعت و معدن' },
+    { id: 4, name: 'بانک کشاورزی' },
+    { id: 5, name: 'بانک مسکن' },
+    { id: 6, name: 'بانک توسعه صادرات ایران' },
+    { id: 7, name: 'بانک توسعه تعاون' },
+    { id: 8, name: 'پست بانک ایران' },
+    { id: 9, name: 'بانک اقتصاد نوین' },
+    { id: 10, name: 'بانک پارسیان' },
+    { id: 11, name: 'بانک کارآفرین' },
+    { id: 12, name: 'بانک سامان' },
+    { id: 13, name: 'بانک سینا' },
+    { id: 14, name: 'بانک خاورمیانه' },
+    { id: 15, name: 'بانک شهر' },
+    { id: 16, name: 'بانک دی' },
+    { id: 17, name: 'بانک صادرات ایران' },
+    { id: 18, name: 'بانک ملت' },
+    { id: 19, name: 'بانک تجارت' },
+    { id: 20, name: 'بانک رفاه کارگران' },
+    { id: 21, name: 'بانک حکمت ایرانیان' },
+    { id: 22, name: 'بانک گردشگری' },
+    { id: 23, name: 'بانک ایران زمین' },
+    { id: 24, name: 'بانک قوامین' },
+    { id: 25, name: 'بانک انصار' },
+    { id: 26, name: 'بانک سرمایه' },
+    { id: 27, name: 'بانک پاسارگاد' },
+    { id: 28, name: 'بانک مشترک ایران-ونزوئلا' },
+  ];
+
   useEffect(() => {
     if (urlUuid && urlUuid !== 'undefined') {
       setFinalUuid(urlUuid);
@@ -56,7 +87,23 @@ const BankLetter = () => {
     { label: 'پیوست', value: 'ندارد' },
   ];
 
-  const title = `ریاست محترم ${bankLetter?.bank}  شعبه ${bankLetter?.bank_branch} (کد شعبه ${bankLetter?.bank_branch_code})`;
+  const getBankNameById = (id) => {
+    if (!banks || !Array.isArray(banks)) {
+      return 'لیست بانک‌ها نامعتبر است';
+    }
+
+    const numericId = Number(id);
+    if (Number.isNaN(numericId)) {
+      return 'شناسه نامعتبر است';
+    }
+
+    const bank = banks.find((bankss) => bankss.id === numericId);
+    return bank?.name || 'بانک نامشخص';
+  };
+
+  const title = `ریاست محترم ${getBankNameById(bankLetter?.bank)}  شعبه ${
+    bankLetter?.bank_branch
+  } (کد شعبه ${bankLetter?.bank_branch_code})`;
   const subtitle = `موضوع: اخذ مجوز صدور ضمانت نامه تعهد پرداخت برای شرکت ${bankLetter?.company_name}`;
 
   const qrCodeComponent = (
