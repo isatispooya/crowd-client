@@ -25,17 +25,15 @@ const FormField = ({
   xs = 12,
   md = 6,
   disabled = false,
+  readOnly = false,
 }) => {
   const isFileInput = type === 'file';
   const isSelectInput = type === 'select';
   const hasFile = isFileInput && value && (value instanceof File || value.url);
 
   const handleChange = (event) => {
-
-
     if (isFileInput) {
       const file = event.target.files[0];
-
 
       if (file) {
         const fileObj = new File([file], file.name, {
@@ -171,7 +169,7 @@ const FormField = ({
               </IconButton>
             </Tooltip>
           )}
-          {hasFile && (
+          {hasFile && !disabled && (
             <IconButton
               onClick={handleRemoveFile}
               sx={{
@@ -264,6 +262,7 @@ FormField.propTypes = {
   xs: PropTypes.number,
   md: PropTypes.number,
   disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 export default FormField;
