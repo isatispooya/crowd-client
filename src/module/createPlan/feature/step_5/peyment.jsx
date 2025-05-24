@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import usePeyment from '../../hooks/step_5/usePeyment';
 import { useGetCompany } from '../../hooks';
+import PaymentInvoice from './payment_invoice';
 
 const PaymentContainer = styled(Box)({
   display: 'flex',
@@ -25,7 +26,7 @@ const PaymentButton = styled(Button)({
   padding: '12px 24px',
   marginTop: '18px',
   borderRadius: '8px',
-  fontWeight: 'bold',
+  fontWeight: 'bold', 
 });
 
 const AmountDisplay = styled(Box)({
@@ -50,6 +51,8 @@ const SuccessMessage = styled(Box)({
 const Payment = () => {
   const { id } = useParams();
   const { data } = useGetCompany(id);
+
+  const ShowInvoice = data.investor_request.code_status_payment === 'success';
 
   const { mutate: postPeyment } = usePeyment();
   const [loading, setLoading] = useState(false);
@@ -91,78 +94,82 @@ const Payment = () => {
   }
 
   return (
-    <PaymentContainer>
-      {data.investor_request.status_payment === true ? (
-        <StyledCard>
-          <Typography variant="h5" component="h2" gutterBottom align="center" fontWeight="bold">
-            انتقال به درگاه پرداخت
-          </Typography>
+    <>
+      <PaymentContainer>
+        {data.investor_request.status_payment === true ? (
+          <StyledCard>
+            <Typography variant="h5" component="h2" gutterBottom align="center" fontWeight="bold">
+              انتقال به درگاه پرداخت
+            </Typography>
 
-          {data.investor_request.code_status_payment === 'success' ? (
-            <SuccessMessage>
-              <CheckCircleIcon color="success" sx={{ fontSize: 64, mb: 2 }} />
-              <Typography variant="h6" gutterBottom color="success.main" fontWeight="bold">
-                پرداخت با موفقیت انجام شده است
-              </Typography>
-              <Typography variant="body2" align="center">
-                طرح شما با موفقیت نهایی شده است و اکنون می‌توانید آن را به صورت کامل مشاهده نمایید.
-              </Typography>
-            </SuccessMessage>
-          ) : (
-            <>
-              <AmountDisplay>
-                <Typography variant="body1" color="textSecondary" gutterBottom>
-                  مبلغ قابل پرداخت
+            {data.investor_request.code_status_payment === 'success' ? (
+              <SuccessMessage>
+                <CheckCircleIcon color="success" sx={{ fontSize: 64, mb: 2 }} />
+                <Typography variant="h6" gutterBottom color="success.main" fontWeight="bold">
+                  پرداخت با موفقیت انجام شده است
                 </Typography>
-                <Typography variant="h4" color="primary" fontWeight="bold">
-                  {data.investor_request.amount_of_payment?.toLocaleString() || '0'} ریال
+                <Typography variant="body2" align="center">
+                  طرح شما با موفقیت نهایی شده است و اکنون می‌توانید آن را به صورت کامل مشاهده
+                  نمایید.
                 </Typography>
-              </AmountDisplay>
-              <Typography variant="body2" gutterBottom>
-                با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده
-                نمایید.
-              </Typography>
+              </SuccessMessage>
+            ) : (
+              <>
+                <AmountDisplay>
+                  <Typography variant="body1" color="textSecondary" gutterBottom>
+                    مبلغ قابل پرداخت
+                  </Typography>
+                  <Typography variant="h4" color="primary" fontWeight="bold">
+                    {data.investor_request.amount_of_payment?.toLocaleString() || '0'} ریال
+                  </Typography>
+                </AmountDisplay>
+                <Typography variant="body2" gutterBottom>
+                  با پرداخت این مبلغ، طرح شما نهایی خواهد شد و می‌توانید آن را به صورت کامل مشاهده
+                  نمایید.
+                </Typography>
 
-              <PaymentButton
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={handlePayment}
-                disabled={loading}
-              >
-                {loading ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  'پرداخت و انتقال به درگاه بانکی'
-                )}
-              </PaymentButton>
+                <PaymentButton
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handlePayment}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    'پرداخت و انتقال به درگاه بانکی'
+                  )}
+                </PaymentButton>
 
-              <Box mt={2} textAlign="center">
-                <Typography variant="caption" color="textSecondary">
-                  با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
-                </Typography>
-              </Box>
-            </>
-          )}
-        </StyledCard>
-      ) : (
-        <StyledCard>
-          <Typography
-            variant="h5"
-            component="h2"
-            gutterBottom
-            align="center"
-            fontWeight="bold"
-            color="error"
-          >
-            امکان پرداخت برای شما وجود ندارد
-          </Typography>
-          <Typography variant="body1" align="center" sx={{ mt: 2 }}>
-          امکان پرداخت از طرح مدیری سیستم برای شما غیر فعال است
-          </Typography>
-        </StyledCard>
-      )}
-    </PaymentContainer>
+                <Box mt={2} textAlign="center">
+                  <Typography variant="caption" color="textSecondary">
+                    با کلیک روی دکمه پرداخت، به درگاه امن بانکی منتقل خواهید شد.
+                  </Typography>
+                </Box>
+              </>
+            )}
+          </StyledCard>
+        ) : (
+          <StyledCard>
+            <Typography
+              variant="h5"
+              component="h2"
+              gutterBottom
+              align="center"
+              fontWeight="bold"
+              color="error"
+            >
+              امکان پرداخت برای شما وجود ندارد
+            </Typography>
+            <Typography variant="body1" align="center" sx={{ mt: 2 }}>
+              امکان پرداخت از طرح مدیری سیستم برای شما غیر فعال است
+            </Typography>
+          </StyledCard>
+        )}
+      </PaymentContainer>
+      {ShowInvoice && <PaymentInvoice invoiceData={data} />}
+    </>
   );
 };
 
