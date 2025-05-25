@@ -83,9 +83,9 @@ const PaymentInvoice = ({ invoiceData }) => {
       },
     ],
     summary: {
-      subtotal: 1336000000,
-      totalTax: 125600000,
-      totalAmount: 1461600000,
+      subtotal: unitPrice,
+      totalTax: tax,
+      totalAmount: totalPrice,
     },
   };
 
@@ -274,7 +274,7 @@ const PaymentInvoice = ({ invoiceData }) => {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">مالیات:</span>
                     <span className="text-lg font-semibold text-gray-800">
-                      {formatNumber(invoiceData.investor_request.tax_amount)} ریال
+                      {formatNumber(tax)} ریال
                     </span>
                   </div>
                 </div>
