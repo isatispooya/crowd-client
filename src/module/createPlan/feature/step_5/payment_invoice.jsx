@@ -1,5 +1,9 @@
-import React from 'react';
+/* eslint-disable new-cap */
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import { toast } from 'react-toastify';
 import {
   StorefrontOutlined,
   PersonOutlined,
@@ -8,6 +12,7 @@ import {
   PhoneOutlined,
   EmailOutlined,
   BusinessOutlined,
+  PrintOutlined,
 } from '@mui/icons-material';
 
 const InfoCard = ({ title, icon, children }) => (
@@ -41,6 +46,7 @@ InfoRow.propTypes = {
 };
 
 const PaymentInvoice = ({ invoiceData }) => {
+  const invoiceRef = useRef(null);
   const unitPrice = Math.round(invoiceData.investor_request.amount_of_payment / 1.1);
   const totalPrice = invoiceData.investor_request.amount_of_payment;
   const tax = Math.round(unitPrice * 0.1);
@@ -78,8 +84,9 @@ const PaymentInvoice = ({ invoiceData }) => {
         description: 'پشتیبانی و نگهداری',
         quantity: 1,
         unitPrice,
-        totalPrice,
+        discount: 0,
         tax,
+        totalPrice,
       },
     ],
     summary: {
@@ -110,6 +117,54 @@ const PaymentInvoice = ({ invoiceData }) => {
     return num?.toLocaleString('fa-IR') || '0';
   };
 
+  const convertColors = () => {
+    const elements = document.querySelectorAll('*');
+    elements.forEach((el) => {
+      const style = window.getComputedStyle(el);
+      if (style.color.includes('oklch')) {
+        el.style.color = 'rgb(0, 0, 0)';
+      }
+      if (style.backgroundColor.includes('oklch')) {
+        el.style.backgroundColor = 'rgb(255, 255, 255)';
+      }
+    });
+  };
+
+  const handleGeneratePDF = async () => {
+    try {
+      toast.info('شروع تولید PDF');
+      convertColors();
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      const pageWidth = 210;
+      const element = invoiceRef.current;
+
+      if (!element) {
+        throw new Error('عنصر فاکتور یافت نشد');
+      }
+
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const pageHeight = (canvas.height * pageWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+      pdf.save('invoice.pdf');
+      toast.success('PDF با موفقیت تولید شد');
+    } catch (error) {
+      toast.error(`خطا در تولید PDF: ${error.message}`);
+    }
+  };
+
   return (
     <div className=" min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -126,10 +181,18 @@ const PaymentInvoice = ({ invoiceData }) => {
                 </p>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={handleGeneratePDF}
+              className="bg-white text-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-50 transition-colors"
+            >
+              <PrintOutlined />
+              <span>چاپ فاکتور</span>
+            </button>
           </div>
         </div>
 
-        <div className="p-8">
+        <div className="p-8" ref={invoiceRef}>
           {/* Seller and Buyer Information */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <InfoCard title=" اطلاعات فروشنده " icon={<StorefrontOutlined className="text-2xl" />}>
@@ -224,10 +287,13 @@ const PaymentInvoice = ({ invoiceData }) => {
                       مبلغ واحد (ریال)
                     </th>
                     <th className="px-4 py-3 text-left font-bold text-gray-700 text-sm">
-                      مبلغ کل (ریال)
+                      تخفیف (ریال)
                     </th>
                     <th className="px-4 py-3 text-left font-bold text-gray-700 text-sm">
                       مالیات (ریال)
+                    </th>
+                    <th className="px-4 py-3 text-left font-bold text-gray-700 text-sm">
+                      مبلغ کل (ریال)
                     </th>
                   </tr>
                 </thead>
@@ -246,11 +312,14 @@ const PaymentInvoice = ({ invoiceData }) => {
                       <td className="px-4 py-4 text-left text-gray-600">
                         {formatNumber(item.unitPrice)}
                       </td>
-                      <td className="px-4 py-4 text-left font-bold text-gray-800">
-                        {formatNumber(item.totalPrice)}
+                      <td className="px-4 py-4 text-left text-gray-600">
+                        {formatNumber(item.discount)}
                       </td>
                       <td className="px-4 py-4 text-left text-gray-600">
                         {formatNumber(item.tax)}
+                      </td>
+                      <td className="px-4 py-4 text-left font-bold text-gray-800">
+                        {formatNumber(item.totalPrice)}
                       </td>
                     </tr>
                   ))}
@@ -277,6 +346,10 @@ const PaymentInvoice = ({ invoiceData }) => {
                       {formatNumber(tax)} ریال
                     </span>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">تخفیف:</span>
+                    <span className="text-lg font-semibold text-gray-800">0 ریال</span>
+                  </div>
                 </div>
                 <div className="bg-blue-600 text-white p-6 flex justify-between items-center">
                   <span className="text-lg font-bold">مبلغ پرداخت شده:</span>
@@ -290,9 +363,26 @@ const PaymentInvoice = ({ invoiceData }) => {
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-center text-gray-500 text-sm">
+            <p className="text-center text-gray-500 text-sm mb-8">
               این فاکتور به صورت الکترونیکی صادر شده و معتبر می‌باشد
             </p>
+
+            {/* Signature Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+              {/* Seller Signature */}
+              <div className="text-center">
+                <div className="border-t border-gray-300 w-48 mx-auto mb-2"/>
+                <p className="text-gray-700 font-medium">امضاء فروشنده</p>
+                <p className="text-gray-600 text-sm mt-1">{data.seller.name}</p>
+              </div>
+
+              {/* Buyer Signature */}
+              <div className="text-center">
+                <div className="border-t border-gray-300 w-48 mx-auto mb-2"/>
+                <p className="text-gray-700 font-medium">امضاء خریدار</p>
+                <p className="text-gray-600 text-sm mt-1">{data.buyer.name}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
