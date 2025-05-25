@@ -93,9 +93,25 @@ const AgencyContract = () => {
     );
   };
 
+
+  const convertColors = () => {
+    const elements = document.querySelectorAll('*');
+    elements.forEach((el) => {
+      const style = window.getComputedStyle(el);
+      if (style.color.includes('oklch')) {
+        el.style.color = 'rgb(0, 0, 0)'; // جایگزین با رنگ پیش‌فرض
+      }
+      if (style.backgroundColor.includes('oklch')) {
+        el.style.backgroundColor = 'rgb(255, 255, 255)'; // جایگزین با رنگ پیش‌فرض
+      }
+    });
+  };
+
+
   const handleGeneratePDF = async () => {
     try {
       toast.info('شروع تولید PDF');
+      convertColors()
       // eslint-disable-next-line new-cap
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -184,7 +200,7 @@ const AgencyContract = () => {
       </button>
       <div>
         {PAGES.map((PageComponent, index) => {
-          const isLastPage = index === PAGES.length - 1;
+          const isLastPage = index === PAGES.length ;
 
           return (
             <div

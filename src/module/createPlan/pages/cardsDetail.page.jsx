@@ -23,8 +23,8 @@ import AgancyContract from '../feature/step_6/agancyContract';
 const steps = [
   'ثبت شرکت',
   'ثبت هیئت مدیره',
-  'قرارداد عاملیت',
   'اطلاعات تکمیلی',
+  'اطلاعات قرارداد',
   'درگاه پرداخت',
   'قرارداد',
 ];
@@ -34,7 +34,6 @@ const CardsDetailPage = () => {
   const { id } = useParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const { data: companyData } = useGetCompany(id);
 
   const isStepEditable = (stepNumber) => {
@@ -331,10 +330,10 @@ const CardsDetailPage = () => {
           <MembersInfo readOnly={!isStepEditable(1)} status={getStepStatus(1)} />
         )}
         {activeStep === 2 && getStepStatus(2) !== 'pending' && (
-          <Contract readOnly={!isStepEditable(2)} status={getStepStatus(2)} />
+          <ExtraInfo readOnly={!isStepEditable(2)} status={getStepStatus(2)} />
         )}
         {activeStep === 3 && getStepStatus(3) !== 'pending' && (
-          <ExtraInfo readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
+          <Contract readOnly={!isStepEditable(3)} status={getStepStatus(3)} />
         )}
         {activeStep === 4 && getStepStatus(4) !== 'pending' && (
           <Payment readOnly={!isStepEditable(4)} status={getStepStatus(4)} />

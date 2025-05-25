@@ -1,10 +1,10 @@
 /* eslint-disable no-shadow */
 import { motion } from 'framer-motion';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { HiArrowUpTray } from 'react-icons/hi2';
-import { Typography, Paper, Box, Chip, Tooltip } from '@mui/material';
+import { Typography, Paper, Box, Chip, Tooltip, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { OnRun } from 'src/api/OnRun';
@@ -14,6 +14,7 @@ import { useGetCompany } from '../../hooks';
 
 const Contract = ({ readOnly, status }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: companyData } = useGetCompany(id);
   const [files, setFiles] = useState({
     account_number_letter: null,
@@ -35,9 +36,7 @@ const Contract = ({ readOnly, status }) => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.2 },
     },
   };
 
@@ -46,50 +45,26 @@ const Contract = ({ readOnly, status }) => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
+      transition: { duration: 0.5 },
     },
     hover: {
       scale: readOnly ? 1 : 1.03,
       boxShadow: readOnly ? 'none' : '0px 8px 20px rgba(0, 0, 0, 0.1)',
-      transition: {
-        duration: 0.2,
-      },
+      transition: { duration: 0.2 },
     },
   };
 
   const handleFileChange = (id, file) => {
     if (readOnly) return;
-
-    if (!file) {
-      console.error(`No file selected for ${id}`);
-      return;
-    }
-
-    setFiles((prev) => {
-      const updatedFiles = {
-        ...prev,
-        [id]: file,
-      };
-
-      return updatedFiles;
-    });
+    setFiles((prev) => ({ ...prev, [id]: file }));
   };
 
   const handleSubmit = () => {
     if (readOnly) return;
-
     const formData = new FormData();
-
     Object.entries(files).forEach(([key, file]) => {
-      if (file) {
-        formData.append(key, file);
-      } else {
-        console.warn(`No file for ${key}, skipping...`);
-      }
+      if (file) formData.append(key, file);
     });
-
     uploadContract(formData);
   };
 
@@ -121,10 +96,7 @@ const Contract = ({ readOnly, status }) => {
       link.download = filename;
       document.body.appendChild(link);
       link.click();
-
-      setTimeout(() => {
-        document.body.removeChild(link);
-      }, 100);
+      setTimeout(() => document.body.removeChild(link), 100);
     } catch (error) {
       console.error('خطای دانلود:', error);
       alert(`خطا در دانلود فایل: ${error.message}`);
@@ -149,20 +121,14 @@ const Contract = ({ readOnly, status }) => {
         position: 'relative',
         overflow: 'hidden',
         opacity: readOnly ? 0.9 : 1,
-        '&:hover': {
-          boxShadow: '0 15px 35px rgba(149, 157, 165, 0.2)',
-        },
+        '&:hover': { boxShadow: '0 15px 35px rgba(149, 157, 165, 0.2)' },
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography
           variant="h5"
           component="h1"
-          sx={{
-            color: pastelBlue.contrastText,
-            fontWeight: 700,
-            position: 'relative',
-          }}
+          sx={{ color: pastelBlue.contrastText, fontWeight: 700 }}
         >
           انتخاب نوع قرارداد
         </Typography>
@@ -269,9 +235,7 @@ const Contract = ({ readOnly, status }) => {
                           display: 'flex',
                           alignItems: 'center',
                           gap: 0.5,
-                          '&:hover': {
-                            textDecoration: 'underline',
-                          },
+                          '&:hover': { textDecoration: 'underline' },
                         }}
                       >
                         دانلود نمونه 📥
@@ -289,6 +253,36 @@ const Contract = ({ readOnly, status }) => {
               );
             })}
           </motion.div>
+
+          {/* پیش‌نویس قرارداد */}
+          <Box
+            mt={3}
+            display="flex"
+            justifyContent="space-between"
+            sx={{
+              mt: 3,
+              mb: 2,
+              width: '100%',
+              border: '1px solid #e0e0e0',
+              borderRadius: '10px',
+              p: 2,
+            }}
+          >
+            <Typography variant="p" sx={{ color: 'text.primary', fontWeight: 200 }}>
+              پیش‌نویس قرارداد
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/agencyContractDraft')}
+              sx={{
+                borderColor: pastelBlue.dark,
+                color: pastelBlue.dark,
+                '&:hover': { borderColor: pastelBlue.main, background: pastelBlue.light },
+              }}
+            >
+              مشاهده پیش‌نویس قرارداد
+            </Button>
+          </Box>
         </Box>
       </Box>
 
