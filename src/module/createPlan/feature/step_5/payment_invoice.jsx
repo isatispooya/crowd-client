@@ -4,13 +4,10 @@ import {
   StorefrontOutlined,
   PersonOutlined,
   ReceiptOutlined,
-  CalendarTodayOutlined,
   LocationOnOutlined,
   PhoneOutlined,
   EmailOutlined,
   BusinessOutlined,
-  CheckCircleOutlined,
-  AccessTimeOutlined,
 } from '@mui/icons-material';
 
 const InfoCard = ({ title, icon, children }) => (
@@ -44,6 +41,10 @@ InfoRow.propTypes = {
 };
 
 const PaymentInvoice = ({ invoiceData }) => {
+  const unitPrice = Math.round(invoiceData.investor_request.amount_of_payment / 1.1);
+  const totalPrice = invoiceData.investor_request.amount_of_payment;
+  const tax = Math.round(unitPrice * 0.1);
+
   const defaultInvoiceData = {
     invoiceNumber: '233000142146',
     invoiceDate: '1403/08/30',
@@ -73,36 +74,18 @@ const PaymentInvoice = ({ invoiceData }) => {
     items: [
       {
         id: 1,
-        code: '2330001421466',
-        description: 'پیل مکانیکی (جامبو بازی)',
-        quantity: 1550,
-        unitPrice: 800000,
-        totalPrice: 1364000000,
-        tax: 124000000,
-      },
-      {
-        id: 2,
-        code: '2330001421466',
-        description: 'لودر (جمع آوری و پیوچینگ)',
-        quantity: 2,
-        unitPrice: 8000000,
-        totalPrice: 17600000,
-        tax: 1600000,
-      },
-      {
-        id: 3,
-        code: '2330001421466',
-        description: 'کرایه حمل به مقصد مکانیکی',
+        code: '2230001115150',
+        description: 'پشتیبانی و نگهداری',
         quantity: 1,
-        unitPrice: 80000000,
-        totalPrice: 80000000,
-        tax: 0,
+        unitPrice,
+        totalPrice,
+        tax,
       },
     ],
     summary: {
-      subtotal: 1336000000,
-      totalTax: 125600000,
-      totalAmount: 1461600000,
+      subtotal: unitPrice,
+      totalTax: tax,
+      totalAmount: totalPrice,
     },
   };
 
@@ -291,7 +274,7 @@ const PaymentInvoice = ({ invoiceData }) => {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">مالیات:</span>
                     <span className="text-lg font-semibold text-gray-800">
-                      {formatNumber(invoiceData.investor_request.tax_amount)} ریال
+                      {formatNumber(tax)} ریال
                     </span>
                   </div>
                 </div>
