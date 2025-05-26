@@ -141,7 +141,8 @@ const PaymentInvoice = ({ invoiceData }) => {
         format: 'a4',
       });
 
-      const pageWidth = 210;
+      const pageWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
       const element = invoiceRef.current;
 
       if (!element) {
@@ -149,15 +150,37 @@ const PaymentInvoice = ({ invoiceData }) => {
       }
 
       const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 1.5, // Reduced scale for better quality/size balance
         useCORS: true,
         logging: false,
+        width: element.offsetWidth,
+        height: element.offsetHeight,
       });
 
-      const imgData = canvas.toDataURL('image/jpeg', 1.0);
-      const pageHeight = (canvas.height * pageWidth) / canvas.width;
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * pageWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+      // If content is taller than A4, we'll need to add pages
+      if (imgHeight > pageHeight) {
+        const pageCount = Math.ceil(imgHeight / pageHeight);
+        for (let i = 0; i < pageCount; i += 1) {
+          if (i > 0) {
+            pdf.addPage();
+          }
+          const position = -i * pageHeight;
+          pdf.addImage(
+            canvas.toDataURL('image/jpeg', 0.95),
+            'JPEG',
+            0,
+            position,
+            imgWidth,
+            imgHeight
+          );
+        }
+      } else {
+        pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, imgWidth, imgHeight);
+      }
+
       pdf.save('invoice.pdf');
       toast.success('PDF با موفقیت تولید شد');
     } catch (error) {
@@ -166,7 +189,7 @@ const PaymentInvoice = ({ invoiceData }) => {
   };
 
   return (
-    <div className=" min-h-screen p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
         {/* Header Section */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-white">
@@ -176,7 +199,6 @@ const PaymentInvoice = ({ invoiceData }) => {
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-1">صورتحساب</h1>
                 <p className="text-blue-100 text-sm">
-                  {' '}
                   شماره قرارداد: {invoiceData.investor_request.contract_number}
                 </p>
               </div>
@@ -193,6 +215,11 @@ const PaymentInvoice = ({ invoiceData }) => {
         </div>
 
         <div className="p-8" ref={invoiceRef}>
+          <div className="text-left ">
+            <p className="text-gray-600">
+              شماره قرارداد: {`5${invoiceData.investor_request.contract_number}`}
+            </p>
+          </div>
           {/* Seller and Buyer Information */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <InfoCard title=" اطلاعات فروشنده " icon={<StorefrontOutlined className="text-2xl" />}>
@@ -371,14 +398,14 @@ const PaymentInvoice = ({ invoiceData }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
               {/* Seller Signature */}
               <div className="text-center">
-                <div className="border-t border-gray-300 w-48 mx-auto mb-2"/>
+                <div className="border-t border-gray-300 w-48 mx-auto mb-2" />
                 <p className="text-gray-700 font-medium">امضاء فروشنده</p>
                 <p className="text-gray-600 text-sm mt-1">{data.seller.name}</p>
               </div>
 
               {/* Buyer Signature */}
               <div className="text-center">
-                <div className="border-t border-gray-300 w-48 mx-auto mb-2"/>
+                <div className="border-t border-gray-300 w-48 mx-auto mb-2" />
                 <p className="text-gray-700 font-medium">امضاء خریدار</p>
                 <p className="text-gray-600 text-sm mt-1">{data.buyer.name}</p>
               </div>
