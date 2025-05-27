@@ -92,13 +92,13 @@ const BankLetter = () => {
       return 'لیست بانک‌ها نامعتبر است';
     }
 
-    const numericId = Number(id);
-    if (Number.isNaN(numericId)) {
-      return 'شناسه نامعتبر است';
+    if (typeof id === 'string' && /^\d+$/.test(id)) {
+      const numericId = Number(id);
+      const bank = banks.find((bankss) => bankss.id === numericId);
+      return bank?.name || 'بانک نامشخص';
     }
 
-    const bank = banks.find((bankss) => bankss.id === numericId);
-    return bank?.name || 'بانک نامشخص';
+    return id || 'بانک نامشخص';
   };
 
   const title = `ریاست محترم ${getBankNameById(bankLetter?.bank)}  شعبه ${
