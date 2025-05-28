@@ -40,7 +40,12 @@ const Page4 = ({ agencyContract }) => {
             {Number(agencyContract.investor_request.farabours_wage / 1000000 || 0).toLocaleString()}{' '}
             میلیون ریال{' '}
           </strong>
+          {agencyContract.investor_request.method_payment_fee_software ===  "2" && 
+          `  و کارمزد شرکت توسعه اطلاعات مالی ${Number(agencyContract.investor_request.amount_of_payment / 1000000 || 0).toLocaleString()} میلیون ریال `
+          }
+         
           مي باشد و همچنین کارمزد موضوع 4 ماده 3 این قرارداد{' '}
+
           <strong>
             {Number(agencyContract.investor_request.marketing_wage / 1000000 || 0).toLocaleString()}{' '}
             میلیون ریال{' '}
@@ -98,7 +103,9 @@ const Page4 = ({ agencyContract }) => {
           تعهدی(ردیف 2 جدول ماده 5)، كارمزد اين بند را به حساب شمارة 98785727010103 و شمارة شبا
           IR480150000000310107275878 به نام شركت فرابورس ايران نزد بانك سپه واريز نمايد و اصل فيش
           واريزي را به عامل تحويل نمايد.{' '}
+          
         </p>
+
 
         <p className="mb-3 pr-4 text-right">
           <span className="font-bold">5)</span>کارمزد ارائه خدمات بازارسازی به متقاضی از طریق طراحی
@@ -109,6 +116,17 @@ const Page4 = ({ agencyContract }) => {
           میلیون ریال) که متقاضی پس از موفقیت در جمع آوری وجوه به حساب عامل به صورت نقدی پرداخت می
           نماید.
         </p>
+        
+
+        { agencyContract.investor_request.method_payment_fee_software ===  "2" && 
+
+        <p className="mb-3 pr-4 text-right">
+          <span className="font-bold">6)</span>
+         کارمزد شرکت توسعه اطلاعات مالی ایساتیس پویا به جهت هزینه های کارشناسی و امور اجرایی تامین مالی           
+          {Number(agencyContract.investor_request.amount_of_payment / 1000000 || 0).toLocaleString()} میلیون ریال
+          می باشد که متقاضی متعهد است قبل از اخذ نماد به حساب سبدگردانی ایساتیس پویا یا درگاه پرداخت مربوطه در پلتفرم، اساتیس کراد واریز نماید.
+        </p>
+        }
 
         <p className="mb-3 pr-4 text-[23px]">
           <span className="font-bold text-[23px]">تبصره 2: </span>
@@ -144,83 +162,6 @@ const Page4 = ({ agencyContract }) => {
           متقاضي تمامي شرايط انتشار گواهي شراكت موضوع قرارداد را به شرح جدول اين ماده تأييد مي نمايد
           و متعهد به ايفاي تمامي تعهدات مندرج در جدول ذیل ميباشد:{' '}
         </p>
-
-        <table className="table-auto w-full border-collapse border  text-[22px]">
-          <thead>
-            <tr>
-              <th className="border  text-[22px] text-right pr-2">ردیف</th>
-              <th className="border  text-[22px] text-right pr-2">شرایط</th>
-              <th className="border  text-[22px] text-right pr-2">توضیحات</th>
-            </tr>
-          </thead>
-          <tbody className="border ">
-            <tr>
-              <td className="border  text-[22px] text-right pr-2">1</td>
-              <td className="border  text-[22px] text-right pr-2">
-                مبلغ کل تامین مالی
-              </td>
-              <td className="border  text-[22px] text-right pr-2">
-                <strong>
-                  {Number(
-                    agencyContract.investor_request.amount_of_investment / 1000000 || 0
-                  ).toLocaleString()}{' '}
-                  میلیون ریال
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td className="border  text-[22px] text-right pr-2">2</td>
-              <td className="border  text-[22px] text-right pr-2">آورده متقاضی</td>
-              <td className="border  text-[22px] text-right pr-2">
-                متقاضی متعهد است پیش از اقدام عامل برای اخذ مجوز انتشار گواهی های شراکت از شرکت
-                فرابورس ایران،{' '}
-                <strong>
-                  {(
-                    (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                    0.1
-                  ).toLocaleString()}{' '}
-                  میلیون ریال{' '}
-                </strong>
-                معادل 10 درصد مبلغ کل تامین مالی (ردیف 1) را به شماره حساب 3002115158845881 و شماره
-                شبا 4705703002115158845881 IR نزد بانک پاسارگاد شعبه جمهوری یزد به نام شرکت سبدگردان
-                ایساتیس پویا کیش واریز نماید.
-                <br /> تبصره 1: در صورت عدم واریز آورده متقاضی حداکثر طی 5 روز کاری از زمان درخواست
-                عامل، عامل مخیر به فسخ قرارداد است و متقاضی متعهد به اجرای بند 2-1 ماده 9 این
-                قرارداد 2-1 ماده 9 این قرارداد می باشد.
-              </td>
-            </tr>
-
-            <tr>
-              <td className="border  text-[22px] text-right pr-2">3</td>
-              <td className="border  text-[22px] text-right pr-2">
-                خالص مبلغ تامین مالی{' '}
-              </td>
-              <td className="border  text-[22px] text-right pr-2">
-                <strong>
-                  {(
-                    (Number(agencyContract.investor_request.amount_of_investment || 0) / 1000000) *
-                    0.9
-                  ).toLocaleString()}{' '}
-                  میلیون ریال
-                </strong>
-                ، معادل 90 درصد مبلغ کل تامین مالی
-              </td>
-            </tr>
-            <tr>
-              <td className="border  text-[22px] text-right pr-2">4</td>
-              <td className="border  text-[22px] text-right pr-2">
-                {' '}
-                دوره بازپرداخت اقساط
-              </td>
-              <td className="border  text-[22px] text-right pr-2">
-                {Number(agencyContract.investor_request.duration_of_plan || 0).toLocaleString()}
-                ماه
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
       </div>
     </div>
   );
