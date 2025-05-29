@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from 'src/api/cookie';
 import FilterPlans from 'src/components/filtring';
 import Loader from 'src/components/loader';
 import useGetPlans from '../service/use-plans';
-import PlanCart from './paln.cart';
+
+const PlanCart = lazy(() => import('./paln.cart'));
 
 const CartPlans = () => {
   const { data } = useGetPlans();
   const access = getCookie('access');
   const navigate = useNavigate();
-  const [ setFilterStatusSecond] = useState([]);
+  const [setFilterStatusSecond] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
+  const [displayedPlans, setDisplayedPlans] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     if (!access) {
@@ -20,11 +23,36 @@ const CartPlans = () => {
     }
   }, [access, navigate]);
 
+  const updateDisplayedPlans = useCallback(() => {
+    if (!data) return;
+
+    const plans = data
+      .filter((item) => item?.information_complete?.status_show === true)
+      .slice()
+      .reverse();
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = plans.slice(indexOfFirstItem, indexOfLastItem);
+
+    setDisplayedPlans(currentItems);
+  }, [data, currentPage, itemsPerPage]);
+
   useEffect(() => {
     if (data) {
       setIsLoading(false);
+      updateDisplayedPlans();
     }
-  }, [data]);
+  }, [data, currentPage, updateDisplayedPlans]);
+
+  const totalPages = Math.ceil(
+    (data?.filter((item) => item?.information_complete?.status_show === true) || []).length /
+      itemsPerPage
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -33,34 +61,6 @@ const CartPlans = () => {
   if (!data || data.length === 0) {
     return <p>هیچ یافت نشد.</p>;
   }
-
-  const filteredPlans = data.filter((item) => item?.information_complete?.status_second === '1');
-
-  let displayPlans = filteredPlans.slice().reverse();
-
-  if (showAll) {
-    displayPlans = data.slice().reverse();
-  } else if (displayPlans.length < 6) {
-    const completedPlans = data
-      .filter((item) => item?.information_complete?.status_show === true)
-      .slice()
-      .reverse();
-
-    const uniqueAdditionalPlans = completedPlans.filter(
-      (plan) => !displayPlans.some((existing) => existing.plan.id === plan.plan.id)
-    );
-
-    const additionalPlans = uniqueAdditionalPlans.slice(0, 6 - displayPlans.length);
-    displayPlans = [...displayPlans, ...additionalPlans];
-  }
-
-  const handleShowMore = () => {
-    setShowAll(true);
-  };
-
-  const handleShowLess = () => {
-    setShowAll(false);
-  };
 
   return (
     <>
@@ -72,15 +72,17 @@ const CartPlans = () => {
       </div>
       <div className="bg-white rounded-lg shadow-2xl p-4">
         <div className="flex flex-wrap flex-row justify-around">
-          {displayPlans.length > 0 ? (
-            displayPlans.map((item) => {
+          {displayedPlans.length > 0 ? (
+            displayedPlans.map((item) => {
               if (item?.information_complete?.status_show === true) {
                 return (
                   <div key={item.plan.id} className="flex gap-6 p-4">
-                    <PlanCart
-                      plan={item}
-                      handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}
-                    />
+                    <Suspense fallback={<Loader />}>
+                      <PlanCart
+                        plan={item}
+                        handleDetailsClick={() => navigate(`/plan/${item.plan.trace_code}`)}
+                      />
+                    </Suspense>
                   </div>
                 );
               }
@@ -92,25 +94,24 @@ const CartPlans = () => {
             </p>
           )}
         </div>
-        {!showAll ? (
-          <div className="text-center mt-6">
-            <button
-              type="button"
-              onClick={handleShowMore}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            >
-              مشاهده بیشتر
-            </button>
-          </div>
-        ) : (
-          <div className="text-center mt-6">
-            <button
-              type="button"
-              onClick={handleShowLess}
-              className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
-            >
-              مشاهده کمتر
-            </button>
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  type="button"
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 rounded ${
+                    currentPage === page
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
