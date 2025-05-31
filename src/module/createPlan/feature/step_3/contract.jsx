@@ -282,7 +282,21 @@ const Contract = ({ readOnly, status }) => {
             >
               مشاهده پیش‌نویس قرارداد
             </Button>
-          </Box>
+            <Typography variant="p" sx={{ color: 'text.primary', fontWeight: 200 }}>
+              پیش‌نویس نامه بانکی
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/bankLetterDraft')}
+              sx={{
+                borderColor: pastelBlue.dark,
+                color: pastelBlue.dark,
+                '&:hover': { borderColor: pastelBlue.main, background: pastelBlue.light },
+              }}
+            >
+              مشاهده پیش‌نویس نامه بانکی
+            </Button>
+          </Box>    
         </Box>
       </Box>
 

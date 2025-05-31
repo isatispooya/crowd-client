@@ -1,5 +1,6 @@
 import React from 'react';
 import crowdlogo from './crowdlogo.png';
+import PlaceholderText from '../blankPlaceholder';
 
 const Page1 = () => {
   const renderHeaderContent = () => {
@@ -7,16 +8,16 @@ const Page1 = () => {
       <div className="flex flex-col gap-1 text-left">
         <div className="mb-1 flex items-center relative">
           <div className="absolute top-0 left-[180px] text-[18px] font-bold text-left mt-4">
-            شماره قرارداد: ..........
+            شماره قرارداد: <PlaceholderText />
             <br />
-            تاریخ:..........
+            تاریخ: <PlaceholderText />
           </div>
 
           <img src={crowdlogo} alt="company Logo" className="h-32 object-contain mt-4 mb-2" />
 
           <div className="flex flex-col items-center mx-auto">
             <h3 className="font-bold text-[26px] mb-4">بسمه تعالی</h3>
-            <h3 className=" text-[22px]">قرارداد عاملیت ..........</h3>
+            <h3 className=" text-[22px]">قرارداد عاملیت <PlaceholderText /></h3>
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@ const Page1 = () => {
       <div className="text-justify leading-relaxed text-[23px]">
         <h3 className="font-bold mb-2 text-[23px]">مقدمه</h3>
         <p className="mb-3 pr-4 text-[23px]">
-          مقدمه با استعانت از خداوند متعال، در تاریخ ........... قرارداد حاضر وفق مواد 10، 190 و 219
+          مقدمه با استعانت از خداوند متعال، در تاریخ <PlaceholderText /> قرارداد حاضر وفق مواد 10، 190 و 219
           قانون مدنی به همراه دیگر اسناد و مدارک منضم به آن که مجموعاً قرارداد واحد محسوب می‌گردد،
           در شهر یزد منعقد می‌گردد. طرفین اظهار و اعلام می‌نمایند که هیچ‌گونه محدودیت یا ممنوعیتی
           جهت امضای این قرارداد نداشته و دارای صلاحیت لازم و کمال صحت عقل و اراده شخصی جهت امضای
@@ -49,14 +50,14 @@ const Page1 = () => {
         <p className="mb-2 text-[23px]">1-1. این قرارداد میان:</p>
         <div>
           <p className="mb-3 pr-4 text-[23px]">
-            1) طرف اول: شرکت ...........  به شمارۀ شناسۀ ملی ...........، کد اقتصادی
-            ...........، و شماره ثبت ........... نزد ...........، به نشانی ...........، کدپستی
-            ...........، شماره تماس ...........، و با نمایندگی ........... به شماره ملی ...........،
-            سمت ...........، بر اساس ........... در این قرارداد، «متقاضی» نامیده می‌شود. به استناد
-            ........... نمایندگان مجاز و صاحبان امضای طرف اول قرارداد در خصوص امضا و استنکاف اسناد
-            تعهدآور طرف اول اشخاص ذیل می‌باشند: الف) نماینده طرف نخست، صاحب امضای مجاز ...........،
-            شماره ملی ...........، سمت ........... ب) نماینده طرف نخست، صاحب امضای مجاز ...........،
-            شماره ملی ...........، سمت ...........
+            1) طرف اول: شرکت <PlaceholderText />  به شمارۀ شناسۀ ملی <PlaceholderText />، کد اقتصادی
+            <PlaceholderText />، و شماره ثبت <PlaceholderText /> نزد <PlaceholderText />، به نشانی <PlaceholderText />، کدپستی
+            <PlaceholderText />، شماره تماس <PlaceholderText />، و با نمایندگی <PlaceholderText /> به شماره ملی <PlaceholderText />،
+            سمت <PlaceholderText />، بر اساس <PlaceholderText /> در این قرارداد، «متقاضی» نامیده می‌شود. به استناد
+            <PlaceholderText /> نمایندگان مجاز و صاحبان امضای طرف اول قرارداد در خصوص امضا و استنکاف اسناد
+            تعهدآور طرف اول اشخاص ذیل می‌باشند: الف) نماینده طرف نخست، صاحب امضای مجاز <PlaceholderText />،
+            شماره ملی <PlaceholderText />، سمت <PlaceholderText /> ب) نماینده طرف نخست، صاحب امضای مجاز <PlaceholderText />،
+            شماره ملی <PlaceholderText />، سمت <PlaceholderText />
           </p>
         </div>
 

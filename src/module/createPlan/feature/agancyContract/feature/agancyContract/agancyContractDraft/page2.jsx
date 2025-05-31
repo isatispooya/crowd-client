@@ -1,4 +1,5 @@
 import React from 'react';
+import PlaceholderText from '../blankPlaceholder';
 
 const Page2 = () => {
   return (
@@ -73,7 +74,7 @@ const Page2 = () => {
           <span className="font-bold text-[23px]">1) </span>
           ارائه‌ خدمات مشاوره تأمین‌ مالی‌ به‌ متقاضی‌ از طریق‌ طراحی‌ شیوة تأمین‌ مالی‌ و تهیه‌
           گزارش مورد نیاز جهت‌ انتشار گواهی‌هاي شراکت‌ تأمین‌ مالی‌ جمعی‌ توسط‌ عامل برای طرح{' '}
-          <strong>...........</strong>
+          <PlaceholderText />
         </p>
 
         <p className="mb-3 pr-4 text-[23px]">
@@ -86,7 +87,7 @@ const Page2 = () => {
           <span className="font-bold text-[23px]">3) </span>
           ارائه‌ خدمات عاملیت‌ و انجام مراحل‌ قانونی‌ اخذ مجوزهاي لازم از شرکت‌ فرابورس ایران جهت‌
           انتشار گواهی‌هاي شراکت‌ تأمین‌ مالی‌ جمعی‌ مطابق‌ با شرایط‌ مندرج در جدول ماده ٥ این‌
-          قرارداد. به میزان <strong>............ گواهی شراکت.</strong>
+          قرارداد. به میزان <PlaceholderText /> گواهی شراکت.
         </p>
 
         <p className="mb-3 pr-4 text-[23px]">
