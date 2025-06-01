@@ -6,13 +6,14 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import Loader from 'src/components/loader';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import { formatNumber } from 'src/utils/formatNumbers';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import useGetDashbord from './service/use-getDashbord';
+import useGetDashbord from '../hooks/use-getDashbord';
 import CalenderAccess from '../calenderAccess';
 
 const Dashboard = () => {
   const { data: dashbord } = useGetDashbord();
+  const navigate = useNavigate();
   const totalValue = dashbord?.['total value'];
   const allRateOfReturn = dashbord?.['all rate of return'];
   const totalRateOfReturn = (allRateOfReturn / totalValue) * 100;
@@ -27,6 +28,7 @@ const Dashboard = () => {
       value: dashbord['all plan'],
       icon: InsertDriveFileIcon,
       color: '#4a90e2',
+      onClick: () => navigate('/plans'),
     },
     {
       title: 'تعداد طرح های فعال',
@@ -45,18 +47,21 @@ const Dashboard = () => {
       value: formatNumber(dashbord['total value']),
       icon: MonetizationOnIcon,
       color: '#2980b9',
+      onClick: () => navigate('/assets'),
     },
     {
       title: 'پیش بینی کل سود',
       value: formatNumber(dashbord['all rate of return']),
       icon: CallMadeIcon,
       color: '#f39c12',
+      onClick: () => navigate('/profits'),
     },
     {
       title: 'نرخ پیش بینی سود',
       value: ` % ${(totalRateOfReturn || 0).toFixed(2)} `,
       icon: CallMadeIcon,
       color: '#f39c12',
+      onClick: () => navigate('/investmentWeight'),
     },
   ];
 
@@ -104,6 +109,7 @@ const Dashboard = () => {
                   iconBg: 'bg-cyan-500',
                   hoverScale: 1.05,
                   iconRotate: 20,
+                  onClick: () => navigate('/assets'),
                 };
               case 'نرخ پیش بینی سود':
                 return {
@@ -111,6 +117,9 @@ const Dashboard = () => {
                   border: 'border-purple-500',
                   text: 'text-purple-700',
                   iconBg: 'bg-purple-500',
+                  hoverScale: 1.05,
+                  iconRotate: 20,
+                  onClick: () => navigate('/investmentWeight'),
                 };
               case 'پیش بینی کل سود':
                 return {
@@ -136,7 +145,14 @@ const Dashboard = () => {
           const styles = getCardStyles(item.title);
 
           return (
-            <Link to={item.url || '#'} key={index} className="group block text-decoration-none">
+            <div
+              key={index}
+              role="button"
+              tabIndex={0}
+              className="group block text-decoration-none cursor-pointer"
+              onClick={item.onClick}
+              onKeyDown={(e) => e.key === 'Enter' && item.onClick()}
+            >
               <motion.div
                 whileHover={{ scale: styles.hoverScale }}
                 transition={{ duration: 0.3 }}
@@ -160,7 +176,7 @@ const Dashboard = () => {
                   </motion.div>
                 </div>
               </motion.div>
-            </Link>
+            </div>
           );
         })}
       </div>

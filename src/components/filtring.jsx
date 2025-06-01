@@ -8,7 +8,7 @@ const FilterPlans = ({ setFilterStatusSecond }) => {
       { id: '1', label: 'شروع شده' },
       { id: '2', label: 'جمع آوری شده' },
       { id: '3', label: 'تمدید شده' },
-      { id: '5', label: 'تکمیل شده' },
+      { id: '5', label: 'خاتمه یافته' },
       { id: '4', label: 'سررسید ناموفق' },
     ],
     []

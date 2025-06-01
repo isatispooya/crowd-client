@@ -5,10 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { format, getDaysInMonth, startOfMonth, addMonths, subMonths } from 'date-fns-jalali';
 import { Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
-import useGetDashbord from 'src/module/dashboard/components/service/use-getDashbord';
+import useGetDashbord from 'src/module/dashboard/hooks/use-getDashbord';
 
 const PersianCalendar = () => {
   const { data, isLoading, error } = useGetDashbord();
+  console.log(data, 'data');
   const [currentDate, setCurrentDate] = useState(startOfMonth(new Date()));
   const [events, setEvents] = useState([]);
   const [tooltipOpen, setTooltipOpen] = useState(null); // State to manage tooltip visibility
@@ -181,7 +182,7 @@ const PersianCalendar = () => {
                           title={
                             <div className="p-2 text-sm text-gray-800 bg-white rounded shadow">
                               <p className="font-bold">{event.details.plan_name}</p>
-                              <p>مبلغ: {event.details.amount.toLocaleString()} تومان</p>
+                              <p>مبلغ: {event.details.amount.toLocaleString()} ریال</p>
                               {event.type === '2' ? (
                                 <p>سود مربوطه از مشارکت شما در طرح {event.details.plan_name}.</p>
                               ) : (
