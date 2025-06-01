@@ -8,7 +8,7 @@ const Assets = () => {
 
   useEffect(() => {}, [data]);
 
-  const columns = [
+   const columns = [
     {
       title: 'نماد',
       field: 'symbol',
