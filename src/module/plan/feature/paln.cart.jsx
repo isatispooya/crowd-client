@@ -15,7 +15,7 @@ const PlanCart = ({ handleDetailsClick, key, plan }) => {
     { id: '1', label: 'شروع شده', color: 'bg-green-500' },
     { id: '2', label: 'شروع نشده', color: 'bg-gray-500' },
     { id: '3', label: 'تمدید شده', color: 'bg-yellow-500' },
-    { id: '5', label: 'تکمیل شده', color: 'bg-blue-500' },
+    { id: '5', label: 'خاتمه یافته', color: 'bg-blue-500' },
     { id: '4', label: 'ناموفق', color: 'bg-red-500' },
   ];
   const { rate_of_return } = plan.information_complete;

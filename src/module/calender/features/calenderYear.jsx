@@ -4,7 +4,7 @@ import moment from 'moment-jalaali';
 import { Tooltip, Typography } from '@mui/material';
 import { toGregorian } from 'jalaali-js';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import useGetDashbord from 'src/module/dashboard/components/service/use-getDashbord';
+import useGetDashbord from 'src/module/dashboard/hooks/use-getDashbord';
 import PropTypes from 'prop-types';
 
 const locales = {
@@ -35,17 +35,13 @@ const locales = {
   },
 };
 const processEvents = (profitData) => {
-  const today = new Date();
   return profitData
     .filter((item) => {
       if (!item || !item.date) {
         console.error('Invalid data:', item);
         return false;
       }
-      const [year, month, day] = item.date.split('-').map(Number);
-      const { gy, gm, gd } = toGregorian(year, month, day);
-      const jalaliDate = new Date(gy, gm - 1, gd);
-      return jalaliDate >= today;
+      return true;
     })
     .map((item) => {
       const [year, month, day] = item.date.split('-').map(Number);

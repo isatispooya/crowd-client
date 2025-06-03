@@ -72,7 +72,7 @@ const Descript = () => {
       case '3':
         return 'تمدید شده';
       case '5':
-        return 'تکمیل شده';
+        return 'خاتمه یافته';
       case '4':
         return 'ناموفق';
       default:

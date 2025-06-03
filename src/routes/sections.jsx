@@ -21,7 +21,16 @@ export const CardsDetail = lazy(() => import('src/module/createPlan/pages/cardsD
 export const BankLetter = lazy(() => import('src/module/createPlan/pages/bankLetter.page'));
 export const AgencyContract = lazy(() => import('src/module/createPlan/pages/agencycontract.page'));
 export const BankLetterDraft = lazy(() => import('src/module/createPlan/pages/bankLetterdraft'));
-export const AgencyContractDraft = lazy(() => import('src/module/createPlan/feature/agancyContract/feature/agancyContract/agancyContractDraft.feat'));
+export const AgencyContractDraft = lazy(() =>
+  import(
+    'src/module/createPlan/feature/agancyContract/feature/agancyContract/agancyContractDraft.feat'
+  )
+);
+export const AssetsPage = lazy(() => import('src/module/dashboard/pages/Assets.page'));
+export const ProfitsPage = lazy(() => import('src/module/dashboard/pages/profits.page'));
+export const InvestmentWeightPage = lazy(() =>
+  import('src/module/dashboard/pages/investmentWeight.page')
+);
 
 export default function Router() {
   const routes = useRoutes([
@@ -44,6 +53,9 @@ export default function Router() {
         { path: 'PaymentPage', element: <PaymentPage /> },
         { path: 'cardsDetail/:id', element: <CardsDetail /> },
         { path: 'agencyContract', element: <AgencyContract /> },
+        { path: 'assets', element: <AssetsPage /> },
+        { path: 'profits', element: <ProfitsPage /> },
+        { path: 'investmentWeight', element: <InvestmentWeightPage /> },
       ],
     },
     {

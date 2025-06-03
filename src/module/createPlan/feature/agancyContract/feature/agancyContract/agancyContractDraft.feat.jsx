@@ -61,30 +61,43 @@ const AgencyContractDraft = () => {
     </div>
   );
 
+  const convertColors = () => {
+    const elements = document.querySelectorAll('*');
+    elements.forEach((el) => {
+      const style = window.getComputedStyle(el);
+      if (style.color.includes('oklch')) {
+        el.style.color = 'rgb(0, 0, 0)'; // جایگزین با رنگ پیش‌فرض
+      }
+      if (style.backgroundColor.includes('oklch')) {
+        el.style.backgroundColor = 'rgb(255, 255, 255)'; // جایگزین با رنگ پیش‌فرض
+      }
+    });
+  };
+
   const handleGeneratePDF = async () => {
     try {
       toast.info('شروع تولید PDF');
-
+      convertColors();
+      // eslint-disable-next-line new-cap
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
       });
 
-      const pageWidth = 210; // عرض A4 به میلی‌متر
+      const pageWidth = 210; // A4 width in mm
 
       const pages = await Promise.all(
         pageRefs.current.map(async (ref, i) => {
           const page = ref.current;
-          if (!page) {
-            console.warn(`صفحه ${i + 1} رفرنس ندارد!`);
-            return null;
-          }
+          if (!page) return null;
 
           const canvas = await html2canvas(page, {
             scale: 2,
             useCORS: true,
             logging: false,
+            windowWidth: page.scrollWidth * 1.2,
+            windowHeight: page.scrollHeight * 1.2,
           });
 
           return { canvas, index: i };
@@ -93,7 +106,6 @@ const AgencyContractDraft = () => {
 
       pages.forEach((item) => {
         if (!item) return;
-
         const { canvas, index } = item;
 
         if (index > 0) {
@@ -102,7 +114,6 @@ const AgencyContractDraft = () => {
 
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
         const pageHeight = (canvas.height * pageWidth) / canvas.width;
-
         pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
         toast.info(`صفحه ${index + 1} اضافه شد`);
       });
