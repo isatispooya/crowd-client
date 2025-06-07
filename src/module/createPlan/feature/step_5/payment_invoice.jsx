@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable new-cap */
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
@@ -65,7 +66,7 @@ const PaymentInvoice = ({ invoiceData }) => {
         'استان یزد، شهرستان یزد، بخش مرکزی، شهر یزد، وحدت، کوچه بوستان، کوچه 54 جمهوری اسلامی[شرق]، پلاک 0، ساختمان انا، طبقه همکف، واحد 65',
       phone: '0353311',
       email: 'info@isatispooya.com',
-      postalCode: '1234567890',
+      postalCode: '8917957917',
     },
     buyer: {
       name: 'نام شرکت ثبت نشده',
@@ -197,9 +198,13 @@ const PaymentInvoice = ({ invoiceData }) => {
             <div className="flex items-center gap-4 mb-4 md:mb-0">
               <ReceiptOutlined className="text-5xl" />
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-1">صورتحساب</h1>
+                <h1 className="text-3xl md:text-4xl font-bold mb-1">
+                  صورتحساب تامین مالی جمعی ایساتیس کراد
+                </h1>
                 <p className="text-blue-100 text-sm">
                   شماره قرارداد: {invoiceData.investor_request.contract_number}
+                  تاریخ پرداخت: {invoiceData.investor_request.invoice_date_payment}
+                  شناسه پیگیری مودیان : {invoiceData.investor_request.moadian_track_id}
                 </p>
               </div>
             </div>
@@ -236,13 +241,18 @@ const PaymentInvoice = ({ invoiceData }) => {
                 />
                 <InfoRow
                   icon={<ReceiptOutlined fontSize="small" />}
-                  label="کد اقتصادی"
+                  label="شناسه ملی"
                   value={data.seller.economicCode}
                 />
                 <InfoRow
                   icon={<LocationOnOutlined fontSize="small" />}
                   label="آدرس"
                   value={data.seller.address}
+                />
+                <InfoRow
+                  icon={<ReceiptOutlined fontSize="small" />}
+                  label="کد پستی"
+                  value={data.seller.postalCode}
                 />
                 <InfoRow
                   icon={<PhoneOutlined fontSize="small" />}
@@ -271,8 +281,13 @@ const PaymentInvoice = ({ invoiceData }) => {
                 />
                 <InfoRow
                   icon={<ReceiptOutlined fontSize="small" />}
-                  label="کد اقتصادی"
+                  label="شناسه ملی"
                   value={data.buyer.economicCode}
+                />
+                <InfoRow
+                  icon={<ReceiptOutlined fontSize="small" />}
+                  label="کد پستی"
+                  value={data.buyer.postalCode}
                 />
                 <InfoRow
                   icon={<LocationOnOutlined fontSize="small" />}
@@ -360,13 +375,7 @@ const PaymentInvoice = ({ invoiceData }) => {
             <div className="w-full lg:w-5/12">
               <div className="bg-blue-50/50 border border-blue-200 rounded-2xl overflow-hidden">
                 <div className="p-6 space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">جمع کل:</span>
-                    <span className="text-lg font-semibold text-gray-800">
-                      {formatNumber(invoiceData.investor_request.amount_of_payment)} ریال
-                    </span>
-                  </div>
-                  <div className="border-t border-blue-200" />
+                  <div />
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">مالیات:</span>
                     <span className="text-lg font-semibold text-gray-800">
