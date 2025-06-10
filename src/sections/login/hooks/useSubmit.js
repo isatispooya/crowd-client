@@ -28,11 +28,13 @@ const useSubmitOtp = () => {
     },
     onSuccess: (data) => {
       setCookie('access', data.access, 1);
+      setCookie('refresh', data.refresh, 1);
       router.push('/');
       toast.warning(data.message);
     },
     onError: (error) => {
       setCookie('access', '', 0);
+      setCookie('refresh', '', 0);
       toast.error(error.response.data.message);
     },
   });
