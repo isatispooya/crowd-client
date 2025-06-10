@@ -34,6 +34,7 @@ const useAuth = () => {
 
   const logout = () => {
     setCookie('access', '', 0);
+    setCookie('refresh', '', 0);
     queryClient.removeQueries('profile');
     queryClient.invalidateQueries('profile');
     navigate('/login');
