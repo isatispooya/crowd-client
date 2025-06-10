@@ -11,6 +11,7 @@ export default function OnetimeLogin() {
 
   const handleToken = () => {
     setCookie('access', data?.data?.token, 1);
+    setCookie('refresh', data?.data?.refresh, 1);
     navigate('/');
   };
 
