@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ReactTabulator } from 'react-tabulator';
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import 'tabulator-tables/dist/css/tabulator_materialize.min.css';
 import { useAssets } from '../hooks';
 
 const Assets = () => {
@@ -8,7 +9,7 @@ const Assets = () => {
 
   useEffect(() => {}, [data]);
 
-   const columns = [
+  const columns = [
     {
       title: 'نماد',
       field: 'symbol',
@@ -42,14 +43,15 @@ const Assets = () => {
   const options = {
     layout: 'fitColumns',
     pagination: true,
-    paginationSize: 5,
-    paginationSizeSelector: [5, 10, 20],
+    paginationSize: 25,
+    paginationSizeSelector: [25, 50, 100 , 150 , 200 , 500 , 1000],
     direction: 'rtl',
     responsiveLayout: false,
     headerSort: true,
     headerFilter: true,
     placeholder: 'هیچ داده‌ای موجود نیست',
     cssClass: 'custom-tabulator',
+    theme: 'materialize',
   };
 
   if (!data) {

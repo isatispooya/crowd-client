@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import 'tabulator-tables/dist/css/tabulator_materialize.min.css';
 import { useWeight } from '../hooks';
 
 const InvestmentWeight = () => {
@@ -48,14 +49,15 @@ const InvestmentWeight = () => {
   const options = {
     layout: 'fitColumns',
     pagination: true,
-    paginationSize: 5,
-    paginationSizeSelector: [5, 10, 20],
+    paginationSize: 25,
+    paginationSizeSelector: [25, 50, 100 , 150 , 200 , 500 , 1000],
     direction: 'rtl',
     responsiveLayout: false,
     headerSort: true,
     headerFilter: true,
     placeholder: 'هیچ داده‌ای موجود نیست',
     cssClass: 'custom-tabulator',
+    theme: 'materialize',
   };
 
   return (
